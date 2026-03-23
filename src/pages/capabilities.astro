@@ -1,0 +1,379 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+/**
+ * 浣犵幇鍦?images 鐩綍閲屾湁杩欎簺鍥撅細
+ * - logistics-container-export-port.jpg
+ * - factory-quality-inspection-metal-parts.jpeg
+ * - shipping-documents-export-paperwork.jpg
+ *
+ * 涓嬮潰鎴戜滑鐢ㄤ笁寮犲仛 Capabilities 椤电殑涓夎仈鍥撅紙骞舵帓锛夈€?
+ */
+
+const heroCards = [
+  {
+    img: "/images/logistics-container-export-port.jpg",
+    tag: "Sourcing & consolidation",
+    title: "Multi-supplier comparison",
+    desc: "Multi-supplier options with lead time/MOQ and risk notes for trade-offs.",
+  },
+  {
+    img: "/images/factory-quality-inspection-metal-parts.jpeg",
+    tag: "Quality control (QC)",
+    title: "Pre-shipment checkpoints",
+    desc: "Sampling, packaging/label checks, and photo/video evidence before shipment.",
+  },
+  {
+    img: "/images/shipping-documents-export-paperwork.jpg",
+    tag: "Documentation accuracy",
+    title: "PI / CI / PL review",
+    desc: "Reduce mistakes in item names, quantities, carton marks, and export paperwork.",
+  },
+];
+
+const groups = [
+  {
+    title: "Sourcing & Supplier Management",
+    badge: "Core",
+    items: [
+      { t: "Multi-supplier comparison", p: "Price, lead time, MOQ, and risk notes, so you can choose based on trade-offs." },
+      { t: "Supplier verification", p: "Basic factory profile check + feasibility and consistency review." },
+      { t: "Consolidation planning", p: "Combine multiple categories into one shipment with a clear packing plan." },
+    ],
+  },
+  {
+    title: "Quality Control (QC) Checkpoints",
+    badge: "Core",
+    items: [
+      { t: "Sampling & pre-shipment checks", p: "Sampling plan aligned with your requirements and product criticality." },
+      { t: "Packaging & labeling verification", p: "Carton marks, labels/barcodes, palletization, protection methods." },
+      { t: "Photo / video evidence", p: "Evidence before shipment to reduce disputes and surprises." },
+    ],
+  },
+  {
+    title: "Documentation & Export Execution",
+    badge: "Core",
+    items: [
+      { t: "PI / CI / PL review", p: "Reduce mistakes in item names, quantities, and packing details." },
+      { t: "HS-code assistance", p: "Assist HS-code alignment for smoother customs and document clarity." },
+      { t: "Shipment coordination", p: "Export docs coordination, tracking updates, and delivery visibility." },
+    ],
+  },
+];
+
+const deliverables = [
+  { t: "Supplier options sheet", p: "Comparison list: price/lead time/MOQ + risk notes." },
+  { t: "QC evidence pack", p: "Photos/videos + packing/label confirmation + checklist summary." },
+  { t: "Document set", p: "PI/CI/PL review notes and export documentation coordination." },
+  { t: "Shipment updates", p: "Tracking + milestone updates until delivery." },
+];
+
+const boundaries = [
+  { t: "We are not a factory", p: "We organize sourcing and QC; production remains with approved suppliers." },
+  { t: "No unrealistic claims", p: "We don't promise the cheapest option every time. We optimize for predictable delivery." },
+  { t: "Clear QC scope", p: "QC checkpoints are defined per order and product criticality." },
+  { t: "Traceable paperwork", p: "Consistency across invoices, packing lists, and carton marks." },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Truck Parts Sourcing, QC & Export Support",
+    description:
+      "Capabilities page for supplier comparison, QC checkpoints, packaging verification, and export documentation support for commercial vehicle parts sourcing.",
+    url: "https://certispares.com/capabilities/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Commercial vehicle parts sourcing support",
+    provider: {
+      "@type": "Organization",
+      name: "CertiSpares",
+      url: "https://certispares.com/",
+    },
+    areaServed: "Worldwide",
+    description:
+      "Supplier comparison, QC checkpoints, packaging verification, and export documentation coordination for truck parts sourcing from China.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certispares.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Capabilities",
+        item: "https://certispares.com/capabilities/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Truck Parts Sourcing, QC & Export Support | CertiSpares"
+  description="Truck parts sourcing, QC, packaging verification, and export documentation support for commercial vehicle aftermarket buyers sourcing from China."
+  keywords={["truck parts sourcing support", "truck parts quality control", "export documentation China", "commercial vehicle parts QC"]}
+  canonical="/capabilities/"
+  ogImage="/images/logistics-container-export-port.jpg"
+  jsonLd={jsonLd}
+>
+  <style>
+    .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; }
+    .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.7; max-width:980px; }
+
+    .pillRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .pill{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      color:rgba(234,240,255,.92);
+      font-weight:800;
+      font-size:12px;
+    }
+
+    /* 鉁?浣犺鐨勶細涓夊紶鍥惧苟鎺掞紝鍍?What we do 涓€鏍风殑缃戞牸 */
+    .imgGrid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+
+    .imgCard{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      min-height: 220px;
+    }
+    .imgCard img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.05) contrast(1.02);
+      transform: scale(1.02);
+    }
+
+    /* 鉁?鏂囧瓧鏀惧湪鍥句笂闈?*/
+    .imgOverlay{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      padding:14px 14px 12px;
+      background: linear-gradient(to top, rgba(6,16,42,.88), rgba(6,16,42,.10));
+    }
+    .imgTag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      font-weight:900;
+      color:rgba(234,240,255,.92);
+      margin-bottom:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(17,26,51,.55);
+      border:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+    }
+    .imgTitle{
+      margin:0 0 6px;
+      font-size:14px;
+      font-weight:950;
+      letter-spacing:-.15px;
+      color:rgba(234,240,255,.98);
+    }
+    .imgDesc{
+      margin:0;
+      font-size:12px;
+      line-height:1.6;
+      color:rgba(234,240,255,.80);
+      max-width: 520px;
+    }
+
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+
+    .group{
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+    }
+    .groupTitle{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom:12px;
+    }
+    .groupTitle h2{ margin:0; font-size:16px; letter-spacing:-.2px; }
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(47,91,255,.14);
+      border:1px solid rgba(47,91,255,.26);
+      color:rgba(234,240,255,.92);
+      font-weight:850;
+    }
+
+    .itemList{ display:grid; gap:10px; }
+    .item{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(17,26,51,.45);
+      border:1px solid var(--line);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px; margin-top:7px;
+      background:rgba(47,91,255,.8);
+      flex:0 0 10px;
+    }
+    .itTitle{ font-weight:900; margin-bottom:6px; }
+    .itText{ margin:0; color:var(--muted); line-height:1.7; }
+
+    .ctaBlock{
+      margin-top:14px;
+      border-radius:18px;
+      padding:18px;
+      background:rgba(17,26,51,.55);
+      border:1px solid var(--line);
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+    }
+    .ctaBlock .left b{ display:block; margin-bottom:6px; }
+    .ctaBlock .left p{ margin:0; color:rgba(234,240,255,.85); line-height:1.7; max-width:760px; }
+
+    @media (max-width: 980px){
+      .imgGrid{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns:1fr; }
+      .grid2{ grid-template-columns:1fr; }
+      .ctaBlock{ flex-direction:column; align-items:flex-start; }
+      .imgCard{ min-height: 240px; }
+    }
+  </style>
+
+<header class="pageHero">
+  <div class="container">
+    <p class="kicker">CertiSpares / Capabilities</p>
+    <h1 class="title">Capabilities that support your truck parts sourcing</h1>
+    <p class="sub">
+      A reliable sourcing system for commercial vehicle aftermarket parts: supplier comparison, QC checkpoints,
+      packaging verification, and export documentation. Built to reduce disputes and keep delivery predictable.
+    </p>
+
+    <div class="pillRow">
+      <div class="pill">Sourcing & comparison</div>
+      <div class="pill">QC checkpoints</div>
+      <div class="pill">Packaging & labeling</div>
+      <div class="pill">PI/CI/PL review</div>
+      <div class="pill">Export coordination</div>
+    </div>
+
+    <!-- 鉁?涓夊紶鍥惧苟鎺掞紙鏃犲彔鏀撅級 -->
+    <div class="imgGrid" style="margin-top:18px;">
+      {heroCards.map((x) => (
+        <div class="imgCard">
+          <img src={x.img} alt={x.title} loading="lazy" />
+          <div class="imgOverlay">
+            <div class="imgTag">{x.tag}</div>
+            <h3 class="imgTitle">{x.title}</h3>
+            <p class="imgDesc">{x.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What we do</h2>
+      <p class="sectionDesc">
+        Each order can be customized, but our work typically follows these three capability areas.
+      </p>
+
+      <div class="grid3">
+        {groups.map((g) => (
+          <div class="group">
+            <div class="groupTitle">
+              <h2>{g.title}</h2>
+              <div class="badge">{g.badge}</div>
+            </div>
+
+            <div class="itemList">
+              {g.items.map((it) => (
+                <div class="item">
+                  <div class="dot"></div>
+                  <div>
+                    <div class="itTitle">{it.t}</div>
+                    <p class="itText">{it.p}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="ctaBlock">
+        <div class="left">
+          <b>Want a fast quote?</b>
+          <p>
+            Send OEM/part numbers (or photos), quantities, destination port, and packaging requirements.
+            We'll reply with supplier options and lead time.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="/contact">Get a Sourcing Quote</a>
+          <a class="btn" href="/how-it-works">See Workflow</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What you receive</h2>
+      <p class="sectionDesc">
+        Clear deliverables make the process traceable and reduce communication cost.
+      </p>
+
+      <div class="grid2">
+        {deliverables.map((d) => (
+          <div class="card">
+            <b>{d.t}</b>
+            <p>{d.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">Service boundaries</h2>
+      <p class="sectionDesc">
+        Clear expectations keep cooperation stable and predictable.
+      </p>
+
+      <div class="grid2">
+        {boundaries.map((b) => (
+          <div class="card">
+            <b>{b.t}</b>
+            <p>{b.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

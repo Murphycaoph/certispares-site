@@ -1,0 +1,731 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+/**
+ * About page 鈥?v2
+ * Strategy:
+ * - Do not over-emphasize Foton
+ * - Position CertiSpares around selected leading China commercial vehicle brands
+ * - Add founder mindset with audit background
+ * - Keep strong workflow / execution identity
+ */
+
+const aboutHighlights = [
+  {
+    img: "/images/hebei-industrial-park-aerial.jpg",
+    tag: "Coverage",
+    title: "Selected China commercial vehicle brands",
+    desc: "Focused support across major Chinese truck and commercial vehicle platforms relevant to export markets.",
+  },
+  {
+    img: "/images/china-industrial-warehouse.jpg",
+    tag: "Execution",
+    title: "Consolidation and order coordination",
+    desc: "From RFQ handling to mixed-SKU consolidation, shipment preparation, and delivery alignment.",
+  },
+  {
+    img: "/images/container-loading-supervision.jpg",
+    tag: "Control",
+    title: "Audit-style execution discipline",
+    desc: "Structured checkpoints, QC evidence, and documentation consistency throughout the order cycle.",
+  },
+];
+
+const brandFocus = [
+  "Foton",
+  "Sinotruk",
+  "SHACMAN",
+  "Dongfeng",
+  "FAW Jiefang",
+  "JAC",
+];
+
+const pillars = [
+  {
+    t: "Commercial vehicle aftermarket focus",
+    p: "We focus on truck and commercial vehicle aftermarket parts sourcing from China, with practical coverage across selected leading Chinese vehicle platforms and their export-oriented parts demand.",
+  },
+  {
+    t: "Structured sourcing workflow",
+    p: "Our sourcing model connects supplier capability, product mapping, customer inquiry handling, quotation comparison, order follow-up, logistics coordination, and document consistency into one workflow.",
+  },
+  {
+    t: "Repeat-order orientation",
+    p: "We optimize for supply stability, clear scope, mixed-SKU feasibility, and cleaner execution for buyers building repeat orders.",
+  },
+];
+
+const workflowSteps = [
+  {
+    step: "01",
+    t: "Supplier capability organization",
+    p: "Suppliers are organized by category, product fit, response quality, location, and execution feasibility before matching starts.",
+  },
+  {
+    step: "02",
+    t: "Inquiry structuring and product mapping",
+    p: "OEM numbers, product names, photos, vehicle references, and buyer notes are aligned to improve quotation clarity and reduce mismatch risk.",
+  },
+  {
+    step: "03",
+    t: "Quotation comparison",
+    p: "Supplier options can be compared on price, lead time, MOQ, packing, and supply stability, not price alone.",
+  },
+  {
+    step: "04",
+    t: "Execution after order confirmation",
+    p: "Once the order moves forward, we coordinate purchasing, production follow-up, packing checks, and shipment preparation.",
+  },
+  {
+    step: "05",
+    t: "Logistics and document consistency",
+    p: "Packing list, invoice data, labels, carton marks, and shipment-related files are checked for consistency to reduce avoidable issues.",
+  },
+  {
+    step: "06",
+    t: "Repeat-order support",
+    p: "A proven supply path becomes easier to repeat, standardize, and expand across future orders and mixed categories.",
+  },
+];
+
+const differenceCards = [
+  {
+    t: "Focused, not generic",
+    p: "We are not trying to be everything for everyone. We focus on practical commercial vehicle parts sourcing scenarios that can actually be executed well.",
+  },
+  {
+    t: "Structured inquiry handling",
+    p: "Scattered customer requests are translated into clearer RFQ inputs before quotation comparison starts.",
+  },
+  {
+    t: "Execution, not just sourcing",
+    p: "We support not only supplier search, but also quotation alignment, order follow-up, consolidation planning, and documentation control.",
+  },
+  {
+    t: "Built for repeatability",
+    p: "The goal is not a random one-off shipment, but a sourcing path that becomes more stable and easier to repeat over time.",
+  },
+];
+
+const whatWeSupport = [
+  {
+    t: "Brake system",
+    p: "Brake pads, brake drums, calipers, chambers, valves, repair kits, and related aftermarket components depending on scope.",
+  },
+  {
+    t: "Chassis & suspension",
+    p: "Torque rods, stabilizer parts, bushings, hub-related parts, bearings, suspension hardware, and related categories.",
+  },
+  {
+    t: "Steering / drivetrain",
+    p: "Selected steering and drivetrain-related aftermarket parts based on market demand and supplier capability.",
+  },
+  {
+    t: "Electrical / body / mixed SKUs",
+    p: "Lights, mirrors, wiring consumables, and selected body or electrical items where consolidation matters.",
+  },
+];
+
+const buyerTypes = [
+  {
+    t: "Distributors",
+    p: "Buyers looking for stable commercial vehicle parts supply with clearer execution and repeat-order potential.",
+  },
+  {
+    t: "Aftermarket wholesalers",
+    p: "Importers managing mixed categories who need cleaner quotation handling and consolidation support.",
+  },
+  {
+    t: "Fleet-related buyers",
+    p: "Buyers who value fitment clarity, delivery predictability, and fewer after-sales disputes.",
+  },
+  {
+    t: "Growth-stage importers",
+    p: "Companies that need sourcing structure and execution discipline, not just scattered supplier quotes.",
+  },
+];
+
+const founderMindset = [
+  {
+    t: "Process-first thinking",
+    p: "The founder's background in audit shaped a process-oriented approach: clear checkpoints, evidence awareness, and stronger execution discipline.",
+  },
+  {
+    t: "Consistency matters",
+    p: "Experience in documentation review and consistency checks informs how quotations, packing details, and export-related files are handled.",
+  },
+  {
+    t: "Built for controllable growth",
+    p: "The goal is not speed at any cost. It is to build a sourcing workflow that can stay clear, practical, and scalable as order volume grows.",
+  },
+];
+
+const principles = [
+  {
+    tag: "Clarity",
+    t: "Clear inputs lead to clearer execution",
+    p: "We standardize RFQ inputs before quotation and order execution begin.",
+  },
+  {
+    tag: "Evidence",
+    t: "QC evidence before shipment",
+    p: "Photo/video records, packing checks, and label verification help reduce avoidable disputes.",
+  },
+  {
+    tag: "Trace",
+    t: "Traceability in documentation",
+    p: "PI / CI / PL consistency and carton mark alignment improve customs and payment flow.",
+  },
+  {
+    tag: "Repeat",
+    t: "Built for repeat orders",
+    p: "We optimize around stable suppliers, repeatable workflow, and scalable execution.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Do you need OEM / part numbers?",
+    a: "OEM or part numbers are ideal, but photos, dimensions, vehicle references, and usage scenarios can also help us structure the inquiry.",
+  },
+  {
+    q: "Can you support mixed-SKU orders?",
+    a: "Yes. Mixed-SKU consolidation is one of the areas where a structured sourcing workflow becomes especially useful.",
+  },
+  {
+    q: "Do you only work with one supplier?",
+    a: "Not necessarily. Depending on the order, we may compare multiple supplier options for stability, price, lead time, and packaging suitability.",
+  },
+  {
+    q: "What kind of buyers do you usually support?",
+    a: "Typically distributors, importers, wholesalers, and fleet-related buyers who value stable supply and cleaner execution.",
+  },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About CertiSpares",
+    description:
+      "CertiSpares is a China commercial vehicle parts sourcing partner focused on structured workflow, supplier comparison, QC evidence, and repeat-order execution.",
+    url: "https://certispares.com/about/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certispares.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About",
+        item: "https://certispares.com/about/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="About CertiSpares | China Commercial Vehicle Parts Sourcing Partner"
+  description="About CertiSpares: a China commercial vehicle parts sourcing partner with structured workflow, audit-style execution discipline, and repeat-order support."
+  keywords={["about CertiSpares", "China commercial vehicle parts sourcing", "truck parts sourcing partner China", "aftermarket parts workflow"]}
+  canonical="/about/"
+  ogImage="/images/hebei-industrial-park-aerial.jpg"
+  jsonLd={jsonLd}
+>
+  <style>
+    .contentWrap{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .sectionTitle{
+      font-size: 24px;
+      margin: 0 0 10px;
+      letter-spacing: -.2px;
+    }
+
+    .sectionDesc{
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 980px;
+    }
+
+    .grid3{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .grid2{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .imgGrid{
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .imgCard{
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      height: 250px;
+    }
+
+    .imgCard img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.02);
+      transform: scale(1.02);
+    }
+
+    .imgOverlay{
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 14px 12px;
+      background: linear-gradient(to top, rgba(6,16,42,.9), rgba(6,16,42,.14));
+    }
+
+    .imgTag{
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(234,240,255,.92);
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(17,26,51,.55);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+    }
+
+    .imgTitle{
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.15px;
+      color: rgba(234,240,255,.98);
+    }
+
+    .imgDesc{
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(234,240,255,.82);
+      max-width: 520px;
+    }
+
+    .brandStrip{
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brandChip{
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(47,91,255,.14);
+      border: 1px solid rgba(47,91,255,.28);
+      color: rgba(234,240,255,.96);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .1px;
+    }
+
+    .card{
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(17,26,51,.45);
+      border: 1px solid var(--line);
+    }
+
+    .card b{
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 900;
+      color: rgba(234,240,255,.96);
+    }
+
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .workflowGrid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .workflowCard{
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(17,26,51,.45);
+      border: 1px solid var(--line);
+      align-items: flex-start;
+    }
+
+    .stepNo{
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 950;
+      font-size: 14px;
+      background: rgba(47,91,255,.18);
+      border: 1px solid rgba(47,91,255,.35);
+      color: var(--brand2);
+    }
+
+    .workflowTitle{
+      margin: 2px 0 6px;
+      font-size: 16px;
+      font-weight: 950;
+      color: rgba(234,240,255,.96);
+    }
+
+    .workflowText{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .row{
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(17,26,51,.45);
+      border: 1px solid var(--line);
+    }
+
+    .badge{
+      flex: 0 0 auto;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(47,91,255,.18);
+      border: 1px solid rgba(47,91,255,.35);
+      color: var(--brand2);
+      font-weight: 900;
+      margin-top: 2px;
+    }
+
+    .rt{
+      font-weight: 950;
+      margin-bottom: 6px;
+      color: rgba(234,240,255,.96);
+    }
+
+    .rp{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    details{
+      background: rgba(17,26,51,.45);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    summary{
+      cursor: pointer;
+      font-weight: 900;
+      color: rgba(234,240,255,.95);
+    }
+
+    details p{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .ctaBlock{
+      margin-top: 14px;
+      background: linear-gradient(135deg, rgba(47,91,255,.22), rgba(111,160,255,.10));
+      border: 1px solid rgba(47,91,255,.28);
+      border-radius: 20px;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .ctaBlock .left b{
+      display: block;
+      margin-bottom: 6px;
+      color: rgba(234,240,255,.98);
+    }
+
+    .ctaBlock .left p{
+      margin: 0;
+      color: rgba(234,240,255,.86);
+      line-height: 1.75;
+      max-width: 760px;
+    }
+
+    @media (max-width: 980px){
+      .imgGrid{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
+      .workflowGrid{ grid-template-columns: 1fr; }
+      .ctaBlock{ flex-direction: column; align-items: flex-start; }
+      .imgCard{ height: 260px; }
+    }
+  </style>
+
+  <header class="pageHero">
+    <div class="contentWrap">
+      <p class="kicker">CertiSpares / About</p>
+
+      <h1 class="title">
+        Structured sourcing for commercial vehicle aftermarket parts from China
+      </h1>
+
+      <p class="sub">
+        CertiSpares supports overseas distributors, wholesalers, and fleet-related buyers with a clearer sourcing workflow,
+        covering supplier matching, quotation comparison, consolidation planning, shipment coordination, and documentation consistency
+        across selected China commercial vehicle brands.
+      </p>
+
+      <div class="brandStrip">
+        {brandFocus.map((b) => (
+          <span class="brandChip">{b}</span>
+        ))}
+      </div>
+
+      <div class="imgGrid">
+        {aboutHighlights.map((x) => (
+          <div class="imgCard">
+            <img src={x.img} alt={x.title} loading="lazy" />
+            <div class="imgOverlay">
+              <div class="imgTag">{x.tag}</div>
+              <h3 class="imgTitle">{x.title}</h3>
+              <p class="imgDesc">{x.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">Our market focus</h2>
+      <p class="sectionDesc">
+        We focus on commercial vehicle aftermarket parts sourcing from China with practical coverage across selected leading
+        Chinese truck and commercial vehicle platforms. The goal is not to appear overly broad, but to stay close to real export-market demand,
+        repeat-order feasibility, and execution quality.
+      </p>
+
+      <div class="grid3">
+        {pillars.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">How our workflow works</h2>
+      <p class="sectionDesc">
+        We do not treat sourcing as a one-time RFQ action. Our workflow links supplier capability, product mapping,
+        customer inquiry handling, quotation comparison, order execution, logistics coordination, and export-related document consistency
+        into one controlled process.
+      </p>
+
+      <div class="workflowGrid">
+        {workflowSteps.map((x) => (
+          <div class="workflowCard">
+            <div class="stepNo">{x.step}</div>
+            <div>
+              <h3 class="workflowTitle">{x.t}</h3>
+              <p class="workflowText">{x.p}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">Why CertiSpares is different</h2>
+      <p class="sectionDesc">
+        Many companies can send quotations. Fewer can structure the inquiry well, compare supply paths clearly,
+        and stay disciplined after the order moves into execution.
+      </p>
+
+      <div class="grid2">
+        {differenceCards.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">Founder mindset</h2>
+      <p class="sectionDesc">
+        CertiSpares is shaped by a founder background that combines commercial curiosity with audit-trained discipline.
+        Prior experience at Grant Thornton influences how workflow clarity, supporting evidence, and documentation consistency
+        are built into sourcing and execution.
+      </p>
+
+      <div class="grid3">
+        {founderMindset.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">What we support</h2>
+      <p class="sectionDesc">
+        We do not try to display thousands of SKUs on one page. Instead, we focus on capability-based coverage,
+        practical category support, and mixed-SKU consolidation for real orders.
+      </p>
+
+      <div class="grid2">
+        {whatWeSupport.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="ctaBlock">
+        <div class="left">
+          <b>Not sure where to start?</b>
+          <p>
+            Send your OEM numbers, part list, or product photos. We can help structure the inquiry and suggest
+            a sourcing plus consolidation approach based on your order scope.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="/contact">Send RFQ</a>
+          <a class="btn" href="/capabilities">See Capabilities</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">Who we work with</h2>
+      <p class="sectionDesc">
+        We are best suited for buyers who value process clarity, supply stability, and repeatable execution.
+      </p>
+
+      <div class="grid2">
+        {buyerTypes.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">How we work (principles)</h2>
+      <p class="sectionDesc">
+        A structured sourcing model is not only about finding products. It is about building a cleaner pipeline that can be repeated.
+      </p>
+
+      <div class="grid2">
+        {principles.map((x) => (
+          <div class="row">
+            <div class="badge">{x.tag}</div>
+            <div>
+              <div class="rt">{x.t}</div>
+              <p class="rp">{x.p}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contentWrap">
+      <h2 class="sectionTitle">FAQ</h2>
+      <p class="sectionDesc">
+        Quick answers for distributors, wholesalers, and fleet-related buyers evaluating sourcing support from China.
+      </p>
+
+      <div class="grid2">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

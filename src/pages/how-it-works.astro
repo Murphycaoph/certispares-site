@@ -1,0 +1,249 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const steps = [
+  {
+    n: "1",
+    t: "Send RFQ",
+    p: "OEM/part numbers / brand / model / photos. Tell us target market and quantity.",
+  },
+  {
+    n: "2",
+    t: "Supplier comparison",
+    p: "We source multiple factories and submit options with lead time & risk notes.",
+  },
+  {
+    n: "3",
+    t: "QC checkpoints",
+    p: "Sampling + packaging/label check, photo/video evidence before shipment.",
+  },
+  {
+    n: "4",
+    t: "Export execution",
+    p: "PI/CI/PL review, document accuracy, tracking and updates.",
+  },
+];
+
+const needFromYou = [
+  { t: "Parts info", p: "OEM/part numbers or photos (photos are OK)." },
+  { t: "Vehicle coverage", p: "Brand/model/year if available (helps avoid mismatch)." },
+  { t: "Quantity", p: "Target order quantity or consolidation plan." },
+  { t: "Destination", p: "Country/port and preferred Incoterms if you have." },
+  { t: "Packaging", p: "Carton marks, label/barcode, private label needs." },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How our truck parts sourcing workflow works",
+    description:
+      "RFQ intake, supplier comparison, QC checkpoints, and export execution for commercial vehicle aftermarket buyers sourcing from China.",
+    step: steps.map((step) => ({
+      "@type": "HowToStep",
+      name: step.t,
+      text: step.p,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certispares.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "How It Works",
+        item: "https://certispares.com/how-it-works/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="How China Truck Parts Sourcing Works | CertiSpares"
+  description="See how CertiSpares runs RFQ intake, supplier comparison, QC checkpoints, packing verification, and export execution for commercial vehicle aftermarket buyers sourcing from China."
+  keywords={["how truck parts sourcing works", "China truck parts workflow", "commercial vehicle parts RFQ", "truck parts export process"]}
+  canonical="/how-it-works/"
+  ogImage="/images/shipping-documents-export-paperwork.jpg"
+  jsonLd={jsonLd}
+>
+  <style>
+    /* ===== HERO (Insights-style) ===== */
+    .hero{
+      position:relative;
+      padding:46px 0 20px;
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+      isolation:isolate;
+      background:#0b1020;
+    }
+
+    .heroBg{
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:
+        url("/images/shipping-documents-export-paperwork.jpg") center/cover no-repeat;
+      /* 鍏抽敭锛氭祬娴呮ā绯?+ 绋嶅井鍘嬩竴涓嬪姣?楗卞拰锛岃鏍囬鏇寸ǔ */
+      filter: blur(2.0px) saturate(.95) contrast(.95) brightness(.92);
+      transform: scale(1.03); /* 闃叉 blur 闇茶竟 */
+    }
+
+    /* 閬僵锛氫繚璇佺櫧鑹叉爣棰樺彲璇?*/
+    .overlay{
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(180deg, rgba(11,16,32,.28) 0%, rgba(11,16,32,.86) 72%, rgba(11,16,32,1) 100%),
+        radial-gradient(900px 420px at 25% 20%, rgba(47,91,255,.22), transparent 60%);
+    }
+
+    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;opacity:.82;margin:0 0 .75rem}
+    .title{margin:0 0 .8rem;font-size:40px;letter-spacing:-.4px;line-height:1.12}
+    .sub{margin:0;max-width:78ch;color:rgba(225,233,255,.86);line-height:1.75}
+
+    /* ===== BODY (keep your existing layout) ===== */
+    .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; }
+    .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.7; max-width:980px; }
+
+    .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+
+    .step{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(17,26,51,.45);
+      border:1px solid var(--line);
+    }
+    .num{
+      width:34px; height:34px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:950;
+      background:rgba(47,91,255,.18);
+      border:1px solid rgba(47,91,255,.35);
+      color:var(--brand2);
+      flex:0 0 34px;
+      margin-top:2px;
+    }
+    .st{ font-weight:950; margin-bottom:6px; }
+    .sp{ margin:0; color:var(--muted); line-height:1.7; }
+
+    .ctaBlock{
+      margin-top:12px;
+      background:linear-gradient(135deg, rgba(47,91,255,.22), rgba(111,160,255,.10));
+      border:1px solid rgba(47,91,255,.28);
+      border-radius:20px;
+      padding:18px;
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+    }
+    .ctaBlock .left b{ display:block; margin-bottom:6px; }
+    .ctaBlock .left p{ margin:0; color:rgba(234,240,255,.85); line-height:1.7; max-width:760px; }
+
+    .mini{
+      margin-top:12px;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      color:var(--muted);
+      line-height:1.7;
+    }
+    .mini b{ color:rgba(234,240,255,.92); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 980px){
+      .title{font-size:34px}
+      .grid2{ grid-template-columns:1fr; }
+      .grid3{ grid-template-columns:1fr; }
+      .ctaBlock{ flex-direction:column; align-items:flex-start; }
+    }
+
+    @media (max-width: 720px){
+      .heroBg{
+        filter: blur(2px) saturate(.95) contrast(.95) brightness(.92);
+        transform: scale(1.04);
+      }
+    }
+  </style>
+
+  <header class="hero">
+    <div class="heroBg" aria-hidden="true"></div>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <div class="container">
+      <p class="kicker">CertiSpares / Process</p>
+      <h1 class="title">How our truck parts sourcing workflow works</h1>
+      <p class="sub">
+        A clear, repeatable workflow: RFQ -> sourcing & comparison -> QC checkpoints -> export execution.
+        Built for commercial vehicle aftermarket buyers who need predictable lead time and fewer disputes.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">Workflow</h2>
+      <p class="sectionDesc">
+        We keep the process simple: clear inputs, evidence before shipment, and consistent documentation.
+      </p>
+
+      <div class="grid2">
+        {steps.map((s) => (
+          <div class="step">
+            <div class="num">{s.n}</div>
+            <div>
+              <div class="st">{s.t}</div>
+              <p class="sp">{s.p}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="ctaBlock">
+        <div class="left">
+          <b>Ready to share your RFQ?</b>
+          <p>
+            Send OEM/part numbers (or photos), quantities, destination port, and packaging requirements.
+            We'll reply with options and lead time.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="/contact">Get a Sourcing Quote</a>
+          <a class="btn" href="/capabilities">See Capabilities</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What we need from you</h2>
+      <p class="sectionDesc">
+        The more complete the input, the faster the sourcing cycle and the lower the mismatch risk.
+      </p>
+
+      <div class="grid3">
+        {needFromYou.map((x) => (
+          <div class="card">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mini">
+        <b>Tip:</b> If you only have photos, attach them in the email after the Contact form generates your draft.
+        For repeat orders, we can standardize your RFQ template and packaging marks.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

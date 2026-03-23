@@ -1,0 +1,399 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const SITE_URL = "https://certispares.com";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((p) => ({
+    params: { slug: p.slug },
+  }));
+}
+
+const allPosts = await getCollection("blog");
+allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const post = allPosts.find((p) => p.slug === Astro.params.slug);
+
+if (!post) {
+  throw new Error(`Post not found for slug: ${Astro.params.slug}`);
+}
+
+const estimateReadTime = (text = "") => {
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  const mins = Math.max(1, Math.round(words / 220));
+  return `${mins} min read`;
+};
+
+const { Content } = await post.render();
+
+const toAbsoluteUrl = (value) => new URL(value, SITE_URL).toString();
+
+const title = post.data.title;
+const description =
+  post.data.meta_description ||
+  post.data.excerpt ||
+  "CertiSpares Insights";
+
+const tag = post.data.tag || "Insights";
+const date = post.data.date;
+const updatedDate = post.data.updatedDate || date;
+const readTime =
+  post.data.readTime || estimateReadTime(post.body || "");
+
+const keywords =
+  post.data.keywords?.filter(Boolean) || [
+    title,
+    tag,
+    "China truck parts sourcing",
+    "commercial vehicle parts",
+    "CertiSpares",
+  ];
+const canonical = `/blog/${post.slug}/`;
+const ogImage = post.data.ogImage || "/images/insights-hero-collage.png";
+const ogImageUrl = toAbsoluteUrl(ogImage);
+
+const relatedPosts = allPosts
+  .filter((candidate) => candidate.slug !== post.slug)
+  .sort((a, b) => {
+    const aSameTag = (a.data.tag || "Insights") === tag ? 1 : 0;
+    const bSameTag = (b.data.tag || "Insights") === tag ? 1 : 0;
+    if (aSameTag !== bSameTag) return bSameTag - aSameTag;
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  })
+  .slice(0, 3);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: updatedDate,
+    image: [ogImageUrl],
+    keywords,
+    author: {
+      "@type": "Organization",
+      name: "CertiSpares",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CertiSpares",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/images/logo.png`,
+      },
+    },
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}/`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Insights",
+        item: `${SITE_URL}/blog/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: title,
+        item: `${SITE_URL}/blog/${post.slug}/`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${title} | CertiSpares`}
+  description={description}
+  keywords={keywords}
+  canonical={canonical}
+  ogImage={ogImage}
+  jsonLd={jsonLd}
+>
+
+  <style>
+    .hero{
+      padding:34px 0 14px;
+      border-bottom:1px solid var(--line);
+      background:#0b1020;
+    }
+
+    .kicker{
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.8rem;
+      opacity:.82;
+      margin:0 0 .65rem;
+    }
+
+    .title{
+      margin:0 0 .7rem;
+      font-size:38px;
+      letter-spacing:-.35px;
+      line-height:1.12;
+    }
+
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+      align-items:center;
+      font-size:.9rem;
+      opacity:.92;
+    }
+
+    .tag{
+      padding:.18rem .55rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      font-size:.8rem;
+    }
+
+    .dot{opacity:.6}
+
+    .wrap{padding:22px 0 40px}
+
+    .article{
+      max-width:78ch;
+      margin:0 auto;
+    }
+
+    .back{
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      margin:0 0 14px;
+      text-decoration:none;
+      opacity:.9;
+    }
+
+    .back:hover{opacity:1}
+
+    /* ===== Markdown Typography ===== */
+
+    .content :global(h2){
+      margin:1.9rem 0 .75rem;
+      font-size:1.45rem;
+      letter-spacing:-.2px;
+      line-height:1.25;
+      scroll-margin-top:90px;
+    }
+
+    .content :global(h3){
+      margin:1.35rem 0 .55rem;
+      font-size:1.18rem;
+      letter-spacing:-.15px;
+      line-height:1.3;
+    }
+
+    .content :global(p){
+      margin:.85rem 0;
+      line-height:1.85;
+      color:rgba(225,233,255,.88);
+    }
+
+    .content :global(ul),
+    .content :global(ol){
+      margin:.85rem 0;
+      padding-left:1.2rem;
+      line-height:1.85;
+      color:rgba(225,233,255,.88);
+    }
+
+    .content :global(li){margin:.35rem 0}
+
+    .content :global(a){
+      color:rgba(150,185,255,.95);
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+
+    .content :global(blockquote){
+      margin:1.1rem 0;
+      padding:.8rem 1rem;
+      border-left:3px solid rgba(150,185,255,.55);
+      background:rgba(255,255,255,.03);
+      border-radius:12px;
+      color:rgba(225,233,255,.86);
+    }
+
+    .content :global(code){
+      padding:.12rem .35rem;
+      border-radius:8px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:.92em;
+    }
+
+    .content :global(pre){
+      padding:1rem;
+      border-radius:14px;
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:auto;
+    }
+
+    .content :global(pre code){
+      padding:0;
+      border:none;
+      background:transparent;
+    }
+
+    /* References block style */
+    .content :global(h2 + ul){
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.02);
+      border-radius:14px;
+      padding:14px 16px;
+    }
+
+    .divider{
+      max-width:78ch;
+      margin:26px auto 0;
+      border-top:1px solid rgba(255,255,255,.10);
+      opacity:.9;
+    }
+
+    .footerCta{
+      max-width:78ch;
+      margin:18px auto 0;
+      padding:16px 18px;
+      border-radius:18px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.02);
+      color:rgba(225,233,255,.86);
+      line-height:1.75;
+    }
+
+    .footerCta a{font-weight:800}
+
+    .relatedWrap{
+      max-width:78ch;
+      margin:22px auto 0;
+    }
+
+    .relatedTitle{
+      margin:0 0 12px;
+      font-size:1.15rem;
+      letter-spacing:-.2px;
+    }
+
+    .relatedGrid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:12px;
+    }
+
+    .relatedCard{
+      display:block;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.02);
+      text-decoration:none;
+      transition:transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+
+    .relatedCard:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.04);
+      border-color:rgba(255,255,255,.16);
+    }
+
+    .relatedMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+      align-items:center;
+      font-size:.8rem;
+      color:rgba(225,233,255,.72);
+      margin-bottom:8px;
+    }
+
+    .relatedCard h2{
+      margin:0 0 8px;
+      font-size:1rem;
+      line-height:1.4;
+    }
+
+    .relatedCard p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:.92rem;
+    }
+
+    @media (max-width:980px){
+      .title{font-size:32px}
+      .article{max-width:92vw}
+      .divider,.footerCta{max-width:92vw}
+      .relatedWrap{max-width:92vw}
+      .relatedGrid{grid-template-columns:1fr}
+    }
+  </style>
+
+  <header class="hero">
+    <div class="container">
+      <p class="kicker">CertiSpares / Insights</p>
+      <h1 class="title">{title}</h1>
+
+      <div class="meta">
+        <span class="tag">{tag}</span>
+        <span class="dot">&middot;</span>
+        <span>{date}</span>
+        <span class="dot">&middot;</span>
+        <span>{readTime}</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container wrap">
+    <article class="article">
+      <a class="back" href="/blog">&larr; Back to Insights</a>
+
+      <div class="content">
+        <Content />
+      </div>
+    </article>
+
+    <div class="divider"></div>
+
+    {relatedPosts.length > 0 && (
+      <section class="relatedWrap" aria-labelledby="related-posts-title">
+        <h2 class="relatedTitle" id="related-posts-title">Related insights</h2>
+        <div class="relatedGrid">
+          {relatedPosts.map((related) => (
+            <a class="relatedCard" href={`/blog/${related.slug}`}>
+              <div class="relatedMeta">
+                <span class="tag">{related.data.tag || "Insights"}</span>
+                <span class="dot">&middot;</span>
+                <span>{related.data.date}</span>
+              </div>
+              <h2>{related.data.title}</h2>
+              <p>{related.data.excerpt || "Read the full article for sourcing, QC, and execution notes."}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class="footerCta">
+      Need sourcing support for commercial vehicle parts?  
+      Send an RFQ via <a href="/contact">Contact</a> and we'll reply with a practical plan
+      (lead time, packing, docs, shipping options).
+    </div>
+  </main>
+</BaseLayout>

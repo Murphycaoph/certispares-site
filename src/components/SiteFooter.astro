@@ -1,0 +1,21 @@
+---
+const year = new Date().getFullYear();
+---
+
+<style>
+  .footerWrap{ border-top:1px solid var(--line); margin-top:10px; }
+  .footer{
+    padding:26px 0;
+    color:var(--muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
+</style>
+
+<div class="footerWrap">
+  <div class="container">
+    <footer class="footer">
+      <div>&copy; {year} CertiSpares. All rights reserved.</div>
+      <div>Sourcing confidence for automotive buyers.</div>
+    </footer>
+  </div>
+</div>

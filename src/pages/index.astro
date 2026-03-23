@@ -1,0 +1,425 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// 璇诲彇 blog 闆嗗悎鍏ㄩ儴鏂囩珷
+const rawPosts = await getCollection("blog");
+
+// 鎸夋棩鏈熷€掑簭锛堟渶鏂颁紭鍏堬級
+rawPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+
+// 鍙栨渶鏂?3 绡囨槧灏勬垚棣栭〉鍗＄墖闇€瑕佺殑缁撴瀯
+const insights = rawPosts.slice(0, 3).map((p) => ({
+  title: p.data.title,
+  tag: p.data.tag ?? "Insights",
+  excerpt: p.data.excerpt ?? "",
+  href: `/blog/${p.slug}`,
+}));
+
+// 鉁?Hero images (in /public/images)
+const heroImages = [
+  "/images/hero-01-highway-transport.jpg",
+  "/images/hero-02-commercial-fleet.jpg",
+  "/images/hero-03-container-port.jpg",
+  "/images/hero-04-logistics-truck.jpg",
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "CertiSpares",
+    url: "https://certispares.com/",
+    logo: "https://certispares.com/images/logo.png",
+    email: "murphy@certispares.com",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        email: "murphy@certispares.com",
+        areaServed: "Worldwide",
+        availableLanguage: ["en"],
+      },
+    ],
+    sameAs: ["https://www.facebook.com/profile.php?id=61585722976089"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "CertiSpares",
+    url: "https://certispares.com/",
+  },
+];
+---
+
+<BaseLayout
+  title="China Truck Parts Sourcing | CertiSpares"
+  description="China truck parts sourcing for commercial vehicle aftermarket buyers. CertiSpares handles supplier comparison, QC checkpoints, documentation review, and export execution."
+  keywords={["China truck parts sourcing", "commercial vehicle parts China", "truck parts supplier China", "aftermarket truck parts sourcing"]}
+  canonical="/"
+  ogImage="/images/hero-01-highway-transport.jpg"
+  jsonLd={jsonLd}
+>
+  <style>
+  /* Page-only styles for index */
+  .hero{
+    position:relative;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+
+  /* 鉁?Hero background wrapper (gradient + slider inside) */
+  .heroBg{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(11,16,32,.45) 0%, rgba(11,16,32,.86) 70%, rgba(11,16,32,1) 100%),
+      radial-gradient(900px 420px at 25% 15%, rgba(47,91,255,.35), transparent 60%);
+    overflow:hidden;
+  }
+
+  .heroSlider{
+    position:absolute; inset:0;
+  }
+
+  .heroSlide{
+    position:absolute; inset:0;
+    background: var(--bg) center/cover no-repeat;
+    filter:saturate(1.05);
+    opacity:0;
+    transform:scale(1.02);
+    transition: opacity .55s ease, transform .9s ease;
+    will-change: opacity, transform;
+  }
+  .heroSlide.is-active{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  /* 鉁?unify color temperature / add cool overlay */
+.heroSlide::after{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    /* 鉁?杈圭紭鏆楄锛氳杈圭紭娣″寲銆佷腑蹇冩洿鑱氱劍锛堝儚浠ュ墠閭ｇ锛?*/
+    radial-gradient(1100px 520px at 28% 18%, rgba(255,255,255,.06), transparent 60%),
+    radial-gradient(1400px 760px at 50% 50%, transparent 55%, rgba(11,16,32,.55) 100%),
+
+    /* 鉁?绾靛悜閬僵锛氫笅鏂规洿鏆楋紝淇濊瘉鏂囧瓧绋?*/
+    linear-gradient(
+      180deg,
+      rgba(11,16,32,.18) 0%,
+      rgba(11,16,32,.72) 70%,
+      rgba(11,16,32,.92) 100%
+    );
+}
+
+  /* 鉁?arrows */
+  .heroNav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:42px; height:42px;
+    border-radius:14px;
+    border:1px solid var(--line);
+    background:rgba(17,26,51,.45);
+    color:rgba(234,240,255,.92);
+    font-size:26px;
+    display:grid; place-items:center;
+    cursor:pointer;
+    z-index:2;
+    backdrop-filter: blur(10px);
+    user-select:none;
+  }
+  .heroNav:hover{ background:rgba(17,26,51,.65); }
+  .heroNav.prev{ left:16px; }
+  .heroNav.next{ right:16px; }
+
+  /* 鉁?寮哄埗棣栭〉鍐呭鏈€澶у搴︼紙涓嶄緷璧?container锛?*/
+  .contentWrap{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .heroInner{
+    position:relative;
+    padding:78px 0 56px;
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap:18px;
+    align-items:center;
+  }
+
+  h1{
+    margin:0 0 14px;
+    font-size:52px;
+    line-height:1.03;
+    letter-spacing:-.6px;
+  }
+  .sub{
+    margin:0 0 18px;
+    color:rgba(234,240,255,.86);
+    line-height:1.75;
+    max-width:640px;
+  }
+  .heroBtns{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+
+  .heroCard{
+    background:rgba(17,26,51,.62);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  }
+  .heroCard h3{ margin:0 0 10px; font-size:16px; letter-spacing:.2px; }
+  .list{ margin:0; padding:0; list-style:none; display:grid; gap:10px; }
+  .li{ display:flex; gap:10px; align-items:flex-start; color:var(--muted); line-height:1.5; }
+  .dot{ width:10px; height:10px; border-radius:999px; margin-top:6px;
+    background:linear-gradient(135deg, var(--brand), var(--brand2)); flex:0 0 10px;
+  }
+  .more{ display:inline-block; margin-top:10px; font-weight:900; color:rgba(234,240,255,.92); }
+  .more:hover{ color:var(--brand2); }
+
+  .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+  .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+
+  .sectionTitle{ font-size:28px; margin:0 0 12px; letter-spacing:-.2px; }
+  .sectionDesc{ margin:0 0 18px; color:var(--muted); line-height:1.7; max-width:820px; }
+
+  .strip{
+    margin-top:18px;
+    display:grid; grid-template-columns: repeat(4,1fr); gap:12px;
+  }
+  .kpi{
+    background:rgba(255,255,255,.03);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+  }
+  .kpi .n{ font-weight:950; font-size:18px; }
+  .kpi .t{ color:var(--muted); font-size:12px; margin-top:6px; line-height:1.4; }
+
+  /* 鉁?Insights section */
+  .insightsHead{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+    margin-bottom:12px;
+  }
+  .viewAll{
+    font-weight:900;
+    color:rgba(234,240,255,.92);
+    padding:8px 10px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.03);
+    white-space:nowrap;
+  }
+  .viewAll:hover{ background:rgba(255,255,255,.06); color:#fff; }
+
+  .postCard b{ margin-bottom:8px; font-size:16px; line-height:1.35; }
+  .postMeta{
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    font-size:12px; color:rgba(210,220,245,.78);
+    margin-bottom:10px;
+  }
+  .postTag{
+    padding:.18rem .55rem;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.02);
+    font-weight:800;
+  }
+  .postMore{
+    display:inline-flex; gap:6px; align-items:center;
+    margin-top:10px; font-weight:900;
+    color:rgba(234,240,255,.92);
+  }
+  .postMore:hover{ color:var(--brand2); }
+
+  @media (max-width: 980px){
+    .heroInner{ grid-template-columns:1fr; padding:60px 0 46px; }
+    h1{ font-size:40px; }
+    .grid3{ grid-template-columns:1fr; }
+    .grid2{ grid-template-columns:1fr; }
+    .strip{ grid-template-columns:1fr 1fr; }
+    .insightsHead{ align-items:flex-start; }
+    .heroNav{ width:38px; height:38px; border-radius:12px; }
+    .heroNav.prev{ left:10px; }
+    .heroNav.next{ right:10px; }
+  }
+
+  /* Optional: reduce motion */
+  @media (prefers-reduced-motion: reduce){
+    .heroSlide{ transition:none; }
+  }
+</style>
+
+  <header class="hero">
+    <div class="heroBg">
+      <div class="heroSlider" id="heroSlider" aria-label="Hero images">
+        {heroImages.map((src, idx) => (
+          <div
+            class={`heroSlide ${idx === 0 ? "is-active" : ""}`}
+            style={`--bg:url('${src}')`}
+            aria-hidden={idx === 0 ? "false" : "true"}
+          ></div>
+        ))}
+
+        <button class="heroNav prev" type="button" aria-label="Previous image">&larr;</button>
+        <button class="heroNav next" type="button" aria-label="Next image">&rarr;</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="heroInner">
+        <div>
+          <h1>One-Stop Automotive Parts Sourcing from China</h1>
+          <p class="sub">
+            Consolidate multiple categories into one shipment. We are your responsible partner in Northern China for
+            efficiency, compliance, and predictable delivery.
+          </p>
+
+          <div class="heroBtns">
+            <a class="btn primary" href="/contact">Get a Sourcing Quote</a>
+            <a class="btn" href="/capabilities">View Capabilities</a>
+          </div>
+
+          <div class="strip">
+            <div class="kpi"><div class="n">QC</div><div class="t">Sampling &middot; Packing check &middot; Loading supervision</div></div>
+            <div class="kpi"><div class="n">Docs</div><div class="t">PI/CI/PL &middot; HS code assist &middot; Export documents</div></div>
+            <div class="kpi"><div class="n">Speed</div><div class="t">Fast RFQ &middot; Multi-region supplier pool</div></div>
+            <div class="kpi"><div class="n">Risk</div><div class="t">Audit-style vendor verification & traceability</div></div>
+          </div>
+        </div>
+
+        <aside class="heroCard">
+          <h3>How It Works (Overview)</h3>
+          <ul class="list">
+            <li class="li"><span class="dot"></span><span>Send your RFQ with OEM/brand/model or photos.</span></li>
+            <li class="li"><span class="dot"></span><span>We source & compare suppliers, then submit options with lead time.</span></li>
+            <li class="li"><span class="dot"></span><span>QC checkpoints + packing & labeling confirmation before shipment.</span></li>
+            <li class="li"><span class="dot"></span><span>Export execution with clean documentation and tracking.</span></li>
+          </ul>
+          <a class="more" href="/how-it-works">Learn more &rarr;</a>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">Capabilities</h2>
+      <p class="sectionDesc">
+        From supplier verification to QC checkpoints and export documentation, we build a predictable sourcing pipeline.
+      </p>
+      <div class="grid3">
+        <div class="card"><b>Structured sourcing</b><p>Multiple supplier options with price/lead time comparison and risk notes.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
+        <div class="card"><b>Quality control</b><p>Sampling, packaging verification, loading supervision, and photo/video evidence.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
+        <div class="card"><b>Compliance paperwork</b><p>PI/CI/PL review, HS-code assistance, and export document accuracy.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">About CertiSpares</h2>
+      <p class="sectionDesc">
+        We focus on commercial vehicle aftermarket parts and manage supplier risk with audit-style workflows.
+      </p>
+      <div class="grid2">
+        <div class="card"><b>What we focus on</b><p>Stable supply, clear lead time, and consistent quality for repeat orders.</p><a class="more" href="/about">Learn more &rarr;</a></div>
+        <div class="card"><b>How we reduce risk</b><p>Vendor verification, traceable docs, and QC evidence to reduce disputes.</p><a class="more" href="/about">Learn more &rarr;</a></div>
+      </div>
+    </div>
+  </section>
+
+  {/* 鉁?Insights overview on homepage */}
+  <section class="section">
+    <div class="container">
+      <div class="insightsHead">
+        <div>
+          <h2 class="sectionTitle">Latest Insights</h2>
+          <p class="sectionDesc">
+            Short reads on QC, risk control, trade terms, and sourcing execution.
+          </p>
+        </div>
+        <a class="viewAll" href="/blog">View all &rarr;</a>
+      </div>
+
+      <div class="grid3">
+        {insights.map((p) => (
+          <a class="card postCard" href={p.href}>
+            <div class="postMeta">
+              <span class="postTag">{p.tag}</span>
+            </div>
+            <b>{p.title}</b>
+            <p>{p.excerpt}</p>
+            <span class="postMore">Read &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">Contact</h2>
+      <p class="sectionDesc">
+        Tell us the parts you need (OEM/brand/model/photos). We will reply with options, lead time, and shipping suggestions.
+      </p>
+      <div class="grid3">
+        <div class="card"><b>Email</b><p>murphy@certispares.com</p><a class="more" href="/contact">Learn more &rarr;</a></div>
+        <div class="card"><b>WhatsApp</b><p>+86 156 3302 2618</p><a class="more" href="/contact">Learn more &rarr;</a></div>
+        <div class="card"><b>Location</b><p>Beijing / Hebei, China</p><a class="more" href="/contact">Learn more &rarr;</a></div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const root = document.getElementById("heroSlider");
+      if (!root) return;
+
+      const slides = Array.from(root.querySelectorAll(".heroSlide"));
+      const prev = root.querySelector(".heroNav.prev");
+      const next = root.querySelector(".heroNav.next");
+      if (slides.length <= 1) return;
+
+      let i = 0;
+
+      const set = (n) => {
+        slides[i].classList.remove("is-active");
+        slides[i].setAttribute("aria-hidden", "true");
+
+        i = (n + slides.length) % slides.length;
+
+        slides[i].classList.add("is-active");
+        slides[i].setAttribute("aria-hidden", "false");
+      };
+
+      const goPrev = () => set(i - 1);
+      const goNext = () => set(i + 1);
+
+      prev && prev.addEventListener("click", goPrev);
+      next && next.addEventListener("click", goNext);
+
+      // 鉁?auto rotate (B2B: slower)
+      let timer = setInterval(goNext, 6000);
+
+      // 鉁?pause on hover (desktop)
+      root.addEventListener("mouseenter", () => { clearInterval(timer); });
+      root.addEventListener("mouseleave", () => { timer = setInterval(goNext, 6000); });
+
+      // Pause when the tab is hidden to avoid timer jumps after returning.
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          clearInterval(timer);
+        } else {
+          clearInterval(timer);
+          timer = setInterval(goNext, 6000);
+        }
+      });
+    })();
+  </script>
+</BaseLayout>
+
+

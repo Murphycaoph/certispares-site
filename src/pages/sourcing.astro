@@ -1,0 +1,418 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const categories = [
+  {
+    title: "Brake System",
+    tag: "Core category",
+    desc:
+      "Brake pads, discs/drums, calipers, chambers, slack adjusters, and repair kits organized for heavy-duty aftermarket sourcing.",
+    bullets: ["RFQ-ready specs", "Packaging & labeling checks", "Consolidation-friendly"],
+    href: "/contact",
+    img: "/images/Brake-System.png",
+  },
+  {
+    title: "Suspension",
+    tag: "Core category",
+    desc:
+      "Leaf springs, torque rods, stabilizer bars, bushings, and air suspension parts focused on durability and fitment clarity.",
+    bullets: ["Supplier comparison", "QC checkpoints", "Photo/video evidence"],
+    href: "/contact",
+    img: "/images/Suspension.png",
+  },
+  {
+    title: "Engine Parts",
+    tag: "Core category",
+    desc:
+      "Filters, belts, gaskets, water pumps, turbo-related parts, and common service items supported with export documentation clarity.",
+    bullets: ["PI/CI/PL review", "HS-code assist", "Shipment coordination"],
+    href: "/contact",
+    img: "/images/Engine-Parts.png",
+  },
+];
+
+const valueCards = [
+  {
+    t: "We are not a factory",
+    p: "We organize supplier networks and verification steps. Production remains with qualified manufacturers.",
+  },
+  {
+    t: "Audit-style risk control",
+    p: "We compare suppliers, lock key specs, and reduce mismatch risk with structured checks and evidence.",
+  },
+  {
+    t: "Built for consolidation",
+    p: "Combine multiple categories into one shipment with a clear packing list, labels, and carton marks.",
+  },
+];
+
+const faq = [
+  {
+    q: "Do you provide a full product catalogue?",
+    a: "We keep category coverage clear, but we operate RFQ-first for accuracy. Send OEM/brand/model/photos and quantity; we respond with verified options.",
+  },
+  {
+    q: "Can you handle private label packaging?",
+    a: "Yes. Share carton marks, label/barcode format, and any requirements. We verify packaging and labels before shipment.",
+  },
+  {
+    q: "What information helps you quote faster?",
+    a: "OEM/part numbers (or photos), vehicle brand/model/year if available, target quantity, destination/port, and your preferred Incoterms.",
+  },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "China Truck Parts Categories & Sourcing Support",
+    description:
+      "Commercial vehicle aftermarket sourcing categories from China, including brake system, suspension, and engine parts with supplier comparison and QC support.",
+    url: "https://certispares.com/sourcing/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certispares.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Sourcing",
+        item: "https://certispares.com/sourcing/",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="China Truck Parts Categories & Sourcing Support | CertiSpares"
+  description="China truck parts categories and sourcing support for commercial vehicle aftermarket buyers: brake system, suspension, engine parts, QC checkpoints, and export documentation."
+  keywords={["China truck parts categories", "commercial vehicle parts sourcing", "brake system sourcing China", "suspension parts sourcing China"]}
+  canonical="/sourcing/"
+  ogImage="/images/Brake-System.png"
+  jsonLd={jsonLd}
+>
+  <style>
+    .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; }
+    .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.7; max-width:980px; }
+
+    /* --- HERO tightening + subtle blueprint/grid background --- */
+    .pageHero{
+      position:relative;
+      overflow:hidden;
+    }
+    .pageHero::before{
+      content:"";
+      position:absolute; inset:-120px -120px -120px -120px;
+      pointer-events:none;
+      /* very subtle "industrial blueprint" vibe (no images, just gradients) */
+      background:
+        radial-gradient(900px 420px at 18% 10%, rgba(47,91,255,.12), transparent 60%),
+        radial-gradient(900px 420px at 78% 18%, rgba(47,91,255,.08), transparent 62%),
+        /* faint grid */
+        linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:
+        auto,
+        auto,
+        64px 64px,
+        64px 64px;
+      opacity:.22;
+      filter: blur(.2px);
+    }
+
+    .heroInner{
+      position:relative;
+      padding-top: 2px;  /* tighter */
+      padding-bottom: 22px; /* tighter */
+    }
+
+    .pillRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; } /* tighter */
+    .pill{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      color:rgba(234,240,255,.92);
+      font-weight:800;
+      font-size:12px;
+    }
+
+    /* --- Section divider label (solves 鈥渆mpty background鈥?feeling without repeating Core category) --- */
+    .dividerRow{
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:rgba(234,240,255,.78);
+      font-weight:900;
+      letter-spacing:.2px;
+      font-size:12px;
+      text-transform:uppercase;
+    }
+    .dividerRow::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:rgba(255,255,255,.08);
+    }
+    .dividerDot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 18px rgba(47,91,255,.25);
+    }
+
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+
+    /* Category cards */
+    .catGrid{
+      margin-top:12px; /* tighter */
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+
+    .catCard{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      min-height: 308px; /* slightly shorter */
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      isolation:isolate;
+    }
+    .catCard img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.02) contrast(1.02) brightness(.99);
+      transform: scale(1.02);
+      z-index:-2;
+    }
+    .catShade{
+      position:absolute; inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(to top, rgba(6,16,42,.94), rgba(6,16,42,.28) 58%, rgba(6,16,42,.10)),
+        radial-gradient(900px 420px at 25% 20%, rgba(47,91,255,.16), transparent 60%);
+    }
+
+    .catInner{ padding:16px; }
+
+    .catTag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      font-weight:900;
+      color:rgba(234,240,255,.92);
+      margin-bottom:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(17,26,51,.55);
+      border:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+    }
+    .catTitle{
+      margin:0 0 8px;
+      font-size:16px;
+      font-weight:950;
+      letter-spacing:-.15px;
+      color:rgba(234,240,255,.98);
+    }
+    .catDesc{
+      margin:0 0 12px;
+      font-size:12px;
+      line-height:1.65;
+      color:rgba(234,240,255,.82);
+      max-width: 520px;
+    }
+    .catList{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:8px;
+    }
+    .catLi{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:rgba(234,240,255,.86);
+      font-size:12px;
+      line-height:1.5;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px; margin-top:6px;
+      background:linear-gradient(135deg, var(--brand), var(--brand2));
+      flex:0 0 10px;
+    }
+
+    .catCtaRow{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
+    .catCtaRow a{ text-decoration:none; }
+
+    .infoCard{
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+    }
+    .infoCard b{ display:block; margin-bottom:8px; }
+    .infoCard p{ margin:0; color:var(--muted); line-height:1.7; }
+
+    .faq{
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+    }
+    .faqItem{ padding:12px 0; border-top:1px solid var(--line); }
+    .faqItem:first-child{ border-top:0; padding-top:0; }
+    .faqQ{ margin:0 0 6px; font-weight:950; letter-spacing:-.1px; }
+    .faqA{ margin:0; color:var(--muted); line-height:1.7; }
+
+    .ctaBlock{
+      margin-top:14px;
+      border-radius:18px;
+      padding:18px;
+      background:rgba(17,26,51,.55);
+      border:1px solid var(--line);
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+    }
+    .ctaBlock .left b{ display:block; margin-bottom:6px; }
+    .ctaBlock .left p{ margin:0; color:rgba(234,240,255,.85); line-height:1.7; max-width:760px; }
+
+    @media (max-width: 980px){
+      .catGrid{ grid-template-columns:1fr; }
+      .grid3{ grid-template-columns:1fr; }
+      .ctaBlock{ flex-direction:column; align-items:flex-start; }
+      .catCard{ min-height: 300px; }
+      .heroInner{ padding-top: 18px; padding-bottom: 18px; }
+    }
+  </style>
+
+  <header class="pageHero">
+    <div class="container heroInner">
+      <p class="kicker">CertiSpares / Sourcing</p>
+      <h1 class="title">Sourcing Categories</h1>
+      <p class="sub">
+        We consolidate commercial vehicle aftermarket parts across core categories designed for predictable delivery,
+        clear documentation, and audit-style risk control.
+      </p>
+
+      <div class="pillRow">
+        <div class="pill">Category coverage</div>
+        <div class="pill">Supplier comparison</div>
+        <div class="pill">QC checkpoints</div>
+        <div class="pill">Packaging & labeling</div>
+        <div class="pill">Export paperwork</div>
+      </div>
+
+      <!-- Divider label -->
+      <div class="dividerRow" style="margin-top:14px;">
+        <span class="dividerDot"></span>
+        <span>Browse by category</span>
+      </div>
+
+      <div class="catGrid">
+        {categories.map((c) => (
+          <div class="catCard">
+            <img src={c.img} alt={c.title} loading="lazy" />
+            <div class="catShade"></div>
+
+            <div class="catInner">
+              <div class="catTag">{c.tag}</div>
+              <h3 class="catTitle">{c.title}</h3>
+              <p class="catDesc">{c.desc}</p>
+
+              <ul class="catList">
+                {c.bullets.map((b) => (
+                  <li class="catLi"><span class="dot"></span><span>{b}</span></li>
+                ))}
+              </ul>
+
+              <div class="catCtaRow">
+                <a class="btn primary" href={c.href}>Request Quote</a>
+                <a class="btn" href="/capabilities">See how we control risk</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What this page means</h2>
+      <p class="sectionDesc">
+        These category pages stay intentionally simple: clear coverage + structured execution.
+        If you need specific items, send an RFQ and we'll respond with verified options.
+      </p>
+
+      <div class="grid3">
+        {valueCards.map((x) => (
+          <div class="infoCard">
+            <b>{x.t}</b>
+            <p>{x.p}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="ctaBlock">
+        <div class="left">
+          <b>Have an RFQ?</b>
+          <p>
+            Send OEM/brand/model or photos, target quantity, destination/port, and packaging needs.
+            We'll reply with supplier options, lead time, and risk notes.
+          </p>
+        </div>
+        <div class="right">
+          <a class="btn primary" href="/contact">Contact &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">FAQ</h2>
+      <p class="sectionDesc">Quick answers for buyers who want clarity before sending an RFQ.</p>
+
+      <div class="faq">
+        {faq.map((x) => (
+          <div class="faqItem">
+            <p class="faqQ">{x.q}</p>
+            <p class="faqA">{x.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+

@@ -1,0 +1,224 @@
+---
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const {
+  title = "CertiSpares",
+  description = "One-stop automotive parts sourcing from China.",
+
+  // ✅ 新增：SEO/分享需要的字段
+  keywords = [],
+  canonical, // 例如：/blog/xxx
+  ogImage,   // 例如：/images/og-default.png
+  jsonLd,    // JSON-LD 对象
+} = Astro.props;
+
+// ✅ 改成你的真实域名（带 https）
+const SITE_URL = "https://certispares.com";
+
+const keywordsContent =
+  Array.isArray(keywords) ? keywords.filter(Boolean).join(", ") : String(keywords || "");
+
+const canonicalUrl = canonical ? new URL(canonical, SITE_URL).toString() : undefined;
+const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    {keywordsContent && <meta name="keywords" content={keywordsContent} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={ogImageUrl ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <!-- JSON-LD -->
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd)}
+      />
+    )}
+
+    <!-- Google tag (gtag.js) / GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-17FD7ZZRH6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-17FD7ZZRH6');
+    </script>
+
+    <!-- 🌍 GLOBAL STYLES -->
+    <style is:global>
+      :root{
+        --bg:#0B1020;
+        --panel:#111A33;
+        --text:#EAF0FF;
+        --muted:#A8B3CF;
+        --line:rgba(255,255,255,.08);
+        --brand:#2F5BFF;
+        --brand2:#6FA0FF;
+      }
+
+      *{
+        box-sizing:border-box;
+      }
+
+      html,body{
+        margin:0;
+        padding:0;
+        background:var(--bg);
+        color:var(--text);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+
+      a{
+        color:inherit;
+        text-decoration:none;
+      }
+
+      /* 🔹 GLOBAL CONTAINER (唯一版本) */
+      .container{
+        max-width:1100px;
+        margin:0 auto;
+        padding:0 24px;
+      }
+
+      /* 🔹 Shared Buttons */
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:12px 18px;
+        border-radius:12px;
+        border:1px solid var(--line);
+        background:rgba(17,26,51,.55);
+        color:var(--text);
+        font-weight:900;
+        cursor:pointer;
+        transition:all .15s ease;
+      }
+
+      .btn.primary{
+        background:linear-gradient(135deg,var(--brand),var(--brand2));
+        color:#06102a;
+        border:none;
+      }
+
+      .btn:hover{
+        transform:translateY(-1px);
+      }
+
+      /* 🔹 Shared Cards */
+      .card{
+        background:rgba(17,26,51,.55);
+        border:1px solid var(--line);
+        border-radius:18px;
+        padding:18px;
+      }
+
+      .card b{
+        display:block;
+        margin-bottom:6px;
+        font-size:16px;
+      }
+
+      .card p{
+        margin:0;
+        color:var(--muted);
+        line-height:1.65;
+      }
+
+      /* 🔹 Page Hero */
+      .pageHero{
+        padding:44px 0 20px;
+        border-bottom:1px solid var(--line);
+        background:radial-gradient(
+          900px 420px at 25% 20%,
+          rgba(47,91,255,.25),
+          transparent 60%
+        );
+      }
+
+      .kicker{
+        margin:0 0 10px;
+        color:rgba(234,240,255,.78);
+        font-size:12px;
+        font-weight:900;
+        letter-spacing:.12em;
+        text-transform:uppercase;
+      }
+
+      .title{
+        margin:0 0 10px;
+        font-size:40px;
+        line-height:1.12;
+        letter-spacing:-.4px;
+      }
+
+      .sub{
+        margin:0;
+        max-width:980px;
+        color:var(--muted);
+        line-height:1.75;
+      }
+
+      h1{
+        margin:0 0 10px;
+        font-size:40px;
+        letter-spacing:-.4px;
+      }
+
+      .lead{
+        margin:0 0 18px;
+        color:var(--muted);
+        line-height:1.75;
+        max-width:980px;
+      }
+
+      main{
+        display:block;
+      }
+
+      .section{
+        padding:40px 0;
+      }
+
+      footer{
+        margin-top:40px;
+      }
+
+      @media (max-width:980px){
+        h1{ font-size:34px; }
+        .container{ padding:0 18px; }
+      }
+    </style>
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
