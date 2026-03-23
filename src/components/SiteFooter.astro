@@ -1,21 +1,105 @@
 ---
 const year = new Date().getFullYear();
+const footerLinks = [
+  {
+    href: "/",
+    label: "Home",
+    desc: "China truck parts sourcing overview",
+  },
+  {
+    href: "/sourcing",
+    label: "Sourcing Categories",
+    desc: "Truck spare parts and category coverage",
+  },
+  {
+    href: "/capabilities",
+    label: "Capabilities",
+    desc: "Supplier comparison, QC, and export support",
+  },
+  {
+    href: "/how-it-works",
+    label: "How It Works",
+    desc: "Truck parts sourcing workflow from RFQ to shipment",
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+    desc: "Request a truck parts quote",
+  },
+];
 ---
 
 <style>
-  .footerWrap{ border-top:1px solid var(--line); margin-top:10px; }
+  .footerWrap{ border-top:1px solid var(--site-line); margin-top:10px; }
   .footer{
     padding:26px 0;
-    color:var(--muted);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    color:var(--site-muted);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:18px;
+  }
+  .footerMeta{
+    display:grid;
+    gap:8px;
+    max-width:520px;
+  }
+  .footerTitle{
+    color:rgba(234,240,255,.94);
+    font-weight:800;
+  }
+  .footerNav{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(220px, 1fr));
+    gap:10px 12px;
+    max-width:560px;
+  }
+  .footerNav a{
+    display:block;
+    padding:10px 12px;
+    border-radius:12px;
+    border:1px solid var(--site-line);
+    background:rgba(255,255,255,.03);
+  }
+  .footerNav a:hover{
+    color:var(--site-text);
+    background:rgba(255,255,255,.06);
+  }
+  .footerNav strong{
+    display:block;
+    color:rgba(234,240,255,.94);
+    font-size:14px;
+    margin-bottom:4px;
+  }
+  .footerNav span{
+    display:block;
+    font-size:12px;
+    line-height:1.5;
+  }
+  @media (max-width: 980px){
+    .footerNav{
+      grid-template-columns:1fr;
+      max-width:none;
+    }
   }
 </style>
 
 <div class="footerWrap">
   <div class="container">
     <footer class="footer">
-      <div>&copy; {year} CertiSpares. All rights reserved.</div>
-      <div>Sourcing confidence for automotive buyers.</div>
+      <div class="footerMeta">
+        <div class="footerTitle">CertiSpares</div>
+        <div>China truck parts sourcing and commercial vehicle spare parts support for importers, distributors, and fleet-related buyers.</div>
+        <div>&copy; {year} CertiSpares. All rights reserved.</div>
+      </div>
+      <nav class="footerNav" aria-label="Footer navigation">
+        {footerLinks.map((item) => (
+          <a href={item.href}>
+            <strong>{item.label}</strong>
+            <span>{item.desc}</span>
+          </a>
+        ))}
+      </nav>
     </footer>
   </div>
 </div>

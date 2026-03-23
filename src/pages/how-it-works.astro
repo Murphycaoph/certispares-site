@@ -36,9 +36,9 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How our truck parts sourcing workflow works",
+    name: "How to source truck parts from China",
     description:
-      "RFQ intake, supplier comparison, QC checkpoints, and export execution for commercial vehicle aftermarket buyers sourcing from China.",
+      "RFQ intake, supplier comparison, QC checkpoints, and export execution for heavy duty and commercial vehicle buyers sourcing truck parts from China.",
     step: steps.map((step) => ({
       "@type": "HowToStep",
       name: step.t,
@@ -67,14 +67,66 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="How China Truck Parts Sourcing Works | CertiSpares"
-  description="See how CertiSpares runs RFQ intake, supplier comparison, QC checkpoints, packing verification, and export execution for commercial vehicle aftermarket buyers sourcing from China."
-  keywords={["how truck parts sourcing works", "China truck parts workflow", "commercial vehicle parts RFQ", "truck parts export process"]}
+  title="How to Source Truck Parts from China | CertiSpares Workflow"
+  description="See how to source truck parts from China with CertiSpares: RFQ intake, supplier comparison, QC checkpoints, packing verification, and export execution for heavy duty aftermarket buyers."
+  keywords={["how to source truck parts from China", "truck parts sourcing workflow", "import truck parts from China", "OEM part number RFQ", "truck parts export process"]}
   canonical="/how-it-works/"
   ogImage="/images/shipping-documents-export-paperwork.jpg"
   jsonLd={jsonLd}
 >
   <style>
+    :root{
+      --bg:#eef3f7;
+      --text:#1d2a36;
+      --muted:#5f6d86;
+      --line:rgba(29,42,54,.10);
+      --brand:#3957E9;
+      --brand2:#3957E9;
+    }
+
+    :global(main){
+      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+    }
+
+    :global(.topbar){
+      background:#111F43 !important;
+      background-color:#111F43 !important;
+      opacity:1 !important;
+      backdrop-filter:none !important;
+      -webkit-backdrop-filter:none !important;
+      border-bottom:1px solid #111F43 !important;
+      box-shadow:none !important;
+    }
+
+    :global(.menu){
+      color:#fff;
+    }
+
+    :global(.menu a){
+      color:#fff;
+    }
+
+    :global(.menu a:hover){
+      color:#fff;
+    }
+
+    :global(.menu a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.drawerNav a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.cta){
+      background:#3957E9;
+      color:#fff;
+    }
+
     /* ===== HERO (Insights-style) ===== */
     .hero{
       position:relative;
@@ -103,15 +155,15 @@ const jsonLd = [
       z-index:-1;
       background:
         linear-gradient(180deg, rgba(11,16,32,.28) 0%, rgba(11,16,32,.86) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(47,91,255,.22), transparent 60%);
+        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%);
     }
 
-    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;opacity:.82;margin:0 0 .75rem}
-    .title{margin:0 0 .8rem;font-size:40px;letter-spacing:-.4px;line-height:1.12}
+    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;opacity:.82;margin:0 0 .75rem;color:rgba(255,255,255,.82)}
+    .title{margin:0 0 .8rem;font-size:40px;letter-spacing:-.4px;line-height:1.12;color:#fff}
     .sub{margin:0;max-width:78ch;color:rgba(225,233,255,.86);line-height:1.75}
 
     /* ===== BODY (keep your existing layout) ===== */
-    .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; }
+    .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; color:#1d2a36; }
     .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.7; max-width:980px; }
 
     .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
@@ -121,43 +173,98 @@ const jsonLd = [
       display:flex; gap:12px; align-items:flex-start;
       padding:16px;
       border-radius:18px;
-      background:rgba(17,26,51,.45);
-      border:1px solid var(--line);
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
     }
     .num{
       width:34px; height:34px; border-radius:12px;
       display:flex; align-items:center; justify-content:center;
       font-weight:950;
-      background:rgba(47,91,255,.18);
-      border:1px solid rgba(47,91,255,.35);
-      color:var(--brand2);
+      background:rgba(74,84,98,.08);
+      border:1px solid rgba(74,84,98,.18);
+      color:#4A5462;
       flex:0 0 34px;
       margin-top:2px;
     }
-    .st{ font-weight:950; margin-bottom:6px; }
+    .st{ font-weight:950; margin-bottom:6px; color:#1d2a36; }
     .sp{ margin:0; color:var(--muted); line-height:1.7; }
 
     .ctaBlock{
       margin-top:12px;
-      background:linear-gradient(135deg, rgba(47,91,255,.22), rgba(111,160,255,.10));
-      border:1px solid rgba(47,91,255,.28);
+      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
+      border:1px solid rgba(57,87,233,.16);
       border-radius:20px;
       padding:18px;
       display:flex; justify-content:space-between; align-items:center; gap:14px;
+      box-shadow:0 16px 40px rgba(24,39,56,.05);
     }
-    .ctaBlock .left b{ display:block; margin-bottom:6px; }
-    .ctaBlock .left p{ margin:0; color:rgba(234,240,255,.85); line-height:1.7; max-width:760px; }
+    .ctaBlock .left b{ display:block; margin-bottom:6px; color:#1d2a36; }
+    .ctaBlock .left p{ margin:0; color:var(--muted); line-height:1.7; max-width:760px; }
+
+    .ctaBlock .btn.primary{
+      color:#fff;
+      background:#3957E9;
+    }
+
+    .ctaBlock .btn:not(.primary){
+      color:#fff;
+      background:#3957E9;
+      border-color:#3957E9;
+    }
 
     .mini{
       margin-top:12px;
       padding:14px;
       border-radius:16px;
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--line);
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
       color:var(--muted);
       line-height:1.7;
     }
-    .mini b{ color:rgba(234,240,255,.92); }
+    .mini b{ color:#1d2a36; }
+
+    .card{
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+    .card b{
+      color:#1d2a36;
+    }
+
+    .card p{
+      color:var(--muted);
+    }
+
+    .grid3 .card a,
+    .grid2 .card a,
+    .mini a,
+    .section a:not(.btn):not(.postMore):not(.viewAll){
+      color:#1d2a36;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid rgba(29,42,54,.10);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--muted);
+    }
+
+    :global(.footerNav a){
+      background:#fff;
+      border-color:rgba(29,42,54,.10);
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 980px){
@@ -181,10 +288,11 @@ const jsonLd = [
 
     <div class="container">
       <p class="kicker">CertiSpares / Process</p>
-      <h1 class="title">How our truck parts sourcing workflow works</h1>
+      <h1 class="title">How to source truck parts from China</h1>
       <p class="sub">
-        A clear, repeatable workflow: RFQ -> sourcing & comparison -> QC checkpoints -> export execution.
-        Built for commercial vehicle aftermarket buyers who need predictable lead time and fewer disputes.
+        A clear, repeatable workflow for heavy duty truck parts and commercial vehicle spare parts:
+        RFQ -> sourcing and comparison -> QC checkpoints -> export execution.
+        Built for buyers who need predictable lead time and fewer disputes.
       </p>
     </div>
   </header>
@@ -241,7 +349,7 @@ const jsonLd = [
       </div>
 
       <div class="mini">
-        <b>Tip:</b> If you only have photos, attach them in the email after the Contact form generates your draft.
+        <b>Tip:</b> If you only have photos, an old supplier sheet, or OEM and part numbers, send them anyway.
         For repeat orders, we can standardize your RFQ template and packaging marks.
       </div>
     </div>

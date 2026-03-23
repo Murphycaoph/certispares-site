@@ -1,231 +1,104 @@
-﻿---
+---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BlogArchive from "../../../components/BlogArchive.astro";
 import { getCollection } from "astro:content";
+import {
+  findTagSummary,
+  getTagSummaries,
+  mapBlogPosts,
+} from "../../../lib/blogArchive";
 
-/**
- * 鉁?闈欐€佹瀯寤哄繀闇€锛氫负鍔ㄦ€佽矾鐢?/blog/tag/[tag] 鎻愪緵鎵€鏈夊彲鐢熸垚璺緞
- * 鈿狅笍 杩欓噷涓嶈渚濊禆澶栭儴 const 闂寘锛宐uild 浜х墿閲屽鏄撳嚭鐜?鈥渢oSlug is not defined鈥?
- */
 export async function getStaticPaths() {
-  const rawPosts = await getCollection("blog");
+  const posts = mapBlogPosts(await getCollection("blog"));
+  const tagSummaries = getTagSummaries(posts);
 
-  // 鍦ㄥ嚱鏁板唴閮ㄥ畾涔夛紝淇濊瘉 dist 閲屼竴瀹氬彲鐢?
-  const toSlug = (s) =>
-    (s ?? "")
-      .toString()
-      .trim()
-      .toLowerCase()
-      .replace(/&/g, "and")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-
-  const slugs = Array.from(
-    new Set(rawPosts.map((p) => toSlug(p.data.tag ?? "Insights")))
-  ).filter(Boolean);
-
-  return slugs.map((slug) => ({
-    params: { tag: slug },
+  return tagSummaries.map((tag) => ({
+    params: { tag: tag.slug },
   }));
 }
 
-// 1) 璇诲彇鍏ㄩ儴鏂囩珷
-const rawPosts = await getCollection("blog");
-rawPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
-
-// 2) 缁熶竴鎶?tag 鍙樻垚 URL slug锛欳hina Supply Chain -> china-supply-chain
-const toSlug = (s) =>
-  (s ?? "")
-    .toString()
-    .trim()
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-// 3) 褰撳墠 URL 鍙傛暟锛?blog/tag/[tag]
-const currentTagSlug = (Astro.params.tag ?? "").toString().trim().toLowerCase();
-
-// 4) 鏄犲皠鎴?UI 闇€瑕佺殑瀛楁缁撴瀯
-const posts = rawPosts.map((p) => ({
-  title: p.data.title,
-  date: p.data.date,
-  tag: p.data.tag ?? "Insights",
-  tagSlug: toSlug(p.data.tag ?? "Insights"),
-  excerpt: p.data.excerpt ?? "",
-  href: `/blog/${p.slug}`,
-  readTime: p.data.readTime ?? "5 min read",
-  featured: p.data.featured ?? false,
-}));
-
-// 5) 褰撳墠 tag 鐨勬枃绔?
-const filtered = posts.filter((p) => p.tagSlug === currentTagSlug);
-
-// 6) 鐢熸垚鎵€鏈?tag锛堢敤浜庝笅鎷夎彍鍗曪級
-const allTags = Array.from(
-  new Map(posts.map((p) => [p.tagSlug, p.tag])).entries()
-)
-  .map(([slug, label]) => ({ slug, label }))
-  .sort((a, b) => a.label.localeCompare(b.label, "en", { sensitivity: "base" }));
-
-// 7) 褰撳墠 tag 鍚嶇О锛堢敤浜庢樉绀猴級
-const currentTagLabel =
-  allTags.find((t) => t.slug === currentTagSlug)?.label ?? currentTagSlug;
-
-// 8) 瀹夊叏锛氬鏋?tag 涓嶅瓨鍦紝閬垮厤绌洪〉澶獊鍏€
-const hasTag = allTags.some((t) => t.slug === currentTagSlug);
-
-// 9) 鏂囩珷閾炬帴鐩存帴鐢ㄧ湡瀹炶鎯呴〉
-const safeHref = (h) => h;
+const posts = mapBlogPosts(await getCollection("blog"));
+const tagSummaries = getTagSummaries(posts);
+const requestedTag = Astro.params.tag ?? "";
+const activeTag = findTagSummary(tagSummaries, requestedTag);
+const currentPageRaw = Number.parseInt(Astro.url.searchParams.get("page") ?? "1", 10);
+const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? currentPageRaw : 1;
 ---
 
 <BaseLayout
-  title={`Insights | ${currentTagLabel} | CertiSpares`}
-  description={`Insights under ${currentTagLabel}: sourcing, QC, trade terms, documentation, shipping.`}
+  title={`Insights | ${activeTag?.label ?? "Topic"} | CertiSpares`}
+  description={
+    activeTag
+      ? `Insights under ${activeTag.label}: sourcing, QC, trade terms, documentation, and shipping guidance for B2B buyers.`
+      : "Browse sourcing insights, trade guidance, and quality control articles for commercial vehicle aftermarket buyers."
+  }
+  canonical={activeTag ? `/blog/?tag=${activeTag.slug}` : "/blog/"}
 >
   <style>
-    .wrap{padding:26px 0 10px}
-    .toolbar{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      justify-content:space-between;
-      padding:12px 0 8px;
-    }
-    .filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .selectLabel{
-      font-size:.82rem;
-      color:rgba(225,233,255,.72);
-      margin-right:6px;
+    :global(main){
+      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
     }
 
-    .tagSelect{
-      appearance:none;
-      -webkit-appearance:none;
-      -moz-appearance:none;
-      padding:.46rem 2.0rem .46rem .8rem;
-      border-radius:999px;
-      border:1px solid rgba(47,91,255,.42);
-      background:rgba(47,91,255,.14);
-      color:rgba(225,233,255,.92);
-      font-weight:800;
-      font-size:.86rem;
-      line-height:1;
-      cursor:pointer;
-
-      background-image:
-        linear-gradient(45deg, transparent 50%, rgba(225,233,255,.75) 50%),
-        linear-gradient(135deg, rgba(225,233,255,.75) 50%, transparent 50%),
-        linear-gradient(to right, transparent, transparent);
-      background-position:
-        calc(100% - 18px) 55%,
-        calc(100% - 12px) 55%,
-        0 0;
-      background-size:6px 6px, 6px 6px, 100% 100%;
-      background-repeat:no-repeat;
-    }
-    .tagSelect:focus{outline:none;box-shadow:0 0 0 3px rgba(47,91,255,.22);}
-
-    .tagSelect option{
-      background:#0b1a3a;
-      color:rgba(225,233,255,.95);
+    :global(.topbar){
+      background:#111F43 !important;
+      background-color:#111F43 !important;
+      opacity:1 !important;
+      backdrop-filter:none !important;
+      -webkit-backdrop-filter:none !important;
+      border-bottom:1px solid #111F43 !important;
+      box-shadow:none !important;
     }
 
-    .status{
-      font-size:.9rem;
-      color:rgba(225,233,255,.78);
-      text-align:right;
-      padding-top:2px;
-      white-space:nowrap;
+    :global(.menu),
+    :global(.menu a),
+    :global(.menu a:hover){
+      color:#fff;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap:12px;
-      padding:10px 0 14px;
+    :global(.menu a.active),
+    :global(.drawerNav a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
     }
-    .card{
-      display:block;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(17,26,51,.55);
-      transition:transform .12s ease, background .12s ease, border-color .12s ease;
-      text-decoration:none;
-    }
-    .card:hover{transform:translateY(-2px);background:rgba(17,26,51,.68);border-color:rgba(255,255,255,.14)}
-    .meta{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;font-size:.82rem;opacity:.92}
-    .tag{padding:.18rem .55rem;border-radius:999px;border:1px solid rgba(255,255,255,.16);font-size:.78rem}
-    .dot{opacity:.6}
-    .card h2{
-      margin:.55rem 0 .45rem;
-      font-size:1.08rem;
-      line-height:1.35;
-      display:-webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow:hidden;
-    }
-    .excerpt{
-      margin:0;
-      color:rgba(225,233,255,.72);
-      line-height:1.6;
-      display:-webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow:hidden;
-    }
-    .cta{display:flex;gap:.35rem;align-items:center;margin-top:.65rem;font-weight:900;font-size:.92rem;opacity:.78}
 
-    @media (max-width: 980px){
-      .toolbar{flex-direction:column;align-items:flex-start}
-      .status{text-align:left}
+    :global(.cta){
+      background:#3957E9;
+      color:#fff;
+    }
+
+    .wrap{
+      padding:34px 0 14px;
+    }
+
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid rgba(29,42,54,.10);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:#5f6d86;
+    }
+
+    :global(.footerNav a){
+      background:#fff;
+      border-color:rgba(29,42,54,.10);
     }
   </style>
 
-  <main class="container wrap">
-    <div class="toolbar">
-      <div class="filters" aria-label="Filter by tag">
-        <label class="selectLabel" for="tagSelect">Tag</label>
-
-        <select
-          class="tagSelect"
-          id="tagSelect"
-          onchange="if(this.value){window.location.href=this.value}"
-        >
-          <option value="/blog">All</option>
-
-          {allTags.map((t) => (
-            <option value={`/blog/tag/${t.slug}`} selected={t.slug === currentTagSlug}>
-              {t.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div class="status">
-        {hasTag
-          ? <>Showing <strong>{filtered.length}</strong> - Tag: <strong>{currentTagLabel}</strong></>
-          : <>Unknown tag: <strong>{currentTagSlug}</strong> - <a href="/blog">Back to All</a></>
-        }
-      </div>
-    </div>
-
-    <section class="grid">
-      {(hasTag ? filtered : []).map((p) => (
-        <a class="card" href={safeHref(p.href)}>
-          <div class="meta">
-            <span class="tag">{p.tag}</span>
-            <span class="dot">&middot;</span>
-            <span>{p.date}</span>
-            <span class="dot">&middot;</span>
-            <span>{p.readTime}</span>
-          </div>
-          <h2>{p.title}</h2>
-          <p class="excerpt">{p.excerpt}</p>
-          <div class="cta"><span>Read</span><span>&rarr;</span></div>
-        </a>
-      ))}
-    </section>
-  </main>
+  <section class="container wrap">
+    <BlogArchive
+      posts={posts}
+      tagSummaries={tagSummaries}
+      requestedTag={requestedTag}
+      requestedPage={currentPage}
+      basePath="/blog/"
+    />
+  </section>
 </BaseLayout>

@@ -1,72 +1,24 @@
-﻿---
+---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogArchive from "../components/BlogArchive.astro";
 import { getCollection } from "astro:content";
+import { getTagSummaries, mapBlogPosts } from "../lib/blogArchive";
 
-const toSlug = (s) =>
-  (s ?? "")
-    .toString()
-    .trim()
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-// 璇诲彇 blog 闆嗗悎鎵€鏈?md 鏂囩珷
 const rawPosts = await getCollection("blog");
+const posts = mapBlogPosts(rawPosts);
+const tagSummaries = getTagSummaries(posts);
 
-// 鎸夋棩鏈熷€掑簭锛堟渶鏂版枃绔犱紭鍏堬級
-rawPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+const featuredPosts = posts.filter((post) => post.featured).slice(0, 3);
+const clusters = tagSummaries
+  .map((tag) => ({
+    tag: tag.label,
+    items: posts.filter((post) => post.tagSlug === tag.slug).slice(0, 3),
+  }))
+  .filter((cluster) => cluster.items.length > 0);
 
-// 鏄犲皠涓轰綘鐜版湁 UI 浣跨敤鐨勫瓧娈电粨鏋勶紙鏂板锛歠eatured 鍙€夊瓧娈碉級
-const posts = rawPosts.map((p) => ({
-  title: p.data.title,
-  date: p.data.date,
-  tag: p.data.tag ?? "Insights",
-  excerpt: p.data.excerpt ?? "",
-  href: `/blog/${p.slug}`,
-  readTime: p.data.readTime ?? "5 min read",
-  featured: p.data.featured ?? false, // 鉁?鏂板锛氭枃绔?frontmatter 鍙€?featured: true
-}));
-
-// 鍏堥伩鍏?404锛氭枃绔犻〉鏈仛涔嬪墠锛岀粺涓€鍏堣烦鍥?/blog
-// 绛変綘鍋氬ソ src/pages/blog/[slug].astro 鍚庯紝鎶婅繖閲屾敼鎴愶細const safeHref = (h) => h;
-const safeHref = (h) => h;
-
-// 鐢ㄤ簬 UI 鐨?tag 鍒楄〃锛堝悗缁篃浼氬湪鍓嶇璁＄畻锛屼絾杩欓噷鐣欑潃缁欐棤 JS 鐨?fallback锛?
-const allTags = Array.from(new Set(posts.map((p) => (p.tag ?? "Insights").trim()))).sort((a, b) =>
-  a.localeCompare(b, "en", { sensitivity: "base" })
-);
-
-// Featured锛氭渶澶?3 绡囷紱濡傛灉浣犳病鍔?featured 瀛楁锛屼篃涓嶄細鏄剧ず
-const featuredPosts = posts.filter((p) => !!p.featured).slice(0, 3);
-
-// Topic clusters锛氭瘡涓?tag 鍙栨渶鏂?3 绡?
-const clusters = allTags.map((tag) => ({
-  tag,
-  items: posts.filter((p) => (p.tag ?? "Insights").trim() === tag).slice(0, 3),
-})).filter((c) => c.items.length > 0);
-
-// 榛樿姣忛〉 12
-const PAGE_SIZE = 12;
-
-// ===== SSR fallback: read tag/page from URL so refresh also filters =====
-const currentTag = ((Astro.url.searchParams.get("tag") ?? "") + "").trim();
-const currentPageRaw = parseInt(Astro.url.searchParams.get("page") ?? "1", 10);
+const currentTag = Astro.url.searchParams.get("tag") ?? "";
+const currentPageRaw = Number.parseInt(Astro.url.searchParams.get("page") ?? "1", 10);
 const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? currentPageRaw : 1;
-
-// tag 鍖归厤鍋氭垚鈥滃拷鐣ュぇ灏忓啓 + trim鈥濓紝閬垮厤鍥犱负澶у皬鍐?绌烘牸瀵艰嚧绛涢€夊け璐?
-const norm = (s) => (s ?? "").toString().trim().toLowerCase();
-
-const ssrFiltered = currentTag
-  ? posts.filter((p) => norm(p.tag) === norm(currentTag))
-  : posts;
-
-const ssrTotal = ssrFiltered.length;
-const ssrTotalPages = Math.max(1, Math.ceil(ssrTotal / PAGE_SIZE));
-const ssrPage = Math.min(Math.max(1, currentPage), ssrTotalPages);
-
-const ssrStart = (ssrPage - 1) * PAGE_SIZE;
-const ssrSlice = ssrFiltered.slice(ssrStart, ssrStart + PAGE_SIZE);
 
 const jsonLd = [
   {
@@ -107,7 +59,46 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <style>
-    /* ===== HERO (single collage image + soft blur) ===== */
+    :root{
+      --bg:#eef3f7;
+      --text:#1d2a36;
+      --muted:#5f6d86;
+      --line:rgba(29,42,54,.10);
+      --brand:#3957E9;
+    }
+
+    :global(main){
+      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+    }
+
+    :global(.topbar){
+      background:#111F43 !important;
+      background-color:#111F43 !important;
+      opacity:1 !important;
+      backdrop-filter:none !important;
+      -webkit-backdrop-filter:none !important;
+      border-bottom:1px solid #111F43 !important;
+      box-shadow:none !important;
+    }
+
+    :global(.menu),
+    :global(.menu a),
+    :global(.menu a:hover){
+      color:#fff;
+    }
+
+    :global(.menu a.active),
+    :global(.drawerNav a.active){
+      color:#fff;
+      background:rgba(57,87,233,.18);
+      border-color:rgba(57,87,233,.32);
+    }
+
+    :global(.cta){
+      background:#3957E9;
+      color:#fff;
+    }
+
     .hero{
       position:relative;
       padding:46px 0 20px;
@@ -121,10 +112,9 @@ const jsonLd = [
       position:absolute;
       inset:0;
       z-index:-2;
-      background:
-        url("/images/insights-hero-collage.png") center/cover no-repeat;
-      filter: blur(2.0px) saturate(.95) contrast(.95) brightness(.92);
-      transform: scale(1.03);
+      background:url("/images/insights-hero-collage.png") center/cover no-repeat;
+      filter:blur(2px) saturate(.95) contrast(.95) brightness(.92);
+      transform:scale(1.03);
     }
 
     .overlay{
@@ -133,22 +123,43 @@ const jsonLd = [
       z-index:-1;
       background:
         linear-gradient(180deg, rgba(11,16,32,.28) 0%, rgba(11,16,32,.86) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(47,91,255,.22), transparent 60%);
+        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%);
     }
 
-    .kicker{letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;opacity:.82;margin:0 0 .75rem}
-    .title{margin:0 0 .8rem;font-size:40px;letter-spacing:-.4px;line-height:1.12}
-    .sub{margin:0;max-width:72ch;color:rgba(225,233,255,.86);line-height:1.75}
+    .kicker{
+      margin:0 0 .75rem;
+      color:#fff;
+      font-size:.8rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.82;
+    }
 
-    /* ===== BODY ===== */
-    .wrap{padding:22px 0 10px}
+    .title{
+      margin:0 0 .8rem;
+      color:#fff;
+      font-size:40px;
+      line-height:1.12;
+      letter-spacing:-.4px;
+    }
 
-    /* ===== Featured ===== */
+    .sub{
+      margin:0;
+      max-width:72ch;
+      color:rgba(225,233,255,.86);
+      line-height:1.75;
+    }
+
+    .wrap{
+      padding:22px 0 10px;
+    }
+
     .featured{
       padding:14px 0 10px;
-      border-bottom:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(29,42,54,.10);
       margin-bottom:6px;
     }
+
     .sectionTitle{
       display:flex;
       align-items:baseline;
@@ -156,67 +167,72 @@ const jsonLd = [
       gap:10px;
       margin:0 0 10px;
     }
+
     .sectionTitle h2{
       margin:0;
       font-size:1.05rem;
       letter-spacing:.02em;
+      color:#1d2a36;
     }
+
     .sectionTitle p{
       margin:0;
-      color:rgba(225,233,255,.68);
+      color:var(--muted);
       font-size:.9rem;
       white-space:nowrap;
     }
 
-    .featuredGrid{
+    .featuredGrid,
+    .clusterGrid{
       display:grid;
-      grid-template-columns:repeat(12,1fr);
+      grid-template-columns:repeat(12, 1fr);
       gap:12px;
       padding:8px 0 14px;
     }
+
+    .featuredCard,
+    .clusterCard{
+      border:1px solid rgba(29,42,54,.10);
+      border-radius:18px;
+      background:#fff;
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
     .featuredCard{
       grid-column:span 4;
       display:block;
       padding:16px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:rgba(17,26,51,.58);
       text-decoration:none;
-      transition:transform .12s ease, background .12s ease, border-color .12s ease;
+      transition:transform .12s ease, border-color .12s ease;
     }
-    .featuredCard:hover{transform:translateY(-2px);background:rgba(17,26,51,.70);border-color:rgba(255,255,255,.14)}
+
+    .featuredCard:hover{
+      transform:translateY(-2px);
+      border-color:rgba(29,42,54,.16);
+    }
+
     .featuredCard h3{
       margin:.6rem 0 .45rem;
       font-size:1.08rem;
       line-height:1.35;
+      color:#1d2a36;
       display:-webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
       overflow:hidden;
     }
-    .featuredCard .excerpt{
-      -webkit-line-clamp: 3;
-    }
 
-    /* ===== Topic clusters ===== */
     .clusters{
       padding:14px 0 6px;
-      border-bottom:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(29,42,54,.10);
       margin-bottom:6px;
     }
-    .clusterGrid{
-      display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:12px;
-      padding:8px 0 14px;
-    }
+
     .clusterCard{
       grid-column:span 4;
       padding:14px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.02);
     }
+
     .clusterCardHeader{
       display:flex;
       align-items:center;
@@ -224,173 +240,29 @@ const jsonLd = [
       gap:8px;
       margin-bottom:10px;
     }
+
+    .tag,
     .clusterTag{
       display:inline-flex;
       padding:.18rem .55rem;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
+      border:1px solid rgba(74,84,98,.16);
+      background:rgba(74,84,98,.08);
+      color:#4A5462;
       font-size:.78rem;
-      color:rgba(225,233,255,.9);
-    }
-    .clusterMiniList{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .miniLink{
-      display:block;
-      text-decoration:none;
-      color:rgba(225,233,255,.9);
-      font-weight:900;
-      font-size:.92rem;
-      line-height:1.35;
-      opacity:.92;
-      display:-webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow:hidden;
-    }
-    .miniMeta{
-      margin-top:2px;
-      font-size:.78rem;
-      color:rgba(225,233,255,.62);
     }
 
-    /* ===== Toolbar (Tag 绛涢€?+ 鐘舵€? ===== */
-    .toolbar{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      justify-content:space-between;
-      padding:12px 0 8px;
-    }
-
-    .filters{
+    .meta{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
+      gap:.45rem;
       align-items:center;
-      max-width:100%;
-    }
-
-    .selectLabel{
+      color:var(--muted);
       font-size:.82rem;
-      color:rgba(225,233,255,.72);
-      margin-right:8px;
     }
 
-    .tagSelect{
-      appearance:none;
-      -webkit-appearance:none;
-      -moz-appearance:none;
-
-      padding:.46rem 2.0rem .46rem .8rem;
-      border-radius:999px;
-
-      border:1px solid rgba(47,91,255,.45);
-
-      /* 涓绘寜閽儗鏅?*/
-      background:linear-gradient(
-        180deg,
-        rgba(80,130,255,.28),
-        rgba(47,91,255,.18)
-      );
-
-      color:#e7eeff;
-
-      font-weight:800;
-      font-size:.86rem;
-      line-height:1;
-      cursor:pointer;
-
-      /* 鍙充晶灏忕澶达紙绾?CSS锛?*/
-      background-image:
-        linear-gradient(45deg, transparent 50%, rgba(225,233,255,.75) 50%),
-        linear-gradient(135deg, rgba(225,233,255,.75) 50%, transparent 50%),
-        linear-gradient(to right, transparent, transparent);
-      background-position:
-        calc(100% - 18px) 55%,
-        calc(100% - 12px) 55%,
-        0 0;
-      background-size:6px 6px, 6px 6px, 100% 100%;
-      background-repeat:no-repeat;
-    }
-
-    .tagSelect:focus{
-      outline:none;
-      box-shadow:0 0 0 3px rgba(47,91,255,.22);
-    }
-
-    .tagSelect option{
-      background:#1b2a4a;   /* 娣辫摑鑳屾櫙 */
-      color:rgba(225,233,255,.95);
-    }
-
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:.42rem .72rem;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.02);
-      cursor:pointer;
-      user-select:none;
-      font-size:.86rem;
-      line-height:1;
-      color:rgba(225,233,255,.9);
-      transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
-      text-decoration:none;
-      white-space:nowrap;
-    }
-    .chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.18)}
-    .chip[aria-pressed="true"]{
-      background:rgba(47,91,255,.14);
-      border-color:rgba(47,91,255,.42);
-    }
-    .chip small{
-      font-size:.78rem;
-      opacity:.78;
-    }
-
-    .status{
-      font-size:.9rem;
-      color:rgba(225,233,255,.78);
-      text-align:right;
-      padding-top:2px;
-      white-space:nowrap;
-    }
-
-    /* ===== Cards ===== */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap:12px;
-      padding:10px 0 14px;
-    }
-
-    .card{
-      display:block;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:rgba(17,26,51,.55);
-      transition:transform .12s ease, background .12s ease, border-color .12s ease;
-      text-decoration:none;
-    }
-    .card:hover{transform:translateY(-2px);background:rgba(17,26,51,.68);border-color:rgba(255,255,255,.14)}
-    .meta{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;font-size:.82rem;opacity:.92}
-    .tag{padding:.18rem .55rem;border-radius:999px;border:1px solid rgba(255,255,255,.16);font-size:.78rem}
-    .dot{opacity:.6}
-
-    .card h2{
-      margin:.55rem 0 .45rem;
-      font-size:1.08rem;
-      line-height:1.35;
-      display:-webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow:hidden;
+    .dot{
+      opacity:.6;
     }
 
     .excerpt{
@@ -398,119 +270,74 @@ const jsonLd = [
       color:var(--muted);
       line-height:1.6;
       display:-webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:3;
       overflow:hidden;
     }
 
-    .cta{
+    .clusterMiniList{
       display:flex;
-      gap:.35rem;
-      align-items:center;
-      margin-top:.65rem;
-      font-weight:900;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .miniLink{
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+      overflow:hidden;
+      color:#1d2a36;
       font-size:.92rem;
-      opacity:.78;
-    }
-
-
-
-    /* ===== Pagination ===== */
-    .pager{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:8px 0 18px;
-      border-top:1px solid rgba(255,255,255,.06);
-      margin-top:6px;
-    }
-    .pagerLeft{
-      color:rgba(225,233,255,.74);
-      font-size:.9rem;
-      white-space:nowrap;
-    }
-    .pagerNav{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:.45rem .75rem;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.02);
-      color:rgba(225,233,255,.9);
-      font-weight:800;
-      cursor:pointer;
-      text-decoration:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
-      user-select:none;
-      font-size:.9rem;
-      line-height:1;
-    }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.18)}
-    .btn[aria-disabled="true"]{
-      opacity:.45;
-      cursor:not-allowed;
-      transform:none;
-    }
-    .pages{
-      display:inline-flex;
-      gap:6px;
-      align-items:center;
-    }
-    .pageNum{
-      min-width:38px;
-      padding:.45rem .6rem;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.01);
-      text-align:center;
       font-weight:900;
-      color:rgba(225,233,255,.86);
-      cursor:pointer;
-      transition: background .12s ease, border-color .12s ease, transform .12s ease;
-    }
-    .pageNum:hover{transform:translateY(-1px);background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.16)}
-    .pageNum[aria-current="page"]{
-      background:rgba(47,91,255,.14);
-      border-color:rgba(47,91,255,.42);
+      line-height:1.35;
+      text-decoration:none;
+      opacity:.92;
     }
 
-    .note{
-      margin-top:8px;
-      padding:18px;
-      border-radius:18px;
-      border:1px dashed rgba(255,255,255,.18);
-      background:rgba(255,255,255,.02);
+    .miniMeta{
+      margin-top:2px;
+      color:var(--muted);
+      font-size:.78rem;
     }
-    .note h3{margin:0 0 .35rem;font-size:1.05rem}
-    .note p{margin:0;color:var(--muted);line-height:1.7;max-width:85ch}
 
+    .archiveSection{
+      padding-top:2px;
+    }
 
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid rgba(29,42,54,.10);
+    }
+
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
+    }
+
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--muted);
+    }
+
+    :global(.footerNav a){
+      background:#fff;
+      border-color:rgba(29,42,54,.10);
+    }
 
     @media (max-width: 980px){
-      .title{font-size:34px}
-      .toolbar{flex-direction:column;align-items:flex-start}
-      .status{text-align:left}
-      .card{grid-column:span 12}
-      .pager{flex-direction:column;align-items:flex-start}
-      .pagerNav{justify-content:flex-start}
-      .featuredCard{grid-column:span 12}
-      .clusterCard{grid-column:span 12}
+      .title{
+        font-size:34px;
+      }
+
+      .featuredCard,
+      .clusterCard{
+        grid-column:span 12;
+      }
     }
 
     @media (max-width: 720px){
       .heroBg{
-        filter: blur(2px) saturate(.95) contrast(.95) brightness(.92);
-        transform: scale(1.04);
+        transform:scale(1.04);
       }
     }
   </style>
@@ -529,9 +356,7 @@ const jsonLd = [
     </div>
   </header>
 
-  <main class="container wrap">
-
-    <!-- ===== Featured Guides (only when have featured posts) ===== -->
+  <section class="container wrap">
     {featuredPosts.length > 0 && (
       <section class="featured">
         <div class="sectionTitle">
@@ -540,28 +365,23 @@ const jsonLd = [
         </div>
 
         <div class="featuredGrid">
-          {featuredPosts.map((p) => (
-            <a class="featuredCard" href={safeHref(p.href)}>
+          {featuredPosts.map((post) => (
+            <a class="featuredCard" href={post.href}>
               <div class="meta">
-                <span class="tag">{p.tag}</span>
+                <span class="tag">{post.tag}</span>
                 <span class="dot">&middot;</span>
-                <span>{p.date}</span>
+                <span>{post.date}</span>
                 <span class="dot">&middot;</span>
-                <span>{p.readTime}</span>
+                <span>{post.readTime}</span>
               </div>
-              <h3>{p.title}</h3>
-              <p class="excerpt">{p.excerpt}</p>
-              <div class="cta">
-                <span>Read</span>
-                <span>&rarr;</span>
-              </div>
+              <h3>{post.title}</h3>
+              <p class="excerpt">{post.excerpt}</p>
             </a>
           ))}
         </div>
       </section>
     )}
 
-    <!-- ===== Topic clusters ===== -->
     <section class="clusters">
       <div class="sectionTitle">
         <h2>Topics</h2>
@@ -569,16 +389,17 @@ const jsonLd = [
       </div>
 
       <div class="clusterGrid">
-        {clusters.slice(0, 6).map((c) => (
+        {clusters.slice(0, 6).map((cluster) => (
           <div class="clusterCard">
             <div class="clusterCardHeader">
-              <span class="clusterTag">{c.tag}</span>
+              <span class="clusterTag">{cluster.tag}</span>
             </div>
+
             <div class="clusterMiniList">
-              {c.items.map((it) => (
+              {cluster.items.map((item) => (
                 <div>
-                  <a class="miniLink" href={safeHref(it.href)}>{it.title}</a>
-                  <div class="miniMeta">{it.date} &middot; {it.readTime}</div>
+                  <a class="miniLink" href={item.href}>{item.title}</a>
+                  <div class="miniMeta">{item.date} &middot; {item.readTime}</div>
                 </div>
               ))}
             </div>
@@ -587,346 +408,14 @@ const jsonLd = [
       </div>
     </section>
 
-<!-- ===== Toolbar (Tag dropdown + status) ===== -->
-<div class="toolbar">
-  <div class="filters" aria-label="Filter by tag">
-    <label class="selectLabel" for="tagSelect">Tag</label>
-
-    <!-- 鏃?JS fallback锛氱敤 <select> + onchange 璺宠浆 -->
-    <select
-      class="tagSelect"
-      id="tagSelect"
-      name="tag"
-      onchange="if(this.value){window.location.href=this.value}"
-    >
-      <option value={Astro.url.pathname} selected={!currentTag}>
-        All ({posts.length})
-      </option>
-
-      {allTags.map((t) => (
-        <option
-          value={`/blog/tag/${toSlug(t)}`}
-          selected={norm(currentTag) === norm(t)}
-        >
-          {t}
-        </option>
-      ))}
-    </select>
-  </div>
-
-  <div class="status" id="statusText">
-    Showing <strong>{Math.min(PAGE_SIZE, ssrTotal)}</strong> of <strong>{ssrTotal}</strong>
-    {currentTag ? ` - Tag: ${currentTag}` : ""}
-  </div>
-</div>
-
-<!-- ===== Cards grid ===== -->
-<section class="grid" id="postsGrid">
-  <!-- 鏃?JS fallback锛氭寜 URL 鐨?tag/page 鍋?SSR 绛涢€夊垎椤?-->
-  {ssrSlice.map((p) => (
-    <a class="card" href={safeHref(p.href)}>
-      <div class="meta">
-        <span class="tag">{p.tag}</span>
-        <span class="dot">&middot;</span>
-        <span>{p.date}</span>
-        <span class="dot">&middot;</span>
-        <span>{p.readTime}</span>
-      </div>
-      <h2>{p.title}</h2>
-      <p class="excerpt">{p.excerpt}</p>
-      <div class="cta">
-        <span>Read</span>
-        <span>&rarr;</span>
-      </div>
-    </a>
-  ))}
-</section>
-
-<!-- ===== Pagination ===== -->
-<div class="pager" id="pager" aria-label="Pagination">
-  <div class="pagerLeft" id="pagerLeft">Page {ssrPage}</div>
-  <div class="pagerNav">
-    <a class="btn" id="prevBtn" href="#" aria-disabled="true">&larr; Prev</a>
-    <div class="pages" id="pages"></div>
-    <a class="btn" id="nextBtn" href="#" aria-disabled="true">Next &rarr;</a>
-  </div>
-</div>
-
-<section class="note">
-  <h3>Next step</h3>
-  <p>
-    We'll add real articles and internal links from Capabilities / How-it-works.
-    For now, this page is live for navigation and SEO structure.
-  </p>
-</section>
-
-<!-- ===== Data for client-side filtering & pagination + related linking ===== -->
-<script
-  id="postsData"
-  type="application/json"
-  set:html={JSON.stringify(
-    posts.map((p) => ({
-      title: (p.title ?? "").toString(),
-      date: (p.date ?? "").toString(),
-      tag: (p.tag ?? "Insights").toString(),
-      excerpt: (p.excerpt ?? "").toString(),
-      href: safeHref(p.href),
-      readTime: (p.readTime ?? "5 min read").toString(),
-      featured: !!p.featured,
-    }))
-  )}
-></script>
-
-<script is:inline>
-  (() => {
-    const PAGE_SIZE = 12;
-
-    const dataEl = document.getElementById("postsData");
-    if (!dataEl) return;
-
-    /** @type {Array<{title:string,date:string,tag:string,excerpt:string,href:string,readTime:string,featured:boolean}>} */
-    const allPosts = JSON.parse(dataEl.textContent || "[]");
-
-    const grid = document.getElementById("postsGrid");
-    const tagSelect = document.getElementById("tagSelect");
-    const statusText = document.getElementById("statusText");
-
-    const pager = document.getElementById("pager");
-    const pagerLeft = document.getElementById("pagerLeft");
-    const pagesEl = document.getElementById("pages");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-
-    const getParams = () => new URLSearchParams(window.location.search);
-
-    // 杩欓噷淇濇寔浣犲師閫昏緫锛氫弗鏍兼寜瀛楃涓插尮閰嶏紙涓嶆敼锛?
-    // 浣嗘垜寤鸿浣犳敼鎴?.toLowerCase() 鐗堜互閬垮厤澶у皬鍐欓棶棰?
-    const normalizeTag = (t) => (t || "").toString().trim().toLowerCase();
-    const uniq = (arr) => Array.from(new Set(arr));
-
-    const buildUrl = (tag, page) => {
-      const url = new URL(window.location.href);
-      const sp = url.searchParams;
-      if (tag && tag !== "All") sp.set("tag", tag);
-      else sp.delete("tag");
-
-      if (page && page > 1) sp.set("page", String(page));
-      else sp.delete("page");
-
-      url.search = sp.toString();
-      return url.pathname + (url.search ? "?" + url.searchParams.toString() : "");
-    };
-
-    const getStateFromUrl = () => {
-      const sp = getParams();
-      const tag = normalizeTag(sp.get("tag") || "");
-      const pageRaw = parseInt(sp.get("page") || "1", 10);
-      const page = Number.isFinite(pageRaw) && pageRaw > 0 ? pageRaw : 1;
-      return { tag, page };
-    };
-
-    const setUrl = (tag, page, replace = false) => {
-      const next = buildUrl(tag, page);
-      if (replace) history.replaceState(null, "", next);
-      else history.pushState(null, "", next);
-    };
-
-    const computeTagsWithCount = (posts) => {
-      const counts = new Map();
-      posts.forEach((p) => {
-        const t = normalizeTag(p.tag) || "Insights";
-        counts.set(t, (counts.get(t) || 0) + 1);
-      });
-      const tags = uniq(posts.map((p) => normalizeTag(p.tag) || "Insights"))
-        .filter(Boolean)
-        .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
-      return { tags, counts };
-    };
-
-    const renderSelect = (activeTag) => {
-      if (!tagSelect) return;
-
-      const { tags, counts } = computeTagsWithCount(allPosts);
-      const total = allPosts.length;
-
-      // 娓呯┖
-      tagSelect.innerHTML = "";
-
-      const makeOpt = (label, value, selected) => {
-        const opt = document.createElement("option");
-        opt.value = value;
-        opt.textContent = label;
-        if (selected) opt.selected = true;
-        return opt;
-      };
-
-      // All
-      tagSelect.appendChild(
-        makeOpt(`All (${total})`, buildUrl("", 1), !normalizeTag(activeTag))
-      );
-
-      // Tags
-      tags.forEach((t) => {
-        const c = counts.get(t) || 0;
-        tagSelect.appendChild(
-          makeOpt(`${t} (${c})`, buildUrl(t, 1), normalizeTag(activeTag) === normalizeTag(t))
-        );
-      });
-
-      // 閫夋嫨鍙樺寲锛氳烦杞苟 render
-      tagSelect.onchange = () => {
-        const next = tagSelect.value;
-        if (!next) return;
-        history.pushState(null, "", next);
-        render();
-      };
-    };
-
-
-
-    const esc = (s) =>
-      String(s || "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-    const cardHTML = (p) => {
-      const title = esc(p.title);
-      const date = esc(p.date);
-      const tag = esc(p.tag || "Insights");
-      const excerpt = esc(p.excerpt);
-      const href = esc(p.href);
-      const readTime = esc(p.readTime);
-
-      return `
-        <a class="card" href="${href}">
-          <div class="meta">
-            <span class="tag">${tag}</span>
-            <span class="dot">&middot;</span>
-            <span>${date}</span>
-            <span class="dot">&middot;</span>
-            <span>${readTime}</span>
-          </div>
-          <h2>${title}</h2>
-          <p class="excerpt">${excerpt}</p>
-          <div class="cta"><span>Read</span><span>&rarr;</span></div>
-        </a>
-      `;
-    };
-
-    const paginate = (items, page, pageSize) => {
-      const total = items.length;
-      const totalPages = Math.max(1, Math.ceil(total / pageSize));
-      const clampedPage = Math.min(Math.max(1, page), totalPages);
-      const start = (clampedPage - 1) * pageSize;
-      const end = start + pageSize;
-      return {
-        page: clampedPage,
-        total,
-        totalPages,
-        slice: items.slice(start, end),
-        startIndex: start + 1,
-        endIndex: Math.min(end, total),
-      };
-    };
-
-    const renderPager = (tag, page, total, totalPages, startIndex, endIndex) => {
-      if (!pager || !pagerLeft || !pagesEl || !prevBtn || !nextBtn) return;
-
-      pagerLeft.textContent = total === 0 ? "No posts" : `Showing ${startIndex}-${endIndex} of ${total}`;
-
-      const prevDisabled = page <= 1 || total === 0;
-      const nextDisabled = page >= totalPages || total === 0;
-
-      prevBtn.setAttribute("aria-disabled", prevDisabled ? "true" : "false");
-      nextBtn.setAttribute("aria-disabled", nextDisabled ? "true" : "false");
-
-      prevBtn.href = prevDisabled ? "#" : buildUrl(tag, page - 1);
-      nextBtn.href = nextDisabled ? "#" : buildUrl(tag, page + 1);
-
-      prevBtn.onclick = (e) => {
-        if (prevDisabled) { e.preventDefault(); return; }
-        e.preventDefault();
-        setUrl(tag, page - 1);
-        render();
-      };
-
-      nextBtn.onclick = (e) => {
-        if (nextDisabled) { e.preventDefault(); return; }
-        e.preventDefault();
-        setUrl(tag, page + 1);
-        render();
-      };
-
-      const makePageBtn = (n, isCurrent) => {
-        const b = document.createElement("button");
-        b.className = "pageNum";
-        b.type = "button";
-        b.textContent = String(n);
-        if (isCurrent) b.setAttribute("aria-current", "page");
-        b.addEventListener("click", () => {
-          setUrl(tag, n);
-          render();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-        return b;
-      };
-
-      const makeEllipsis = () => {
-        const s = document.createElement("span");
-        s.style.opacity = ".6";
-        s.style.padding = "0 4px";
-        s.textContent = "...";
-        return s;
-      };
-
-      pagesEl.innerHTML = "";
-      if (totalPages <= 7) {
-        for (let i = 1; i <= totalPages; i++) pagesEl.appendChild(makePageBtn(i, i === page));
-      } else {
-        const windowSize = 2;
-        const left = Math.max(2, page - windowSize);
-        const right = Math.min(totalPages - 1, page + windowSize);
-
-        pagesEl.appendChild(makePageBtn(1, page === 1));
-        if (left > 2) pagesEl.appendChild(makeEllipsis());
-        for (let i = left; i <= right; i++) pagesEl.appendChild(makePageBtn(i, i === page));
-        if (right < totalPages - 1) pagesEl.appendChild(makeEllipsis());
-        pagesEl.appendChild(makePageBtn(totalPages, page === totalPages));
-      }
-    };
-
-    const renderStatus = (shown, total, tag, page, totalPages) => {
-      if (!statusText) return;
-      const tagLabel = tag ? ` - Tag: ${esc(tag)}` : "";
-      statusText.innerHTML = `
-        Showing <strong>${shown}</strong> of <strong>${total}</strong>${tagLabel}
-        ${totalPages > 1 ? ` - Page <strong>${page}</strong>/<strong>${totalPages}</strong>` : ""}
-      `;
-    };
-
-    const render = () => {
-      const { tag, page } = getStateFromUrl();
-      renderSelect(tag);
-
-      const filtered = tag ? allPosts.filter((p) => normalizeTag(p.tag) === tag) : allPosts;
-
-      const { page: p2, total, totalPages, slice, startIndex, endIndex } = paginate(filtered, page, PAGE_SIZE);
-
-      if (p2 !== page) setUrl(tag, p2, true);
-
-      if (grid) grid.innerHTML = slice.map(cardHTML).join("") || "";
-
-      renderPager(tag, p2, total, totalPages, startIndex, endIndex);
-      renderStatus(slice.length, total, tag, p2, totalPages);
-    };
-
-    render();
-    window.addEventListener("popstate", () => render());
-  })();
-</script>
-</main>
+    <section class="archiveSection">
+      <BlogArchive
+        posts={posts}
+        tagSummaries={tagSummaries}
+        requestedTag={currentTag}
+        requestedPage={currentPage}
+        basePath="/blog/"
+      />
+    </section>
+  </section>
 </BaseLayout>
-
