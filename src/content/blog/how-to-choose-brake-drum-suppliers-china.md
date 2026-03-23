@@ -13,6 +13,8 @@ China has become one of the world's largest producers of commercial vehicle brak
 
 However, because the supplier landscape includes both large specialized factories and smaller workshops, international buyers must carefully evaluate supplier capabilities before placing orders.
 
+Brake-drum supplier screening also benefits from understanding [air brake chamber quality risks](/blog/how-air-brake-chambers-work-in-heavy-trucks) and from using a broader framework to [reduce sourcing risk in China](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
+
 ---
 
 ## 1. Verify Manufacturing Capability

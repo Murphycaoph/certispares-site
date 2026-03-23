@@ -13,6 +13,8 @@ For fleet operators, maintenance workshops, and aftermarket distributors, unders
 
 While the lifespan of brake drums varies depending on operating conditions, several common factors determine when replacement becomes necessary.
 
+Brake drum lifespan is closely linked to the condition of nearby parts such as [wheel hub assemblies](/blog/wheel-hub-heavy-truck-structure-function), and fleets using air systems should also pay attention to [air brake chamber service quality](/blog/how-air-brake-chambers-work-in-heavy-trucks).
+
 ---
 
 ## 1. Typical Lifespan of Truck Brake Drums

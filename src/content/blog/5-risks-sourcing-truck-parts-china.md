@@ -1,5 +1,5 @@
 ---
-title: "5 Risks Global Buyers Face When Sourcing Truck Parts from China"
+title: "Top Sourcing Risks When Buying Truck Parts from China"
 date: "2026-03-15"
 tag: "Sourcing Knowledge"
 readTime: "7 min read"
@@ -12,6 +12,10 @@ Sourcing truck and commercial vehicle parts from China has become a common strat
 However, international buyers also face several operational and supply chain risks when working with overseas suppliers. Without proper evaluation and sourcing processes, these risks can lead to quality issues, delivery delays, or financial losses.
 
 Understanding the most common sourcing risks allows buyers to build more reliable procurement strategies when importing truck parts from China.
+
+If you need the broader risk-control framework first, start with [How to Reduce Sourcing Risk When Buying Auto Parts from China](/blog/how-to-reduce-sourcing-risk-auto-parts-china). This article focuses on the main risk categories buyers should recognize early.
+
+In practice, buyers reduce these problems faster when they understand [how EXW, FOB, and CIF change responsibility](/blog/exw-fob-cif-auto-parts-buyers) and choose the right [OEM or aftermarket sourcing logic](/blog/oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know) for each part category.
 
 ---
 

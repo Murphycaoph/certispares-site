@@ -16,6 +16,8 @@ Understanding how MOQ is structured—and more importantly, how it can be negoti
 
 In this article, we break down how MOQ works in China’s commercial vehicle parts supply chain and how buyers can approach it strategically.
 
+MOQ discussions also make more sense when buyers connect them to [EXW, FOB, and CIF shipping responsibility](/blog/exw-fob-cif-auto-parts-buyers) and to a broader plan for [reducing sourcing risk](/blog/how-to-reduce-sourcing-risk-auto-parts-china) instead of negotiating quantity in isolation.
+
 ---
 
 ## 1. What MOQ Really Means in Manufacturing Terms

@@ -3,7 +3,7 @@ title: "Why North China Is Strong in Heavy-Duty Truck Components"
 date: "2026-03-04"
 tag: "China Supply Chain"
 readTime: "7 min read"
-excerpt: "Explore why North China has become a major manufacturing hub for heavy-duty truck components and how regional industrial ecosystems support global aftermarket supply."
+excerpt: "Explore why North China has become a major manufacturing hub for heavy-duty truck components and use this page as the regional overview for related North China sourcing topics."
 ---
 
 When global buyers think about sourcing automotive parts from China, coastal regions such as Guangdong or Zhejiang often come to mind first.
@@ -13,6 +13,10 @@ However, for **heavy-duty commercial vehicle components**, Northern China has de
 Regions such as **Hebei, Shandong, and Tianjin** host dense networks of factories producing components for trucks, buses, and commercial vehicles.
 
 Understanding why this region has become so strong in heavy-duty components helps international buyers build more effective sourcing strategies.
+
+This page is the regional overview for North China. Supporting guides go deeper into [Hebei's manufacturing role](/blog/hebei-commercial-vehicle-parts-industry-guide) and the [Beijing-Tianjin-Hebei industrial belt](/blog/bth-industrial-belt-auto-parts-sourcing).
+
+That advantage is easy to see in parts such as [wheel hubs for heavy trucks](/blog/wheel-hub-heavy-truck-structure-function), and it becomes even more valuable when buyers can pair regional supply strength with the right [EXW, FOB, or CIF arrangement](/blog/exw-fob-cif-auto-parts-buyers).
 
 ---
 

@@ -12,6 +12,8 @@ For distributors and aftermarket buyers, understanding the key components of tru
 
 This article provides an overview of the most important parts used in heavy-duty truck suspension systems.
 
+Suspension planning is also influenced by [wheel hub performance at the axle end](/blog/wheel-hub-heavy-truck-structure-function) and by whether replacement demand is being served through an [OEM or aftermarket product strategy](/blog/oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know).
+
 ---
 
 ## 1. Leaf Springs

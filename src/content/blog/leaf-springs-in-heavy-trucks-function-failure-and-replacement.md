@@ -14,6 +14,8 @@ Despite their relatively simple structure, leaf springs operate under extreme st
 
 This article explores the function, common failure modes, and replacement considerations for leaf springs in heavy trucks.
 
+Leaf spring decisions are often tied to the condition of other load-bearing parts such as [wheel hubs](/blog/wheel-hub-heavy-truck-structure-function), and buyers usually make better replacement choices when they manage [sourcing risk](/blog/how-to-reduce-sourcing-risk-auto-parts-china) across the full suspension package.
+
 ---
 
 ## 1. What Are Leaf Springs and How Do They Work?

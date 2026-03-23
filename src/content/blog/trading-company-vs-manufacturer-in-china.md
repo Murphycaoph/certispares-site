@@ -1,5 +1,5 @@
 ---
-title: "Trading Company vs Manufacturer in China"
+title: "Trading Company vs Manufacturer in China Auto Parts Sourcing"
 date: "2026-03-05"
 tag: "Sourcing Knowledge"
 readTime: "7 min read"
@@ -15,6 +15,10 @@ When sourcing auto parts from China, one of the most common questions buyers fac
 At first glance, the answer may seem obvious—manufacturers offer better prices, while trading companies act as intermediaries. However, in China’s complex supply chain ecosystem, the reality is far more nuanced.
 
 Understanding the true differences between these two types of suppliers is essential for making informed sourcing decisions, especially in the commercial vehicle parts sector where quality, consistency, and logistics all play critical roles.
+
+If you need the broader supplier-screening framework, start with [How to Identify Reliable Auto Parts Suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china). This article focuses specifically on supplier type.
+
+That comparison becomes more practical when buyers also decide which [OEM-versus-aftermarket route](/blog/oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know) fits the product and how much control they need over shipment terms such as [EXW, FOB, and CIF](/blog/exw-fob-cif-auto-parts-buyers).
 
 ---
 

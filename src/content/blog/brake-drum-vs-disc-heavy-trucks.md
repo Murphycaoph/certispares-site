@@ -12,6 +12,8 @@ Two of the most common braking technologies used in commercial vehicles are **dr
 
 Understanding the differences between brake drums and brake discs helps fleet operators, distributors, and aftermarket buyers make better sourcing and maintenance decisions.
 
+At the wheel end, this comparison is closely connected to [wheel hub structure and service loads](/blog/wheel-hub-heavy-truck-structure-function), while air-operated fleets also need to think about [air brake chamber matching and response](/blog/how-air-brake-chambers-work-in-heavy-trucks).
+
 ---
 
 ## 1. How Drum Brakes Work

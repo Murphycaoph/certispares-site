@@ -14,6 +14,8 @@ For buyers importing truck or commercial vehicle components from China, understa
 
 This article explains the differences between EXW, FOB, and CIF and how each option affects the sourcing process.
 
+The right trade term also depends on whether a buyer is purchasing through an [OEM or aftermarket parts strategy](/blog/oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know) and how much broader [sourcing risk](/blog/how-to-reduce-sourcing-risk-auto-parts-china) the team is prepared to manage internally.
+
 ---
 
 ## 1. What Are Incoterms?

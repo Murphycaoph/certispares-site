@@ -24,6 +24,8 @@ When sourcing commercial vehicle parts from China, one of the most common questi
 
 The answer is rarely binary. Understanding the structural differences between the two sourcing channels is essential for cost control, product positioning, and risk management.
 
+The distinction also becomes more practical when buyers look at component categories such as [wheel hubs in heavy trucks](/blog/wheel-hub-heavy-truck-structure-function) and match them with the right [EXW, FOB, or CIF arrangement](/blog/exw-fob-cif-auto-parts-buyers) for the supplier relationship.
+
 ---
 
 ## 1. Definition Differences

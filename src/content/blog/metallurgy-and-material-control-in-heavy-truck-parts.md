@@ -16,6 +16,8 @@ For global buyers sourcing from China, understanding metallurgy is a key step in
 
 This article explains how metallurgy and material control influence heavy truck parts and how buyers can assess them effectively.
 
+The effect is easy to see in structural parts like [heavy-truck wheel hubs](/blog/wheel-hub-heavy-truck-structure-function), and it also helps explain why [OEM and aftermarket parts](/blog/oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know) can vary so much even when the products look similar.
+
 ---
 
 ## 1. Why Metallurgy Matters in Heavy Truck Parts

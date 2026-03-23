@@ -12,6 +12,8 @@ For fleet operators, maintenance workshops, and aftermarket distributors, unders
 
 This article introduces several key wear components commonly replaced in heavy-duty trucks and commercial vehicles.
 
+In fleet maintenance, wear-part planning also depends on the condition of [wheel hub assemblies at the wheel end](/blog/wheel-hub-heavy-truck-structure-function) and on steady replacement demand for [air brake chambers in heavy trucks](/blog/how-air-brake-chambers-work-in-heavy-trucks).
+
 ---
 
 ## 1. Brake Drums and Brake Discs

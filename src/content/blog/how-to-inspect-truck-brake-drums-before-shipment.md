@@ -14,6 +14,8 @@ For global buyers sourcing brake drums from China, relying solely on supplier qu
 
 This guide provides a practical, field-tested approach to inspecting truck brake drums before shipment.
 
+Inspection at shipment stage also needs to account for adjacent wheel-end parts such as [wheel hub assemblies](/blog/wheel-hub-heavy-truck-structure-function), while brake-system buyers should keep [air brake chamber consistency](/blog/how-air-brake-chambers-work-in-heavy-trucks) in view when evaluating the full braking package.
+
 ---
 
 ## 1. Understand the Critical Quality Parameters
