@@ -18,9 +18,9 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Request a Truck Parts Quote",
+    name: "Send an RFQ or Business Inquiry",
     description:
-      "Contact CertiSpares to request a truck parts quote with OEM numbers, part numbers, photos, quantities, destination, and packaging requirements.",
+      "Contact CertiSpares with an RFQ or business inquiry using OE numbers, vehicle model, quantity, destination, and related files.",
     url: "https://certispares.com/contact/",
   },
   {
@@ -67,9 +67,9 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Request a Truck Parts Quote | China Heavy Duty Truck Parts Supplier"
-  description="Request a truck parts quote from CertiSpares. Send OEM numbers, part numbers, photos, quantities, destination, and packaging requirements for heavy duty and commercial vehicle spare parts sourcing from China."
-  keywords={["request truck parts quote", "China heavy duty truck parts supplier", "truck spare parts inquiry", "OEM truck parts RFQ", "commercial vehicle parts quotation"]}
+  title="Send RFQ or Business Inquiry | CertiSpares"
+  description="Send an RFQ or business inquiry to CertiSpares with OE numbers, vehicle model, quantity, and destination. Email or WhatsApp us for commercial vehicle aftermarket sourcing from China."
+  keywords={["send RFQ truck parts", "commercial vehicle parts inquiry", "OEM truck parts RFQ", "heavy duty truck parts RFQ", "business inquiry China sourcing"]}
   canonical="/contact/"
   ogImage="/images/china-industrial-warehouse.jpg"
   jsonLd={jsonLd}
@@ -310,12 +310,11 @@ const jsonLd = [
     <div class="contentWrap">
       <p class="kicker">CertiSpares / Contact</p>
 
-      <h1 class="title">Request a Truck Parts Quote</h1>
+      <h1 class="title">Send Your RFQ or Business Inquiry</h1>
 
       <p class="sub">
-        Send your RFQ for heavy duty truck parts or commercial vehicle spare parts with OEM numbers,
-        part numbers, brand and model, photos, quantity, and destination port. We'll reply with supplier options,
-        lead time, and shipping suggestions.
+        Send your RFQ with OE or part numbers, vehicle model, quantity, and destination. If available, include photos,
+        part lists, or packaging notes. We usually reply within 24-48 hours with follow-up questions or the next sourcing step.
       </p>
     </div>
   </header>
@@ -325,10 +324,10 @@ const jsonLd = [
       <div class="grid">
         <!-- Left: contact info -->
         <div class="card">
-          <h2>Reach us</h2>
+          <h2>How to Contact Effectively</h2>
           <p class="muted" style="line-height:1.7;">
-            We usually respond within 24-48 hours with options and follow-up questions.
-            If you have urgent needs, WhatsApp is faster.
+            For the fastest handling, send the key RFQ details first: OE number, vehicle model, quantity, and destination.
+            We usually respond within 24-48 hours. For urgent communication, WhatsApp is faster than email.
           </p>
 
           <div class="infoList">
@@ -336,6 +335,7 @@ const jsonLd = [
               <b>Email</b>
               <div class="muted">
                 <a class="linkPill" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+                <div style="margin-top:8px;">Best for RFQ files, part lists, and detailed business inquiries.</div>
               </div>
             </div>
 
@@ -345,6 +345,7 @@ const jsonLd = [
                 <a class="linkPill" href={WHATSAPP_URL} target="_blank" rel="noopener">
                   Chat on WhatsApp ({WHATSAPP_DISPLAY})
                 </a>
+                <div style="margin-top:8px;">Best for faster follow-up, photos, quick clarification, and urgent RFQs.</div>
               </div>
             </div>
 
@@ -364,16 +365,15 @@ const jsonLd = [
           </div>
 
           <div class="note">
-            <b>Tip:</b> Photos are welcome. OEM/part numbers are even better.
-            The more details you provide, the faster the sourcing cycle.
+            <b>What to send:</b> OE or part numbers, vehicle brand/model, quantity, destination, and any photo, drawing, or packaging requirement you already have.
           </div>
         </div>
 
         <!-- Right: RFQ form (Netlify Forms) -->
         <div class="card">
-          <h2>Request a Sourcing Quote (RFQ)</h2>
+          <h2>RFQ Submission Form</h2>
           <p class="muted" style="margin-bottom:14px; line-height:1.7;">
-            Submit the form online. You don't need any account or email client.
+            Submit the form here if you want us to review the RFQ directly. No account or email client is needed.
           </p>
 
           <form
@@ -472,9 +472,9 @@ const jsonLd = [
             </div>
 
             <div class="note">
-              <b>Minimum needed:</b> OEM/part numbers or photos, quantity, destination port/country.
+              <b>Minimum needed:</b> OE or part numbers, vehicle model or photos, quantity, destination port or country.
               <br />
-              <b>Helps a lot:</b> vehicle brand/model/year, packaging requirements, and target lead time.
+              <b>Helpful extras:</b> full part list, packaging requirements, target lead time, and any reference supplier data.
             </div>
           </form>
 

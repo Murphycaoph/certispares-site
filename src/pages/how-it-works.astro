@@ -4,23 +4,28 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const steps = [
   {
     n: "1",
-    t: "Send RFQ",
-    p: "OEM/part numbers / brand / model / photos. Tell us target market and quantity.",
+    t: "Submit RFQ",
+    p: "Share OEM or part numbers, vehicle brand and model, photos, quantity, destination, and packaging requirements.",
   },
   {
     n: "2",
-    t: "Supplier comparison",
-    p: "We source multiple factories and submit options with lead time & risk notes.",
+    t: "Technical matching",
+    p: "We check OE references, EPC logic, vehicle application, and visible specifications before sourcing starts.",
   },
   {
     n: "3",
-    t: "QC checkpoints",
-    p: "Sampling + packaging/label check, photo/video evidence before shipment.",
+    t: "Supplier sourcing & comparison",
+    p: "We screen suitable suppliers, compare capability, lead time, price level, and known risk points instead of forwarding a single quote.",
   },
   {
     n: "4",
-    t: "Export execution",
-    p: "PI/CI/PL review, document accuracy, tracking and updates.",
+    t: "Quotation consolidation",
+    p: "Comparable quotations are organized into a clearer RFQ response so you can review pricing, terms, and sourcing differences faster.",
+  },
+  {
+    n: "5",
+    t: "Order execution & delivery",
+    p: "After confirmation, we manage QC checkpoints, packing checks, document review, consolidation, shipment booking, and delivery follow-up.",
   },
 ];
 
@@ -38,7 +43,7 @@ const jsonLd = [
     "@type": "HowTo",
     name: "How to source truck parts from China",
     description:
-      "RFQ intake, supplier comparison, QC checkpoints, and export execution for heavy duty and commercial vehicle buyers sourcing truck parts from China.",
+      "Structured RFQ sourcing, technical matching, supplier comparison, quotation consolidation, and delivery coordination for commercial vehicle aftermarket buyers.",
     step: steps.map((step) => ({
       "@type": "HowToStep",
       name: step.t,
@@ -68,7 +73,7 @@ const jsonLd = [
 
 <BaseLayout
   title="How to Source Truck Parts from China | CertiSpares Workflow"
-  description="See how to source truck parts from China with CertiSpares: RFQ intake, supplier comparison, QC checkpoints, packing verification, and export execution for heavy duty aftermarket buyers."
+  description="See the CertiSpares workflow from RFQ submission to technical matching, supplier comparison, quotation consolidation, and delivery for commercial vehicle aftermarket buyers."
   keywords={["how to source truck parts from China", "truck parts sourcing workflow", "import truck parts from China", "OEM part number RFQ", "truck parts export process"]}
   canonical="/how-it-works/"
   ogImage="/images/shipping-documents-export-paperwork.jpg"
@@ -290,9 +295,9 @@ const jsonLd = [
       <p class="kicker">CertiSpares / Process</p>
       <h1 class="title">How to source truck parts from China</h1>
       <p class="sub">
-        A clear, repeatable workflow for heavy duty truck parts and commercial vehicle spare parts:
-        RFQ -> sourcing and comparison -> QC checkpoints -> export execution.
-        Built for buyers who need predictable lead time and fewer disputes.
+        A structured workflow for heavy-duty truck parts and broader commercial vehicle aftermarket RFQs:
+        submit RFQ, confirm technical matching, compare suppliers, consolidate quotations, and move into delivery.
+        Built for B2B buyers who need clearer decisions and lower sourcing risk.
       </p>
     </div>
   </header>
@@ -301,7 +306,7 @@ const jsonLd = [
     <div class="container">
       <h2 class="sectionTitle">Workflow</h2>
       <p class="sectionDesc">
-        We keep the process simple: clear inputs, evidence before shipment, and consistent documentation.
+        Each step follows a clear review logic so part matching, supplier selection, quotation review, and order execution stay controlled.
       </p>
 
       <div class="grid2">
@@ -320,12 +325,12 @@ const jsonLd = [
         <div class="left">
           <b>Ready to share your RFQ?</b>
           <p>
-            Send OEM/part numbers (or photos), quantities, destination port, and packaging requirements.
-            We'll reply with options and lead time.
+            Send OEM or part numbers, vehicle details, quantities, destination, and packaging requirements.
+            We will review the technical fit first, then return compared supplier options and a consolidated quotation.
           </p>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn primary" href="/contact">Get a Sourcing Quote</a>
+          <a class="btn primary" href="/contact">Send RFQ</a>
           <a class="btn" href="/capabilities">See Capabilities</a>
         </div>
       </div>

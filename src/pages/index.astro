@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { getImageDimensions } from "../lib/imageDimensions";
 
 const rawPosts = await getCollection("blog");
 
@@ -14,24 +15,29 @@ const insights = rawPosts.slice(0, 3).map((p) => ({
 }));
 
 const heroImages = [
-  "/images/hero-01-highway-transport.jpg",
-  "/images/hero-02-commercial-fleet.jpg",
-  "/images/hero-03-container-port.jpg",
-  "/images/hero-04-logistics-truck.jpg",
-];
+  "/images/hero.webp",
+  "/images/hero-02-commercial-fleet.webp",
+  "/images/hero-03-container-port.webp",
+  "/images/hero-04-logistics-truck.webp",
+].map((src, idx) => ({
+  src,
+  ...getImageDimensions(src),
+  loading: idx === 0 ? "eager" : "lazy",
+  fetchpriority: idx === 0 ? "high" : "low",
+}));
 
 const searchThemes = [
   {
     title: "Heavy duty truck parts",
-    desc: "Focused on RFQs for heavy duty and commercial vehicle aftermarket buyers who need dependable supplier comparison.",
+    desc: "Heavy-duty truck parts remain the core RFQ category, supported by structured supplier comparison for B2B aftermarket buyers.",
   },
   {
-    title: "Truck spare parts",
-    desc: "Coverage across brake, suspension, engine, electrical, and mixed-SKU orders that need consolidation from China.",
+    title: "Light-, medium-, and heavy-duty coverage",
+    desc: "We handle RFQ sourcing across light-, medium-, and heavy-duty truck platforms for the commercial vehicle aftermarket.",
   },
   {
     title: "Brand-based RFQs",
-    desc: "Common inquiries include Sinotruk HOWO parts, SHACMAN parts, Foton parts, Dongfeng parts, FAW parts, and JAC parts.",
+    desc: "Common RFQs include Sinotruk HOWO, SHACMAN, Foton, Dongfeng, FAW, JAC, and OEM or part-number-based inquiries.",
   },
 ];
 
@@ -44,13 +50,48 @@ const popularQueries = [
   "Foton truck parts",
 ];
 
+const productBrands = [
+  { name: "Foton", image: "/images/brands/foton.png", alt: "Foton logo" },
+  { name: "DFSK", image: "/images/brands/dfsk.png", alt: "DFSK logo" },
+  { name: "Wuling", image: "/images/brands/wuling.png", alt: "Wuling logo" },
+  { name: "JAC", image: "/images/brands/jac.png", alt: "JAC logo" },
+  { name: "Dongfeng", image: "/images/brands/dongfeng.png", alt: "Dongfeng logo" },
+  { name: "JMC", image: "/images/brands/jmc.png", alt: "JMC logo" },
+  { name: "Sinotruk", image: "/images/brands/sinotruk.png", alt: "Sinotruk logo" },
+  { name: "SHACMAN", image: "/images/brands/shacman.png", alt: "Shacman logo" },
+  { name: "FAW", image: "/images/brands/faw.png", alt: "FAW logo" },
+];
+
+const strategyCards = [
+  {
+    title: "Lower landed cost through consolidation",
+    desc: "One container can combine multiple required products from multiple suppliers, helping buyers avoid shipping partially optimized orders and reducing the logistics cost carried by each SKU.",
+    bullets: [
+      "Multi-supplier loading into one container",
+      "Better freight allocation across the order mix",
+      "More commercial control than shipping each factory order separately",
+    ],
+    href: "/sourcing",
+  },
+  {
+    title: "Faster turnover through balanced SKU sourcing",
+    desc: "Instead of buying too deep into one product line just to fill a container, buyers can build a healthier stock mix across fast-moving and supporting items that fit real market demand.",
+    bullets: [
+      "Less pressure to overstock slow-moving SKUs",
+      "Stronger inventory structure with the same budget",
+      "Better cash-flow efficiency and repeat-order potential",
+    ],
+    href: "/sourcing",
+  },
+];
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "CertiSpares",
     url: "https://certispares.com/",
-    logo: "https://certispares.com/images/logo.png",
+    logo: "https://certispares.com/images/logo.webp",
     email: "murphy@certispares.com",
     contactPoint: [
       {
@@ -73,13 +114,22 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="China Truck Parts Supplier | Heavy Duty & Commercial Vehicle Spare Parts"
-  description="CertiSpares is a China truck parts supplier for heavy duty and commercial vehicle spare parts, offering supplier comparison, QC checkpoints, consolidation, and export execution."
-  keywords={["China truck parts supplier", "heavy duty truck parts", "commercial vehicle spare parts", "aftermarket truck parts supplier", "truck spare parts from China"]}
+  title="China Commercial Vehicle Parts Sourcing | Heavy-Duty Truck RFQs"
+  description="CertiSpares supports RFQ sourcing for heavy-duty truck parts and broader commercial vehicle aftermarket demand across light-, medium-, and heavy-duty truck platforms."
+  keywords={["commercial vehicle parts sourcing China", "heavy duty truck parts", "commercial vehicle aftermarket", "RFQ sourcing", "truck parts from China"]}
   canonical="/"
   ogImage="/images/hero-01-highway-transport.jpg"
   jsonLd={jsonLd}
 >
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href="/images/hero.webp"
+    type="image/webp"
+    fetchpriority="high"
+  />
+
   <style>
   :root{
     --bg:#eef3f7;
@@ -154,7 +204,7 @@ const jsonLd = [
 
   .heroSlide{
     position:absolute; inset:0;
-    background: var(--bg) center/cover no-repeat;
+    overflow:hidden;
     filter:saturate(1.05);
     opacity:0;
     transform:scale(1.02);
@@ -165,6 +215,13 @@ const jsonLd = [
   .heroSlide.is-active{
     opacity:1;
     transform:scale(1);
+  }
+
+  .heroSlide img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
   }
 
   .heroSlide::after{
@@ -260,7 +317,28 @@ const jsonLd = [
   .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
 
   .sectionTitle{ font-size:28px; margin:0 0 12px; letter-spacing:-.2px; color:#1d2a36; }
-  .sectionDesc{ margin:0 0 18px; color:var(--muted); line-height:1.7; max-width:820px; }
+  .sectionDesc{ margin:0 0 18px; color:var(--muted); line-height:1.7; max-width:980px; }
+  .sectionHead{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+  }
+  .sectionHead .sectionTitle{
+    margin:0;
+  }
+  .sectionJump{
+    color:#3957E9;
+    font-size:14px;
+    font-weight:700;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .sectionJump:hover{
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
   .chipRow{ display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 0; }
 
   .chip{
@@ -348,6 +426,154 @@ const jsonLd = [
     color:#5f6d86;
   }
 
+  .strategyGrid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px;
+  }
+
+  .strategyCard{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .strategyCard p{
+    margin:0;
+  }
+
+  .strategyList{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:grid;
+    gap:10px;
+  }
+
+  .strategyItem{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    color:#5f6d86;
+    line-height:1.6;
+  }
+
+  .strategyDot{
+    width:10px;
+    height:10px;
+    border-radius:999px;
+    margin-top:7px;
+    background:#4A5462;
+    flex:0 0 10px;
+  }
+
+  .productBand{
+    position:relative;
+    overflow:hidden;
+    border-radius:20px;
+    border:1px solid rgba(29,42,54,.10);
+    background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(246,249,253,.98) 100%);
+    box-shadow:0 14px 32px rgba(24,39,56,.05);
+    padding:18px 0;
+  }
+
+  .productBand::before,
+  .productBand::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:92px;
+    z-index:2;
+    pointer-events:none;
+  }
+
+  .productBand::before{
+    left:0;
+    background:linear-gradient(90deg, rgba(246,249,253,1) 0%, rgba(246,249,253,0) 100%);
+  }
+
+  .productBand::after{
+    right:0;
+    background:linear-gradient(270deg, rgba(246,249,253,1) 0%, rgba(246,249,253,0) 100%);
+  }
+
+  .logoMarquee{
+    overflow:hidden;
+    white-space:nowrap;
+  }
+
+  .logoTrack{
+    display:flex;
+    width:max-content;
+    align-items:center;
+    gap:14px;
+    animation:marqueeRight 36s linear infinite;
+    will-change:transform;
+  }
+
+  .logoCard{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:144px;
+    width:144px;
+    height:88px;
+    padding:12px;
+    border-radius:20px;
+    background:linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
+    border:1px solid rgba(29,42,54,.08);
+    box-shadow:0 10px 24px rgba(24,39,56,.06);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .logoCard::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(120deg, transparent 0%, rgba(57,87,233,.08) 35%, transparent 65%),
+      radial-gradient(180px 60px at 50% -10%, rgba(57,87,233,.10), transparent 70%);
+    transform:translateX(-140%);
+    animation:logoShimmer 3.6s ease-in-out infinite;
+    pointer-events:none;
+  }
+
+  .logoInner{
+    position:relative;
+    z-index:1;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:16px;
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(4px);
+  }
+
+  .logoCard img{
+    max-width:92px;
+    max-height:30px;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    display:block;
+    filter:saturate(.92) contrast(1.04);
+  }
+
+  @keyframes marqueeRight{
+    from{ transform:translateX(-50%); }
+    to{ transform:translateX(0); }
+  }
+
+  @keyframes logoShimmer{
+    0%, 18%{ transform:translateX(-140%); }
+    42%, 100%{ transform:translateX(140%); }
+  }
+
   :global(.footerWrap){
     background:transparent;
     border-top:1px solid rgba(29,42,54,.10);
@@ -375,6 +601,7 @@ const jsonLd = [
     h1{ font-size:40px; }
     .grid3{ grid-template-columns:1fr; }
     .grid2{ grid-template-columns:1fr; }
+    .strategyGrid{ grid-template-columns:1fr; }
     .strip{ grid-template-columns:1fr 1fr; }
     .insightsHead{ align-items:flex-start; }
     .heroNav{ width:38px; height:38px; border-radius:12px; }
@@ -384,18 +611,28 @@ const jsonLd = [
 
   @media (prefers-reduced-motion: reduce){
     .heroSlide{ transition:none; }
+    .logoTrack{ animation:none; }
   }
   </style>
 
   <header class="hero">
-    <div class="heroBg">
-      <div class="heroSlider" id="heroSlider" aria-label="Hero images">
-        {heroImages.map((src, idx) => (
+      <div class="heroBg">
+        <div class="heroSlider" id="heroSlider" aria-label="Hero images">
+        {heroImages.map((image, idx) => (
           <div
             class={`heroSlide ${idx === 0 ? "is-active" : ""}`}
-            style={`--bg:url('${src}')`}
             aria-hidden={idx === 0 ? "false" : "true"}
-          ></div>
+          >
+            <img
+              src={image.src}
+              alt=""
+              width={image.width}
+              height={image.height}
+              loading={image.loading}
+              fetchpriority={image.fetchpriority}
+              decoding="async"
+            />
+          </div>
         ))}
 
         <button class="heroNav prev" type="button" aria-label="Previous image">&larr;</button>
@@ -406,34 +643,33 @@ const jsonLd = [
     <div class="container">
       <div class="heroInner">
         <div>
-          <h1>China Truck Parts Supplier for Commercial Vehicle Spare Parts</h1>
+          <h1>Lower Your Shipping Cost. Improve Your Inventory Turnover.</h1>
           <p class="sub">
-            Source heavy duty truck parts, truck spare parts, and aftermarket commercial vehicle components from China
-            with structured supplier comparison, QC checkpoints, and predictable export execution.
+            Commercial vehicle parts sourcing from China for aftermarket buyers, combining multiple products from different suppliers into one optimized container. Reduce logistics cost, balance your inventory, and accelerate your cash flow.
           </p>
 
           <div class="heroBtns">
-            <a class="btn primary" href="/contact">Get a Sourcing Quote</a>
+            <a class="btn primary" href="/contact">Send RFQ</a>
             <a class="btn" href="/capabilities">View Capabilities</a>
           </div>
 
           <div class="strip">
+            <div class="kpi"><div class="n">Cost</div><div class="t">Multi-supplier consolidation to lower landed cost per order</div></div>
+            <div class="kpi"><div class="n">Mix</div><div class="t">Balanced multi-SKU sourcing aligned with real replenishment demand</div></div>
             <div class="kpi"><div class="n">QC</div><div class="t">Sampling &middot; Packing check &middot; Loading supervision</div></div>
-            <div class="kpi"><div class="n">Docs</div><div class="t">PI/CI/PL &middot; HS code assist &middot; Export documents</div></div>
-            <div class="kpi"><div class="n">Speed</div><div class="t">Fast RFQ &middot; Multi-region supplier pool</div></div>
-            <div class="kpi"><div class="n">Risk</div><div class="t">Audit-style vendor verification & traceability</div></div>
+            <div class="kpi"><div class="n">Control</div><div class="t">Supplier comparison, document accuracy, and shipment traceability</div></div>
           </div>
         </div>
 
         <aside class="heroCard">
-          <h3>How It Works (Overview)</h3>
+          <h3>Why Buyers Use This Model</h3>
           <ul class="list">
-            <li class="li"><span class="dot"></span><span>Send your RFQ with OEM/brand/model or photos.</span></li>
-            <li class="li"><span class="dot"></span><span>We source & compare suppliers, then submit options with lead time.</span></li>
-            <li class="li"><span class="dot"></span><span>QC checkpoints + packing & labeling confirmation before shipment.</span></li>
-            <li class="li"><span class="dot"></span><span>Export execution with clean documentation and tracking.</span></li>
+            <li class="li"><span class="dot"></span><span>One order can combine multiple needed SKUs from multiple suppliers in one container.</span></li>
+            <li class="li"><span class="dot"></span><span>Buyers avoid filling containers by overbuying a narrow product line.</span></li>
+            <li class="li"><span class="dot"></span><span>The result is lower logistics cost, better stock structure, and cleaner reorder planning.</span></li>
+            <li class="li"><span class="dot"></span><span>QC checkpoints and shipment coordination keep the model practical, not theoretical.</span></li>
           </ul>
-          <a class="more" href="/how-it-works">Learn more &rarr;</a>
+          <a class="more" href="/sourcing">See the sourcing strategy &rarr;</a>
         </aside>
       </div>
     </div>
@@ -441,10 +677,60 @@ const jsonLd = [
 
   <section class="section">
     <div class="container">
-      <h2 class="sectionTitle">What overseas buyers usually search for</h2>
+      <h2 class="sectionTitle">Brands We Support</h2>
       <p class="sectionDesc">
-        Most commercial-intent searches in this segment are not broad phrases alone. Buyers often search by truck part type,
-        by brand, or by OEM and part-number-led RFQ language.
+        We support sourcing across mainstream commercial vehicle brands and the aftermarket parts demand linked to those platforms.
+      </p>
+      <div class="productBand" aria-label="Commercial vehicle brands we support">
+        <div class="logoMarquee">
+          <div class="logoTrack">
+            {[...productBrands, ...productBrands].map((brand, index) => (
+              <div class="logoCard" aria-hidden={index >= productBrands.length ? "true" : "false"}>
+                <div class="logoInner">
+                  <img src={brand.image} alt={brand.alt} loading="lazy" decoding="async" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sectionHead">
+        <h2 class="sectionTitle">How You Save Cost and Improve Turnover</h2>
+        <a class="sectionJump" href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">Detailed explanation &rarr;</a>
+      </div>
+      <p class="sectionDesc">
+        Our model goes beyond getting parts shipped. It helps buyers combine the right products into the same container so logistics cost, stock depth, and replenishment logic work together more efficiently.
+      </p>
+      <div class="strategyGrid">
+        {strategyCards.map((item) => (
+          <div class="card strategyCard">
+            <div>
+              <b>{item.title}</b>
+              <p>{item.desc}</p>
+            </div>
+            <ul class="strategyList">
+              {item.bullets.map((bullet) => (
+                <li class="strategyItem"><span class="strategyDot"></span><span>{bullet}</span></li>
+              ))}
+            </ul>
+            <a class="more" href={item.href}>View the strategy page &rarr;</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What We Do</h2>
+      <p class="sectionDesc">
+        We support B2B buyers in the commercial vehicle aftermarket with RFQ sourcing anchored in heavy-duty truck parts,
+        while covering light-, medium-, and heavy-duty truck platforms where broader sourcing is needed.
       </p>
       <div class="grid3">
         {searchThemes.map((item) => (
@@ -461,29 +747,29 @@ const jsonLd = [
 
   <section class="section">
     <div class="container">
-      <h2 class="sectionTitle">Capabilities</h2>
+      <h2 class="sectionTitle">Why Choose Us</h2>
       <p class="sectionDesc">
-        From supplier verification to QC checkpoints and export documentation, we build a predictable sourcing pipeline
-        for aftermarket truck parts and commercial vehicle spare parts orders.
+        From supplier comparison to QC checkpoints and export coordination, we make commercial vehicle aftermarket sourcing
+        more structured for importers, distributors, wholesalers, and fleet maintenance buyers.
       </p>
       <div class="grid3">
-        <div class="card"><b>Structured sourcing</b><p>Multiple supplier options with price/lead time comparison and risk notes.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-        <div class="card"><b>Quality control</b><p>Sampling, packaging verification, loading supervision, and photo/video evidence.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-        <div class="card"><b>Compliance paperwork</b><p>PI/CI/PL review, HS-code assistance, and export document accuracy.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
+        <div class="card"><b>RFQ sourcing</b><p>Multiple supplier options with price, lead time, and sourcing risk comparison.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
+        <div class="card"><b>Quality control</b><p>Sampling, packaging verification, loading supervision, and photo or video checkpoints.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
+        <div class="card"><b>Consolidation and shipping</b><p>Consolidation planning, document control, and shipping coordination designed to lower landed cost and support a healthier inventory structure.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="sectionTitle">About CertiSpares</h2>
+      <h2 class="sectionTitle">How It Works</h2>
       <p class="sectionDesc">
-        We focus on commercial vehicle aftermarket parts, including brand-based RFQs such as Sinotruk HOWO parts,
-        SHACMAN parts, Foton parts, Dongfeng parts, and other repeat-order sourcing needs.
+        Our workflow is built for B2B truck parts sourcing, from RFQ intake to supplier comparison, QC checkpoints,
+        and shipment coordination for repeat aftermarket orders.
       </p>
       <div class="grid2">
-        <div class="card"><b>What we focus on</b><p>Stable supply, clear lead time, and consistent quality for repeat orders.</p><a class="more" href="/about">Learn more &rarr;</a></div>
-        <div class="card"><b>How we reduce risk</b><p>Vendor verification, traceable docs, and QC evidence to reduce disputes.</p><a class="more" href="/about">Learn more &rarr;</a></div>
+        <div class="card"><b>Step 1-2</b><p>Share the RFQ, then receive supplier comparison across the right truck platform and part scope.</p><a class="more" href="/how-it-works">Learn more &rarr;</a></div>
+        <div class="card"><b>Step 3-4</b><p>Confirm the order with QC checkpoints, then move into consolidation, documents, and shipping with a focus on lower landed cost and better inventory balance.</p><a class="more" href="/how-it-works">Learn more &rarr;</a></div>
       </div>
     </div>
   </section>
@@ -517,10 +803,10 @@ const jsonLd = [
 
   <section class="section">
     <div class="container">
-      <h2 class="sectionTitle">Contact</h2>
+      <h2 class="sectionTitle">Send Your RFQ</h2>
       <p class="sectionDesc">
-        Tell us the parts you need with OEM numbers, part numbers, vehicle brand and model, or photos.
-        We will reply with truck parts supplier options, lead time, and shipping suggestions.
+        Send us your RFQ with OEM numbers, part numbers, vehicle brand and model, or photos.
+        We will reply with supplier comparison, lead time, and sourcing suggestions for your truck parts order.
       </p>
       <div class="grid3">
         <div class="card"><b>Email</b><p>murphy@certispares.com</p><a class="more" href="/contact">Learn more &rarr;</a></div>

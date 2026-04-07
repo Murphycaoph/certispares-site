@@ -1,5 +1,6 @@
 ﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getImageDimensions } from "../lib/imageDimensions";
 
 /**
  * About page 鈥?v2
@@ -13,23 +14,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const aboutHighlights = [
   {
     img: "/images/hebei-industrial-park-aerial.jpg",
-    tag: "Coverage",
-    title: "Selected China commercial vehicle brands",
-    desc: "Focused support across major Chinese truck and commercial vehicle platforms relevant to export markets.",
+    tag: "Market focus",
+    title: "Commercial vehicle aftermarket focus",
+    desc: "The business is built around commercial vehicle aftermarket demand where RFQ clarity, repeat orders, and execution discipline matter.",
   },
   {
     img: "/images/china-industrial-warehouse.jpg",
-    tag: "Execution",
-    title: "Consolidation and order coordination",
-    desc: "From RFQ handling to mixed-SKU consolidation, shipment preparation, and delivery alignment.",
+    tag: "Supplier base",
+    title: "Northern China sourcing relevance",
+    desc: "Northern China matters because many heavy-duty and commercial vehicle parts clusters, factories, and supporting supply chains are concentrated there.",
   },
   {
     img: "/images/container-loading-supervision.jpg",
-    tag: "Control",
-    title: "Audit-style execution discipline",
-    desc: "Structured checkpoints, QC evidence, and documentation consistency throughout the order cycle.",
+    tag: "Approach",
+    title: "Structured sourcing and risk control",
+    desc: "The sourcing model follows a clearer review logic across RFQ intake, supplier comparison, execution checkpoints, and documentation consistency.",
   },
-];
+].map((item) => ({
+  ...item,
+  ...getImageDimensions(item.img),
+}));
 
 const brandFocus = [
   "Sinotruk HOWO",
@@ -43,16 +47,16 @@ const brandFocus = [
 
 const pillars = [
   {
-    t: "Commercial vehicle aftermarket focus",
-    p: "We focus on truck and commercial vehicle aftermarket parts sourcing from China, with practical coverage across selected leading Chinese vehicle platforms and their export-oriented parts demand.",
+    t: "Why commercial vehicle aftermarket",
+    p: "The commercial vehicle aftermarket is where sourcing discipline has the most practical value: part matching is more technical, repeat demand matters more, and poor execution creates costly downstream problems.",
   },
   {
-    t: "Structured sourcing workflow",
-    p: "Our sourcing model connects supplier capability, product mapping, customer inquiry handling, quotation comparison, order follow-up, logistics coordination, and document consistency into one workflow.",
+    t: "Truck segment coverage",
+    p: "CertiSpares supports light-, medium-, and heavy-duty truck platforms, with stronger depth in heavy-duty systems where RFQs often require closer technical and supplier screening.",
   },
   {
-    t: "Repeat-order orientation",
-    p: "We optimize for supply stability, clear scope, mixed-SKU feasibility, and cleaner execution for buyers building repeat orders.",
+    t: "Why this approach exists",
+    p: "The company is built around structured sourcing, supplier comparison, and controllable execution rather than broad catalogue presentation or generic trading language.",
   },
 ];
 
@@ -91,20 +95,20 @@ const workflowSteps = [
 
 const differenceCards = [
   {
-    t: "Focused, not generic",
-    p: "We are not trying to be everything for everyone. We focus on practical commercial vehicle parts sourcing scenarios that can actually be executed well.",
+    t: "Why Northern China matters",
+    p: "Being closer to Northern China supplier clusters improves response speed, factory screening relevance, and sourcing depth in many heavy-duty and commercial vehicle categories.",
   },
   {
-    t: "Structured inquiry handling",
-    p: "Scattered customer requests are translated into clearer RFQ inputs before quotation comparison starts.",
+    t: "Why heavy-duty runs deeper",
+    p: "Heavy-duty truck parts remain the stronger area because the supplier base, product familiarity, and workflow experience are deeper there, while light- and medium-duty support remains part of the sourcing scope.",
   },
   {
-    t: "Execution, not just sourcing",
-    p: "We support not only supplier search, but also quotation alignment, order follow-up, consolidation planning, and documentation control.",
+    t: "Why process matters",
+    p: "A sourcing decision is only useful if it holds through quotation, production, packing, documents, and shipment. That is why the process is managed end to end.",
   },
   {
-    t: "Built for repeatability",
-    p: "The goal is not a random one-off shipment, but a sourcing path that becomes more stable and easier to repeat over time.",
+    t: "Why buyers stay",
+    p: "The goal is to create a sourcing path that becomes easier to repeat, check, and expand over time instead of restarting from zero on each RFQ.",
   },
 ];
 
@@ -148,16 +152,16 @@ const buyerTypes = [
 
 const founderMindset = [
   {
-    t: "Process-first thinking",
-    p: "The founder's background in audit shaped a process-oriented approach: clear checkpoints, evidence awareness, and stronger execution discipline.",
+    t: "Audit to sourcing mindset",
+    p: "The founder's audit background shaped a process-first way of working: review the facts, clarify the scope, compare options, and control the points where mistakes usually happen.",
   },
   {
-    t: "Consistency matters",
-    p: "Experience in documentation review and consistency checks informs how quotations, packing details, and export-related files are handled.",
+    t: "Control before assumption",
+    p: "That mindset carries into sourcing through requirement clarification, document checks, and quotation review before an order is pushed forward.",
   },
   {
-    t: "Built for controllable growth",
-    p: "The goal is not speed at any cost. It is to build a sourcing workflow that can stay clear, practical, and scalable as order volume grows.",
+    t: "Built for credible execution",
+    p: "The aim is not to look bigger than reality. It is to run a sourcing model that stays clear, credible, and scalable as RFQ volume grows.",
   },
 ];
 
@@ -209,7 +213,7 @@ const jsonLd = [
     "@type": "AboutPage",
     name: "About CertiSpares",
     description:
-      "CertiSpares is a China commercial vehicle parts sourcing partner focused on structured workflow, supplier comparison, QC evidence, and repeat-order execution.",
+      "CertiSpares is a commercial vehicle parts sourcing partner built around an audit-minded sourcing approach, Northern China supplier access, and structured risk control.",
     url: "https://certispares.com/about/",
   },
   {
@@ -246,9 +250,9 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="About CertiSpares | China Truck Parts Supplier for Heavy Duty Aftermarket"
-  description="About CertiSpares, a China truck parts supplier focused on heavy duty and commercial vehicle spare parts, structured workflow, supplier comparison, and repeat-order execution."
-  keywords={["China truck parts supplier", "heavy duty truck parts supplier", "commercial vehicle spare parts China", "Sinotruk parts supplier", "Shacman parts supplier"]}
+  title="About CertiSpares | Commercial Vehicle Parts Sourcing Partner"
+  description="About CertiSpares, a commercial vehicle aftermarket sourcing partner covering light-, medium-, and heavy-duty trucks with stronger depth in heavy-duty systems."
+  keywords={["commercial vehicle parts sourcing partner", "heavy duty truck parts", "commercial vehicle aftermarket China", "RFQ sourcing China", "supplier comparison truck parts"]}
   canonical="/about/"
   ogImage="/images/hebei-industrial-park-aerial.jpg"
   jsonLd={jsonLd}
@@ -627,23 +631,23 @@ const jsonLd = [
     }
 
     :global(.footerWrap){
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
-      border-top:1px solid rgba(29,42,54,.10);
+      background:transparent;
+      border-top:1px solid var(--site-line);
     }
 
     :global(.footerTitle),
     :global(.footerNav strong){
-      color:#1d2a36;
+      color:rgba(234,240,255,.94);
     }
 
     :global(.footer),
     :global(.footerNav span){
-      color:var(--muted);
+      color:var(--site-muted);
     }
 
     :global(.footerNav a){
-      background:#fff;
-      border-color:rgba(29,42,54,.10);
+      background:rgba(255,255,255,.03);
+      border-color:var(--site-line);
     }
 
     @media (max-width: 980px){
@@ -662,13 +666,12 @@ const jsonLd = [
       <p class="kicker">CertiSpares / About</p>
 
       <h1 class="title">
-        China truck parts sourcing built for heavy duty aftermarket buyers
+        Why CertiSpares Exists
       </h1>
 
       <p class="sub">
-        CertiSpares supports overseas distributors, wholesalers, and fleet-related buyers with a clearer sourcing workflow,
-        covering supplier matching, quotation comparison, consolidation planning, shipment coordination, and documentation consistency
-        across selected China commercial vehicle brands such as Sinotruk HOWO, SHACMAN, Foton, Dongfeng, FAW Jiefang, and JAC.
+        CertiSpares was built to handle commercial vehicle aftermarket RFQs with more structure: clearer matching, better supplier comparison,
+        and steadier execution across light-, medium-, and heavy-duty trucks, with stronger depth in heavy-duty systems.
       </p>
 
       <div class="brandStrip">
@@ -682,16 +685,22 @@ const jsonLd = [
   <section class="contentSection">
     <section class="section">
       <div class="contentWrap">
-        <h2 class="sectionTitle">What we cover</h2>
+        <h2 class="sectionTitle">Why This Business Exists</h2>
         <p class="sectionDesc">
-          These highlight blocks show the three practical themes behind the way CertiSpares operates: brand coverage,
-          order coordination, and execution control.
+          These three themes explain the logic behind CertiSpares: why the market focus matters, why the supplier base matters, and why the workflow is built this way.
         </p>
 
         <div class="imgGrid">
           {aboutHighlights.map((x) => (
             <div class="imgCard">
-              <img src={x.img} alt={x.title} loading="lazy" />
+              <img
+                src={x.img}
+                alt={x.title}
+                loading="lazy"
+                decoding="async"
+                width={x.width}
+                height={x.height}
+              />
               <div class="imgOverlay">
                 <div class="imgTag">{x.tag}</div>
                 <h3 class="imgTitle">{x.title}</h3>
@@ -705,12 +714,10 @@ const jsonLd = [
 
     <section class="section">
       <div class="contentWrap">
-      <h2 class="sectionTitle">Our market focus</h2>
+      <h2 class="sectionTitle">Market Focus</h2>
       <p class="sectionDesc">
-        We focus on commercial vehicle aftermarket parts sourcing from China with practical coverage across selected leading
-        Chinese truck and commercial vehicle platforms. This includes brand-led RFQs for Sinotruk HOWO parts, SHACMAN parts,
-        Foton parts, Dongfeng parts, and related export-market demand. The goal is not to appear overly broad, but to stay close to real export-market demand,
-        repeat-order feasibility, and execution quality.
+        The focus is commercial vehicle aftermarket sourcing because this is where buyers need more than supplier contact details.
+        They need technical clarity, reliable execution, and a process that can hold up across repeat orders and mixed sourcing scenarios.
       </p>
 
       <div class="grid3">
@@ -726,11 +733,9 @@ const jsonLd = [
 
     <section class="section">
       <div class="contentWrap">
-        <h2 class="sectionTitle">How our workflow works</h2>
+        <h2 class="sectionTitle">How The Approach Works</h2>
         <p class="sectionDesc">
-          We do not treat sourcing as a one-time RFQ action. Our workflow links supplier capability, product mapping,
-          customer inquiry handling, quotation comparison, order execution, logistics coordination, and export-related document consistency
-          into one controlled process.
+          The sourcing model is built to run logically from RFQ intake through supplier comparison and execution control, not as a loose series of quotations.
         </p>
 
         <div class="workflowGrid">
@@ -749,10 +754,9 @@ const jsonLd = [
 
     <section class="section">
       <div class="contentWrap">
-        <h2 class="sectionTitle">Why CertiSpares is different</h2>
+        <h2 class="sectionTitle">Why The Supplier Base Matters</h2>
         <p class="sectionDesc">
-          Many companies can send quotations. Fewer can structure the inquiry well, compare supply paths clearly,
-          and stay disciplined after the order moves into execution.
+          Northern China matters because supplier access is not just about quantity. It affects category depth, response quality, and how efficiently RFQs can be screened and executed.
         </p>
 
         <div class="grid2">
@@ -770,9 +774,7 @@ const jsonLd = [
       <div class="contentWrap">
         <h2 class="sectionTitle">Founder mindset</h2>
         <p class="sectionDesc">
-          CertiSpares is shaped by a founder background that combines commercial curiosity with audit-trained discipline.
-          Prior experience at Grant Thornton influences how workflow clarity, supporting evidence, and documentation consistency
-          are built into sourcing and execution.
+          The founder background is not presented as a story for its own sake. It matters because it explains why the sourcing model is process-driven, review-oriented, and careful about risk points.
         </p>
 
         <div class="grid3">
@@ -788,10 +790,9 @@ const jsonLd = [
 
     <section class="section">
       <div class="contentWrap">
-        <h2 class="sectionTitle">What we support</h2>
+        <h2 class="sectionTitle">What We Support</h2>
         <p class="sectionDesc">
-          We do not try to display thousands of SKUs on one page. Instead, we focus on capability-based coverage,
-          practical category support, and mixed-SKU consolidation for real orders.
+          Coverage includes light-, medium-, and heavy-duty truck platforms, with deeper experience in heavy-duty systems and practical support for mixed RFQ requirements.
         </p>
 
         <div class="grid2">
@@ -805,10 +806,9 @@ const jsonLd = [
 
         <div class="ctaBlock">
           <div class="left">
-            <b>Not sure where to start?</b>
+            <b>Need a clearer starting point?</b>
             <p>
-              Send your OEM numbers, part list, or product photos. We can help structure the inquiry and suggest
-              a sourcing plus consolidation approach based on your order scope.
+              Send your OE numbers, part list, or product photos. We can structure the RFQ and suggest a sourcing path that fits the order scope and truck platform.
             </p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -821,9 +821,9 @@ const jsonLd = [
 
     <section class="section">
       <div class="contentWrap">
-        <h2 class="sectionTitle">Who we work with</h2>
+        <h2 class="sectionTitle">Who We Work With</h2>
         <p class="sectionDesc">
-          We are best suited for buyers who value process clarity, supply stability, and repeatable execution.
+          The model is best suited to buyers who value process clarity, supply stability, and repeatable execution more than broad marketing claims.
         </p>
 
         <div class="grid2">
@@ -839,9 +839,9 @@ const jsonLd = [
 
     <section class="section">
       <div class="contentWrap">
-        <h2 class="sectionTitle">How we work (principles)</h2>
+        <h2 class="sectionTitle">How We Think</h2>
         <p class="sectionDesc">
-          A structured sourcing model is not only about finding products. It is about building a cleaner pipeline that can be repeated.
+          The underlying logic is simple: clarify the RFQ, compare with discipline, control key risk points, and make the sourcing path easier to repeat.
         </p>
 
         <div class="grid2">
@@ -862,7 +862,7 @@ const jsonLd = [
       <div class="contentWrap">
         <h2 class="sectionTitle">FAQ</h2>
         <p class="sectionDesc">
-          Quick answers for distributors, wholesalers, and fleet-related buyers evaluating sourcing support from China.
+          Quick answers for buyers evaluating a commercial vehicle aftermarket sourcing partner in China.
         </p>
 
         <div class="grid2">

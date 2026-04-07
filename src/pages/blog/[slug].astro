@@ -83,7 +83,7 @@ const jsonLd = [
       name: "CertiSpares",
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/images/logo.png`,
+        url: `${SITE_URL}/images/logo.webp`,
       },
     },
     mainEntityOfPage: `${SITE_URL}/blog/${post.slug}/`,
@@ -480,24 +480,24 @@ const jsonLd = [
     }
 
     :global(.footerWrap){
-      background:linear-gradient(180deg, var(--article-page-bg) 0%, var(--article-page-bg-end) 100%);
-      border-top:none;
+      background:transparent;
+      border-top:1px solid var(--site-line);
       margin-top:0 !important;
     }
 
     :global(.footerTitle),
     :global(.footerNav strong){
-      color:#1d2a36;
+      color:rgba(234,240,255,.94);
     }
 
     :global(.footer),
     :global(.footerNav span){
-      color:#5f6d86;
+      color:var(--site-muted);
     }
 
     :global(.footerNav a){
-      background:#fff;
-      border-color:rgba(29,42,54,.10);
+      background:rgba(255,255,255,.03);
+      border-color:var(--site-line);
     }
 
     @media (max-width:980px){
