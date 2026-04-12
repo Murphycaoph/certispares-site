@@ -19,6 +19,8 @@ For auto parts buyers, a real network is a structured sourcing system. It should
 
 If you are still at the first-screening stage, start with [How to Identify Reliable Auto Parts Suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china). This article focuses on the next step: how to turn qualified suppliers into a workable network.
 
+When the network is already being built around real RFQs, the structure becomes easier to manage through a category or brand map such as the broader [product entry page](/product), [brake system parts sourcing](/product/part/brake-system-parts), or [HOWO parts sourcing](/product/brand/howo/).
+
 ---
 
 ## 1. Build the Network by Product Category
@@ -141,4 +143,4 @@ This keeps the network usable. A disciplined network should improve sourcing dec
 
 A reliable supplier network in China is built on structure, not quantity.
 
-For auto parts buyers, the core discipline is simple: organize suppliers by category, use regional logic, keep real backups, compare them consistently, and let performance decide who becomes part of the long-term network.
+For auto parts buyers, the core discipline is simple: organize suppliers by category, use regional logic, keep real backups, compare them consistently, and let performance decide who becomes part of the long-term network. If you are ready to turn that structure into sourcing execution, continue into the broader [product entry page](/product), a matching [part-system sourcing page](/product/part/brake-system-parts), or [truck parts sourcing service](/sourcing).

@@ -12,7 +12,7 @@ For truck parts, that means checking more than business registration or workshop
 
 If you are still at the earlier screening stage, start with [How to identify reliable auto parts suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china). This page is the deeper verification step after a supplier has already been shortlisted.
 
-That is particularly important in safety-sensitive categories such as [air brake chambers](/blog/how-air-brake-chambers-work-in-heavy-trucks), where a weak audit process can quickly turn into preventable [sourcing risk](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
+That is particularly important in safety-sensitive categories such as [air brake chambers](/blog/how-air-brake-chambers-work-in-heavy-trucks), where a weak audit process can quickly turn into preventable [sourcing risk](/blog/how-to-reduce-sourcing-risk-auto-parts-china). If the supplier review is already tied to a live category inquiry, see our [air system parts sourcing](/product/part/air-system-parts/) or [brake system parts sourcing](/product/part/brake-system-parts/) pages.
 
 ---
 
@@ -56,7 +56,7 @@ Buyers need to understand:
 - how production flows from input to finished part
 - where subcontracting is involved
 
-This is how the buyer separates a factory with real process control from one that mainly coordinates work externally.
+This is how the buyer separates a factory with real process control from one that mainly coordinates work externally. Buyers auditing engine-category suppliers may also want to structure the commercial side first through our [engine parts sourcing page](/product/part/engine-parts/).
 
 ---
 
@@ -142,4 +142,4 @@ For buyers, a structured audit is one of the clearest ways to convert supplier c
 
 ## Need Help With Factory Audits?
 
-If you need help with supplier verification, factory review, or inspection coordination, you can reach out through our [Contact Page](/contact).
+If you need help with supplier verification, factory review, or inspection coordination, you can reach out through our [Contact Page](/contact). If you already know the inquiry direction, you can also move into the relevant commercial page first: [engine parts](/product/part/engine-parts/), [brake system parts](/product/part/brake-system-parts/), or [air system parts](/product/part/air-system-parts/).

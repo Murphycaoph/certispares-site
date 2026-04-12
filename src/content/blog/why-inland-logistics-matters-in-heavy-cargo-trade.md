@@ -18,6 +18,8 @@ Before commercial vehicle parts reach the port, they still have to move through 
 
 This article focuses on one question: why inland logistics matters so much in heavy cargo trade, especially for truck parts and other weight-sensitive product categories. For the wider manufacturing-geography context behind this issue, start with [China auto parts industrial clusters and how they work](/blog/how-china-industrial-clusters-shape-auto-parts-supply-chains).
 
+If you are already organizing a live RFQ around heavy or mixed-category demand, the next step is usually to structure the order through the broader [product entry page](/product), [axle and wheel-end parts sourcing](/product/part/axle-and-wheel-end-parts), or [cooling system parts sourcing](/product/part/cooling-system-parts), where inland-movement practicality often matters more than buyers expect.
+
 ---
 
 ## 1. Heavy Cargo Creates a Different Inland-Transport Problem
@@ -135,4 +137,4 @@ Keeping inland logistics as its own evaluation step leads to better supplier com
 
 Inland logistics matters in heavy cargo trade because heavy products are more sensitive to domestic transport cost, loading limits, consolidation complexity, and packaging quality.
 
-For buyers, that means factory-to-port movement should be treated as part of the sourcing decision itself, not as an afterthought once production is finished.
+For buyers, that means factory-to-port movement should be treated as part of the sourcing decision itself, not as an afterthought once production is finished. If you want to turn that logistics thinking into RFQ structure, continue into the broader [product entry page](/product), [truck parts sourcing service](/sourcing), or [send your inquiry](/contact).

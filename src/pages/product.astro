@@ -1,826 +1,193 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { productCards } from "../lib/productCatalog";
-import { readdirSync } from "node:fs";
-import { basename, extname } from "node:path";
-import { fileURLToPath } from "node:url";
 
-type AssemblyKey = "engine" | "gearbox" | "axle" | "brake" | "suspension";
-type ProductBand = "light_truck" | "medium_truck" | "heavy_truck" | "mini_truck";
-type BandBucket = "light" | "medium" | "heavy";
-
-type PartItem = {
-  name: string;
-  image: string;
-  note: string;
-  details: string[];
-  prompt: string;
-};
-
-type ModelItem = {
-  id: string;
-  title: string;
-  subtitle: string;
-  brandCluster: string;
-  submodelCode: string;
-  image: string;
-  band: string;
-  parts: PartItem[];
-};
-
-type AssemblyItem = {
-  key: AssemblyKey;
-  label: string;
-  icon: string;
-  note: string;
-  models: ModelItem[];
-};
-
-type BrandItem = {
-  id: string;
-  name: string;
-  shortName: string;
-  logoText: string;
-  logoImage: string;
-  logoAlt: string;
-  assemblies: AssemblyItem[];
-};
-
-const brandLogoMap: Record<string, { image: string; alt: string; text: string }> = {
-  Foton: {
-    image: "/images/brands/foton.png",
-    alt: "Foton logo",
-    text: "FOTON",
-  },
-  DFSK: {
-    image: "/images/brands/dfsk.png",
-    alt: "DFSK logo",
-    text: "DFSK",
-  },
-  Wuling: {
-    image: "/images/brands/wuling.png",
-    alt: "Wuling logo",
-    text: "WULING",
-  },
-  JAC: {
-    image: "/images/brands/jac.png",
-    alt: "JAC logo",
-    text: "JAC",
-  },
-  Dongfeng: {
-    image: "/images/brands/dongfeng.png",
-    alt: "Dongfeng logo",
-    text: "DONGFENG",
-  },
-  JMC: {
-    image: "/images/brands/jmc.png",
-    alt: "JMC logo",
-    text: "JMC",
-  },
-  Sinotruk: {
-    image: "/images/brands/sinotruk.png",
-    alt: "Sinotruk logo",
-    text: "SINOTRUK",
-  },
-  SHACMAN: {
-    image: "/images/brands/shacman.png",
-    alt: "Shacman logo",
-    text: "SHACMAN",
-  },
-  FAW: {
-    image: "/images/brands/faw.png",
-    alt: "FAW logo",
-    text: "FAW",
-  },
-};
-
-const engineMakerMap: Array<{ pattern: RegExp; maker: string }> = [
-  { pattern: /^(ISF|ISG|X13)/i, maker: "Cummins" },
-  { pattern: /^F3\.8/i, maker: "Foton Cummins" },
-  { pattern: /^4J28/i, maker: "Quanchai" },
-  { pattern: /^DAM/i, maker: "DAM" },
-  { pattern: /^(4W|LJ|Liuzhou Wuling)/i, maker: "Liuji" },
+const brandGroups = [
+  { label: "HOWO", href: "/product/brand/howo/", image: "/images/brands/howo.webp", alt: "HOWO logo" },
+  { label: "Sinotruk", href: "/product/brand/sinotruk/", image: "/images/brands/sinotruk.png", alt: "Sinotruk logo" },
+  { label: "Shacman", href: "/product/brand/shacman/", image: "/images/brands/shacman.png", alt: "Shacman logo" },
+  { label: "Dongfeng", href: "/product/brand/dongfeng/", image: "/images/brands/dongfeng.png", alt: "Dongfeng logo" },
+  { label: "Foton", href: "/product/brand/foton/", image: "/images/brands/foton.png", alt: "Foton logo" },
+  { label: "FAW", href: "/product/brand/faw/", image: "/images/brands/faw.png", alt: "FAW logo" },
+  { label: "JAC", href: "/product/brand/jac/", image: "/images/brands/jac.png", alt: "JAC logo" },
+  { label: "MAN", href: "/product/brand/man/", image: "/images/brands/man.svg", alt: "MAN logo" },
+  { label: "Volvo Truck", href: "/product/brand/volvo-truck/", image: "/images/brands/volvo-truck.jpg", alt: "Volvo Trucks logo" },
+  { label: "Mercedes-Benz Truck", href: "/product/brand/mercedes-benz-truck/", image: "/images/brands/mercedes-benz-truck.svg", alt: "Mercedes-Benz Trucks logo" },
 ];
 
-const gearboxMakerMap: Array<{ pattern: RegExp; maker: string }> = [
-  { pattern: /^ZF/i, maker: "ZF" },
-  { pattern: /^12JSD/i, maker: "FAST" },
-  { pattern: /^8JS/i, maker: "FAST" },
-  { pattern: /^WLY/i, maker: "WLY" },
-  { pattern: /^(MR|DAT|5G|5MT|6S|5S)/i, maker: "Gearbox" },
+const partSystems = [
+  {
+    label: "Engine parts",
+    href: "/product/part/engine-parts/",
+    image: "/images/Engine-Parts.png",
+    alt: "Engine parts",
+  },
+  {
+    label: "Brake system parts",
+    href: "/product/part/brake-system-parts/",
+    image: "/images/Brake-System.png",
+    alt: "Brake system parts",
+  },
+  {
+    label: "Suspension parts",
+    href: "/product/part/suspension-parts/",
+    image: "/images/Suspension.png",
+    alt: "Suspension parts",
+  },
+  {
+    label: "Steering parts",
+    href: "/product/part/steering-parts/",
+    image: "/images/assemblies/assembly-suspension.png",
+    alt: "Steering parts",
+  },
+  {
+    label: "Axle and wheel-end parts",
+    href: "/product/part/axle-and-wheel-end-parts/",
+    image: "/images/assemblies/assembly-axle.png",
+    alt: "Axle and wheel-end parts",
+  },
+  {
+    label: "Clutch and transmission parts",
+    href: "/product/part/clutch-and-transmission-parts/",
+    image: "/images/kit/white background clutch and release parts flat lay, clutch disc, pressure plate, release bearing, pilot bearing, clutch fork, clean truck drivetrain catalog photo, no watermark, square composit.png",
+    alt: "Clutch and transmission parts",
+  },
+  {
+    label: "Air system parts",
+    href: "/product/part/air-system-parts/",
+    image: "/images/kit/white background brake chamber and actuation parts flat lay, brake chamber, slack adjuster, push rod, clevis, repair diaphragm, air brake system parts catalog photo, no watermark, square composition.png",
+    alt: "Air system parts",
+  },
+  {
+    label: "Electrical parts",
+    href: "/product/part/electrical-parts/",
+    image: "/images/kit/white background engine replacement parts flat lay, water pump, thermostat, sensors, injectors, hoses, commercial vehicle parts catalog style, no watermark, square composition.png",
+    alt: "Electrical parts",
+  },
+  {
+    label: "Cooling system parts",
+    href: "/product/part/cooling-system-parts/",
+    image: "/images/kit/white background engine replacement parts flat lay, water pump, thermostat, sensors, injectors, hoses, commercial vehicle parts catalog style, no watermark, square composition.png",
+    alt: "Cooling system parts",
+  },
+  {
+    label: "Rubber and bushing parts",
+    href: "/product/part/rubber-and-bushing-parts/",
+    image: "/images/kit/white background shackle and bushing kit flat lay, shackle kits, bushings, pins, rubber sleeves, grease fittings, commercial vehicle suspension parts catalog photo, no watermark, square composition.png",
+    alt: "Rubber and bushing parts",
+  },
 ];
 
-const getMakerLabel = (value: string, kind: AssemblyKey) => {
-  if (kind === "axle") return "Axle";
-  if (kind === "brake") return "Brake";
-  const source = kind === "engine" ? engineMakerMap : gearboxMakerMap;
-  const match = source.find((item) => item.pattern.test(value));
-  return match?.maker || (kind === "engine" ? "Engine" : "Gearbox");
-};
-
-const makeDisplayTitle = (value: string, kind: AssemblyKey) => {
-  const maker = getMakerLabel(value, kind);
-  const normalizedValue = kind === "engine"
-    ? value.trim().replace(/^Liuzhou Wuling\b/i, "Liuji")
-    : value.trim();
-  if (!normalizedValue) return maker;
-
-  if (kind === "engine" && normalizedValue.toLowerCase().startsWith("liuji ")) {
-    return `Engine ${normalizedValue}`.trim();
-  }
-
-  return normalizedValue.toLowerCase().startsWith(maker.toLowerCase())
-    ? normalizedValue
-    : `${maker} ${normalizedValue}`.trim();
-};
-
-const assemblyMeta: Record<AssemblyKey, { label: string; icon: string; note: string }> = {
-  engine: {
-    label: "Engine",
-    icon: "/images/assemblies/assembly-engine.png",
-    note: "Platform entry for engine-family supply scope",
+const entryCards = [
+  {
+    title: "Browse by brand",
+    desc: "Use this path when the buyer already knows the truck platform, brand family, or reference vehicle.",
+    bullets: [
+      "Better for platform-led RFQs",
+      "Useful when the RFQ starts from VIN, truck model, or an old supplier reference",
+      "Helps organize matching before quotation starts",
+    ],
+    href: "#brand-entry",
+    cta: "See brand entry",
   },
-  gearbox: {
-    label: "Gearbox",
-    icon: "/images/assemblies/assembly-gearbox.png",
-    note: "Platform entry for gearbox-family repair and replacement scope",
+  {
+    title: "Browse by part system",
+    desc: "Use this path when the inquiry starts from the category itself, especially for mixed-brand replenishment or category-led RFQs.",
+    bullets: [
+      "Better for category-led replenishment",
+      "Useful when one RFQ covers multiple brands under the same system",
+      "Helps align suppliers on the same scope before quotation",
+    ],
+    href: "#part-entry",
+    cta: "See part systems",
   },
-  axle: {
-    label: "Axle",
-    icon: "/images/assemblies/assembly-axle.png",
-    note: "Platform entry for axle and hub-side service parts",
+];
+
+const processSteps = [
+  {
+    title: "Send the references you have",
+    desc: "Start with OE numbers, VIN, photos, part names, specs, or the parts list already in hand.",
   },
-  brake: {
-    label: "Brake System",
-    icon: "/images/assemblies/assembly-brake.png",
-    note: "Platform entry for brake service and replacement parts",
+  {
+    title: "We confirm matching scope",
+    desc: "We review the RFQ first, then clarify fitment, application, and scope before quotations move out.",
   },
-  suspension: {
-    label: "Suspension",
-    icon: "/images/assemblies/assembly-suspension.png",
-  note: "Platform entry for suspension and under-chassis service parts",
+  {
+    title: "We compare workable suppliers",
+    desc: "We compare suppliers on the same scope so quotes are easier to review and easier to act on.",
   },
-};
+  {
+    title: "We follow up on QC, packing, documents, and shipment",
+    desc: "After confirmation, we keep the order moving through inspection points, packing checks, documents, and shipping coordination.",
+  },
+];
 
-type PlatformImageAsset = {
-  assembly: AssemblyKey | null;
-  productBand: ProductBand | null;
-  baseName: string;
-  normalizedBaseName: string;
-  url: string;
-  isFallback: boolean;
-};
-
-const assemblyDefaultImages: Record<AssemblyKey, string> = {
-  engine: "/images/Engine-Parts.png",
-  gearbox: "/images/Engine-Parts.png",
-  axle: "/images/Suspension.png",
-  brake: "/images/Brake-System.png",
-  suspension: "/images/Suspension.png",
-};
-
-const platformLibraryRoot = fileURLToPath(new URL("../../public/images/platform-library", import.meta.url));
-const kitImageRoot = fileURLToPath(new URL("../../public/images/kit", import.meta.url));
-const supportedImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif"]);
-
-const normalizeImageKey = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/\.[^.]+$/, "")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim()
-    .replace(/\s+/g, " ");
-
-const makeLooseImageKey = (value: string) =>
-  normalizeImageKey(value)
-    .replace(/\b(family|product|closeup|longshot|features|graphic|with|intarder|bus)\b/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-const compactImageKey = (value: string) => makeLooseImageKey(value).replace(/\s+/g, "");
-
-const engineIdentityTokens = [
-  "cummins",
-  "foton cummins",
-  "quanchai",
-  "yuchai",
-  "yunnei",
-  "weichai",
-  "sinotruk",
-  "jmc",
-  "jac",
-  "dfsk",
-  "sgmw",
-  "dongan",
-  "faw",
-  "liuji",
-  "liuzhou wuling",
-  "beinei",
-] as const;
-
-const getEngineIdentityKey = (value: string) => {
-  const looseKey = makeLooseImageKey(value);
-  return engineIdentityTokens.find((token) => looseKey.includes(token)) ?? null;
-};
-
-const isCompatibleEngineIdentity = (candidateValues: string[], assetValue: string) => {
-  const candidateIdentities = dedupeStrings(
-    candidateValues
-      .map((candidate) => getEngineIdentityKey(candidate) ?? "")
-      .filter(Boolean),
-  );
-
-  if (candidateIdentities.length === 0) return true;
-
-  const assetIdentity = getEngineIdentityKey(assetValue);
-  if (!assetIdentity) return false;
-
-  return candidateIdentities.includes(assetIdentity);
-};
-
-const detectAssemblyFromFileName = (value: string): AssemblyKey | null => {
-  const normalizedValue = normalizeImageKey(value);
-  if (normalizedValue.startsWith("engine ")) return "engine";
-  if (normalizedValue.startsWith("gearbox ")) return "gearbox";
-  if (normalizedValue.startsWith("axle ")) return "axle";
-  if (normalizedValue.startsWith("brake ")) return "brake";
-  if (normalizedValue.startsWith("suspension ")) return "suspension";
-  return null;
-};
-
-const detectAssemblyFromPublicPath = (value: string): AssemblyKey | null => {
-  const pathKey = normalizeImageKey(value.replace(/\//g, " "));
-  if (pathKey.includes("platform library engine")) return "engine";
-  if (pathKey.includes("platform library gearbox")) return "gearbox";
-  if (pathKey.includes("platform library axle")) return "axle";
-  if (pathKey.includes("platform library brake")) return "brake";
-  if (pathKey.includes("platform library suspension")) return "suspension";
-  return null;
-};
-
-const getBandBucket = (productBand: ProductBand): BandBucket => {
-  if (productBand === "heavy_truck") return "heavy";
-  if (productBand === "medium_truck") return "medium";
-  return "light";
-};
-
-const detectProductBandFromFileName = (value: string): ProductBand | null => {
-  const normalizedValue = normalizeImageKey(value);
-  if (normalizedValue.includes("heavy truck") || normalizedValue.includes("heavy duty")) return "heavy_truck";
-  if (normalizedValue.includes("medium truck")) return "medium_truck";
-  if (normalizedValue.includes("mini truck")) return "mini_truck";
-  if (normalizedValue.includes("light truck")) return "light_truck";
-  return null;
-};
-
-const listPlatformImageAssets = (dirPath: string, baseUrl: string): PlatformImageAsset[] => {
-  const entries = readdirSync(dirPath, { withFileTypes: true });
-
-  return entries.flatMap((entry) => {
-    const absolutePath = `${dirPath}/${entry.name}`.replace(/\\/g, "/");
-    const publicPath = `${baseUrl}/${entry.name}`.replace(/\\/g, "/");
-
-    if (entry.isDirectory()) {
-      return listPlatformImageAssets(absolutePath, publicPath);
-    }
-
-    const extension = extname(entry.name).toLowerCase();
-    if (!supportedImageExtensions.has(extension)) return [];
-
-    const baseName = basename(entry.name, extension);
-    return [
-      {
-        assembly: detectAssemblyFromPublicPath(publicPath) ?? detectAssemblyFromFileName(baseName),
-        productBand: detectProductBandFromFileName(baseName),
-        baseName,
-        normalizedBaseName: normalizeImageKey(baseName),
-        url: publicPath,
-        isFallback: publicPath.includes("/fallback/"),
-      },
-    ];
-  });
-};
-
-const platformLibraryAssets = listPlatformImageAssets(platformLibraryRoot, "/images/platform-library");
-const platformImageAssets = platformLibraryAssets.filter((asset) => !asset.isFallback);
-const platformFallbackAssets = platformLibraryAssets.filter((asset) => asset.isFallback);
-const kitImageAssets = listPlatformImageAssets(kitImageRoot, "/images/kit");
-
-const dedupeStrings = (values: string[]) => [...new Set(values.map((value) => value.trim()).filter(Boolean))];
-
-const hashSeed = (value: string) =>
-  [...value].reduce((total, char) => ((total * 31) + char.charCodeAt(0)) >>> 0, 7);
-
-const getExactPlatformImage = (assembly: AssemblyKey, candidates: string[]) => {
-  const candidateKeys = dedupeStrings(candidates).map((candidate) => normalizeImageKey(candidate));
-  const looseCandidateKeys = dedupeStrings(candidates).map((candidate) => makeLooseImageKey(candidate));
-  const compactCandidateKeys = dedupeStrings(candidates).map((candidate) => compactImageKey(candidate));
-  const assemblyAssets = platformImageAssets.filter((asset) => asset.assembly === assembly);
-  const compatibleAssemblyAssets = assembly === "engine"
-    ? assemblyAssets.filter((asset) => isCompatibleEngineIdentity(candidates, asset.baseName))
-    : assemblyAssets;
-
-  const exactMatch = assemblyAssets.find((asset) => candidateKeys.includes(asset.normalizedBaseName));
-  if (exactMatch) return exactMatch.url;
-
-  const familyMatch = compatibleAssemblyAssets.find((asset) =>
-    looseCandidateKeys.some((candidateKey) => {
-      const assetLooseKey = makeLooseImageKey(asset.baseName);
-      const assetCompactKey = compactImageKey(asset.baseName);
-      return (
-        candidateKey.startsWith(assetLooseKey) ||
-        assetLooseKey.startsWith(candidateKey) ||
-        compactCandidateKeys.some(
-          (compactCandidateKey) =>
-            compactCandidateKey.startsWith(assetCompactKey) || assetCompactKey.startsWith(compactCandidateKey),
-        )
-      );
-    }),
-  );
-
-  const tokenOverlapMatch = compatibleAssemblyAssets.find((asset) =>
-    looseCandidateKeys.some((candidateKey) => {
-      const candidateTokens = candidateKey.split(" ").filter(Boolean);
-      const assetTokens = makeLooseImageKey(asset.baseName).split(" ").filter(Boolean);
-      const sharedTokens = candidateTokens.filter((token) => assetTokens.includes(token));
-      return sharedTokens.length >= Math.min(3, candidateTokens.length, assetTokens.length);
-    }),
-  );
-
-  const sameIdentityFallbackMatch = assembly === "engine" && compatibleAssemblyAssets.length > 0
-    ? compatibleAssemblyAssets[
-        hashSeed(
-          dedupeStrings(candidates)
-            .map((candidate) => getEngineIdentityKey(candidate) || makeLooseImageKey(candidate))
-            .find(Boolean) ?? assembly,
-        ) % compatibleAssemblyAssets.length
-      ]
-    : undefined;
-
-  return familyMatch?.url ?? tokenOverlapMatch?.url ?? sameIdentityFallbackMatch?.url;
-};
-
-const getBandAwareFallbackPool = (assembly: AssemblyKey, productBand: ProductBand) => {
-  const assemblyPool = platformFallbackAssets.filter((asset) => asset.assembly === assembly);
-  if (assemblyPool.length === 0) return [];
-
-  const targetBucket = getBandBucket(productBand);
-  const explicitlyTaggedPool = assemblyPool.filter(
-    (asset) => asset.productBand && getBandBucket(asset.productBand) === targetBucket,
-  );
-  if (explicitlyTaggedPool.length > 0) return explicitlyTaggedPool;
-
-  const genericPool = assemblyPool.filter((asset) => !asset.productBand);
-  if (genericPool.length > 0) return genericPool;
-
-  return assemblyPool;
-};
-
-const getFallbackIdentityKey = (assembly: AssemblyKey, candidates: string[]) => {
-  const candidateKeys = dedupeStrings(candidates)
-    .map((candidate) => makeLooseImageKey(candidate))
-    .filter(Boolean)
-    .sort((left, right) => right.length - left.length);
-
-  const prefixedKey = candidateKeys.find((candidate) => candidate.startsWith(`${assembly} `));
-  return prefixedKey ?? candidateKeys[0] ?? assembly;
-};
-
-const getFallbackPlatformImage = (
-  assembly: AssemblyKey,
-  productBand: ProductBand,
-  candidates: string[],
-  distributionKey: string,
-) => {
-  const assemblyPool = getBandAwareFallbackPool(assembly, productBand);
-  if (assemblyPool.length === 0) return assemblyDefaultImages[assembly];
-  const fallbackIdentityKey = getFallbackIdentityKey(assembly, candidates);
-  const seed = hashSeed(`${assembly}:${getBandBucket(productBand)}:${fallbackIdentityKey}:${distributionKey}`);
-  return assemblyPool[seed % assemblyPool.length]?.url ?? assemblyDefaultImages[assembly];
-};
-
-const resolvePlatformImage = (
-  assembly: AssemblyKey,
-  productBand: ProductBand,
-  candidates: string[],
-  distributionKey: string,
-) => getExactPlatformImage(assembly, candidates) ?? getFallbackPlatformImage(assembly, productBand, candidates, distributionKey);
-
-const partLabelPool = {
-  engine: [
-    {
-      name: "Maintenance Kit",
-      note: "Filters, belts and routine service items",
-      details: ["Oil filter", "Fuel filter", "Air filter", "Drive belt", "Tensioner"],
-      prompt:
-        "white background commercial vehicle engine maintenance kit flat lay, oil filter, fuel filter, air filter, drive belt, tensioner, clean catalog product photo, no packaging, no watermark, square composition",
-    },
-    {
-      name: "Repair Kit",
-      note: "Seal sets and platform repair bundles",
-      details: ["Oil seals", "Gaskets", "O-rings", "Washer sets", "Seal ring kits"],
-      prompt:
-        "white background engine repair kit flat lay, oil seals, gaskets, o-rings, washer sets, seal ring kits, clean industrial catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Replacement Parts",
-      note: "Water pumps, sensors and wear parts",
-      details: ["Water pump", "Thermostat", "Sensors", "Injectors", "Hoses"],
-      prompt:
-        "white background engine replacement parts flat lay, water pump, thermostat, sensors, injectors, hoses, commercial vehicle parts catalog style, no watermark, square composition",
-    },
-  ],
-  gearbox: [
-    {
-      name: "Gearbox Repair Kit",
-      note: "Bearings, seals and service parts",
-      details: ["Bearings", "Oil seals", "Gaskets", "Synchronizer parts", "Needle bearings"],
-      prompt:
-        "white background gearbox repair kit flat lay, bearings, oil seals, gaskets, synchronizer parts, needle bearings, clean transmission parts catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Clutch & Release Parts",
-      note: "Matching clutch-side replacement scope",
-      details: ["Clutch disc", "Pressure plate", "Release bearing", "Pilot bearing", "Clutch fork"],
-      prompt:
-        "white background clutch and release parts flat lay, clutch disc, pressure plate, release bearing, pilot bearing, clutch fork, clean truck drivetrain catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Shift & Housing Parts",
-      note: "Selection parts for overhaul inquiries",
-      details: ["Shift fork", "Selector shaft", "Housing seals", "Covers", "Fastener kits"],
-      prompt:
-        "white background gearbox shift and housing parts flat lay, shift fork, selector shaft, housing seals, covers, fastener kits, clean catalog product photo, no watermark, square composition",
-    },
-  ],
-  axle: [
-    {
-      name: "Axle Repair Kit",
-      note: "Core service and overhaul parts for axle-side work",
-      details: ["Differential bearings", "Pinion seals", "Shim sets", "Gaskets", "Repair washers"],
-      prompt:
-        "white background axle repair kit flat lay, differential bearings, pinion seals, shim sets, gaskets, repair washers, heavy truck axle parts catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Hub & Bearing Parts",
-      note: "Wheel-end support parts for maintenance",
-      details: ["Hub bearings", "Wheel seals", "Bearing nuts", "Lock washers", "Hub caps"],
-      prompt:
-        "white background hub and bearing parts flat lay, hub bearings, wheel seals, bearing nuts, lock washers, hub caps, truck wheel end parts catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Differential Parts",
-      note: "Selection parts for drivetrain repair inquiries",
-      details: ["Crown wheel", "Pinion gear", "Spider gears", "Cross shaft", "Thrust washers"],
-      prompt:
-        "white background axle differential parts flat lay, crown wheel, pinion gear, spider gears, cross shaft, thrust washers, commercial vehicle drivetrain catalog photo, no watermark, square composition",
-    },
-  ],
-  brake: [
-    {
-      name: "Brake Wear Parts",
-      note: "Routine brake replacement scope under this platform",
-      details: ["Brake shoes", "Brake linings", "Brake pads", "Return springs", "Adjuster kits"],
-      prompt:
-        "white background brake wear parts flat lay, brake shoes, brake linings, brake pads, return springs, adjuster kits, truck brake parts catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Brake Chamber & Actuation",
-      note: "Air-brake and actuation side service parts",
-      details: ["Brake chamber", "Slack adjuster", "Push rod", "Clevis", "Repair diaphragm"],
-      prompt:
-        "white background brake chamber and actuation parts flat lay, brake chamber, slack adjuster, push rod, clevis, repair diaphragm, air brake system parts catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Brake Drum & Hardware",
-      note: "Drum-side replacement and hardware support",
-      details: ["Brake drum", "Wheel studs", "Brake hardware", "Anchor pins", "Mounting kits"],
-      prompt:
-        "white background brake drum and hardware flat lay, brake drum, wheel studs, brake hardware, anchor pins, mounting kits, truck brake catalog photo, no watermark, square composition",
-    },
-  ],
-  suspension: [
-    {
-      name: "Leaf Spring Parts",
-      note: "Core suspension service parts for load support",
-      details: ["Leaf spring", "Center bolt", "Spring clips", "Spring pins", "Mounting plates"],
-      prompt:
-        "white background leaf spring parts flat lay, leaf spring, center bolt, spring clips, spring pins, mounting plates, heavy duty suspension parts catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Shackle & Bushing Kit",
-      note: "Wear-side suspension connection parts",
-      details: ["Shackle kits", "Bushings", "Pins", "Rubber sleeves", "Grease fittings"],
-      prompt:
-        "white background shackle and bushing kit flat lay, shackle kits, bushings, pins, rubber sleeves, grease fittings, commercial vehicle suspension parts catalog photo, no watermark, square composition",
-    },
-    {
-      name: "Stability Components",
-      note: "Under-chassis parts for ride control and maintenance",
-      details: ["U-bolts", "Torque rod bushings", "Stabilizer bushes", "Mount rubbers", "Hardware kits"],
-      prompt:
-        "white background suspension stability components flat lay, U-bolts, torque rod bushings, stabilizer bushes, mount rubbers, hardware kits, heavy truck under chassis parts catalog photo, no watermark, square composition",
-    },
-  ],
-} as const;
-
-const partsCategoryImageFallbackMap: Record<AssemblyKey, string[]> = {
-  engine: ["/images/Engine-Parts.png", "/images/Engine-Parts.png", "/images/Engine-Parts.png"],
-  gearbox: [
-    "/images/platform-downloads/official-batch/Gearbox ZF Ecolite.png",
-    "/images/platform-downloads/official-batch-5/Gearbox ZF Ecolite light truck.png",
-    "/images/platform-downloads/official-batch-6/Gearbox ZF 6S450P.png",
-  ],
-  axle: [
-    "/images/platform-downloads/banded/Axle heavy truck 1.png",
-    "/images/platform-downloads/banded/Axle medium truck 1.png",
-    "/images/platform-downloads/banded/Axle light truck 1.jpg",
-  ],
-  brake: [
-    "/images/Brake-System.png",
-    "/images/platform-downloads/banded/Brake heavy truck 1.png",
-    "/images/platform-downloads/banded/Brake light truck 1.png",
-  ],
-  suspension: [
-    "/images/Suspension.png",
-    "/images/platform-downloads/banded/Suspension heavy truck 1.jpg",
-    "/images/platform-downloads/banded/Suspension medium truck 1.jpg",
-  ],
-};
-
-const isPromptMatch = (assetKey: string, promptKey: string) =>
-  assetKey === promptKey ||
-  assetKey.startsWith(promptKey) ||
-  promptKey.startsWith(assetKey) ||
-  assetKey.includes(promptKey) ||
-  promptKey.includes(assetKey);
-
-const getPartCategoryImage = (assembly: AssemblyKey, prompt: string, fallbackIndex: number) => {
-  const promptKey = normalizeImageKey(prompt);
-  const matchedImage = kitImageAssets.find((asset) => isPromptMatch(asset.normalizedBaseName, promptKey))?.url;
-  return matchedImage ?? partsCategoryImageFallbackMap[assembly][fallbackIndex % partsCategoryImageFallbackMap[assembly].length];
-};
-
-const makeParts = (
-  kind: AssemblyKey,
-  productBand: ProductBand,
-  seedKey: string,
-): PartItem[] =>
-  partLabelPool[kind].map((part, index) => ({
-    name: part.name,
-    note: part.note,
-    details: part.details,
-    prompt: part.prompt,
-    image: getPartCategoryImage(kind, part.prompt, index),
-  }));
-
-const uniqueBy = <T,>(items: T[], getKey: (item: T) => string) => {
-  const seen = new Set<string>();
-  return items.filter((item) => {
-    const key = getKey(item);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-};
-
-const groupedBrands = [...new Set(productCards.map((item) => item.brand))]
-  .map((brandName) => {
-  const brandRows = productCards.filter((item) => item.brand === brandName);
-  const brandLogo = brandLogoMap[brandName] ?? {
-    image: "/images/brands/default-brand.svg",
-    alt: `${brandName} logo`,
-    text: brandName.toUpperCase(),
-  };
-  const engineRows = brandRows.filter((item) => item.cardType === "engine_family" && item.engineModel);
-  const gearboxRows = brandRows.filter((item) => item.gearboxModel && (item.cardType === "gearbox_family" || item.cardType === "engine_family"));
-  const axleRows = brandRows.filter((item) => item.cardType === "axle_family");
-  const brakeRows = brandRows.filter((item) => item.cardType === "brake_system");
-  const suspensionRows = brandRows.filter((item) => item.cardType === "suspension_family");
-
-  const engineModels: ModelItem[] = engineRows.map((item, index) => {
-    const displayTitle = makeDisplayTitle(item.engineModel, "engine");
-
-    return {
-      id: `engine-${item.submodelCode}`,
-      title: displayTitle,
-      subtitle: item.brandCluster,
-      brandCluster: item.brandCluster,
-      submodelCode: item.submodelCode,
-      image: resolvePlatformImage(
-        "engine",
-        item.productBand,
-        [
-          `Engine ${brandName} ${item.heroTitle}`,
-          `Engine ${item.engineModel}`,
-          displayTitle,
-          `Engine ${item.heroTitle}`,
-          item.engineModel,
-          item.heroTitle,
-        ],
-        `${brandName}-${index}`,
-      ),
-      band: item.productBand.replace("_", " "),
-      parts: makeParts("engine", item.productBand, `engine-${brandName}-${item.submodelCode}`),
-    };
-  });
-
-  const gearboxModels: ModelItem[] = gearboxRows
-    .map((item, index) => {
-      const displayTitle = makeDisplayTitle(item.gearboxModel, "gearbox");
-
-      return {
-        id: `gearbox-${item.submodelCode}`,
-        title: displayTitle,
-        subtitle: item.brandCluster,
-        brandCluster: item.brandCluster,
-        submodelCode: item.submodelCode,
-        image: resolvePlatformImage(
-          "gearbox",
-          item.productBand,
-          [
-            `Gearbox ${brandName} ${item.gearboxModel}`,
-            `Gearbox ${displayTitle}`,
-            `Gearbox ${item.gearboxModel}`,
-            displayTitle,
-            item.gearboxModel,
-          ],
-          `${brandName}-${index}`,
-        ),
-        band: item.productBand.replace("_", " "),
-        parts: makeParts("gearbox", item.productBand, `gearbox-${brandName}-${item.submodelCode}`),
-      };
-    });
-
-  const axleSource = axleRows.length > 0 ? axleRows : uniqueBy(brandRows, (item) => `${item.brandCluster}-${item.productBand}`);
-  const axleModels: ModelItem[] = axleSource.map((item, index) => ({
-    id: `axle-${item.brandCluster}-${item.productBand}`.toLowerCase().replace(/\s+/g, "-"),
-    title: `${item.brandCluster} Axle`,
-    subtitle: item.brandCluster,
-    brandCluster: item.brandCluster,
-    submodelCode: item.submodelCode,
-    image: resolvePlatformImage(
-      "axle",
-      item.productBand,
-      [
-        `Axle ${brandName} ${item.brandCluster} ${item.productBand.replace("_", " ")}`,
-        `Axle ${item.brandCluster} ${item.productBand.replace("_", " ")}`,
-        `Axle ${brandName} ${item.brandCluster}`,
-        `Axle ${item.brandCluster}`,
-        `${item.brandCluster} Axle`,
-      ],
-      `${brandName}-${index}`,
-    ),
-    band: item.productBand.replace("_", " "),
-    parts: makeParts("axle", item.productBand, `axle-${brandName}-${item.brandCluster}-${item.productBand}`),
-  }));
-
-  const brakeSource = brakeRows.length > 0 ? brakeRows : uniqueBy(brandRows, (item) => `${item.brandCluster}-${item.productBand}`);
-  const brakeModels: ModelItem[] = brakeSource.map((item, index) => ({
-    id: `brake-${item.brandCluster}-${item.productBand}`.toLowerCase().replace(/\s+/g, "-"),
-    title: `${item.brandCluster} Brake System`,
-    subtitle: item.brandCluster,
-    brandCluster: item.brandCluster,
-    submodelCode: item.submodelCode,
-    image: resolvePlatformImage(
-      "brake",
-      item.productBand,
-      [
-        `Brake ${brandName} ${item.brandCluster} ${item.productBand.replace("_", " ")}`,
-        `Brake ${item.brandCluster} ${item.productBand.replace("_", " ")}`,
-        `Brake ${brandName} ${item.brandCluster}`,
-        `Brake ${item.brandCluster}`,
-        `${item.brandCluster} Brake System`,
-      ],
-      `${brandName}-${index}`,
-    ),
-    band: item.productBand.replace("_", " "),
-    parts: makeParts("brake", item.productBand, `brake-${brandName}-${item.brandCluster}-${item.productBand}`),
-  }));
-
-  const suspensionSource = suspensionRows.length > 0 ? suspensionRows : uniqueBy(brandRows, (item) => `${item.brandCluster}-${item.productBand}`);
-  const suspensionModels: ModelItem[] = suspensionSource.map((item, index) => ({
-    id: `suspension-${item.brandCluster}-${item.productBand}`.toLowerCase().replace(/\s+/g, "-"),
-    title: `${item.brandCluster} Suspension`,
-    subtitle: item.brandCluster,
-    brandCluster: item.brandCluster,
-    submodelCode: item.submodelCode,
-    image: resolvePlatformImage(
-      "suspension",
-      item.productBand,
-      [
-        `Suspension ${brandName} ${item.brandCluster} ${item.productBand.replace("_", " ")}`,
-        `Suspension ${item.brandCluster} ${item.productBand.replace("_", " ")}`,
-        `Suspension ${brandName} ${item.brandCluster}`,
-        `Suspension ${item.brandCluster}`,
-        `${item.brandCluster} Suspension`,
-      ],
-      `${brandName}-${index}`,
-    ),
-    band: item.productBand.replace("_", " "),
-    parts: makeParts(
-      "suspension",
-      item.productBand,
-      `suspension-${brandName}-${item.brandCluster}-${item.productBand}`,
-    ),
-  }));
-
-  const assemblies: AssemblyItem[] = [
-    {
-      key: "engine",
-      ...assemblyMeta.engine,
-      models: engineModels,
-    },
-    {
-      key: "gearbox",
-      ...assemblyMeta.gearbox,
-      models: gearboxModels,
-    },
-    {
-      key: "axle",
-      ...assemblyMeta.axle,
-      models: axleModels,
-    },
-    {
-      key: "brake",
-      ...assemblyMeta.brake,
-      models: brakeModels,
-    },
-    {
-      key: "suspension",
-      ...assemblyMeta.suspension,
-      models: suspensionModels,
-    },
-  ].filter((item) => item.models.length > 0);
-
-  return {
-    id: brandName.toLowerCase(),
-    name: brandName,
-    shortName: brandName.slice(0, 2).toUpperCase(),
-    logoText: brandLogo.text,
-    logoImage: brandLogo.image,
-    logoAlt: brandLogo.alt,
-    assemblies,
-  } satisfies BrandItem;
-  })
-  .sort((leftBrand, rightBrand) => {
-    const leftEngineCount = leftBrand.assemblies.find((assembly) => assembly.key === "engine")?.models.length ?? 0;
-    const rightEngineCount = rightBrand.assemblies.find((assembly) => assembly.key === "engine")?.models.length ?? 0;
-
-    if (rightEngineCount !== leftEngineCount) return rightEngineCount - leftEngineCount;
-    return leftBrand.name.localeCompare(rightBrand.name);
-  });
-
-const initialBrand = groupedBrands[0];
-const initialAssembly = initialBrand?.assemblies[0];
-const initialModel = initialAssembly?.models[0];
-
-const catalogData = JSON.stringify(groupedBrands);
+const whyThisStructureWorks = [
+  {
+    title: "It matches how RFQs actually start",
+    desc: "Some buyers start from the truck platform. Others start from the part category. This structure fits both.",
+  },
+  {
+    title: "It helps buyers send clearer inquiry inputs",
+    desc: "The clearer the input, the easier it is to confirm fitment, align suppliers, and move the RFQ forward.",
+  },
+  {
+    title: "It supports inquiry-based sourcing instead of catalog-style search",
+    desc: "Buyers can start from real RFQ references instead of trying to force every inquiry through a catalog path.",
+  },
+];
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Interactive Product Platform Catalog",
+    name: "Truck Parts Sourcing Entry by Brand or Part System",
     description:
-      "Interactive multi-column catalog for commercial vehicle brands, assemblies, engine models, gearbox models, and matching service parts.",
+      "A structured entry page for buyers who want to source truck parts from China by brand or by part category, using OE numbers, VIN, photos, and RFQ details.",
     url: "https://certispares.com/product/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://certispares.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Product",
+        item: "https://certispares.com/product/",
+      },
+    ],
   },
 ];
 ---
 
 <BaseLayout
-  title="Interactive Product Catalog | CertiSpares"
-  description="Browse brands, major assemblies, model platforms, and matching parts in a layered product catalog."
-  keywords={["product catalog", "engine platform", "gearbox platform", "truck parts catalog", "FOTON parts"]}
+  title="Truck Parts Sourcing by Brand and Part System | CertiSpares"
+  description="Browse truck parts sourcing support by brand or by part system. CertiSpares handles RFQs through OE numbers, VIN, photos, and vehicle details."
+  keywords={["truck parts catalog by brand", "truck parts by part system", "OE number sourcing", "VIN-based truck parts sourcing", "commercial vehicle parts sourcing China"]}
   canonical="/product/"
-  ogImage="/images/Engine-Parts.png"
+  ogImage="/images/Brake-System.png"
   jsonLd={jsonLd}
 >
-  <style is:global>
+  <style>
     :root{
-      --bg:#edf2f8;
-      --text:#172334;
-      --muted:#66758a;
-      --line:rgba(23,35,52,.1);
-      --brand:#1f49dd;
-      --brand-2:#4d79ff;
-      --panel:rgba(255,255,255,.82);
-      --navy:#0d1735;
-      --navy-2:#13214a;
-      --soft:#f7faff;
-      --shadow:0 18px 50px rgba(22,33,58,.08);
+      --bg:#eef3f7;
+      --text:#1d2a36;
+      --muted:#5f6d86;
+      --line:rgba(29,42,54,.10);
+      --brand:#3957E9;
     }
 
-    body{
-      background:#eef3f7;
-    }
-
-    main{
+    :global(main){
       background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
     }
 
-    .topbar{
+    :global(.topbar){
       background:#111F43 !important;
       background-color:#111F43 !important;
       opacity:1 !important;
@@ -830,26 +197,20 @@ const jsonLd = [
       box-shadow:none !important;
     }
 
-    .menu{
+    :global(.menu),
+    :global(.menu a),
+    :global(.menu a:hover){
       color:#fff;
     }
 
-    .menu a{
-      color:#fff;
-    }
-
-    .menu a:hover{
-      color:#fff;
-    }
-
-    .menu a.active,
-    .drawerNav a.active{
+    :global(.menu a.active),
+    :global(.drawerNav a.active){
       color:#fff;
       background:rgba(57,87,233,.18);
       border-color:rgba(57,87,233,.32);
     }
 
-    .cta{
+    :global(.cta){
       background:#3957E9;
       color:#fff;
     }
@@ -857,9 +218,9 @@ const jsonLd = [
     .hero{
       position:relative;
       padding:46px 0 20px;
+      border-bottom:1px solid var(--line);
       overflow:hidden;
       isolation:isolate;
-      border-bottom:1px solid var(--line);
       background:#0b1020;
     }
 
@@ -867,8 +228,8 @@ const jsonLd = [
       position:absolute;
       inset:0;
       z-index:-2;
-      background:url("/images/Engine-Parts.png") center/cover no-repeat;
-      filter: blur(2px) saturate(.95) contrast(.95) brightness(.9);
+      background:url("/images/Brake-System.png") center/cover no-repeat;
+      filter:blur(2px) saturate(.95) contrast(.95) brightness(.9);
       transform:scale(1.03);
     }
 
@@ -901,16 +262,16 @@ const jsonLd = [
 
     h1{
       margin:0 0 14px;
-      font-size:48px;
-      line-height:1.03;
-      letter-spacing:-.7px;
+      font-size:46px;
+      line-height:1.04;
+      letter-spacing:-.65px;
       color:#fff;
-      max-width:740px;
+      max-width:760px;
     }
 
     .heroLead{
       margin:0;
-      max-width:720px;
+      max-width:740px;
       color:rgba(232,240,255,.84);
       line-height:1.8;
     }
@@ -921,7 +282,7 @@ const jsonLd = [
       background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.12);
       box-shadow:0 18px 50px rgba(0,0,0,.18);
-      backdrop-filter: blur(10px);
+      backdrop-filter:blur(10px);
     }
 
     .heroPanel b{
@@ -929,13 +290,6 @@ const jsonLd = [
       margin-bottom:10px;
       color:#fff;
       font-size:16px;
-    }
-
-    .heroPanel p{
-      margin:0 0 12px;
-      color:rgba(232,240,255,.82);
-      line-height:1.7;
-      font-size:14px;
     }
 
     .heroList{
@@ -957,1073 +311,538 @@ const jsonLd = [
       height:10px;
       border-radius:999px;
       margin-top:7px;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      background:#4d79ff;
       flex:0 0 10px;
     }
 
-    .section{
-      padding:34px 0;
-    }
-
-    .contentSurface{
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
-    }
-
     .sectionTitle{
-      margin:0 0 10px;
-      color:var(--text);
       font-size:28px;
-      letter-spacing:-.3px;
-    }
-
-    .sectionLead{
-      margin:0 0 18px;
-      max-width:900px;
-      color:var(--muted);
-      line-height:1.8;
-    }
-
-    .catalogShell{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:18px;
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(8px);
-    }
-
-    .catalogGrid{
-      display:grid;
-      grid-template-columns: 132px 150px 320px minmax(0, 1fr);
-      gap:14px;
-      align-items:start;
-      min-height:620px;
-    }
-
-    .column{
-      min-height:580px;
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:14px;
-      box-shadow:0 12px 30px rgba(22,33,58,.04);
-    }
-
-    .columnTitle{
       margin:0 0 12px;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:#5b6d86;
+      letter-spacing:-.2px;
+      color:#1d2a36;
     }
 
-    .brandList,
-    .assemblyList,
-    .modelList{
+    .sectionDesc{
+      margin:0 0 18px;
+      color:var(--muted);
+      line-height:1.75;
+      max-width:980px;
+    }
+
+    .grid2{
       display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:14px;
+    }
+
+    .grid4{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
       gap:12px;
     }
 
-    .brandBtn,
-    .assemblyBtn,
-    .modelBtn{
-      width:100%;
-      text-align:left;
-      appearance:none;
+    .card{
       background:#fff;
-      border:1px solid var(--line);
-      cursor:pointer;
-      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      border:1px solid rgba(29,42,54,.10);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
     }
 
-    .brandBtn:hover,
-    .brandBtn.is-active,
-    .assemblyBtn:hover,
-    .assemblyBtn.is-active,
-    .modelBtn:hover{
-      border-color:rgba(31,73,221,.22);
-      box-shadow:0 12px 26px rgba(31,73,221,.08);
-      transform:translateX(3px);
+    .card b{
+      display:block;
+      margin-bottom:8px;
+      color:#1d2a36;
     }
 
-    .brandBtn{
-      min-height:96px;
-      border-radius:22px;
-      padding:12px 10px;
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .bulletList{
+      margin:14px 0 0;
+      padding:0;
+      list-style:none;
       display:grid;
-      place-items:center;
+      gap:10px;
+    }
+
+    .bulletItem{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      margin-top:7px;
+      background:#4A5462;
+      flex:0 0 10px;
+    }
+
+    .entryActions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .entryActions .btn.primary{
+      color:#fff;
+      background:#3957E9;
+    }
+
+    .entryActions .btn:not(.primary){
+      color:#fff;
+      background:#3957E9;
+      border-color:#3957E9;
+    }
+
+    .chipWrap{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .entryTileGrid{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:96px;
+      gap:12px;
+      overflow-x:auto;
+      padding:2px 2px 8px;
+      scrollbar-width:thin;
+      scroll-snap-type:x proximity;
+    }
+
+    .entryTileGrid::-webkit-scrollbar{
+      height:8px;
+    }
+
+    .entryTileGrid::-webkit-scrollbar-thumb{
+      background:rgba(57,87,233,.18);
+      border-radius:999px;
+    }
+
+    .entryTileGrid::-webkit-scrollbar-track{
+      background:rgba(29,42,54,.05);
+      border-radius:999px;
+    }
+
+    .entryTile{
+      display:flex;
+      flex-direction:column;
       gap:8px;
-      background:
-        linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
+      min-height:100%;
+      min-width:96px;
+      padding:10px 10px 12px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 10px 24px rgba(24,39,56,.05);
+      color:inherit;
+      text-decoration:none;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      scroll-snap-align:start;
     }
 
-    .brandMark{
-      display:grid;
-      width:60px;
-      height:60px;
+    .entryTile:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 32px rgba(24,39,56,.08);
+      border-color:rgba(57,87,233,.22);
+    }
+
+    .entryMedia{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      aspect-ratio:1 / 1;
+      min-height:auto;
       border-radius:18px;
-      place-items:center;
-      background:#ffffff;
-      border:1px solid rgba(31,73,221,.12);
-      box-shadow:0 14px 22px rgba(19,33,74,.2);
       overflow:hidden;
+      background:linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
+      border:1px solid rgba(29,42,54,.08);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+    }
+
+    .entryMedia::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(57,87,233,.06) 34%, transparent 66%),
+        radial-gradient(180px 80px at 50% -10%, rgba(57,87,233,.10), transparent 70%);
+      pointer-events:none;
+    }
+
+    .brandEntry .entryMedia{
       padding:10px;
     }
 
-    .brandMark img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-    }
-
-    .brandName{
-      font-size:13px;
-      font-weight:900;
-      color:var(--text);
-      letter-spacing:.04em;
-      text-transform:uppercase;
-    }
-
-    .assemblyBtn{
-      border-radius:22px;
-      padding:12px;
-      display:grid;
-      justify-items:center;
-      gap:10px;
-      min-height:112px;
-      background:linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
-    }
-
-    .assemblyIcon,
-    .partThumb{
-      display:grid;
-      width:58px;
-      height:58px;
-      border-radius:18px;
-      background:linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
-      border:1px solid rgba(23,41,92,.08);
-      place-items:center;
-      color:var(--text);
-      box-shadow:0 10px 18px rgba(23,41,92,.08);
-      overflow:hidden;
-      flex:0 0 58px;
-    }
-
-    .assemblyIcon img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-    }
-
-    .assemblyText{
-      text-align:center;
-    }
-
-    .assemblyText b,
-    .modelMeta b,
-    .partMeta b{
-      display:block;
-      color:var(--text);
-    }
-
-    .assemblyText span,
-    .modelMeta span,
-    .partMeta span{
-      display:block;
-      color:var(--muted);
-      line-height:1.5;
-      font-size:12px;
-    }
-
-    .modelBtn{
+    .brandEntry img{
       position:relative;
-      border-radius:22px;
-      padding:14px 16px;
-      display:block;
-      min-height:102px;
-      background:linear-gradient(180deg, #fff 0%, #f8fbff 100%);
-      opacity:0;
-      animation:slideIn .24s ease forwards;
-      overflow:hidden;
-      isolation:isolate;
-    }
-
-    .modelBtn:hover{
-      background:linear-gradient(180deg, #fbfdff 0%, #f1f6ff 100%);
-    }
-
-    .modelBtn.is-active{
-      border-color:rgba(77,121,255,.58);
-      background:linear-gradient(180deg, #eef5ff 0%, #e6efff 100%);
-      box-shadow:0 14px 28px rgba(31,73,221,.12);
-      transform:translateX(0);
-    }
-
-    .modelThumb{
-      position:absolute;
-      inset:0;
-      overflow:hidden;
-      border-radius:inherit;
-      pointer-events:none;
-      z-index:0;
-    }
-
-    .modelThumb::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(245deg, rgba(248,251,255,0) 10%, rgba(248,251,255,.22) 26%, rgba(248,251,255,.82) 48%, rgba(248,251,255,.97) 62%, #f8fbff 78%);
       z-index:1;
-    }
-
-    .modelBtn:hover .modelThumb::after{
-      background:linear-gradient(245deg, rgba(241,246,255,0) 10%, rgba(241,246,255,.2) 24%, rgba(241,246,255,.8) 46%, rgba(241,246,255,.97) 60%, #f1f6ff 78%);
-    }
-
-    .modelBtn.is-active .modelThumb::after{
-      background:linear-gradient(245deg, rgba(230,239,255,0) 10%, rgba(230,239,255,.2) 24%, rgba(230,239,255,.8) 46%, rgba(230,239,255,.97) 60%, #e6efff 78%);
-    }
-
-    .modelThumb img{
-      display:block;
-      width:100%;
-      height:100%;
+      max-width:74px;
+      max-height:28px;
+      width:auto;
+      height:auto;
       object-fit:contain;
-      object-position:center;
-    }
-
-    .modelThumb img{
-      position:absolute;
-      top:0;
-      right:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:right top;
-      opacity:.98;
-      z-index:0;
-    }
-
-    .partThumb img{
       display:block;
+      filter:saturate(.95) contrast(1.02);
+    }
+
+    .partEntry .entryMedia{
+      align-items:stretch;
+    }
+
+    .partEntry img{
       width:100%;
       height:100%;
       object-fit:cover;
       object-position:center;
-    }
-
-    .modelMeta{
-      position:relative;
-      min-width:0;
-      z-index:2;
-      width:min(54%, 220px);
-    }
-
-    .modelMeta b{
-      font-size:14px;
-      line-height:1.35;
-      word-break:break-word;
-    }
-
-    .modelMeta span{
-      margin-top:4px;
-    }
-
-    .partsStage{
-      position:relative;
-      min-height:100%;
-      border-radius:24px;
-      background:
-        linear-gradient(180deg, #eef5ff 0%, #e7f0ff 100%),
-        radial-gradient(800px 420px at 20% 8%, rgba(90,134,255,.12), transparent 60%);
-      overflow:hidden;
-      padding:18px;
-      color:var(--text);
-      border:1px solid rgba(31,73,221,.1);
-      transition:opacity .18s ease, transform .18s ease;
-    }
-
-    .partsStage.is-switching{
-      opacity:.72;
-      transform:translateY(2px);
-    }
-
-    .partsBreadcrumb{
-      margin-bottom:10px;
-      color:#60759a;
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
-    .partsStage::before{
-      content:"";
-      position:absolute;
-      inset:auto auto -80px -60px;
-      width:240px;
-      height:240px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(83,128,255,.22), transparent 62%);
-      pointer-events:none;
-    }
-
-    .stageHead{
-      position:relative;
-      display:grid;
-      grid-template-columns: 76px minmax(0, 1fr);
-      gap:14px;
-      align-items:center;
-      margin-bottom:18px;
-      padding-bottom:14px;
-      border-bottom:1px solid rgba(31,73,221,.1);
-    }
-
-    .stageThumb{
       display:block;
-      width:76px;
-      height:76px;
-      min-width:76px;
-      border-radius:22px;
-      overflow:hidden;
-      background:linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
-      border:1px solid rgba(23,35,52,.08);
-      box-shadow:0 14px 26px rgba(22,33,58,.08);
     }
 
-    .stageThumb img{
-      width:100%;
-      height:100%;
+    .entryBody{
+      display:grid;
+      gap:2px;
+    }
+
+    .entryBody b{
       display:block;
-      object-fit:cover;
-      opacity:1;
-      mix-blend-mode:normal;
-    }
-
-    .stageMeta small{
-      display:block;
-      margin-bottom:4px;
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-      color:#6a7fa0;
-    }
-
-    .stageMeta h3{
-      margin:0 0 6px;
-      font-size:24px;
-      line-height:1.1;
-      letter-spacing:-.3px;
-      color:var(--text);
-    }
-
-    .stageMeta p{
-      margin:0 0 6px;
-      color:var(--muted);
-      line-height:1.6;
-      font-size:14px;
-    }
-
-    .stageSupport{
-      margin:0;
-      color:#536982;
-      line-height:1.65;
-      font-size:13px;
-    }
-
-    .partsSectionTitle{
-      margin:0 0 10px;
-      color:var(--text);
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
-    .partsRow{
-      position:relative;
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-      align-items:start;
-    }
-
-    .partGroup{
-      display:grid;
-      gap:8px;
-    }
-
-    .partCard{
-      width:100%;
-      display:grid;
-      grid-template-columns:58px minmax(0, 1fr);
-      gap:12px;
-      align-items:start;
-      border-radius:22px;
-      padding:12px;
-      background:rgba(255,255,255,.6);
-      border:1px solid rgba(31,73,221,.1);
-      box-shadow:0 16px 26px rgba(31,73,221,.08);
-      backdrop-filter: blur(4px);
-      transform:translateX(-18px);
-      opacity:0;
-      animation:partsIn .28s ease forwards;
-      cursor:pointer;
-    }
-
-    .partGroup.is-open .partCard{
-      background:rgba(255,255,255,.82);
-      border-color:rgba(31,73,221,.18);
-      box-shadow:0 18px 30px rgba(31,73,221,.1);
-    }
-
-    .partCard:nth-child(1){ animation-delay:.02s; }
-    .partCard:nth-child(2){ animation-delay:.08s; }
-    .partCard:nth-child(3){ animation-delay:.14s; }
-
-    .partThumb{
-      margin-bottom:0;
-    }
-
-    .brandBtn,
-    .assemblyBtn,
-    .modelBtn,
-    .partCard,
-    .stageHead,
-    .partsStage{
-      min-width:0;
-      overflow:hidden;
-    }
-
-    .partMeta b{
-      color:var(--text);
-      font-size:13px;
-      line-height:1.4;
-    }
-
-    .partMeta span{
-      margin-top:4px;
-      color:var(--muted);
-      line-height:1.5;
-    }
-
-    .partMetaTop{
-      display:flex;
-      justify-content:flex-start;
-      gap:10px;
-      align-items:flex-start;
-    }
-
-    .partChevron{
-      margin-left:auto;
-      color:#6b82bb;
-      font-size:14px;
-      font-weight:900;
-      line-height:1;
-      transition:transform .18s ease;
-    }
-
-    .partGroup.is-open .partChevron{
-      transform:rotate(180deg);
-    }
-
-    .partDetails{
-      display:none;
-      border-radius:18px;
-      background:rgba(255,255,255,.92);
-      border:1px solid rgba(31,73,221,.1);
-      box-shadow:0 12px 22px rgba(31,73,221,.06);
-      overflow:hidden;
-    }
-
-    .partGroup.is-open .partDetails{
-      display:block;
-      animation:detailDrop .18s ease;
-    }
-
-    .detailList{
-      display:grid;
-    }
-
-    .detailItem{
-      color:#50617a;
+      color:#1d2a36;
       font-size:12px;
-      line-height:1.5;
-      padding:11px 14px;
-      border-bottom:1px solid rgba(31,73,221,.08);
-    }
-
-    .detailItem:last-child{
-      border-bottom:0;
-    }
-
-    .emptyHint{
-      display:grid;
-      place-items:center;
-      min-height:100%;
+      line-height:1.3;
       text-align:center;
-      color:var(--muted);
-      line-height:1.8;
-      padding:24px;
+      word-break:break-word;
+      letter-spacing:-.08px;
     }
 
-    .rfqPrompt{
-      margin-top:16px;
-      padding-top:14px;
-      border-top:1px solid rgba(31,73,221,.1);
-      display:grid;
-      gap:8px;
-    }
-
-    .rfqPrompt strong{
-      color:var(--text);
-      font-size:14px;
-    }
-
-    .rfqPrompt p{
+    .entryBody p{
       margin:0;
       color:var(--muted);
-      line-height:1.7;
       font-size:13px;
+      line-height:1.65;
+      text-align:center;
     }
 
-    .rfqPrompt .btn{
-      width:max-content;
-      padding:11px 16px;
+    .brandEntry .entryBody,
+    .partEntry .entryBody{
+      justify-items:center;
     }
 
-    .tipGrid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:16px;
-    }
-
-    .tipCard{
-      border-radius:22px;
-      padding:18px;
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding:9px 12px;
+      border-radius:999px;
       background:#fff;
-      border:1px solid var(--line);
-      box-shadow:0 12px 30px rgba(22,33,58,.05);
+      border:1px solid rgba(29,42,54,.10);
+      color:#415066;
+      font-size:13px;
+      font-weight:800;
+      box-shadow:0 8px 18px rgba(24,39,56,.04);
     }
 
-    .tipCard b{
+    a.chip{
+      color:#3957E9;
+      border-color:rgba(57,87,233,.18);
+    }
+
+    a.chip:hover{
+      transform:translateY(-1px);
+      box-shadow:0 12px 24px rgba(24,39,56,.08);
+    }
+
+    .processGrid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:14px;
+    }
+
+    .stepNo{
+      display:inline-flex;
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:12px;
+      background:rgba(74,84,98,.08);
+      border:1px solid rgba(74,84,98,.18);
+      color:#4A5462;
+      font-weight:950;
+    }
+
+    .ctaBlock{
+      margin-top:14px;
+      border-radius:20px;
+      padding:18px;
+      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
+      border:1px solid rgba(57,87,233,.16);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      box-shadow:0 16px 40px rgba(24,39,56,.05);
+    }
+
+    .ctaBlock .left b{
       display:block;
-      margin-bottom:8px;
-      color:var(--text);
+      margin-bottom:6px;
+      color:#1d2a36;
     }
 
-    .tipCard p{
+    .ctaBlock .left p{
       margin:0;
       color:var(--muted);
-      line-height:1.7;
+      line-height:1.75;
+      max-width:760px;
     }
 
-    @keyframes slideIn{
-      from{
-        opacity:0;
-        transform:translateX(-14px);
-      }
-      to{
-        opacity:1;
-        transform:translateX(0);
-      }
+    .ctaBlock .btn.primary{
+      color:#fff;
+      background:#3957E9;
     }
 
-    @keyframes partsIn{
-      from{
-        opacity:0;
-        transform:translateX(-18px);
-      }
-      to{
-        opacity:1;
-        transform:translateX(0);
-      }
+    .ctaBlock .btn:not(.primary){
+      color:#fff;
+      background:#3957E9;
+      border-color:#3957E9;
     }
 
-    @keyframes detailDrop{
-      from{
-        opacity:0;
-        transform:translateY(-6px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
+    :global(.footerWrap){
+      background:transparent;
+      border-top:1px solid rgba(29,42,54,.10);
     }
 
-    .proofSection{
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
-      border-top:1px solid rgba(24,36,51,.08);
+    :global(.footerTitle),
+    :global(.footerNav strong){
+      color:#1d2a36;
     }
 
-    .footerWrap{
-      background:var(--site-bg) !important;
-      border-top:1px solid var(--site-line) !important;
+    :global(.footer),
+    :global(.footerNav span){
+      color:var(--muted);
     }
 
-    .footerWrap .container,
-    .footerWrap .footer{
-      background:var(--site-bg) !important;
-    }
-
-    .footerWrap .footerTitle,
-    .footerWrap .footerNav strong{
-      color:rgba(234,240,255,.94) !important;
-    }
-
-    .footerWrap .footer,
-    .footerWrap .footerNav span,
-    .footerWrap .footerMeta{
-      color:var(--site-muted) !important;
-    }
-
-    .footerWrap .footerNav a{
-      background:rgba(255,255,255,.03) !important;
-      border-color:var(--site-line) !important;
-    }
-
-    @media (max-width: 1120px){
-      .catalogGrid{
-        grid-template-columns: 120px 140px 280px minmax(0, 1fr);
-      }
+    :global(.footerNav a){
+      background:#fff;
+      border-color:rgba(29,42,54,.10);
     }
 
     @media (max-width: 980px){
-      .heroInner,
-      .catalogGrid,
-      .tipGrid{
+      .heroInner{ grid-template-columns:1fr; }
+      h1{ font-size:38px; }
+      .grid2,
+      .grid4,
+      .processGrid{
         grid-template-columns:1fr;
       }
-
-      h1{
-        font-size:38px;
-      }
-
-      .column,
-      .partsStage{
-        min-height:auto;
-      }
-
-      .catalogGrid{
-        min-height:0;
-      }
-
-      .brandBtn:hover,
-      .brandBtn.is-active,
-      .assemblyBtn:hover,
-      .assemblyBtn.is-active,
-      .modelBtn:hover,
-      .modelBtn.is-active{
-        transform:none;
-      }
-
-      .brandList{
-        grid-template-columns:repeat(auto-fit, minmax(110px, 1fr));
-      }
-
-      .assemblyList{
-        grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+      .ctaBlock{
+        flex-direction:column;
+        align-items:flex-start;
       }
     }
   </style>
 
   <section class="hero">
-    <div class="heroBg"></div>
-    <div class="overlay"></div>
+    <div class="heroBg" aria-hidden="true"></div>
+    <div class="overlay" aria-hidden="true"></div>
     <div class="container">
       <div class="heroInner">
         <div>
-          <p class="eyebrow">CertiSpares / Product</p>
-          <h1>Find matching service parts by brand, assembly, and platform.</h1>
+          <p class="eyebrow">CertiSpares / Product Entry</p>
+          <h1>Find the right truck parts from China — even without exact part numbers.</h1>
           <p class="heroLead">
-            This page helps international buyers identify the right platform faster, reduce mismatch risk, and move from
-            platform confirmation to parts inquiry with better sourcing efficiency.
+            Start from the truck brand or the part system.
+            Send OE numbers, VIN, photos, part names, specs, or your parts list.
+            We review the matching scope first, then move the RFQ into quotation, inspection, and shipping follow-up.
           </p>
         </div>
 
         <aside class="heroPanel">
-          <b>Buyer Value</b>
+          <b>Choose the entry path that fits your RFQ</b>
           <div class="heroList">
-            <div class="heroListItem"><span class="heroDot"></span><span>Structured by brand, major assembly, and platform for faster part identification.</span></div>
-            <div class="heroListItem"><span class="heroDot"></span><span>Matching parts categories are grouped under each platform to help reduce sourcing mistakes.</span></div>
-            <div class="heroListItem"><span class="heroDot"></span><span>Built for inquiry-based trade when buyers send part names, OEM numbers, or reference photos.</span></div>
+            <div class="heroListItem"><span class="heroDot"></span><span>Use the brand path when the RFQ starts from a known vehicle platform or brand reference.</span></div>
+            <div class="heroListItem"><span class="heroDot"></span><span>Use the part-system path when the inquiry starts from the category itself, especially for mixed-brand replenishment.</span></div>
+            <div class="heroListItem"><span class="heroDot"></span><span>Then send the references you already have so matching and quotation can move forward on a clearer scope.</span></div>
           </div>
         </aside>
       </div>
     </div>
   </section>
 
-  <div class="contentSurface">
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">Platform-Based Parts Coverage</h2>
-        <p class="sectionLead">
-          This directory groups each platform with the corresponding service parts and repair categories, making it easier
-          for buyers in Africa, Southeast Asia, and South Asia to confirm application range before sending an RFQ.
-        </p>
-        <p class="sectionLead" style="margin-top:-4px;">
-          If the required part is not listed in this catalog, send us your RFQ or contact our team directly. We will reply
-          within 24 hours with application checking and sourcing support.
-        </p>
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">Choose Your Entry Path</h2>
+      <p class="sectionDesc">
+        Some RFQs start from a truck brand. Others start from the part category. Both paths lead into the same matching,
+        quotation, inspection, and shipping workflow.
+      </p>
 
-        <div class="catalogShell">
-          <div class="catalogGrid">
-            <section class="column">
-              <h3 class="columnTitle">Brand</h3>
-              <div class="brandList" id="brandList">
-                {groupedBrands.map((brand, index) => (
-                  <button
-                    class={`brandBtn ${index === 0 ? "is-active" : ""}`}
-                    type="button"
-                    data-brand-id={brand.id}
-                  >
-                    <span class="brandMark">
-                      <img src={brand.logoImage} alt={brand.logoAlt} loading="lazy" decoding="async" />
-                    </span>
-                    <span class="brandName">{brand.name}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            <section class="column">
-              <h3 class="columnTitle">Assembly</h3>
-              <div class="assemblyList" id="assemblyList">
-                {initialBrand?.assemblies.map((assembly, index) => (
-                  <button
-                    class={`assemblyBtn ${index === 0 ? "is-active" : ""}`}
-                    type="button"
-                    data-assembly-key={assembly.key}
-                  >
-                    <span class="assemblyIcon">
-                      <img src={assembly.icon} alt={assembly.label} loading="lazy" decoding="async" />
-                    </span>
-                    <span class="assemblyText">
-                      <b>{assembly.label}</b>
-                      <span>{assembly.models.length} platform{assembly.models.length === 1 ? "" : "s"}</span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            <section class="column">
-              <h3 class="columnTitle">Platform</h3>
-              <div class="modelList" id="modelList">
-                {initialAssembly?.models.map((model, index) => (
-                  <button
-                    class={`modelBtn ${index === 0 ? "is-active" : ""}`}
-                    type="button"
-                    data-model-id={model.id}
-                    style={`animation-delay:${index * 0.05}s;`}
-                  >
-                    <span class="modelThumb">
-                      <img src={model.image} alt={model.title} loading="lazy" decoding="async" />
-                    </span>
-                    <span class="modelMeta">
-                      <b>{model.title}</b>
-                      <span>{model.subtitle}</span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            <section class="partsStage" id="partsStage">
-              {initialModel ? (
-                <>
-                  <div class="partsBreadcrumb">{initialBrand?.logoText} / {initialAssembly?.label} / {initialModel.title}</div>
-                  <div class="stageHead">
-                    <div class="stageThumb">
-                      <img src={initialModel.image} alt={initialModel.title} loading="lazy" decoding="async" />
-                    </div>
-                    <div class="stageMeta">
-                      <small>Parts Support</small>
-                      <h3>Supported Parts for {initialModel.title}</h3>
-                      <p>{initialModel.subtitle} | {initialModel.band}</p>
-                      <div class="stageSupport">We support selected repair and service parts for this platform.</div>
-                    </div>
-                  </div>
-
-                  <div class="partsSectionTitle">Available Parts Categories</div>
-                  <div class="partsRow">
-                    {initialModel.parts.map((part) => (
-                      <div class="partGroup">
-                        <div class="partCard">
-                          <div class="partThumb">
-                            <img src={part.image} alt={part.name} loading="lazy" decoding="async" />
-                          </div>
-                            <div class="partMeta">
-                              <div class="partMetaTop">
-                                <div>
-                                  <b>{part.name}</b>
-                                  <span>{part.note}</span>
-                                </div>
-                                <span class="partChevron" aria-hidden="true">⌄</span>
-                              </div>
-                            </div>
-                          </div>
-                        <div class="partDetails">
-                          <div class="detailList">
-                            {part.details.map((detail) => (
-                              <div class="detailItem">{detail}</div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div class="rfqPrompt">
-                    <strong>Looking for parts under this platform?</strong>
-                    <p>Send us your part name, OEM number, or photos for checking.</p>
-                    <a class="btn primary" href="/contact">Send RFQ for This Platform</a>
-                  </div>
-                </>
-              ) : (
-                <div class="emptyHint">Select a model to preview the matching part scope.</div>
-              )}
-            </section>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section proofSection">
-      <div class="container">
-        <h2 class="sectionTitle">Why This Structure Works for Buyers</h2>
-        <div class="tipGrid">
-          <div class="tipCard">
-            <b>Platform-based matching is easier to review.</b>
-            <p>Buyers can confirm the relevant platform first and then review the available parts categories under that system.</p>
-          </div>
-          <div class="tipCard">
-            <b>It helps reduce mismatch risk before quotation.</b>
-            <p>Brand, assembly, and platform are narrowed down before inquiry, which supports more accurate parts checking.</p>
-          </div>
-          <div class="tipCard">
-            <b>It supports more efficient RFQ communication.</b>
-            <p>Buyers can send part names, OEM numbers, or photos against a selected platform, making follow-up faster for both sides.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <script is:inline define:vars={{ catalogData }}>
-    (() => {
-      const data = JSON.parse(catalogData);
-      const brandList = document.getElementById("brandList");
-      const assemblyList = document.getElementById("assemblyList");
-      const modelList = document.getElementById("modelList");
-      const partsStage = document.getElementById("partsStage");
-      if (!brandList || !assemblyList || !modelList || !partsStage || !Array.isArray(data) || data.length === 0) return;
-
-      let activeBrand = data[0];
-      let activeAssembly = activeBrand.assemblies[0];
-      let activeModel = activeAssembly?.models[0];
-
-      const renderAssemblies = () => {
-        assemblyList.innerHTML = activeBrand.assemblies.map((assembly, index) => `
-          <button class="assemblyBtn ${index === 0 ? "is-active" : ""}" type="button" data-assembly-key="${assembly.key}">
-            <span class="assemblyIcon"><img src="${assembly.icon}" alt="${assembly.label}" loading="lazy" decoding="async" /></span>
-            <span class="assemblyText">
-              <b>${assembly.label}</b>
-              <span>${assembly.models.length} platform${assembly.models.length === 1 ? "" : "s"}</span>
-            </span>
-          </button>
-        `).join("");
-
-        activeAssembly = activeBrand.assemblies[0];
-        activeModel = activeAssembly?.models[0];
-      };
-
-      const renderModels = () => {
-        if (!activeAssembly) {
-          modelList.innerHTML = "";
-          return;
-        }
-
-        modelList.innerHTML = activeAssembly.models.map((model, index) => `
-          <button class="modelBtn ${index === 0 ? "is-active" : ""}" type="button" data-model-id="${model.id}" style="animation-delay:${index * 0.05}s;">
-            <span class="modelThumb">
-              <img src="${model.image}" alt="${model.title}" loading="lazy" decoding="async" />
-            </span>
-            <span class="modelMeta">
-              <b>${model.title}</b>
-              <span>${model.subtitle}</span>
-            </span>
-          </button>
-        `).join("");
-
-        activeModel = activeAssembly.models[0];
-      };
-
-      const renderParts = () => {
-        if (!activeModel) {
-          partsStage.innerHTML = '<div class="emptyHint">Select a model to preview the matching part scope.</div>';
-          return;
-        }
-
-        partsStage.classList.add("is-switching");
-
-        partsStage.innerHTML = `
-          <div class="partsBreadcrumb">${activeBrand.logoText} / ${activeAssembly.label} / ${activeModel.title}</div>
-          <div class="stageHead">
-            <div class="stageThumb">
-              <img src="${activeModel.image}" alt="${activeModel.title}" loading="lazy" decoding="async" />
-            </div>
-            <div class="stageMeta">
-              <small>Parts Support</small>
-              <h3>Supported Parts for ${activeModel.title}</h3>
-              <p>${activeModel.subtitle} | ${activeModel.band}</p>
-              <div class="stageSupport">We support selected repair and service parts for this platform.</div>
+      <div class="grid2">
+        {entryCards.map((card) => (
+          <div class="card">
+            <b>{card.title}</b>
+            <p>{card.desc}</p>
+            <ul class="bulletList">
+              {card.bullets.map((bullet) => (
+                <li class="bulletItem"><span class="dot"></span><span>{bullet}</span></li>
+              ))}
+            </ul>
+            <div class="entryActions">
+              <a class="btn primary" href={card.href}>{card.cta}</a>
+              <a class="btn" href="/contact">Send RFQ</a>
             </div>
           </div>
-          <div class="partsSectionTitle">Available Parts Categories</div>
-          <div class="partsRow">
-            ${activeModel.parts.map((part) => `
-              <div class="partGroup">
-                <div class="partCard">
-                  <div class="partThumb">
-                    <img src="${part.image}" alt="${part.name}" loading="lazy" decoding="async" />
-                  </div>
-                  <div class="partMeta">
-                    <div class="partMetaTop">
-                      <div>
-                        <b>${part.name}</b>
-                        <span>${part.note}</span>
-                      </div>
-                      <span class="partChevron" aria-hidden="true">⌄</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="partDetails">
-                  <div class="detailList">
-                    ${part.details.map((detail) => `<div class="detailItem">${detail}</div>`).join("")}
-                  </div>
-                </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="brand-entry">
+      <div class="container">
+        <h2 class="sectionTitle">Brand Entry</h2>
+        <p class="sectionDesc">
+          Start here when the inquiry already begins with the truck brand, platform family, or reference vehicle.
+        </p>
+        <div class="entryTileGrid" aria-label="Brand entry options">
+          {brandGroups.map((brand) => (
+            <a class="entryTile brandEntry" href={brand.href}>
+              <div class="entryMedia">
+                <img src={brand.image} alt={brand.alt} loading="lazy" decoding="async" />
               </div>
-            `).join("")}
+              <div class="entryBody">
+                <b>{brand.label}</b>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div class="ctaBlock">
+          <div class="left">
+            <b>Start from the platform your buyer already knows</b>
+            <p>
+              Each brand page shows the systems we can usually help with and what to send before quotation starts.
+            </p>
           </div>
-          <div class="rfqPrompt">
-            <strong>Looking for parts under this platform?</strong>
-            <p>Send us your part name, OEM number, or photos for checking.</p>
-            <a class="btn primary" href="/contact">Send RFQ for This Platform</a>
+          <div>
+          <a class="btn primary" href="/contact">Send Brand RFQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="part-entry">
+      <div class="container">
+        <h2 class="sectionTitle">Part-System Entry</h2>
+        <p class="sectionDesc">
+          Start here when the RFQ begins with the category itself, especially for mixed-brand replenishment or system-led buying.
+        </p>
+        <div class="entryTileGrid" aria-label="Part system entry options">
+          {partSystems.map((system) => (
+            <a class="entryTile partEntry" href={system.href}>
+              <div class="entryMedia">
+                <img src={system.image} alt={system.alt} loading="lazy" decoding="async" />
+              </div>
+              <div class="entryBody">
+                <b>{system.label}</b>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div class="ctaBlock">
+          <div class="left">
+            <b>Start from the part system when the RFQ is category-led</b>
+            <p>
+              Each part-system page shows the common parts we handle, what to send, and how the inquiry moves forward after matching starts.
+            </p>
           </div>
-        `;
+        <div>
+          <a class="btn primary" href="/contact">Send Parts RFQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        requestAnimationFrame(() => {
-          partsStage.classList.remove("is-switching");
-        });
-      };
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What to send before matching starts</h2>
+      <p class="sectionDesc">
+        The clearer the input, the easier it is to confirm fitment, align suppliers, and move the RFQ forward.
+      </p>
+      <div class="grid4">
+        <div class="card"><b>OE number or part number</b><p>Best starting point when the buyer already has reference numbers.</p></div>
+        <div class="card"><b>VIN or vehicle details</b><p>Useful when fitment needs to be checked from vehicle information first.</p></div>
+        <div class="card"><b>Photos or old samples</b><p>Helpful when numbers are incomplete, unclear, or missing.</p></div>
+        <div class="card"><b>Specs or dimensions where needed</b><p>Important for system-led RFQs where fitment depends on size, thread, or application details.</p></div>
+        <div class="card"><b>Quantity and destination</b><p>Needed to line up quotation, consolidation, and shipment planning.</p></div>
+      </div>
+    </div>
+  </section>
 
-      const setBrandActive = (brandId) => {
-        if (activeBrand?.id === brandId) return;
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">What happens after you send the inquiry</h2>
+      <div class="processGrid">
+        {processSteps.map((step, index) => (
+          <div class="card">
+            <div class="stepNo">{index + 1}</div>
+            <b>{step.title}</b>
+            <p>{step.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="ctaBlock">
+        <div class="left">
+          <b>Need the full workflow?</b>
+          <p>
+            Review <a href="/how-it-works">how the process works</a>, our <a href="/sourcing">truck parts sourcing service</a>,
+            and <a href="/capabilities">quality control and sourcing support</a> for the broader commercial and operational view.
+          </p>
+        </div>
+        <div>
+          <a class="btn primary" href="/how-it-works">See Workflow</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const nextBrand = data.find((item) => item.id === brandId);
-        if (!nextBrand) return;
-        activeBrand = nextBrand;
+  <section class="section">
+    <div class="container">
+      <h2 class="sectionTitle">Why buyers use this entry structure</h2>
+      <div class="grid2">
+        {whyThisStructureWorks.map((item) => (
+          <div class="card">
+            <b>{item.title}</b>
+            <p>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-        Array.from(brandList.querySelectorAll(".brandBtn")).forEach((button) => {
-          button.classList.toggle("is-active", button.dataset.brandId === brandId);
-        });
-
-        renderAssemblies();
-        renderModels();
-        renderParts();
-      };
-
-      const setAssemblyActive = (assemblyKey) => {
-        if (activeAssembly?.key === assemblyKey) return;
-
-        const nextAssembly = activeBrand.assemblies.find((item) => item.key === assemblyKey);
-        if (!nextAssembly) return;
-        activeAssembly = nextAssembly;
-
-        Array.from(assemblyList.querySelectorAll(".assemblyBtn")).forEach((button) => {
-          button.classList.toggle("is-active", button.dataset.assemblyKey === assemblyKey);
-        });
-
-        renderModels();
-        renderParts();
-      };
-
-      const setModelActive = (modelId) => {
-        if (activeModel?.id === modelId) return;
-
-        const nextModel = activeAssembly?.models.find((item) => item.id === modelId);
-        if (!nextModel) return;
-        activeModel = nextModel;
-
-        Array.from(modelList.querySelectorAll(".modelBtn")).forEach((button) => {
-          button.classList.toggle("is-active", button.dataset.modelId === modelId);
-        });
-
-        renderParts();
-      };
-
-      partsStage.addEventListener("click", (event) => {
-        const group = event.target.closest(".partGroup");
-        if (!group) return;
-
-        const nextOpen = !group.classList.contains("is-open");
-
-        Array.from(partsStage.querySelectorAll(".partGroup")).forEach((item) => {
-          item.classList.remove("is-open");
-        });
-
-        if (nextOpen) {
-          group.classList.add("is-open");
-        }
-      });
-
-      const bindAssemblyEvents = () => {
-        assemblyList.addEventListener("mouseover", (event) => {
-          const button = event.target.closest(".assemblyBtn");
-          if (!button) return;
-          setAssemblyActive(button.dataset.assemblyKey);
-        });
-
-        assemblyList.addEventListener("click", (event) => {
-          const button = event.target.closest(".assemblyBtn");
-          if (!button) return;
-          setAssemblyActive(button.dataset.assemblyKey);
-        });
-      };
-
-      const bindModelEvents = () => {
-        modelList.addEventListener("mouseover", (event) => {
-          const button = event.target.closest(".modelBtn");
-          if (!button) return;
-          setModelActive(button.dataset.modelId);
-        });
-
-        modelList.addEventListener("click", (event) => {
-          const button = event.target.closest(".modelBtn");
-          if (!button) return;
-          setModelActive(button.dataset.modelId);
-        });
-      };
-
-      brandList.addEventListener("mouseover", (event) => {
-        const button = event.target.closest(".brandBtn");
-        if (!button) return;
-        setBrandActive(button.dataset.brandId);
-      });
-
-      brandList.addEventListener("click", (event) => {
-        const button = event.target.closest(".brandBtn");
-        if (!button) return;
-        setBrandActive(button.dataset.brandId);
-      });
-
-      bindAssemblyEvents();
-      bindModelEvents();
-      renderParts();
-    })();
-  </script>
+  <section class="section">
+    <div class="container">
+      <div class="ctaBlock">
+        <div class="left">
+          <b>Ready to send the inquiry?</b>
+          <p>
+            Send the references you already have. We will review the inquiry and reply with the next workable sourcing step.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="/contact">Send RFQ</a>
+          <a class="btn" href="/contact">See Contact Options</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -12,7 +12,7 @@ In commercial vehicle parts, weak quality discipline can lead to claims, inconsi
 
 If you need the broader risk-control framework first, start with [How to reduce sourcing risk when buying auto parts from China](/blog/how-to-reduce-sourcing-risk-auto-parts-china). This page focuses specifically on the quality-control layer inside that broader sourcing process.
 
-The point becomes especially clear in service-critical categories such as [air brake chambers](/blog/how-air-brake-chambers-work-in-heavy-trucks), where disciplined inspection is one of the most direct ways to reduce avoidable complaints.
+The point becomes especially clear in service-critical categories such as [air brake chambers](/blog/how-air-brake-chambers-work-in-heavy-trucks), where disciplined inspection is one of the most direct ways to reduce avoidable complaints. Buyers who are already working from a category-led RFQ can also continue into [air system parts sourcing](/product/part/air-system-parts/) or [brake system parts sourcing](/product/part/brake-system-parts/).
 
 ---
 
@@ -56,7 +56,7 @@ Safety-relevant or structurally sensitive parts usually require closer control o
 - function or test logic
 - packaging and traceability
 
-This is one reason a generic QC checklist is less useful than a category-aware one.
+This is one reason a generic QC checklist is less useful than a category-aware one. The same logic applies when moving from QC planning into a live RFQ for [engine parts](/product/part/engine-parts/), [brake system parts](/product/part/brake-system-parts/), or [air system parts](/product/part/air-system-parts/).
 
 ---
 
@@ -124,4 +124,4 @@ For buyers, the most useful approach is not more checking at the end. It is bett
 
 ## Need Help Managing Quality Inspections?
 
-If you need help with inspection planning, supplier review, or shipment-quality coordination, you can reach out through our [Contact Page](/contact).
+If you need help with inspection planning, supplier review, or shipment-quality coordination, you can reach out through our [Contact Page](/contact). If you already know the sourcing direction, it may be faster to begin from the matching commercial page first: [engine parts](/product/part/engine-parts/), [brake system parts](/product/part/brake-system-parts/), or [air system parts](/product/part/air-system-parts/).

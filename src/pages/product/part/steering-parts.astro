@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const painPoints = [
+  {
+    title: "Same steering name, different geometry",
+    desc: "Tie rods, drag links, joints, and steering arms can share a broad name but differ by spline, length, bend, or mounting point.",
+  },
+  {
+    title: "Wrong geometry ruins the quote",
+    desc: "Without geometry and application details, suppliers may quote a part that fits the label but not the steering setup.",
+  },
+  {
+    title: "Related steering items get separated",
+    desc: "When joints, rods, and connecting hardware are quoted separately, it becomes harder to review the RFQ as one usable scope.",
+  },
+];
+const supportedParts = [
+  "Tie rods",
+  "Drag links",
+  "Steering joints",
+  "Steering arms",
+  "Ball joints",
+  "Power steering items",
+  "Repair kits",
+  "Mounting hardware",
+];
+const matchingInputs = [
+  "OE number or part number",
+  "Vehicle model or application",
+  "Spline, geometry, or mounting-point details",
+  "Part photos",
+  "Quantity list and destination",
+];
+const processSteps = [
+  { title: "You send the details", desc: "Share what you have - OE numbers, model details, specs, photos, or a parts list." },
+  { title: "We check specs and fitment first", desc: "We review the technical details before asking for quotes to avoid mismatch." },
+  { title: "We compare workable suppliers", desc: "We compare suppliers on specs, quality level, and execution - not just price." },
+  { title: "We move into inspection and shipping", desc: "After confirmation, we follow up on QC, packing, documents, and shipment." },
+];
+const whyWorkWithUs = [
+  {
+    title: "We check geometry before quoting",
+    desc: "Steering parts depend on spline, mounting points, geometry, and application. We confirm first, then quote.",
+  },
+  {
+    title: "We align suppliers on the same scope",
+    desc: "Quotes only help when they match the same steering setup and execution basis.",
+  },
+  {
+    title: "We handle mixed steering RFQs",
+    desc: "We can organize rods, joints, arms, and related service parts into one workable order.",
+  },
+];
+const faq = [
+  {
+    q: "Can I start without OE numbers?",
+    a: "Yes. Application details, spline information, mounting-point details, or photos can also work.",
+  },
+  {
+    q: "Can you handle mixed steering parts in one order?",
+    a: "Yes. We can organize multiple steering items into one structured inquiry and shipment plan.",
+  },
+  {
+    q: "Do you support inspection before shipment?",
+    a: "Yes. We follow up on QC, packing checks, and shipment coordination.",
+  },
+];
+const relatedPaths = [
+  {
+    title: "JAC parts sourcing",
+    desc: "For steering RFQs tied to a known truck platform.",
+    href: "/product/brand/jac/",
+  },
+  {
+    title: "Dongfeng parts sourcing",
+    desc: "For application-led steering inquiries under Dongfeng platforms.",
+    href: "/product/brand/dongfeng/",
+  },
+  {
+    title: "Axle and wheel-end parts",
+    desc: "If the RFQ also includes hub, axle, or wheel-end items.",
+    href: "/product/part/axle-and-wheel-end-parts/",
+  },
+];
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "WebPage", name: "Steering Parts Sourcing from China", description: "Send your steering parts inquiry with OE numbers, specs, photos, or part lists and get clearer matching, workable quotes, and shipment follow-up.", url: "https://certispares.com/product/part/steering-parts/" },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" }, { "@type": "ListItem", position: 2, name: "Product", item: "https://certispares.com/product/" }, { "@type": "ListItem", position: 3, name: "Steering Parts", item: "https://certispares.com/product/part/steering-parts/" } ] },
+];
+---
+
+<BaseLayout
+  title="Send Your Steering Parts Inquiry | Clear Matching and Workable Quotes"
+  description="Send your steering parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
+  keywords={[
+  "steering parts sourcing from China",
+  "steering parts RFQ",
+  "steering parts supplier China",
+  "steering quote support",
+  "steering parts inquiry",
+]}
+  canonical="/product/part/steering-parts/"
+  ogImage="/images/assemblies/assembly-suspension.png"
+  jsonLd={jsonLd}
+>
+  <style>@import "../../../styles/product-detail.css";</style>
+  <section class="hero"><div class="heroBg" style={"background-image:url('/images/assemblies/assembly-suspension.png')"} aria-hidden="true"></div><div class="overlay" aria-hidden="true"></div><div class="container"><div class="heroInner"><div><p class="eyebrow">CertiSpares / Parts Inquiry</p><h1>Send your steering parts inquiry and get clear matching and workable quotes</h1><p class="heroLead">Send OE numbers, application details, spline info, mounting points, geometry references, photos, or your parts list. We check fitment first, then compare suppliers on the same scope, and move your inquiry into quotation, inspection, and shipment follow-up.</p><div class="heroActions"><a class="btn primary" href="/contact">Send Steering Inquiry</a><a class="btn" href="#what-to-send">See What to Send</a></div></div><aside class="heroPanel"><b>What to send for a faster reply</b><div class="heroList">{matchingInputs.slice(0, 5).map((item) => (<div class="heroListItem"><span class="heroDot"></span><span>{item}</span></div>))}</div></aside></div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Running into these issues when sourcing steering parts?</h2><div class="grid3">{painPoints.map((item) => (<div class="card"><b>{item.title}</b><p>{item.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Common steering parts we handle</h2><p class="sectionDesc">Most inquiries start with a part name, OE reference, or a mixed replenishment list. Typical items include:</p><div class="chipWrap" aria-label="Supported steering parts">{supportedParts.map((item) => (<span class="chip">{item}</span>))}</div></div></section>
+  <section class="section" id="what-to-send"><div class="container"><h2 class="sectionTitle">What to send with your steering parts inquiry</h2><div class="grid2"><div class="card"><b>Best details to send</b><ul class="bulletList">{matchingInputs.map((item) => (<li class="bulletItem"><span class="dot"></span><span>{item}</span></li>))}</ul></div><div class="card"><b>This helps avoid wrong parts</b><p>Clear inputs make it easier to confirm the correct steering geometry, align suppliers on the same scope, and cut down rework later.</p></div></div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">What happens after you send the inquiry</h2><div class="grid2">{processSteps.map((step) => (<div class="card"><b>{step.title}</b><p>{step.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Why buyers use us for steering parts inquiries</h2><div class="grid3">{whyWorkWithUs.map((item) => (<div class="card"><b>{item.title}</b><p>{item.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">FAQ</h2><div class="faq">{faq.map((item) => (<div class="faqItem"><strong>{item.q}</strong><p>{item.a}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Need to start from a truck brand instead?</h2><div class="grid3">{relatedPaths.map((item) => (<div class="card"><b><a href={item.href}>{item.title}</a></b><p>{item.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><div class="ctaBlock"><div class="left"><b>Ready to send your steering parts inquiry?</b><p>Send the details you already have - OE numbers, specs, photos, or your parts list. We will review it, confirm the scope, and reply with the next step.</p></div><div style="display:flex; gap:10px; flex-wrap:wrap;"><a class="btn primary" href="/contact">Send Steering Inquiry</a><a class="btn" href="/contact">Contact Us</a></div></div></div></section>
+</BaseLayout>

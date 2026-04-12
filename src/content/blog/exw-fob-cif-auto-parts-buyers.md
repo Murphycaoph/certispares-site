@@ -4,6 +4,7 @@ date: "2026-03-11"
 tag: "Sourcing Knowledge"
 readTime: "7 min read"
 excerpt: "Compare EXW, FOB, and CIF for auto parts sourcing so you can choose the shipping term that matches your logistics control and risk tolerance."
+meta_description: "Compare EXW, FOB, and CIF for auto parts sourcing so you can match shipping responsibility to logistics capability, cost visibility, and risk tolerance."
 ---
 
 Shipping terms shape more than freight cost. They define who controls pickup, export clearance, ocean freight, insurance, and risk transfer across the transaction.
@@ -11,6 +12,8 @@ Shipping terms shape more than freight cost. They define who controls pickup, ex
 For buyers importing truck and commercial-vehicle parts from China, the practical question is not which Incoterm sounds familiar. It is which responsibility split fits the team's logistics capability and sourcing model.
 
 This decision also becomes clearer when buyers connect shipping terms with [payment structure](/blog/payment-terms-auto-parts-trade-tt-lc-explained) and the broader task of [reducing sourcing risk](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
+
+Once the shipping model is tied to a real order, buyers usually benefit from organizing the RFQ through the broader [product entry page](/product), a matching [brand sourcing page](/product/brand/man/), or a system page such as [cooling system parts sourcing](/product/part/cooling-system-parts) when packaging and freight practicality are a major concern.
 
 ---
 
@@ -120,4 +123,4 @@ For many auto-parts importers, the better decision is the one that creates the c
 
 CertiSpares supports buyers who need practical coordination across supplier communication, export planning, and heavy-cargo shipment structure.
 
-If you are sourcing truck components from China, feel free to reach out through our [Contact Page](/contact).
+If you are sourcing truck components from China, continue into the broader [product entry page](/product), a matching [brand sourcing page](/product/brand/mercedes-benz-truck/), or reach out through our [Contact Page](/contact).

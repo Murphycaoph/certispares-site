@@ -12,7 +12,7 @@ For buyers, the challenge is not only finding a supplier that can quote brake dr
 
 This page is the commercial hub for the brake-drum topic cluster. Supporting pages go deeper into [testing](/blog/how-truck-brake-drums-are-tested), [manufacturing process](/blog/truck-brake-drum-manufacturing-process), [shipment inspection](/blog/how-to-inspect-truck-brake-drums-before-shipment), and [lifespan logic](/blog/truck-brake-drum-lifespan-replacement).
 
-Brake-drum supplier screening also benefits from understanding [air brake chamber quality risk](/blog/how-air-brake-chambers-work-in-heavy-trucks) and from using a broader framework to [reduce sourcing risk in China](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
+Brake-drum supplier screening also benefits from understanding [air brake chamber quality risk](/blog/how-air-brake-chambers-work-in-heavy-trucks) and from using a broader framework to [reduce sourcing risk in China](/blog/how-to-reduce-sourcing-risk-auto-parts-china). Buyers who are already working from a category-led RFQ can also move directly into our [brake system parts sourcing page](/product/part/brake-system-parts/).
 
 ---
 
@@ -27,7 +27,7 @@ Buyers should confirm:
 - whether brake drums are a real product focus
 - how stable the production setup is
 
-This helps separate a specialized supplier from a general trader with limited process control.
+This helps separate a specialized supplier from a general trader with limited process control. If your inquiry already covers drums together with chambers, linings, or adjacent parts, use our [brake system parts sourcing from China](/product/part/brake-system-parts/) page to structure the RFQ at system level instead of treating each line separately.
 
 ---
 
@@ -103,7 +103,7 @@ Buyers should connect supplier selection with:
 - pre-shipment inspection
 - expected service-life positioning
 
-That is the advantage of treating brake drums as a topic cluster rather than only a single RFQ line item.
+That is the advantage of treating brake drums as a topic cluster rather than only a single RFQ line item. It also makes it easier to move from informational research into a clearer [brake-system sourcing inquiry](/product/part/brake-system-parts/).
 
 ---
 
@@ -128,4 +128,4 @@ For buyers, the stronger decision comes from evaluating manufacturing control, q
 
 ## Need Help Finding Reliable Brake Drum Suppliers in China?
 
-If you need help screening brake-drum suppliers, reviewing production capability, or coordinating inspection before shipment, you can reach out through our [Contact Page](/contact).
+If you need help screening brake-drum suppliers, reviewing production capability, or coordinating inspection before shipment, you can reach out through our [Contact Page](/contact). If the RFQ already includes broader brake demand, start with our [brake system parts sourcing page](/product/part/brake-system-parts/).

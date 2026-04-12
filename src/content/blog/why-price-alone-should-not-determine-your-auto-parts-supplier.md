@@ -19,6 +19,8 @@ For commercial vehicle buyers, the cheapest offer can easily become the most exp
 
 If you need the broader supplier-screening framework first, start with [How to Identify Reliable Auto Parts Suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china). If you are already at the quote stage, [How to Compare Auto Parts Quotations from Chinese Suppliers](/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers) is the main page for that cluster. This article focuses on one narrower question inside it: how buyers should compare suppliers when price is only one part of the decision.
 
+If you want to see how that broader comparison is handled in practice, review our [truck parts sourcing service](/sourcing), [quality control and sourcing support](/capabilities), and [RFQ workflow](/how-it-works).
+
 ---
 
 ## 1. Low Price Can Hide Lower Quality Discipline
@@ -123,3 +125,5 @@ This framework also supports a more disciplined plan to [reduce sourcing risk](/
 Price should influence supplier choice, but it should not dominate it.
 
 The better buying decision comes from comparing total execution value: quality consistency, lead-time reliability, documentation strength, claims exposure, and then price.
+
+If you are comparing truck-parts suppliers now and need a more structured review path, contact us through our [Contact Page](/contact) or start with our [commercial vehicle parts sourcing from China](/) overview.

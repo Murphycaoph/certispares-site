@@ -19,6 +19,8 @@ In auto parts trade, buyers often compare product quality and quotations careful
 
 This article focuses on one narrow question: how T/T and L/C differ in practice, and when each is more suitable. If you need the broader sourcing-risk framework, see [How to Reduce Sourcing Risk When Buying Auto Parts from China](/blog/how-to-reduce-sourcing-risk-auto-parts-china). If you are still comparing offers at the quotation stage, use [How to Compare Auto Parts Quotations from Chinese Suppliers](/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers) as the main commercial comparison page.
 
+If payment structure is already being discussed around a live RFQ, the next step is usually to organize the inquiry through the broader [product entry page](/product), a known [brand sourcing page](/product/brand/volvo-truck/), or the main [truck parts sourcing service](/sourcing).
+
 ---
 
 ## 1. What T/T Means in Practice
@@ -130,4 +132,4 @@ If buyers are still comparing suppliers at a broader level, this payment decisio
 
 T/T and L/C solve different problems in auto parts trade.
 
-T/T is usually better for speed and routine execution. L/C is more useful when documentary control and payment protection justify the added complexity. Buyers should choose between them based on transaction reality, not habit.
+T/T is usually better for speed and routine execution. L/C is more useful when documentary control and payment protection justify the added complexity. Buyers should choose between them based on transaction reality, not habit. If you are ready to connect payment logic with an actual inquiry, continue into the broader [product entry page](/product), a relevant [brand sourcing page](/product/brand/volvo-truck/), or [send your RFQ](/contact).

@@ -19,6 +19,8 @@ In practice, most sourcing problems do not begin with a single dramatic failure.
 
 This page is the main risk-control framework for this topic cluster. If you need narrower supporting tools, continue into [Top Sourcing Risks When Buying Truck Parts from China](/blog/5-risks-sourcing-truck-parts-china), [How to Identify Reliable Auto Parts Suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china), [How to Avoid Quality Disputes When Importing Auto Parts](/blog/how-to-avoid-quality-disputes-when-importing-auto-parts), and [How to Compare Auto Parts Quotations from Chinese Suppliers](/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers). A strong risk plan also depends on understanding [EXW, FOB, and CIF responsibility splits](/blog/exw-fob-cif-auto-parts-buyers) and knowing when a category should move through [OEM or aftermarket channels](/blog/oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know).
 
+If you want to see how this risk-control logic is handled in practice, continue into our [truck parts sourcing service](/sourcing), [quality control and sourcing support](/capabilities), and [RFQ workflow](/how-it-works).
+
 ---
 
 ## 1. Start Risk Control Before Quotation, Not After Problems Appear
@@ -179,6 +181,8 @@ A practical pre-order checklist includes:
 
 This checklist does not eliminate every risk, but it reduces the most common preventable ones. The goal is not bureaucracy. The goal is alignment before cost and time are committed.
 
+For buyers working through that alignment stage right now, our [commercial vehicle parts sourcing from China](/) overview gives the broader sourcing model behind these controls.
+
 ---
 
 ## 9. Common Mistakes That Increase Sourcing Risk
@@ -235,4 +239,4 @@ Comparison helps buyers test whether the price is realistic, whether scope is co
 
 Reducing sourcing risk when buying auto parts from China is not about eliminating uncertainty completely. It is about controlling the decisions that most often create avoidable problems. When buyers verify suppliers carefully, compare quotations consistently, define QC checkpoints, and clarify logistics handovers early, they build a sourcing model that is both safer and more scalable.
 
-If you are evaluating truck-parts sourcing options in China and want a more structured discussion, you can contact us through our [Contact Page](/contact).
+If you are evaluating truck-parts sourcing options in China and want a more structured discussion, you can contact us through our [Contact Page](/contact) or review our [truck parts sourcing service](/sourcing) first.

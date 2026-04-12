@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const painPoints = [
+  {
+    title: "Same valve family, different spec",
+    desc: "Small differences in thread size, port size, valve type, or pressure rating can make the quoted part unusable.",
+  },
+  {
+    title: "Fast quotes often mix different standards",
+    desc: "Without clear references, suppliers may quote fittings, valves, and chambers with different specs under one request.",
+  },
+  {
+    title: "Air-side RFQs get split too early",
+    desc: "Valves, air dryers, fittings, chambers, and repair kits often belong in one RFQ, but they are harder to compare when quoted separately.",
+  },
+];
+const supportedParts = [
+  "Air valves",
+  "Air dryers",
+  "Brake chambers",
+  "Fittings",
+  "Hoses",
+  "Compressors",
+  "Reservoirs",
+  "Repair kits",
+];
+const matchingInputs = [
+  "OE number or part number",
+  "Vehicle model or application",
+  "Thread size, port size, valve type, or pressure spec",
+  "Part photos",
+  "Quantity list and destination",
+];
+const processSteps = [
+  { title: "You send the details", desc: "Share what you have - OE numbers, model details, specs, photos, or a parts list." },
+  { title: "We check specs and fitment first", desc: "We review the technical details before asking for quotes to avoid mismatch." },
+  { title: "We compare workable suppliers", desc: "We compare suppliers on specs, quality level, and execution - not just price." },
+  { title: "We move into inspection and shipping", desc: "After confirmation, we follow up on QC, packing, documents, and shipment." },
+];
+const whyWorkWithUs = [
+  {
+    title: "We check specs before quoting",
+    desc: "Air-system parts depend on thread size, port size, valve type, pressure spec, and application. We confirm first, then quote.",
+  },
+  {
+    title: "We align suppliers on the same scope",
+    desc: "Quotes are only useful when they match the same spec and execution basis.",
+  },
+  {
+    title: "We handle mixed air-system RFQs",
+    desc: "We can organize valves, fittings, air dryers, chambers, and repair items into one workable order.",
+  },
+];
+const faq = [
+  {
+    q: "Can I start without OE numbers?",
+    a: "Yes. Valve type, thread size, port size, pressure spec, or photos can also work.",
+  },
+  {
+    q: "Can you handle mixed air-system parts in one order?",
+    a: "Yes. We can organize multiple air-side items into one structured inquiry and shipment plan.",
+  },
+  {
+    q: "Do you support inspection before shipment?",
+    a: "Yes. We follow up on QC, packing checks, and shipment coordination.",
+  },
+];
+const relatedPaths = [
+  {
+    title: "HOWO parts sourcing",
+    desc: "For platform-led RFQs tied to a known truck family.",
+    href: "/product/brand/howo/",
+  },
+  {
+    title: "MAN parts sourcing",
+    desc: "For air-system demand tied to MAN vehicle applications.",
+    href: "/product/brand/man/",
+  },
+  {
+    title: "Brake system parts",
+    desc: "If the RFQ also includes drums, linings, or brake-side service parts.",
+    href: "/product/part/brake-system-parts/",
+  },
+];
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "WebPage", name: "Air System Parts Sourcing from China", description: "Send your air system parts inquiry with OE numbers, specs, photos, or part lists and get clearer matching, workable quotes, and shipment follow-up.", url: "https://certispares.com/product/part/air-system-parts/" },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" }, { "@type": "ListItem", position: 2, name: "Product", item: "https://certispares.com/product/" }, { "@type": "ListItem", position: 3, name: "Air System Parts", item: "https://certispares.com/product/part/air-system-parts/" } ] },
+];
+---
+
+<BaseLayout
+  title="Send Your Air System Parts Inquiry | Clear Matching and Workable Quotes"
+  description="Send your air system parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
+  keywords={[
+  "air system parts sourcing from China",
+  "air system parts RFQ",
+  "air system parts supplier China",
+  "air system quote support",
+  "air system parts inquiry",
+]}
+  canonical="/product/part/air-system-parts/"
+  ogImage="/images/hero-04-logistics-truck.webp"
+  jsonLd={jsonLd}
+>
+  <style>@import "../../../styles/product-detail.css";</style>
+  <section class="hero"><div class="heroBg" style={"background-image:url('/images/hero-04-logistics-truck.webp')"} aria-hidden="true"></div><div class="overlay" aria-hidden="true"></div><div class="container"><div class="heroInner"><div><p class="eyebrow">CertiSpares / Parts Inquiry</p><h1>Send your air system parts inquiry and get clear matching and workable quotes</h1><p class="heroLead">Send OE numbers, valve references, thread size, port size, pressure specs, photos, or your parts list. We check fitment first, then compare suppliers on the same scope, and move your inquiry into quotation, inspection, and shipment follow-up.</p><div class="heroActions"><a class="btn primary" href="/contact">Send Air System Inquiry</a><a class="btn" href="#what-to-send">See What to Send</a></div></div><aside class="heroPanel"><b>What to send for a faster reply</b><div class="heroList">{matchingInputs.slice(0, 5).map((item) => (<div class="heroListItem"><span class="heroDot"></span><span>{item}</span></div>))}</div></aside></div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Running into these issues when sourcing air system parts?</h2><div class="grid3">{painPoints.map((item) => (<div class="card"><b>{item.title}</b><p>{item.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Common air system parts we handle</h2><p class="sectionDesc">Most inquiries start with a part name, OE reference, or a mixed replenishment list. Typical items include:</p><div class="chipWrap" aria-label="Supported air system parts">{supportedParts.map((item) => (<span class="chip">{item}</span>))}</div></div></section>
+  <section class="section" id="what-to-send"><div class="container"><h2 class="sectionTitle">What to send with your air system parts inquiry</h2><div class="grid2"><div class="card"><b>Best details to send</b><ul class="bulletList">{matchingInputs.map((item) => (<li class="bulletItem"><span class="dot"></span><span>{item}</span></li>))}</ul></div><div class="card"><b>This helps avoid wrong parts</b><p>Clear inputs make it easier to confirm the correct spec, line up supplier quotes on the same basis, and avoid wrong parts later.</p></div></div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">What happens after you send the inquiry</h2><div class="grid2">{processSteps.map((step) => (<div class="card"><b>{step.title}</b><p>{step.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Why buyers use us for air system parts inquiries</h2><div class="grid3">{whyWorkWithUs.map((item) => (<div class="card"><b>{item.title}</b><p>{item.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">FAQ</h2><div class="faq">{faq.map((item) => (<div class="faqItem"><strong>{item.q}</strong><p>{item.a}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><h2 class="sectionTitle">Need to start from a truck brand instead?</h2><div class="grid3">{relatedPaths.map((item) => (<div class="card"><b><a href={item.href}>{item.title}</a></b><p>{item.desc}</p></div>))}</div></div></section>
+  <section class="section"><div class="container"><div class="ctaBlock"><div class="left"><b>Ready to send your air system parts inquiry?</b><p>Send the details you already have - OE numbers, specs, photos, or your parts list. We will review it, confirm the scope, and reply with the next step.</p></div><div style="display:flex; gap:10px; flex-wrap:wrap;"><a class="btn primary" href="/contact">Send Air System Inquiry</a><a class="btn" href="/contact">Contact Us</a></div></div></div></section>
+</BaseLayout>

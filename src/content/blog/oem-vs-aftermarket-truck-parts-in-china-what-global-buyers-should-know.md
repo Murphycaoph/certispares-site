@@ -19,7 +19,7 @@ When sourcing commercial-vehicle parts from China, buyers often frame the decisi
 
 What buyers really need to understand is how the two channels differ in tooling control, quality discipline, commercial flexibility, and application fit. The right choice often depends on the product category and the market being served, not on one universal rule.
 
-This decision also becomes sharper when buyers compare [supplier type](/blog/trading-company-vs-manufacturer-in-china) and align the product with [quotation structure and commercial risk](/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers).
+This decision also becomes sharper when buyers compare [supplier type](/blog/trading-company-vs-manufacturer-in-china) and align the product with [quotation structure and commercial risk](/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers). Buyers who already know the vehicle platform can also move directly into brand-led RFQ pages such as [MAN parts sourcing](/product/brand/man/), [HOWO parts sourcing](/product/brand/howo/), or [Shacman parts sourcing](/product/brand/shacman/).
 
 ---
 
@@ -70,7 +70,7 @@ In practice, aftermarket supply may range from:
 - mid-tier independent suppliers
 - low-control price-driven workshops
 
-This is why supplier screening matters more than category labels.
+This is why supplier screening matters more than category labels. Once the buyer already knows the relevant product family, it can also help to move into a system page such as [engine parts sourcing](/product/part/engine-parts/), [brake system parts sourcing](/product/part/brake-system-parts/), or [air system parts sourcing](/product/part/air-system-parts/).
 
 ---
 
@@ -121,4 +121,4 @@ Use these supporting pages when you want to narrow the OEM-versus-aftermarket de
 
 OEM and aftermarket truck parts in China are not good-versus-bad choices. They are different supply channels that solve different commercial and technical problems.
 
-For buyers, the practical task is to match the right channel to the right category, supplier, and market requirement.
+For buyers, the practical task is to match the right channel to the right category, supplier, and market requirement. If you are ready to turn that decision into an RFQ, continue into our [truck parts sourcing service](/sourcing), a relevant [brand sourcing page](/product/brand/man/), or a matching [part-system sourcing page](/product/part/engine-parts/).

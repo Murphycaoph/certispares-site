@@ -18,6 +18,8 @@ Before buyers compare quotations or discuss trial orders, they need to understan
 
 If you need the broader supplier-screening framework first, see [How to Identify Reliable Auto Parts Suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china). This article stays narrower: the seven questions that matter most before choosing a supplier.
 
+If you want to see how these screening questions fit into an actual sourcing workflow, continue into our [truck parts sourcing service](/sourcing), [quality control and sourcing support](/capabilities), and [RFQ workflow](/how-it-works).
+
 ---
 
 ## 1. Are You the Manufacturer or a Trading Company?
@@ -149,3 +151,5 @@ That comparison becomes even stronger when used alongside [quotation analysis](/
 These seven questions help buyers screen suppliers before they commit time to deeper negotiation or trial orders.
 
 The value of the checklist is not that it is long. The value is that it forces early clarity on capability, execution, and commercial behavior.
+
+If you are preparing a truck-parts RFQ and want a more structured conversation after this checklist, reach out through our [Contact Page](/contact) or review our [commercial vehicle parts sourcing from China](/) overview first.
