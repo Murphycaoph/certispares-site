@@ -12,6 +12,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.preview-*.log
+.preview-*.err.log
 
 # environment variables
 .env
@@ -25,3 +27,8 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# local generated assets and tooling output
+output/
+tmp/
+vendor_pkgs/

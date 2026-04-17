@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PartInquiryPage from "../../../components/PartInquiryPage.astro";
 
 const painPoints = [
   {
@@ -12,19 +12,10 @@ const painPoints = [
   },
   {
     title: "Mixed items are hard to manage",
-    desc: "Liners, pistons, bearings, gaskets, and pumps often come together, but the RFQ gets split and hard to compare.",
+    desc: "Rebuild and service items often come together, but the RFQ gets split and harder to compare as one scope.",
   },
 ];
-const supportedParts = [
-  "Liners",
-  "Pistons",
-  "Rings",
-  "Bearings",
-  "Gaskets",
-  "Seals",
-  "Pumps",
-  "Valves",
-];
+
 const matchingInputs = [
   "OE number or part number",
   "Engine model or vehicle details",
@@ -32,85 +23,64 @@ const matchingInputs = [
   "Part photos",
   "Quantity list and destination",
 ];
+
 const processSteps = [
-  { title: "You send the details", desc: "Share what you have - OE numbers, model details, specs, photos, or a parts list." },
-  { title: "We check specs and fitment first", desc: "We review the technical details before asking for quotes to avoid mismatch." },
-  { title: "We compare workable suppliers", desc: "We compare suppliers on specs, quality level, and execution - not just price." },
-  { title: "We move into inspection and shipping", desc: "After confirmation, we follow up on QC, packing, documents, and shipment." },
+  { title: "You send the details", desc: "Share the references you already have, including OE numbers, model details, specs, photos, or a parts list." },
+  { title: "We check specs and fitment first", desc: "We review the technical scope before quotation starts so suppliers are compared on the same basis." },
+  { title: "We compare workable suppliers", desc: "We line up suppliers on scope, quality level, execution, and follow-up instead of quoting blind." },
+  { title: "We move into inspection and shipping", desc: "After confirmation, we continue with QC, packing checks, documents, and shipment coordination." },
 ];
+
 const whyWorkWithUs = [
   {
     title: "We check specs before quoting",
-    desc: "Engine parts are sensitive to model, configuration, and dimensions. We confirm first, then quote.",
+    desc: "Engine parts are sensitive to model, configuration, and dimensions, so we confirm first and quote second.",
   },
   {
     title: "We align suppliers on the same scope",
-    desc: "Quotes are only useful when they match the same specs and quality level.",
+    desc: "A quote only helps when the same references, quality level, and fitment basis are being compared.",
   },
   {
-    title: "We handle mixed engine orders",
-    desc: "From rebuild kits to mixed spare parts, we help organize them into one workable order.",
+    title: "We handle mixed engine demand",
+    desc: "From overhaul support to mixed replenishment, we help keep the inquiry under one clearer structure.",
   },
 ];
+
 const faq = [
-  {
-    q: "Can I start without OE numbers?",
-    a: "Yes. Engine model, dimensions, photos, or old samples can also work.",
-  },
-  {
-    q: "Can you handle mixed engine parts in one order?",
-    a: "Yes. We can organize multiple items into one structured inquiry and shipment plan.",
-  },
-  {
-    q: "Do you support inspection before shipment?",
-    a: "Yes. We follow up on QC, packing checks, and shipment coordination.",
-  },
+  { q: "Can I start without OE numbers?", a: "Yes. Engine model, dimensions, photos, or old samples can also work." },
+  { q: "Can you handle mixed engine parts in one order?", a: "Yes. We can organize multiple engine lines into one structured inquiry and shipment plan." },
+  { q: "Do you support inspection before shipment?", a: "Yes. We follow up on QC, packing checks, and shipment coordination." },
 ];
+
 const relatedPaths = [
-  {
-    title: "HOWO parts sourcing",
-    desc: "For inquiries tied to a specific truck platform.",
-    href: "/product/brand/howo/",
-  },
-  {
-    title: "Sinotruk parts sourcing",
-    desc: "For brand-based matching and platform-specific parts.",
-    href: "/product/brand/sinotruk/",
-  },
-  {
-    title: "Air system parts",
-    desc: "If your inquiry also includes valves, fittings, or air-related items.",
-    href: "/product/part/air-system-parts/",
-  },
+  { title: "HOWO parts sourcing", desc: "For inquiries tied to a specific truck platform.", href: "/product/brand/howo/" },
+  { title: "Sinotruk parts sourcing", desc: "For brand-based matching and platform-specific parts support.", href: "/product/brand/sinotruk/" },
+  { title: "Gearbox and transmission parts", desc: "If the RFQ also includes drivetrain-side support.", href: "/product/part/clutch-and-transmission-parts/" },
 ];
+
 const jsonLd = [
   { "@context": "https://schema.org", "@type": "WebPage", name: "Engine Parts Sourcing from China", description: "Send your engine parts inquiry with OE numbers, specs, photos, or part lists and get clearer matching, workable quotes, and shipment follow-up.", url: "https://certispares.com/product/part/engine-parts/" },
   { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" }, { "@type": "ListItem", position: 2, name: "Product", item: "https://certispares.com/product/" }, { "@type": "ListItem", position: 3, name: "Engine Parts", item: "https://certispares.com/product/part/engine-parts/" } ] },
 ];
 ---
 
-<BaseLayout
-  title="Send Your Engine Parts Inquiry | Clear Matching and Workable Quotes"
-  description="Send your engine parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
-  keywords={[
-  "engine parts sourcing from China",
-  "engine parts RFQ",
-  "engine parts supplier China",
-  "engine parts quote support",
-  "engine parts inquiry",
-]}
+<PartInquiryPage
+  pageTitle="Send Your Engine Parts Inquiry | Clear Matching and Workable Quotes"
+  pageDescription="Send your engine parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
+  keywords={["engine parts sourcing from China", "engine parts RFQ", "engine parts supplier China", "engine parts quote support", "engine parts inquiry"]}
   canonical="/product/part/engine-parts/"
   ogImage="/images/platform-library/engine/fallback/Engine heavy truck 2.png"
   jsonLd={jsonLd}
->
-  <style>@import "../../../styles/product-detail.css";</style>
-  <section class="hero"><div class="heroBg" style={"background-image:url('/images/platform-library/engine/fallback/Engine heavy truck 2.png')"} aria-hidden="true"></div><div class="overlay" aria-hidden="true"></div><div class="container"><div class="heroInner"><div><p class="eyebrow">CertiSpares / Parts Inquiry</p><h1>Send your engine parts inquiry and get clear matching and workable quotes</h1><p class="heroLead">Send OE numbers, engine model, dimensions, photos, or your parts list. We check fitment first, then compare suppliers on the same scope, and move your inquiry into quotation, inspection, and shipment follow-up.</p><div class="heroActions"><a class="btn primary" href="/contact">Send Engine Inquiry</a><a class="btn" href="#what-to-send">See What to Send</a></div></div><aside class="heroPanel"><b>What to send for a faster reply</b><div class="heroList">{matchingInputs.slice(0, 5).map((item) => (<div class="heroListItem"><span class="heroDot"></span><span>{item}</span></div>))}</div></aside></div></div></section>
-  <section class="section"><div class="container"><h2 class="sectionTitle">Running into these issues when sourcing engine parts?</h2><div class="grid3">{painPoints.map((item) => (<div class="card"><b>{item.title}</b><p>{item.desc}</p></div>))}</div></div></section>
-  <section class="section"><div class="container"><h2 class="sectionTitle">Common engine parts we handle</h2><p class="sectionDesc">Most inquiries start with a part name, OE reference, or a mixed replenishment list. Typical items include:</p><div class="chipWrap" aria-label="Supported engine parts">{supportedParts.map((item) => (<span class="chip">{item}</span>))}</div></div></section>
-  <section class="section" id="what-to-send"><div class="container"><h2 class="sectionTitle">What to send with your engine parts inquiry</h2><div class="grid2"><div class="card"><b>Best details to send</b><ul class="bulletList">{matchingInputs.map((item) => (<li class="bulletItem"><span class="dot"></span><span>{item}</span></li>))}</ul></div><div class="card"><b>This helps avoid wrong parts</b><p>Clear inputs make it easier to confirm specs, line up supplier quotes on the same scope, and cut down the back-and-forth later.</p></div></div></div></section>
-  <section class="section"><div class="container"><h2 class="sectionTitle">What happens after you send the inquiry</h2><div class="grid2">{processSteps.map((step) => (<div class="card"><b>{step.title}</b><p>{step.desc}</p></div>))}</div></div></section>
-  <section class="section"><div class="container"><h2 class="sectionTitle">Why buyers use us for engine parts inquiries</h2><div class="grid3">{whyWorkWithUs.map((item) => (<div class="card"><b>{item.title}</b><p>{item.desc}</p></div>))}</div></div></section>
-  <section class="section"><div class="container"><h2 class="sectionTitle">FAQ</h2><div class="faq">{faq.map((item) => (<div class="faqItem"><strong>{item.q}</strong><p>{item.a}</p></div>))}</div></div></section>
-  <section class="section"><div class="container"><h2 class="sectionTitle">Need to start from a truck brand instead?</h2><div class="grid3">{relatedPaths.map((item) => (<div class="card"><b><a href={item.href}>{item.title}</a></b><p>{item.desc}</p></div>))}</div></div></section>
-  <section class="section"><div class="container"><div class="ctaBlock"><div class="left"><b>Ready to send your engine parts inquiry?</b><p>Send the details you already have - OE numbers, specs, photos, or your parts list. We will review it, confirm the scope, and reply with the next step.</p></div><div style="display:flex; gap:10px; flex-wrap:wrap;"><a class="btn primary" href="/contact">Send Engine Inquiry</a><a class="btn" href="/contact">Contact Us</a></div></div></div></section>
-</BaseLayout>
+  systemLabel="Engine parts"
+  heroTitle="Send your engine parts inquiry and get clearer matching"
+  heroLead="Send OE numbers, engine model, dimensions, photos, or your parts list. We review the scope first, then move into quotation, inspection, and shipment follow-up."
+  primaryCtaLabel="Send Engine Inquiry"
+  painPointsHeading="Running into these issues when sourcing engine parts?"
+  painPoints={painPoints}
+  matchingInputs={matchingInputs}
+  processSteps={processSteps}
+  whyWorkWithUsHeading="Why buyers use us for engine parts inquiries"
+  whyWorkWithUs={whyWorkWithUs}
+  faq={faq}
+  relatedPaths={relatedPaths}
+/>
