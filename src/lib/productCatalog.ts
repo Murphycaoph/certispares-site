@@ -26,10 +26,10 @@ export type ProductCard = {
 };
 
 const platformImageMap = {
-  light_truck: "/images/Engine-Parts.png",
-  medium_truck: "/images/Engine-Parts.png",
-  heavy_truck: "/images/Engine-Parts.png",
-  mini_truck: "/images/Engine-Parts.png",
+  light_truck: "/images/Engine-Parts.webp",
+  medium_truck: "/images/Engine-Parts.webp",
+  heavy_truck: "/images/Engine-Parts.webp",
+  mini_truck: "/images/Engine-Parts.webp",
 } as const;
 
 const rows = [

@@ -53,7 +53,7 @@ For more detail, visit [certispares.com](https://certispares.com).
 #TruckParts #AutoParts #Sourcing #InventoryEfficiency #Logistics
 
 **Recommended image**
-`public/images/social/container-consolidation-series/01-traditional-buying-friction.jpg`
+`public/images/social/container-consolidation-series/01-traditional-buying-friction.webp`
 
 Why it fits:
 Strong visual for procurement friction, shipping pressure, and the downside of buying just to fill a container.
@@ -103,7 +103,7 @@ For more detail, visit [certispares.com](https://certispares.com).
 #ContainerConsolidation #GlobalTrade #TruckParts #ImportExport #Logistics
 
 **Recommended image**
-`public/images/social/container-consolidation-series/02-container-consolidation.jpg`
+`public/images/social/container-consolidation-series/02-container-consolidation.webp`
 
 Why it fits:
 Uses a top-view port/logistics scene to show shipment coordination without repeating the same visual logic as post 1.
@@ -156,7 +156,7 @@ For more detail, visit [certispares.com](https://certispares.com).
 #InventoryManagement #SKUMix #AftermarketParts #TruckPartsBusiness #Sourcing
 
 **Recommended image**
-`public/images/social/container-consolidation-series/03-balanced-sku-sourcing.jpg`
+`public/images/social/container-consolidation-series/03-balanced-sku-sourcing.webp`
 
 Why it fits:
 Warehouse/inventory visual that supports the stock-mix and turnover message.
@@ -213,7 +213,7 @@ For more detail, visit [certispares.com](https://certispares.com).
 #SupplyChain #AutoPartsBusiness #InventoryEfficiency #ImportStrategy #TruckParts
 
 **Recommended image**
-`public/images/social/container-consolidation-series/04-cost-and-inventory-efficiency.jpg`
+`public/images/social/container-consolidation-series/04-cost-and-inventory-efficiency.webp`
 
 Why it fits:
 A clean warehouse-shelves visual keeps the focus on inventory outcomes and avoids distracting face-led imagery.

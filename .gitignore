@@ -32,3 +32,4 @@ pnpm-debug.log*
 output/
 tmp/
 vendor_pkgs/
+.playwright-cli/

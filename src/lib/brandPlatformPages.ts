@@ -37,6 +37,11 @@ type CardItem = {
   desc: string;
 };
 
+type BrandPageOptions = {
+  eyebrow?: string;
+  rfqNotes?: CardItem[];
+};
+
 export type BrandPageConfig = {
   brand: string;
   eyebrow: string;
@@ -49,6 +54,7 @@ export type BrandPageConfig = {
   browserFallbackText: string;
   matchingInputs: string[];
   painPoints: CardItem[];
+  rfqNotes: CardItem[];
   processSteps: CardItem[];
   whyWorkWithUs: CardItem[];
   faq: FaqItem[];
@@ -107,14 +113,14 @@ const processSteps = [
 ];
 
 const scopeImages = {
-  brakeHeavy: "/images/platform-library/brake/fallback/Brake heavy truck 1.png",
-  brakeLight: "/images/platform-library/brake/fallback/Brake light truck 1.png",
-  suspensionHeavy: "/images/platform-library/suspension/fallback/Suspension heavy truck 2.png",
-  suspensionLight: "/images/platform-library/suspension/fallback/Suspension light truck 1.png",
-  axleHeavy: "/images/platform-library/axle/fallback/Axle heavy truck 2.png",
-  axleLight: "/images/platform-library/axle/fallback/Axle light truck 1.jpg",
-  airPrimary: "/images/platform-library/air-system/air-candidate-2.jpg",
-  airSecondary: "/images/platform-library/air-system/air-candidate-1.jpg",
+  brakeHeavy: "/images/platform-library/brake/fallback/Brake heavy truck 1.webp",
+  brakeLight: "/images/platform-library/brake/fallback/Brake light truck 1.webp",
+  suspensionHeavy: "/images/platform-library/suspension/fallback/Suspension heavy truck 2.webp",
+  suspensionLight: "/images/platform-library/suspension/fallback/Suspension light truck 1.webp",
+  axleHeavy: "/images/platform-library/axle/fallback/Axle heavy truck 2.webp",
+  axleLight: "/images/platform-library/axle/fallback/Axle light truck 1.webp",
+  airPrimary: "/images/platform-library/air-system/air-candidate-2.webp",
+  airSecondary: "/images/platform-library/air-system/air-candidate-1.webp",
 } as const;
 
 const airImageStyleA = "transform: rotate(90deg) scale(1.18); transform-origin: center center;";
@@ -134,6 +140,26 @@ const makeWhyWorkWithUs = (brand: string): CardItem[] => [
     desc: `Many ${brand} inquiries include different systems or items. We help organize them into one workable sourcing and shipment plan.`,
   },
 ];
+
+const makeDefaultRfqNotes = (brand: string): CardItem[] => [
+  {
+    title: `Typical ${brand} RFQ pattern`,
+    desc: "Most inquiries start with a platform name, OE or part numbers, photos, and a mixed list that needs scope checking before quotation.",
+  },
+  {
+    title: "Matching caution",
+    desc: "Brand and model names help identify the inquiry, but final matching still depends on OE reference, VIN, configuration, dimensions, and photos.",
+  },
+  {
+    title: "How we keep the inquiry workable",
+    desc: "We clarify the part scope first, then compare suppliers on the same matching basis instead of treating the first fast quote as the final answer.",
+  },
+];
+
+const internationalBrandBoundary = (brand: string): CardItem => ({
+  title: "Independent aftermarket inquiry support",
+  desc: `${brand} names, models, and OE references are used only to identify the inquiry scope. CertiSpares is an independent sourcing and RFQ support service unless explicit authorization is stated.`,
+});
 
 const makeFaq = (brand: string): FaqItem[] => [
   {
@@ -246,9 +272,10 @@ const makeCommonConfig = (
   ogImage: string,
   relatedPaths: RelatedPath[],
   assemblies: BrowserAssembly[],
-  eyebrow = "CertiSpares / Brand Sourcing",
+  options: BrandPageOptions = {},
 ): BrandPageConfig => {
   const seoDescription = `Send your ${brand} parts inquiry with OE numbers, VIN, photos, or part names. CertiSpares helps narrow the right platform, check matching scope, compare suppliers, and move your inquiry into quotation support.`;
+  const eyebrow = options.eyebrow ?? "CertiSpares / Brand Sourcing";
 
   return {
     brand,
@@ -263,6 +290,7 @@ const makeCommonConfig = (
       "Not all supported parts are listed here. If you have a specific request, just reach out and we'll check it for you.",
     matchingInputs,
     painPoints,
+    rfqNotes: options.rfqNotes ?? makeDefaultRfqNotes(brand),
     processSteps,
     whyWorkWithUs: makeWhyWorkWithUs(brand),
     faq: makeFaq(brand),
@@ -292,14 +320,14 @@ const sinotrukAssemblies: BrowserAssembly[] = [
         "mc11-44-50",
         "MC11.44-50",
         "HOWO TX | heavy truck",
-        "/images/platform-library/engine/sinotruk/Engine Sinotruk MC11.44-50.jpg",
+        "/images/platform-library/engine/sinotruk/Engine Sinotruk MC11.44-50.webp",
         "Sinotruk MC11.44-50 engine",
       ),
       enginePlatform(
         "wp2-5nq180e62",
         "WP2.5NQ180E62",
         "HOWO Commander | light truck",
-        "/images/platform-library/engine/weichai/Engine Weichai WP2.5NQ180E62 family.jpg",
+        "/images/platform-library/engine/weichai/Engine Weichai WP2.5NQ180E62 family.webp",
         "Weichai WP2.5NQ180E62 engine",
       ),
     ],
@@ -319,7 +347,7 @@ const sinotrukAssemblies: BrowserAssembly[] = [
         "fast-8j55ta",
         "FAST 8J55TA",
         "HOWO Commander | light truck",
-        "/images/platform-library/gearbox/fallback/Gearbox light truck 1.png",
+        "/images/platform-library/gearbox/fallback/Gearbox light truck 1.webp",
         "Light truck gearbox",
       ),
     ],
@@ -441,14 +469,14 @@ const fotonAssemblies: BrowserAssembly[] = [
         "isf3-8s5168",
         "ISF3.8s5168",
         "Aumark | light truck",
-        "/images/platform-library/engine/cummins/Engine Cummins ISF3.8.png",
+        "/images/platform-library/engine/cummins/Engine Cummins ISF3.8.webp",
         "Cummins ISF3.8 engine",
       ),
       enginePlatform(
         "x13ns5-560",
         "X13NS5-560",
         "Auman | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 1.jpg",
+        "/images/platform-library/engine/fallback/Engine heavy truck 1.webp",
         "Heavy truck engine",
       ),
     ],
@@ -461,7 +489,7 @@ const fotonAssemblies: BrowserAssembly[] = [
         "zf-ecolite-6s600",
         "ZF EcoLite 6S600",
         "Aumark | light truck",
-        "/images/platform-library/gearbox/zf/Gearbox ZF Ecolite light truck.png",
+        "/images/platform-library/gearbox/zf/Gearbox ZF Ecolite light truck.webp",
         "ZF light truck gearbox",
       ),
       gearboxPlatform(
@@ -590,14 +618,14 @@ const jacAssemblies: BrowserAssembly[] = [
         "hfc4da1-2d",
         "HFC4DA1-2D",
         "Shuailing H330 | light truck",
-        "/images/platform-library/engine/fallback/Engine light truck 2.png",
+        "/images/platform-library/engine/fallback/Engine light truck 2.webp",
         "Light truck engine",
       ),
       enginePlatform(
         "yck05240-60",
         "YCK05240-60",
         "Geerfa A5L | medium truck",
-        "/images/platform-library/engine/yuchai/Engine Yuchai YCK11-60 product.png",
+        "/images/platform-library/engine/yuchai/Engine Yuchai YCK11-60 product.webp",
         "Yuchai engine",
       ),
     ],
@@ -610,14 +638,14 @@ const jacAssemblies: BrowserAssembly[] = [
         "liuan-lc6t540b",
         "Liuan LC6T540B",
         "Junling V7 | light truck",
-        "/images/platform-library/gearbox/fallback/Gearbox light truck 2.png",
+        "/images/platform-library/gearbox/fallback/Gearbox light truck 2.webp",
         "Light truck gearbox",
       ),
       gearboxPlatform(
         "fast-8mt",
         "FAST 8MT",
         "Geerfa A5L | medium truck",
-        "/images/platform-library/gearbox/fallback/Gearbox medium truck 1.png",
+        "/images/platform-library/gearbox/fallback/Gearbox medium truck 1.webp",
         "Medium truck gearbox",
       ),
     ],
@@ -739,14 +767,14 @@ const dongfengAssemblies: BrowserAssembly[] = [
         "ycy24155-61",
         "YCY24155-61",
         "Dolica D6 | light truck",
-        "/images/platform-library/engine/yuchai/Engine Yuchai YCY24155-61.png",
+        "/images/platform-library/engine/yuchai/Engine Yuchai YCY24155-61.webp",
         "Yuchai engine",
       ),
       enginePlatform(
         "yc4f115-50",
         "YC4F115-50",
         "Captain T Series | light truck",
-        "/images/platform-library/engine/yuchai/Engine Yuchai YC4F115-50.png",
+        "/images/platform-library/engine/yuchai/Engine Yuchai YC4F115-50.webp",
         "Yuchai engine",
       ),
     ],
@@ -759,14 +787,14 @@ const dongfengAssemblies: BrowserAssembly[] = [
         "fast-8j45t",
         "FAST 8J45T",
         "Dolica D6 | light truck",
-        "/images/platform-library/gearbox/fallback/Gearbox light truck 1.png",
+        "/images/platform-library/gearbox/fallback/Gearbox light truck 1.webp",
         "Light truck gearbox",
       ),
       gearboxPlatform(
         "6j45t",
         "6J45T",
         "Captain T Series | light truck",
-        "/images/platform-library/gearbox/fallback/Gearbox light truck 2.png",
+        "/images/platform-library/gearbox/fallback/Gearbox light truck 2.webp",
         "Light truck gearbox",
       ),
     ],
@@ -888,14 +916,14 @@ const fawAssemblies: BrowserAssembly[] = [
         "ca6dm2-46e52",
         "CA6DM2-46E52",
         "J6P | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 2.png",
+        "/images/platform-library/engine/fallback/Engine heavy truck 2.webp",
         "Heavy truck engine",
       ),
       enginePlatform(
         "ca6dk1-32e5",
         "CA6DK1-32E5",
         "J6P | cargo truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 1.jpg",
+        "/images/platform-library/engine/fallback/Engine heavy truck 1.webp",
         "Heavy truck engine",
       ),
     ],
@@ -1037,14 +1065,14 @@ const shacmanAssemblies: BrowserAssembly[] = [
         "wp12-430e50",
         "WP12.430E50",
         "Delong X3000 | heavy truck",
-        "/images/platform-library/engine/weichai/Engine Weichai WP12.430E50 family.png",
+        "/images/platform-library/engine/weichai/Engine Weichai WP12.430E50 family.webp",
         "Weichai engine",
       ),
       enginePlatform(
         "wp10-340e53",
         "WP10.340E53",
         "Delong H3000 | heavy truck",
-        "/images/platform-library/engine/weichai/Engine Weichai WP10H family.png",
+        "/images/platform-library/engine/weichai/Engine Weichai WP10H family.webp",
         "Weichai engine",
       ),
     ],
@@ -1186,14 +1214,14 @@ const manAssemblies: BrowserAssembly[] = [
         "d26-heavy",
         "D26 platform",
         "TGX | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 1.jpg",
+        "/images/platform-library/engine/fallback/Engine heavy truck 1.webp",
         "Heavy truck engine",
       ),
       enginePlatform(
         "d15-medium",
         "D15 platform",
         "TGS | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 2.png",
+        "/images/platform-library/engine/fallback/Engine heavy truck 2.webp",
         "Heavy truck engine",
       ),
     ],
@@ -1335,14 +1363,14 @@ const volvoAssemblies: BrowserAssembly[] = [
         "d13-platform",
         "D13 platform",
         "FH | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 1.jpg",
+        "/images/platform-library/engine/fallback/Engine heavy truck 1.webp",
         "Heavy truck engine",
       ),
       enginePlatform(
         "d11-platform",
         "D11 platform",
         "FM | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 2.png",
+        "/images/platform-library/engine/fallback/Engine heavy truck 2.webp",
         "Heavy truck engine",
       ),
     ],
@@ -1484,14 +1512,14 @@ const mercedesAssemblies: BrowserAssembly[] = [
         "om471-platform",
         "OM471 platform",
         "Actros | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 1.jpg",
+        "/images/platform-library/engine/fallback/Engine heavy truck 1.webp",
         "Heavy truck engine",
       ),
       enginePlatform(
         "om470-platform",
         "OM470 platform",
         "Arocs | heavy truck",
-        "/images/platform-library/engine/fallback/Engine heavy truck 2.png",
+        "/images/platform-library/engine/fallback/Engine heavy truck 2.webp",
         "Heavy truck engine",
       ),
     ],
@@ -1630,13 +1658,29 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
     "Send your Sinotruk parts inquiry and narrow the right platform before you chat with us",
     "Narrow down the right platform before you reach out, so we can start from a clearer scope and move faster on matching and quotation.",
     "/product/brand/sinotruk/",
-    "/images/brands/sinotruk.png",
+    "/images/brands/sinotruk.webp",
     [
       { title: "Engine parts", desc: "For engine-model-based matching, overhaul demand, and mixed rebuild inquiries.", href: "/product/part/engine-parts/" },
       { title: "Brake system parts", desc: "For chambers, linings, drums, valves, and other brake-category RFQs.", href: "/product/part/brake-system-parts/" },
       { title: "Suspension parts", desc: "For leaf springs, torque rods, bushings, and suspension-led replenishment.", href: "/product/part/suspension-parts/" },
     ],
     sinotrukAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical Sinotruk RFQ pattern",
+          desc: "Sinotruk inquiries often start from HOWO platform names, engine or gearbox references, and mixed brake, suspension, axle, or air-system lists.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Sinotruk and HOWO references can overlap. We treat platform family, engine model, OE number, VIN, and photos as matching inputs before quoting.",
+        },
+        {
+          title: "What usually needs clarification",
+          desc: "Engine model, gearbox model, brake chamber type, axle or wheel-end scope, quantities, destination, and packing marks usually need alignment first.",
+        },
+      ],
+    },
   ),
   howo: makeCommonConfig(
     "HOWO",
@@ -1650,71 +1694,167 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
       { title: "Axle and wheel-end parts", desc: "For hub, bearing, wheel-end, and axle-category inquiries.", href: "/product/part/axle-and-wheel-end-parts/" },
     ],
     sinotrukAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical HOWO RFQ pattern",
+          desc: "HOWO buyers often send photos from an old part, several OE numbers, and a mixed list covering brake, air, axle, suspension, and engine service items.",
+        },
+        {
+          title: "Matching caution",
+          desc: "HOWO is a platform family, not one fixed specification. Truck family, VIN, engine or gearbox model, dimensions, and photos help avoid wrong-scope quotes.",
+        },
+        {
+          title: "What we check first",
+          desc: "We check whether suppliers are quoting the same chamber, valve, drum, gearbox, hub, or suspension scope before comparing price and lead time.",
+        },
+      ],
+    },
   ),
   foton: makeCommonConfig(
     "Foton",
     "Send your Foton parts inquiry and narrow the right platform before you chat with us",
     "Narrow down the right Foton platform before you reach out, so we can start from a clearer scope and move faster on matching and quotation.",
     "/product/brand/foton/",
-    "/images/brands/foton.png",
+    "/images/brands/foton.webp",
     [
       { title: "Engine parts", desc: "For overhaul demand, mixed engine orders, and model-led engine parts matching.", href: "/product/part/engine-parts/" },
       { title: "Brake system parts", desc: "For brake-category RFQs across Aumark, Auman, and other Foton truck families.", href: "/product/part/brake-system-parts/" },
       { title: "Air system parts", desc: "For valves, fittings, air dryer items, and grouped air-side support.", href: "/product/part/air-system-parts/" },
     ],
     fotonAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical Foton RFQ pattern",
+          desc: "Foton inquiries often split between Aumark light truck support and Auman heavy truck support, so model family matters before supplier outreach.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Aumark and Auman parts can require different engine, gearbox, brake, and chassis references. The brand name alone is not enough.",
+        },
+        {
+          title: "What usually needs clarification",
+          desc: "Vehicle family, engine model, gearbox reference, brake or air-system spec, OE numbers, quantities, and target market are checked before quotation.",
+        },
+      ],
+    },
   ),
   jac: makeCommonConfig(
     "JAC",
     "Send your JAC parts inquiry and narrow the right platform before you chat with us",
     "Narrow down the right JAC platform before you reach out, so we can start from a clearer scope and move faster on matching and quotation.",
     "/product/brand/jac/",
-    "/images/brands/jac.png",
+    "/images/brands/jac.webp",
     [
       { title: "Engine parts", desc: "For rebuild demand, engine-model-led RFQs, and mixed engine-category orders.", href: "/product/part/engine-parts/" },
       { title: "Suspension parts", desc: "For spring, rod, chassis wear, and suspension-led replenishment demand.", href: "/product/part/suspension-parts/" },
       { title: "Axle and wheel-end parts", desc: "For axle, steering, hub, and wheel-end support across JAC truck families.", href: "/product/part/axle-and-wheel-end-parts/" },
     ],
     jacAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical JAC RFQ pattern",
+          desc: "JAC RFQs often start from light or medium truck applications, with engine, suspension, axle, steering, and mixed chassis wear items in the same list.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Truck model, engine model, chassis application, and photos are important because small platform differences can change the workable supplier scope.",
+        },
+        {
+          title: "How we compare suppliers",
+          desc: "We compare suppliers by model familiarity, fitment references, MOQ, packing, and repeat-order practicality instead of pushing a single quote.",
+        },
+      ],
+    },
   ),
   dongfeng: makeCommonConfig(
     "Dongfeng",
     "Send your Dongfeng parts inquiry and narrow the right platform before you chat with us",
     "Narrow down the right Dongfeng platform before you reach out, so we can start from a clearer scope and move faster on matching and quotation.",
     "/product/brand/dongfeng/",
-    "/images/brands/dongfeng.png",
+    "/images/brands/dongfeng.webp",
     [
       { title: "Engine parts", desc: "For engine-category RFQs where the inquiry starts from model, spec, or rebuild demand.", href: "/product/part/engine-parts/" },
       { title: "Brake system parts", desc: "For brake-category replenishment, chamber support, and valve-led RFQs.", href: "/product/part/brake-system-parts/" },
       { title: "Axle and wheel-end parts", desc: "For axle, steering, bearing, seal, and wheel-end support.", href: "/product/part/axle-and-wheel-end-parts/" },
     ],
     dongfengAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical Dongfeng RFQ pattern",
+          desc: "Dongfeng inquiries often begin with light truck or medium truck references, engine-side items, brake parts, axle parts, and mixed service demand.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Dongfeng model names can cover different engine, axle, and chassis configurations. OE numbers, VIN, photos, and application notes reduce quote mismatch.",
+        },
+        {
+          title: "What usually needs clarification",
+          desc: "Engine model, brake or axle application, dimensions, quantity, destination, and whether the order is one category or mixed replenishment are checked first.",
+        },
+      ],
+    },
   ),
   faw: makeCommonConfig(
     "FAW",
     "Send your FAW parts inquiry and narrow the right platform before you chat with us",
     "Narrow down the right FAW platform before you reach out, so we can start from a clearer scope and move faster on matching and quotation.",
     "/product/brand/faw/",
-    "/images/brands/faw.png",
+    "/images/brands/faw.webp",
     [
       { title: "Brake system parts", desc: "For brake-category replacement demand, mixed service orders, and fitment-led RFQs.", href: "/product/part/brake-system-parts/" },
       { title: "Axle and wheel-end parts", desc: "For hubs, bearings, seals, wheel-end hardware, and axle-category replenishment.", href: "/product/part/axle-and-wheel-end-parts/" },
       { title: "Air system parts", desc: "For grouped air-side RFQs covering valves, fittings, and related service parts.", href: "/product/part/air-system-parts/" },
     ],
     fawAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical FAW RFQ pattern",
+          desc: "FAW inquiries often start from Jiefang platform references and include brake, axle, air-system, wheel-end, or service wear parts.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Platform names are useful, but axle, brake, wheel-end, and engine variants still need OE numbers, VIN, dimensions, or photos before quotation.",
+        },
+        {
+          title: "How we keep it workable",
+          desc: "We group related brake, axle, and air-side items so suppliers quote on the same scope and the buyer can review one practical order path.",
+        },
+      ],
+    },
   ),
   shacman: makeCommonConfig(
     "Shacman",
     "Send your Shacman parts inquiry and narrow the right platform before you chat with us",
     "Narrow down the right Shacman platform before you reach out, so we can start from a clearer scope and move faster on matching and quotation.",
     "/product/brand/shacman/",
-    "/images/brands/shacman.png",
+    "/images/brands/shacman.webp",
     [
       { title: "Brake system parts", desc: "For brake-category RFQs covering chambers, linings, drums, valves, and other service parts.", href: "/product/part/brake-system-parts/" },
       { title: "Suspension parts", desc: "For leaf springs, torque rods, bushings, and chassis-related replacement demand.", href: "/product/part/suspension-parts/" },
       { title: "Engine parts", desc: "For engine-model-based matching, rebuild demand, and mixed spare-parts inquiries.", href: "/product/part/engine-parts/" },
     ],
     shacmanAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical Shacman RFQ pattern",
+          desc: "Shacman RFQs often include Delong platform references, Weichai engine items, FAST gearbox items, brake parts, suspension parts, and chassis wear demand.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Delong platform names help, but engine model, gearbox model, OE number, VIN, and application photos still decide the workable quote scope.",
+        },
+        {
+          title: "What we check first",
+          desc: "We align engine or gearbox references, brake and suspension specs, quantities, packaging notes, and destination before comparing suppliers.",
+        },
+      ],
+    },
   ),
   man: makeCommonConfig(
     "MAN",
@@ -1728,19 +1868,45 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
       { title: "Axle and wheel-end parts", desc: "For hubs, bearings, seals, and axle-category support on MAN platforms.", href: "/product/part/axle-and-wheel-end-parts/" },
     ],
     manAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical MAN RFQ pattern",
+          desc: "MAN inquiries usually need OE references, vehicle model, photos, and system-level details before any aftermarket sourcing discussion becomes useful.",
+        },
+        {
+          title: "Matching caution",
+          desc: "TGX, TGS, engine, gearbox, brake, and axle references are treated as identification inputs, not automatic compatibility conclusions.",
+        },
+        internationalBrandBoundary("MAN"),
+      ],
+    },
   ),
   "volvo-truck": makeCommonConfig(
     "Volvo Truck",
     "Send your Volvo Truck parts inquiry and narrow the right platform before you chat with us",
     "Narrow down the right Volvo Truck platform before you reach out, so we can start from a clearer scope and move faster on matching and quotation.",
     "/product/brand/volvo-truck/",
-    "/images/brands/volvo-truck.jpg",
+    "/images/brands/volvo-truck.webp",
     [
       { title: "Engine parts", desc: "For engine-platform-led RFQs and grouped service support across Volvo truck applications.", href: "/product/part/engine-parts/" },
       { title: "Brake system parts", desc: "For brake-category replenishment, service kits, and fitment-led RFQs.", href: "/product/part/brake-system-parts/" },
       { title: "Axle and wheel-end parts", desc: "For hubs, bearings, seals, and wheel-end replenishment tied to Volvo platforms.", href: "/product/part/axle-and-wheel-end-parts/" },
     ],
     volvoAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical Volvo Truck RFQ pattern",
+          desc: "Volvo Truck RFQs usually begin with OE numbers, FH or FM references, engine or I-Shift context, photos, and replacement scope notes.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Model family, engine platform, gearbox reference, axle or brake configuration, and market version must be checked before supplier comparison.",
+        },
+        internationalBrandBoundary("Volvo Truck"),
+      ],
+    },
   ),
   "mercedes-benz-truck": makeCommonConfig(
     "Mercedes-Benz Truck",
@@ -1754,5 +1920,18 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
       { title: "Axle and wheel-end parts", desc: "For hubs, bearings, seals, and wheel-end replenishment tied to Mercedes-Benz Truck platforms.", href: "/product/part/axle-and-wheel-end-parts/" },
     ],
     mercedesAssemblies,
+    {
+      rfqNotes: [
+        {
+          title: "Typical Mercedes-Benz Truck RFQ pattern",
+          desc: "Mercedes-Benz Truck inquiries usually need OE references, Actros or Arocs context, engine platform, photos, quantities, and destination before quoting.",
+        },
+        {
+          title: "Matching caution",
+          desc: "Actros, Arocs, engine, gearbox, brake, axle, and market references are used to identify inquiry scope, not to claim automatic fitment.",
+        },
+        internationalBrandBoundary("Mercedes-Benz Truck"),
+      ],
+    },
   ),
 };

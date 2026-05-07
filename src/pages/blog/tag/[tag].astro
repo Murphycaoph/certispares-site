@@ -32,65 +32,16 @@ const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? curr
       ? `Insights under ${activeTag.label}: sourcing, QC, trade terms, documentation, and shipping guidance for B2B buyers.`
       : "Browse sourcing insights, trade guidance, and quality control articles for commercial vehicle aftermarket buyers."
   }
-  canonical={activeTag ? `/blog/?tag=${activeTag.slug}` : "/blog/"}
+  canonical={activeTag ? `/blog/tag/${activeTag.slug}/` : "/blog/"}
 >
   <style>
     :global(main){
       background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
     }
 
-    :global(.topbar){
-      background:#111F43 !important;
-      background-color:#111F43 !important;
-      opacity:1 !important;
-      backdrop-filter:none !important;
-      -webkit-backdrop-filter:none !important;
-      border-bottom:1px solid #111F43 !important;
-      box-shadow:none !important;
-    }
-
-    :global(.menu),
-    :global(.menu a),
-    :global(.menu a:hover){
-      color:#fff;
-    }
-
-    :global(.menu a.active),
-    :global(.drawerNav a.active){
-      color:#fff;
-      background:rgba(57,87,233,.18);
-      border-color:rgba(57,87,233,.32);
-    }
-
-    :global(.cta){
-      background:#3957E9;
-      color:#fff;
-    }
-
-    .wrap{
+  .wrap{
       padding:34px 0 14px;
-    }
-
-    :global(.footerWrap){
-      background:transparent;
-      border-top:1px solid rgba(29,42,54,.10);
-    }
-
-    :global(.footerTitle),
-    :global(.footerNav strong){
-      color:#1d2a36;
-    }
-
-    :global(.footer),
-    :global(.footerNav span){
-      color:#5f6d86;
-    }
-
-    :global(.footerNav a){
-      background:#fff;
-      border-color:rgba(29,42,54,.10);
-    }
-  </style>
+    }</style>
 
   <section class="container wrap">
     <BlogArchive

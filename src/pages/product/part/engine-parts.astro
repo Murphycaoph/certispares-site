@@ -24,6 +24,13 @@ const matchingInputs = [
   "Quantity list and destination",
 ];
 
+const inputGuide = [
+  { weak: "Engine parts", better: "Engine model, OE number, emission version, and part photos", why: "The same part name can change by engine family, configuration, and market version." },
+  { weak: "Gasket kit", better: "Engine model, overhaul scope, OE/reference, and kit list if available", why: "Kit content varies; suppliers may quote different sets under the same label." },
+  { weak: "Water pump or sensor", better: "OE/reference, connector or mounting photo, voltage/spec if relevant", why: "Connector and mounting differences often matter more than the broad product name." },
+  { weak: "Mixed engine list", better: "Item list with OE/model, quantity, photos, and target quality basis", why: "Mixed engine RFQs need one scope before price and supplier options are comparable." },
+];
+
 const processSteps = [
   { title: "You send the details", desc: "Share the references you already have, including OE numbers, model details, specs, photos, or a parts list." },
   { title: "We check specs and fitment first", desc: "We review the technical scope before quotation starts so suppliers are compared on the same basis." },
@@ -69,7 +76,7 @@ const jsonLd = [
   pageDescription="Send your engine parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
   keywords={["engine parts sourcing from China", "engine parts RFQ", "engine parts supplier China", "engine parts quote support", "engine parts inquiry"]}
   canonical="/product/part/engine-parts/"
-  ogImage="/images/platform-library/engine/fallback/Engine heavy truck 2.png"
+  ogImage="/images/platform-library/engine/fallback/Engine heavy truck 2.webp"
   jsonLd={jsonLd}
   systemLabel="Engine parts"
   heroTitle="Send your engine parts inquiry and get clearer matching"
@@ -77,6 +84,7 @@ const jsonLd = [
   primaryCtaLabel="Send Engine Inquiry"
   painPointsHeading="Running into these issues when sourcing engine parts?"
   painPoints={painPoints}
+  inputGuide={inputGuide}
   matchingInputs={matchingInputs}
   processSteps={processSteps}
   whyWorkWithUsHeading="Why buyers use us for engine parts inquiries"

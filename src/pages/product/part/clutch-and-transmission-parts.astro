@@ -24,6 +24,13 @@ const matchingInputs = [
   "Quantity list and destination",
 ];
 
+const inputGuide = [
+  { weak: "Clutch kit", better: "Disc diameter, spline count, pressure plate reference, and vehicle/gearbox application", why: "Clutch kits can share a name but differ by size, spline, and gearbox setup." },
+  { weak: "Release bearing", better: "OE/reference, bearing photo, dimensions, and clutch application", why: "Release parts need physical confirmation before suppliers quote on the same basis." },
+  { weak: "Gearbox parts", better: "Gearbox model, part position, OE/reference, photos, and quantity", why: "Transmission items depend on gearbox model and internal position, not product name alone." },
+  { weak: "Mixed drivetrain list", better: "Grouped clutch, release, and gearbox items with references and photos", why: "Mixed drivetrain RFQs become comparable only after the supplier scope is aligned." },
+];
+
 const processSteps = [
   { title: "You send the details", desc: "Share the references you already have, including OE numbers, gearbox application, specs, photos, or a parts list." },
   { title: "We check specs and fitment first", desc: "We review the technical scope before quotation starts so drivetrain items stay aligned." },
@@ -69,7 +76,7 @@ const jsonLd = [
   pageDescription="Send your gearbox and transmission parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
   keywords={["gearbox and transmission parts sourcing from China", "gearbox parts RFQ", "transmission parts supplier China", "drivetrain quote support", "gearbox and transmission inquiry"]}
   canonical="/product/part/clutch-and-transmission-parts/"
-  ogImage="/images/kit/white background clutch and release parts flat lay, clutch disc, pressure plate, release bearing, pilot bearing, clutch fork, clean truck drivetrain catalog photo, no watermark, square composit.png"
+  ogImage="/images/kit/white background clutch and release parts flat lay, clutch disc, pressure plate, release bearing, pilot bearing, clutch fork, clean truck drivetrain catalog photo, no watermark, square composit.webp"
   jsonLd={jsonLd}
   systemLabel="Gearbox and transmission parts"
   heroTitle="Send your gearbox and transmission parts inquiry and get clearer matching"
@@ -77,6 +84,7 @@ const jsonLd = [
   primaryCtaLabel="Send Gearbox Inquiry"
   painPointsHeading="Running into these issues when sourcing gearbox and transmission parts?"
   painPoints={painPoints}
+  inputGuide={inputGuide}
   matchingInputs={matchingInputs}
   processSteps={processSteps}
   whyWorkWithUsHeading="Why buyers use us for gearbox and transmission parts inquiries"

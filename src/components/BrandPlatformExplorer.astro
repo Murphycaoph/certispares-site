@@ -252,7 +252,9 @@ const firstPlatform = firstAssembly?.platforms[0];
 
 <style is:global>
   .explorerSection{ padding:30px 0; }
+
   .explorerIntro{ margin-bottom:18px; }
+
   .explorerEyebrow{
     margin:0 0 8px;
     font-size:12px;
@@ -261,18 +263,21 @@ const firstPlatform = firstAssembly?.platforms[0];
     text-transform:uppercase;
     color:#5c6c87;
   }
+
   .explorerTitle{
     margin:0 0 10px;
     font-size:30px;
     line-height:1.15;
     color:#172434;
   }
+
   .explorerDesc{
     margin:0;
     max-width:860px;
     color:#5f6d86;
     line-height:1.8;
   }
+
   .explorerShell{
     border:1px solid rgba(29,42,54,.10);
     border-radius:28px;
@@ -280,6 +285,7 @@ const firstPlatform = firstAssembly?.platforms[0];
     box-shadow:0 22px 60px rgba(18,30,48,.08);
     overflow:hidden;
   }
+
   .assemblyRail{
     display:flex;
     gap:12px;
@@ -288,11 +294,12 @@ const firstPlatform = firstAssembly?.platforms[0];
     border-bottom:1px solid rgba(29,42,54,.08);
     background:linear-gradient(180deg, rgba(245,248,252,.95), rgba(238,243,247,.95));
   }
+
   .assemblyPill{
     min-width:150px;
     min-height:58px;
     padding:14px 16px;
-    border-radius:18px;
+    border-radius:var(--radius-card);
     border:1px solid rgba(29,42,54,.12);
     background:#fff;
     text-align:left;
@@ -302,30 +309,36 @@ const firstPlatform = firstAssembly?.platforms[0];
     display:flex;
     align-items:center;
   }
+
   .assemblyPill span{
     display:block;
     color:#172434;
     font-weight:800;
   }
+
   .assemblyPill small{
     display:block;
     margin-top:5px;
     color:#6b7b95;
     line-height:1.5;
   }
+
   .assemblyPill.isActive{
     border-color:rgba(57,87,233,.35);
     background:linear-gradient(180deg, rgba(240,244,255,.98), rgba(229,236,255,.94));
     box-shadow:0 16px 34px rgba(57,87,233,.12);
   }
+
   .explorerBody{
     display:grid;
     grid-template-columns:minmax(0, 1.15fr) minmax(280px, .85fr);
   }
+
   .platformColumn{
     padding:18px;
     border-right:1px solid rgba(29,42,54,.08);
   }
+
   .explorerMeta{
     display:flex;
     justify-content:space-between;
@@ -333,6 +346,7 @@ const firstPlatform = firstAssembly?.platforms[0];
     gap:12px;
     margin-bottom:14px;
   }
+
   .explorerMetaLabel{
     margin:0 0 4px;
     color:#70809b;
@@ -341,26 +355,30 @@ const firstPlatform = firstAssembly?.platforms[0];
     letter-spacing:.12em;
     text-transform:uppercase;
   }
+
   .explorerMetaTitle{
     color:#172434;
     font-size:20px;
   }
+
   .explorerMetaCount{
     color:#6b7b95;
     font-weight:700;
     white-space:nowrap;
   }
+
   .platformGrid{
     display:grid;
     grid-template-columns:1fr;
     gap:10px;
   }
+
   .platformCard{
     position:relative;
     display:block;
     min-height:116px;
     padding:12px 14px;
-    border-radius:20px;
+    border-radius:var(--radius-card);
     border:1px solid rgba(29,42,54,.10);
     background:#fff;
     cursor:pointer;
@@ -369,6 +387,7 @@ const firstPlatform = firstAssembly?.platforms[0];
     box-shadow:0 14px 30px rgba(18,30,48,.05);
     overflow:hidden;
   }
+
   .platformCard::after{
     content:"";
     position:absolute;
@@ -377,6 +396,7 @@ const firstPlatform = firstAssembly?.platforms[0];
     pointer-events:none;
     z-index:1;
   }
+
   .platformCard img{
     position:absolute;
     top:0;
@@ -388,12 +408,14 @@ const firstPlatform = firstAssembly?.platforms[0];
     display:block;
     z-index:0;
   }
+
   .platformCard strong{
     display:block;
     color:#172434;
     font-size:15px;
     line-height:1.22;
   }
+
   .platformFamily{
     display:inline-block;
     margin-top:4px;
@@ -401,6 +423,7 @@ const firstPlatform = firstAssembly?.platforms[0];
     font-size:12px;
     font-weight:700;
   }
+
   .platformCopy{
     position:relative;
     z-index:2;
@@ -410,6 +433,7 @@ const firstPlatform = firstAssembly?.platforms[0];
     flex-direction:column;
     justify-content:center;
   }
+
   .platformLink{
     display:inline-flex;
     margin-top:8px;
@@ -417,15 +441,18 @@ const firstPlatform = firstAssembly?.platforms[0];
     font-weight:800;
     font-size:12px;
   }
+
   .platformCard.isActive{
     border-color:rgba(57,87,233,.36);
     box-shadow:0 18px 36px rgba(57,87,233,.12);
     background:linear-gradient(180deg, rgba(244,247,255,.98), rgba(233,239,255,.92));
   }
+
   .detailPanel{
     padding:22px 20px;
     background:linear-gradient(180deg, rgba(241,246,252,.98), rgba(233,239,247,.98));
   }
+
   .detailPath,
   .detailKicker{
     margin:0;
@@ -434,11 +461,14 @@ const firstPlatform = firstAssembly?.platforms[0];
     letter-spacing:.12em;
     text-transform:uppercase;
   }
+
   .detailPath{ color:#667892; }
+
   .detailKicker{
     margin-top:10px;
     color:#2d4fd4;
   }
+
   .detailTitle{
     margin:10px 0 10px;
     color:#172434;
@@ -446,29 +476,34 @@ const firstPlatform = firstAssembly?.platforms[0];
     line-height:1.08;
     letter-spacing:-.04em;
   }
+
   .detailGroups{
     display:grid;
     gap:12px;
     margin-top:12px;
   }
+
   .detailGroup{
     padding:12px;
-    border-radius:16px;
+    border-radius:var(--radius-card);
     background:rgba(255,255,255,.92);
     border:1px solid rgba(29,42,54,.10);
     box-shadow:0 12px 24px rgba(18,30,48,.04);
   }
+
   .detailGroup strong{
     display:block;
     margin-bottom:8px;
     color:#172434;
     font-size:14px;
   }
+
   .detailTags{
     display:flex;
     gap:8px;
     flex-wrap:wrap;
   }
+
   .detailTag{
     display:inline-flex;
     align-items:center;
@@ -480,6 +515,7 @@ const firstPlatform = firstAssembly?.platforms[0];
     font-size:12px;
     font-weight:700;
   }
+
   .detailCta{
     margin-top:16px;
     padding-top:16px;
@@ -502,34 +538,43 @@ const firstPlatform = firstAssembly?.platforms[0];
     color:#314155;
     line-height:1.7;
   }
+
   .explorerFallback .btn{
     white-space:nowrap;
     flex:0 0 auto;
   }
+
   .detailCta .btn{ width:100%; }
 
   @media (max-width: 1080px){
     .explorerBody{ grid-template-columns:1fr; }
-    .platformColumn{
+
+  .platformColumn{
       border-right:none;
       border-bottom:1px solid rgba(29,42,54,.08);
     }
   }
   @media (max-width: 720px){
     .assemblyRail{ padding:14px; }
-    .assemblyPill{ min-width:136px; }
-    .platformGrid{ grid-template-columns:1fr; }
-    .platformCard{
+
+  .assemblyPill{ min-width:136px; }
+
+  .platformGrid{ grid-template-columns:1fr; }
+
+  .platformCard{
       min-height:104px;
       padding:10px 12px;
     }
-    .platformCard img{
+
+  .platformCard img{
       right:-16%;
       width:76%;
       height:100%;
     }
-    .detailTitle{ font-size:28px; }
-    .explorerFallback{
+
+  .detailTitle{ font-size:28px; }
+
+  .explorerFallback{
       flex-direction:column;
       align-items:flex-start;
     }

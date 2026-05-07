@@ -1,0 +1,1415 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const reviewPath = [
+  {
+    n: "01",
+    title: "Buyer input",
+    desc: "We receive what the buyer sends.",
+    icon: "file",
+  },
+  {
+    n: "02",
+    title: "Risk found",
+    desc: "We identify fitment, packing, and sourcing risks.",
+    icon: "alert",
+  },
+  {
+    n: "03",
+    title: "Scope clarified",
+    desc: "We confirm the item scope and missing details.",
+    icon: "target",
+  },
+  {
+    n: "04",
+    title: "Suppliers compared",
+    desc: "We compare suppliers on the same basis.",
+    icon: "users",
+  },
+  {
+    n: "05",
+    title: "Checkpoint controlled",
+    desc: "We follow QC, packing, documents, and shipment.",
+    icon: "check",
+  },
+];
+
+const proofBlocks = [
+  {
+    title: "What Buyers Usually Send",
+    text: "OE numbers, VIN/model, photos, samples, old supplier sheets, quantities, destination, and packing notes.",
+    icon: "pencil",
+  },
+  {
+    title: "What We Clarify First",
+    text: "Fitment scope, technical variables, comparison basis, packaging expectations, shipment path, and missing references.",
+    icon: "target",
+  },
+  {
+    title: "What Makes a Quote Useful",
+    text: "Same item scope, same packing basis, visible risk notes, lead time, MOQ, Incoterms, and clear checkpoints.",
+    icon: "clipboard",
+  },
+];
+
+const entryPoints = [
+  {
+    title: "Brand-led RFQ",
+    desc: "For inquiries starting from truck brand, platform, VIN, model, or old supplier references.",
+    href: "/product/#brand-entry",
+    cta: "Choose Brand Path",
+    image: "/images/hero-02-commercial-fleet.webp",
+  },
+  {
+    title: "System-led RFQ",
+    desc: "For brake, suspension, engine, axle, cooling, rubber, electrical, or mixed replenishment.",
+    href: "/product/#part-entry",
+    cta: "Choose System Path",
+    image: "/images/Brake-System.webp",
+  },
+  {
+    title: "Messy RFQ",
+    desc: "For screenshots, mixed sheets, incomplete references, photos, and supplier notes.",
+    href: "/contact",
+    cta: "Send Messy RFQ",
+    image: "/images/shipping-documents-export-paperwork.webp",
+  },
+];
+
+const examples = [
+  {
+    caseNo: "Case 01",
+    tag: "Mixed Brake RFQ",
+    title: "Mixed Brake RFQ",
+    summary: "Brake chambers, linings, valves, and drums quoted under one scope.",
+    image: "/images/kit/white background brake chamber and actuation parts flat lay, brake chamber, slack adjuster, push rod, clevis, repair diaphragm, air brake system parts catalog photo, no watermark, square composition.webp",
+    chips: ["Multi-SKU", "Packing", "Comparison"],
+    buyerSent: "A mixed brake list with several OE references, product names, quantities, and destination port.",
+    riskFound: "Some suppliers would quote chambers and valves as separate orders, making price and packing hard to compare.",
+    clarified: "Chamber type, drum dimensions, valve references, lining material, carton marks, and mixed loading plan.",
+    checkpoint: "Packing photos, label check, carton mark alignment, and loading coordination before dispatch.",
+  },
+  {
+    caseNo: "Case 02",
+    tag: "Cooling Layout Check",
+    title: "Cooling Layout Check",
+    summary: "Radiator and intercooler inquiry where dimensions mattered more than the name.",
+    image: "/images/platform-library/engine/fallback/Engine heavy truck 1.webp",
+    chips: ["Photo Matching", "Dimensions", "Packing Risk"],
+    buyerSent: "Photos, vehicle model, rough part names, and target quantities, but no confirmed OE number.",
+    riskFound: "Similar cooling parts could differ by core size, inlet/outlet position, mounting points, or hose layout.",
+    clarified: "Core dimensions, port positions, mounting photos, old sample references, and damage-sensitive packing needs.",
+    checkpoint: "Photo confirmation before shipment, corner protection review, and packing list consistency check.",
+  },
+  {
+    caseNo: "Case 03",
+    tag: "Rubber & Bushing",
+    title: "Rubber & Bushing",
+    summary: "Bushing inquiry where material and dimensions affected repeat-order risk.",
+    image: "/images/platform-library/suspension/hendrickson/Suspension Hendrickson Center Bushings.webp",
+    chips: ["Sample Photos", "Dimensions", "Repeat Supply"],
+    buyerSent: "Old sample photos, chassis application, estimated quantity, and a previous supplier reference.",
+    riskFound: "Several items looked similar but differed by inner diameter, outer diameter, length, hardness, and bonded structure.",
+    clarified: "ID, OD, total length, pin size, visible markings, service condition, and expected packing format.",
+    checkpoint: "Sample-photo review, carton label check, and shipment grouping with related chassis wear items.",
+  },
+  {
+    caseNo: "Case 04",
+    tag: "Container Consolidation",
+    title: "Container Consolidation",
+    summary: "Three supplier orders organized into one practical shipment path.",
+    image: "/images/container-loading-supervision.webp",
+    chips: ["CBM", "Carton Marks", "Documents"],
+    buyerSent: "A replenishment list across brake, suspension, and rubber items, with quantities from several supplier quotes.",
+    riskFound: "Separate factory shipments would increase freight waste and make carton marks and documents harder to control.",
+    clarified: "Supplier pickup locations, CBM, gross weight, carton marks, invoice structure, and loading sequence.",
+    checkpoint: "Consolidated packing list, carton mark review, loading status, and shipment document cross-check.",
+  },
+  {
+    caseNo: "Case 05",
+    tag: "Platform-led Inquiry",
+    title: "Platform-led Inquiry",
+    summary: "HOWO / Shacman style inquiry started without complete OE numbers.",
+    image: "/images/freight-truck-highway-sunset.webp",
+    chips: ["Platform Logic", "VIN", "Match Risk"],
+    buyerSent: "Truck family, several photos, old supplier notes, and a mixed parts list.",
+    riskFound: "The same part name could map to different systems or vehicle configurations if quoted too quickly.",
+    clarified: "Vehicle model, VIN when available, OE or casting marks, photos from multiple angles, and match-critical dimensions.",
+    checkpoint: "Pre-shipment photos, packing confirmation, and document consistency before moving into dispatch.",
+  },
+];
+
+const commonLessons = [
+  {
+    title: "The first quote is not always the useful quote",
+    text: "Before pricing, item scope and matching basis must be clear.",
+    icon: "message",
+  },
+  {
+    title: "Same product name can mean different parts",
+    text: "Vehicle platform, dimensions, photos, and OE references may change the quote.",
+    icon: "puzzle",
+  },
+  {
+    title: "Supplier comparison must use the same basis",
+    text: "MOQ, lead time, packing, document readiness, and risk notes matter.",
+    icon: "scale",
+  },
+  {
+    title: "Shipment control starts before shipment",
+    text: "Carton marks, packing list, loading sequence, and document consistency should be checked earlier.",
+    icon: "truck",
+  },
+];
+
+const actionCards = [
+  {
+    title: "I have OE numbers or part numbers",
+    text: "Start with brand or part-system page.",
+    href: "/product",
+    cta: "Go to Parts RFQ",
+    icon: "numbers",
+  },
+  {
+    title: "I only have photos or old supplier references",
+    text: "Send the images and notes directly.",
+    href: "/contact",
+    cta: "Send Photo RFQ",
+    icon: "camera",
+  },
+  {
+    title: "I have a mixed SKU replenishment list",
+    text: "Send the sheet first. We separate confirmed lines from clarification lines.",
+    href: "/contact",
+    cta: "Send Mixed SKU RFQ",
+    icon: "sheet",
+  },
+];
+
+const ctaFlow = [
+  { label: "RFQ Received", icon: "file" },
+  { label: "Matching Scope", icon: "target" },
+  { label: "Supplier Comparison", icon: "users" },
+  { label: "Quote Consolidation", icon: "clipboard" },
+  { label: "QC / Shipment Follow-up", icon: "truck" },
+];
+
+const icons: Record<string, string> = {
+  file: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>',
+  alert: '<svg viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+  target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/></svg>',
+  users: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  check: '<svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg>',
+  pencil: '<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="m16.5 3.5 4 4L7 21H3v-4L16.5 3.5Z"/></svg>',
+  clipboard: '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4a3 3 0 0 1 6 0"/><path d="M9 10h6"/><path d="M9 14h6"/></svg>',
+  message: '<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H6l-4 2 1.6-5A8 8 0 1 1 21 12Z"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg>',
+  puzzle: '<svg viewBox="0 0 24 24"><path d="M8 2h8v5a2 2 0 1 0 0 4v11h-5a2 2 0 1 0-4 0H2v-8h5a2 2 0 1 0 0-4H2V2h6Z"/></svg>',
+  scale: '<svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M6 7l-4 7h8L6 7Z"/><path d="M18 7l-4 7h8l-4-7Z"/></svg>',
+  truck: '<svg viewBox="0 0 24 24"><path d="M10 17h4V5H2v12h3"/><path d="M14 8h4l4 4v5h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/></svg>',
+  numbers: '<svg viewBox="0 0 24 24"><path d="M6 18V6l-2 2"/><path d="M10 6h4l-4 12h4"/><path d="M18 6h2v12h-2"/><path d="M17 12h4"/></svg>',
+  camera: '<svg viewBox="0 0 24 24"><path d="M14.5 4 16 7h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3l1.5-3h5Z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+  sheet: '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>',
+  arrow: '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>',
+};
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "RFQ Examples and Sourcing Cases",
+    description:
+      "Anonymous RFQ examples showing how CertiSpares reviews buyer inputs, clarifies matching risk, compares suppliers, and follows up on QC, packing, documents, and shipment.",
+    url: "https://certispares.com/cases/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" },
+      { "@type": "ListItem", position: 2, name: "Cases", item: "https://certispares.com/cases/" },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="RFQ Examples and Sourcing Cases | CertiSpares"
+  description="Anonymous truck parts RFQ examples showing how CertiSpares clarifies OE, VIN, photos, dimensions, supplier comparison, QC, packing, documents, and shipment follow-up."
+  keywords={["truck parts RFQ examples", "commercial vehicle parts sourcing cases", "mixed SKU sourcing China", "aftermarket parts supplier comparison"]}
+  canonical="/cases/"
+  ogImage="/images/auto-parts-warehouse-shelves.webp"
+  jsonLd={jsonLd}
+>
+  <style>
+    :root{
+      --ink:#102033;
+      --muted:#5f6d86;
+      --line:rgba(16,32,51,.10);
+      --blue:#2365ff;
+      --blue-dark:#1557f6;
+      --blue-soft:#eaf1ff;
+      --navy:#071226;
+      --green:#25b66a;
+    }
+
+    :global(main){
+      background:linear-gradient(180deg, #f7fbff 0%, #eef4fa 54%, #f7fbff 100%);
+      overflow-x:hidden;
+    }
+
+    .section{
+      position:relative;
+      padding:46px 0;
+    }
+
+    .section.compact{
+      padding-top:30px;
+    }
+
+    .section.alt{
+      background:
+        linear-gradient(135deg, rgba(35,101,255,.07), rgba(255,255,255,.80) 48%, rgba(37,182,106,.05));
+      border-top:1px solid rgba(16,32,51,.06);
+      border-bottom:1px solid rgba(16,32,51,.06);
+    }
+
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:24px;
+    }
+
+    .sectionTitle{
+      margin:0;
+      color:var(--ink);
+      font-size:28px;
+      line-height:1.16;
+      letter-spacing:0;
+    }
+
+    .sectionDesc{
+      margin:8px 0 0;
+      max-width:860px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .icon{
+      width:28px;
+      height:28px;
+      display:inline-block;
+      color:currentColor;
+    }
+
+    .icon :global(svg){
+      width:100%;
+      height:100%;
+      display:block;
+      stroke:currentColor;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      fill:none;
+    }
+
+    .icon :global(path),
+    .icon :global(circle),
+    .icon :global(rect){
+      stroke:currentColor;
+      fill:none;
+    }
+
+    .caseHero{
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+      min-height:540px;
+      display:grid;
+      align-items:center;
+      background:#071226;
+    }
+
+    .caseHero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-3;
+      background:url("/images/auto-parts-warehouse-shelves.webp") center/cover no-repeat;
+      filter:saturate(1.03) contrast(1.04) brightness(.78);
+      transform:scale(1.04);
+      animation:heroDrift 18s ease-in-out infinite alternate;
+    }
+
+    .caseHero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:
+        linear-gradient(90deg, rgba(5,13,28,.96) 0%, rgba(5,13,28,.78) 43%, rgba(5,13,28,.38) 76%, rgba(5,13,28,.84) 100%),
+        linear-gradient(180deg, rgba(5,13,28,.20) 0%, rgba(5,13,28,.88) 100%),
+        radial-gradient(760px 420px at 28% 28%, rgba(35,101,255,.34), transparent 62%);
+    }
+
+    .heroInner{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(340px, 440px);
+      gap:44px;
+      align-items:center;
+      padding:68px 0 58px;
+    }
+
+    .heroCopy{
+      min-width:0;
+      animation:riseIn .72s ease both;
+    }
+
+    .eyebrow{
+      margin:0 0 16px;
+      color:#4b83ff;
+      font-size:13px;
+      font-weight:950;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .heroTitle{
+      margin:0 0 18px;
+      max-width:820px;
+      color:#fff;
+      font-size:clamp(42px, 4.7vw, 66px);
+      line-height:1.06;
+      letter-spacing:0;
+      overflow-wrap:break-word;
+    }
+
+    .heroLead{
+      margin:0;
+      max-width:760px;
+      color:rgba(238,245,255,.88);
+      font-size:16px;
+      line-height:1.78;
+    }
+
+    .heroActions,
+    .ctaActions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+
+    .heroActions .btn.primary,
+    .caseCta .btn.primary{
+      color:#fff;
+      background:var(--blue);
+      border-color:var(--blue);
+      box-shadow:0 16px 34px rgba(35,101,255,.26);
+    }
+
+    .heroActions .btn:not(.primary),
+    .caseCta .btn:not(.primary){
+      color:#fff;
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.28);
+      backdrop-filter:blur(8px);
+    }
+
+    .reviewPanel{
+      position:relative;
+      min-width:0;
+      padding:28px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(10,31,62,.84), rgba(7,18,38,.74));
+      box-shadow:0 24px 70px rgba(0,0,0,.34);
+      backdrop-filter:blur(12px);
+      animation:riseIn .78s .12s ease both;
+      overflow:hidden;
+    }
+
+    .reviewPanel::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.08) 30%, transparent 52%),
+        radial-gradient(420px 180px at 18% 0%, rgba(35,101,255,.25), transparent 70%);
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    .reviewTitle{
+      position:relative;
+      margin:0 0 22px;
+      color:#fff;
+      font-size:21px;
+      letter-spacing:0;
+    }
+
+    .reviewList{
+      position:relative;
+      display:grid;
+      gap:14px;
+    }
+
+    .reviewItem{
+      position:relative;
+      display:grid;
+      grid-template-columns:42px 1fr;
+      gap:14px;
+      min-height:54px;
+      padding-bottom:8px;
+      animation:slideIn .54s ease both;
+    }
+
+    .reviewItem:nth-child(2){ animation-delay:.08s; }
+    .reviewItem:nth-child(3){ animation-delay:.16s; }
+    .reviewItem:nth-child(4){ animation-delay:.24s; }
+    .reviewItem:nth-child(5){ animation-delay:.32s; }
+
+    .reviewItem:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      left:20px;
+      top:42px;
+      width:2px;
+      height:30px;
+      background:linear-gradient(180deg, rgba(74,131,255,.88), rgba(74,131,255,.10));
+      animation:pulseLine 2.4s ease-in-out infinite;
+    }
+
+    .reviewNo{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      color:#fff;
+      background:linear-gradient(180deg, #2b72ff, #1557f6);
+      box-shadow:0 10px 26px rgba(35,101,255,.34);
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .reviewCopy strong{
+      display:block;
+      margin:0 0 4px;
+      color:#fff;
+      font-size:14px;
+    }
+
+    .reviewCopy span{
+      display:block;
+      color:rgba(236,243,255,.78);
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .proofGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:24px;
+      margin-inline:auto;
+      max-width:1280px;
+    }
+
+    .proofCard{
+      display:grid;
+      grid-template-columns:58px 1fr;
+      gap:16px;
+      min-width:0;
+      min-height:132px;
+      padding:22px;
+      border-radius:8px;
+      background:#fff;
+      border:1px solid rgba(16,32,51,.10);
+      box-shadow:0 16px 38px rgba(18,35,64,.06);
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .proofCard:hover{
+      transform:translateY(-4px);
+      border-color:rgba(35,101,255,.25);
+      box-shadow:0 22px 50px rgba(35,101,255,.12);
+    }
+
+    .proofIcon,
+    .commonIcon,
+    .actionIcon{
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      color:#2365ff;
+      border-radius:999px;
+      background:#eef4ff;
+      border:1px solid rgba(35,101,255,.14);
+    }
+
+    .proofTitle{
+      margin:0 0 7px;
+      color:var(--ink);
+      font-size:16px;
+      line-height:1.35;
+    }
+
+    .proofText{
+      margin:0;
+      color:#526178;
+      font-size:14px;
+      line-height:1.62;
+    }
+
+    .miniPath{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      margin-top:28px;
+      color:#1557f6;
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .miniNode{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+    }
+
+    .miniCircle{
+      width:36px;
+      height:36px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      background:#2365ff;
+      color:#fff;
+      box-shadow:0 12px 26px rgba(35,101,255,.18);
+    }
+
+    .miniDash{
+      width:130px;
+      height:2px;
+      background:repeating-linear-gradient(90deg, rgba(35,101,255,.50) 0 8px, transparent 8px 15px);
+    }
+
+    .entryGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:24px;
+    }
+
+    .entryCard{
+      overflow:hidden;
+      min-width:0;
+      border-radius:8px;
+      background:#fff;
+      border:1px solid rgba(16,32,51,.10);
+      box-shadow:0 16px 38px rgba(18,35,64,.07);
+      transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+    }
+
+    .entryCard:hover{
+      transform:translateY(-6px);
+      border-color:rgba(35,101,255,.28);
+      box-shadow:0 24px 56px rgba(18,35,64,.13);
+    }
+
+    .entryMedia{
+      position:relative;
+      display:block;
+      aspect-ratio:16 / 8.6;
+      overflow:hidden;
+      background:#0b1020;
+    }
+
+    .entryMedia img,
+    .caseMedia img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .32s ease;
+    }
+
+    .entryCard:hover .entryMedia img,
+    .caseCard:hover .caseMedia img{
+      transform:scale(1.06);
+    }
+
+    .entryBody{
+      padding:22px;
+    }
+
+    .entryTitle{
+      margin:0 0 8px;
+      color:var(--ink);
+      font-size:21px;
+      letter-spacing:0;
+    }
+
+    .entryText{
+      margin:0 0 18px;
+      color:#526178;
+      line-height:1.65;
+    }
+
+    .textLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#1557f6;
+      font-weight:950;
+      text-decoration:none;
+    }
+
+    .textLink .icon{
+      width:18px;
+      height:18px;
+      transition:transform .18s ease;
+    }
+
+    .textLink:hover .icon{
+      transform:translateX(3px);
+    }
+
+    .caseGrid{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .caseCard{
+      min-width:0;
+      overflow:hidden;
+      border-radius:8px;
+      background:#fff;
+      border:1px solid rgba(16,32,51,.10);
+      box-shadow:0 16px 38px rgba(18,35,64,.07);
+      transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+    }
+
+    .caseCard:hover,
+    .caseCard.isOpen{
+      transform:translateY(-5px);
+      border-color:rgba(35,101,255,.28);
+      box-shadow:0 24px 56px rgba(18,35,64,.13);
+    }
+
+    .caseMedia{
+      aspect-ratio:16 / 10.4;
+      overflow:hidden;
+      background:#eef4ff;
+    }
+
+    .caseBody{
+      padding:18px;
+    }
+
+    .caseNo{
+      margin:0 0 6px;
+      color:#1557f6;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .caseTitle{
+      margin:0 0 9px;
+      color:var(--ink);
+      font-size:18px;
+      line-height:1.28;
+      letter-spacing:0;
+    }
+
+    .caseSummary{
+      margin:0;
+      color:#526178;
+      font-size:14px;
+      line-height:1.58;
+    }
+
+    .chipRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:14px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      min-height:26px;
+      padding:5px 8px;
+      border-radius:6px;
+      background:#eef4ff;
+      color:#1557f6;
+      font-size:11px;
+      font-weight:850;
+    }
+
+    .reviewToggle{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:16px;
+      padding:0;
+      border:0;
+      background:transparent;
+      color:#1557f6;
+      font:inherit;
+      font-weight:950;
+      cursor:pointer;
+    }
+
+    .reviewToggle .icon{
+      width:18px;
+      height:18px;
+      transition:transform .18s ease;
+    }
+
+    .caseCard.isOpen .reviewToggle .icon{
+      transform:rotate(90deg);
+    }
+
+    .reviewDetail{
+      margin-top:16px;
+      padding-top:16px;
+      border-top:1px solid rgba(16,32,51,.10);
+      display:grid;
+      gap:10px;
+    }
+
+    .reviewDetail[hidden]{
+      display:none;
+    }
+
+    .detailRow{
+      display:grid;
+      gap:4px;
+    }
+
+    .detailRow strong{
+      color:var(--ink);
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .detailRow span{
+      color:#526178;
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .commonWrap{
+      padding:28px;
+      border-radius:8px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(16,32,51,.12);
+      box-shadow:0 18px 44px rgba(18,35,64,.06);
+    }
+
+    .commonTitle{
+      margin:0 0 22px;
+      text-align:center;
+      color:var(--ink);
+      font-size:27px;
+      letter-spacing:0;
+    }
+
+    .commonGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:0;
+    }
+
+    .commonItem{
+      display:grid;
+      grid-template-columns:52px 1fr;
+      gap:14px;
+      min-width:0;
+      padding:4px 20px;
+      border-left:1px solid rgba(16,32,51,.10);
+    }
+
+    .commonItem:first-child{
+      border-left:0;
+      padding-left:0;
+    }
+
+    .commonIcon{
+      width:52px;
+      height:52px;
+      background:#f2f6ff;
+    }
+
+    .commonItem h3{
+      margin:0 0 7px;
+      color:var(--ink);
+      font-size:15px;
+      line-height:1.35;
+    }
+
+    .commonItem p{
+      margin:0;
+      color:#526178;
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .actionGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr)) minmax(260px, .9fr);
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .actionCard,
+    .startCard{
+      min-width:0;
+      padding:22px;
+      border-radius:8px;
+      background:#fff;
+      border:1px solid rgba(16,32,51,.10);
+      box-shadow:0 16px 38px rgba(18,35,64,.06);
+      display:grid;
+      gap:14px;
+      align-content:start;
+    }
+
+    .actionCard h3,
+    .startCard h3{
+      margin:0;
+      color:var(--ink);
+      font-size:18px;
+      line-height:1.35;
+    }
+
+    .actionCard p,
+    .startCard p{
+      margin:0;
+      color:#526178;
+      font-size:14px;
+      line-height:1.62;
+    }
+
+    .actionIcon{
+      width:52px;
+      height:52px;
+    }
+
+    .startCard{
+      background:linear-gradient(135deg, #eef4ff, #dfeaff);
+      border-color:rgba(35,101,255,.18);
+    }
+
+    .startCard .btn.primary{
+      color:#fff;
+      background:var(--blue);
+      border-color:var(--blue);
+    }
+
+    .startCard .btn:not(.primary){
+      color:#1557f6;
+      background:#fff;
+      border-color:rgba(35,101,255,.24);
+    }
+
+    .startButtons{
+      display:grid;
+      gap:10px;
+      margin-top:4px;
+    }
+
+    .caseCta{
+      position:relative;
+      overflow:hidden;
+      border-radius:8px;
+      background:#071226;
+      color:#fff;
+      isolation:isolate;
+      box-shadow:0 24px 70px rgba(7,18,38,.24);
+    }
+
+    .caseCta::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:url("/images/homepage/homepage-cta-port.webp") center/cover no-repeat;
+      filter:saturate(.98) contrast(1.04) brightness(.72);
+      transform:scale(1.03);
+    }
+
+    .caseCta::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(90deg, rgba(7,18,38,.96) 0%, rgba(7,18,38,.86) 46%, rgba(7,18,38,.58) 100%),
+        radial-gradient(720px 320px at 18% 18%, rgba(35,101,255,.28), transparent 64%);
+    }
+
+    .ctaInner{
+      display:grid;
+      grid-template-columns:minmax(0, .95fr) minmax(420px, 1.05fr);
+      gap:30px;
+      align-items:center;
+      padding:34px 40px;
+    }
+
+    .ctaTitle{
+      margin:0 0 12px;
+      color:#fff;
+      max-width:620px;
+      font-size:32px;
+      line-height:1.18;
+      letter-spacing:0;
+    }
+
+    .ctaText{
+      margin:0;
+      max-width:600px;
+      color:rgba(238,245,255,.86);
+      line-height:1.7;
+    }
+
+    .ctaMiniFlow{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:14px;
+      align-items:start;
+    }
+
+    .ctaStep{
+      position:relative;
+      display:grid;
+      justify-items:center;
+      gap:10px;
+      text-align:center;
+      color:rgba(238,245,255,.88);
+      font-size:12px;
+      font-weight:850;
+      line-height:1.35;
+    }
+
+    .ctaStep:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      top:27px;
+      right:-12px;
+      width:18px;
+      height:2px;
+      background:linear-gradient(90deg, rgba(255,255,255,.30), #5d8cff, rgba(255,255,255,.30));
+      animation:arrowPulse 1.8s ease-in-out infinite;
+    }
+
+    .ctaIcon{
+      width:54px;
+      height:54px;
+      display:grid;
+      place-items:center;
+      color:#bcd1ff;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.18);
+    }
+
+    @keyframes heroDrift{
+      from{ transform:scale(1.04) translate3d(0,0,0); }
+      to{ transform:scale(1.09) translate3d(-14px, -6px, 0); }
+    }
+
+    @keyframes riseIn{
+      from{ opacity:1; transform:translateY(22px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @keyframes slideIn{
+      from{ opacity:1; transform:translateX(14px); }
+      to{ opacity:1; transform:translateX(0); }
+    }
+
+    @keyframes pulseLine{
+      0%,100%{ opacity:.35; transform:scaleY(.82); }
+      50%{ opacity:1; transform:scaleY(1); }
+    }
+
+    @keyframes arrowPulse{
+      0%,100%{ opacity:.36; transform:translateX(0); }
+      50%{ opacity:1; transform:translateX(4px); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *,
+      *::before,
+      *::after{
+        animation:none !important;
+        transition:none !important;
+      }
+    }
+
+    @media (max-width: 1180px){
+      .caseGrid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+
+      .commonGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:24px;
+      }
+
+      .commonItem{
+        border-left:0;
+        padding:0;
+      }
+
+      .actionGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 980px){
+      .heroInner,
+      .entryGrid,
+      .proofGrid,
+      .ctaInner{
+        grid-template-columns:1fr;
+      }
+
+      .heroInner{
+        gap:28px;
+        padding:50px 0 42px;
+      }
+
+      .caseGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .miniPath{
+        justify-content:flex-start;
+        overflow-x:auto;
+        padding-bottom:6px;
+      }
+
+      .miniDash{
+        flex:0 0 90px;
+      }
+
+      .ctaInner{
+        padding:28px 22px;
+      }
+
+      .ctaMiniFlow{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .ctaStep:not(:last-child)::after{
+        display:none;
+      }
+    }
+
+    @media (max-width: 640px){
+      .container{
+        width:calc(100% - 32px) !important;
+        max-width:calc(100% - 32px) !important;
+        margin-left:16px !important;
+        margin-right:16px !important;
+      }
+
+      .section{
+        padding:38px 0;
+      }
+
+      .sectionHead{
+        align-items:flex-start;
+      }
+
+      .sectionTitle{
+        font-size:24px;
+      }
+
+      .heroTitle{
+        font-size:clamp(30px, 8vw, 34px) !important;
+        line-height:1.16 !important;
+        letter-spacing:0;
+      }
+
+      .heroLead{
+        font-size:15px;
+        line-height:1.72;
+      }
+
+      .heroActions .btn,
+      .caseCta .btn{
+        flex:1 1 100%;
+      }
+
+      .reviewPanel{
+        padding:22px 18px;
+      }
+
+      .proofCard,
+      .commonItem,
+      .actionCard,
+      .startCard{
+        grid-template-columns:1fr;
+      }
+
+      .caseGrid,
+      .commonGrid,
+      .actionGrid,
+      .ctaMiniFlow{
+        grid-template-columns:1fr;
+      }
+
+      .entryMedia,
+      .caseMedia{
+        aspect-ratio:16 / 9.4;
+      }
+    }
+  </style>
+
+  <header class="caseHero">
+    <div class="container">
+      <div class="heroInner">
+        <div class="heroCopy">
+          <p class="eyebrow">Anonymous RFQ Examples</p>
+          <h1 class="heroTitle">RFQ Examples That Show How Sourcing Scope Gets Controlled</h1>
+          <p class="heroLead">
+            Real truck parts inquiries are often incomplete, mixed, or difficult to compare. These anonymous examples show how we clarify inputs, identify sourcing risks, compare suppliers, and keep QC, packing, documents, and shipment follow-up visible.
+          </p>
+          <div class="heroActions">
+            <a class="btn primary" href="/contact">Send Similar RFQ</a>
+            <a class="btn" href="/how-it-works">See How It Works</a>
+          </div>
+        </div>
+
+        <aside class="reviewPanel" aria-label="Case review path">
+          <h2 class="reviewTitle">Case Review Path</h2>
+          <div class="reviewList">
+            {reviewPath.map((step) => (
+              <div class="reviewItem">
+                <div class="reviewNo">{step.n}</div>
+                <div class="reviewCopy">
+                  <strong>{step.title}</strong>
+                  <span>{step.desc}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="sectionHead" style="justify-content:center; text-align:center;">
+        <div>
+          <h2 class="sectionTitle">What These Examples Are Here to Prove</h2>
+        </div>
+      </div>
+
+      <div class="proofGrid">
+        {proofBlocks.map((item) => (
+          <article class="proofCard">
+            <div class="proofIcon"><span class="icon" set:html={icons[item.icon] ?? icons.check} /></div>
+            <div>
+              <h3 class="proofTitle">{item.title}</h3>
+              <p class="proofText">{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="miniPath" aria-label="Case logic summary">
+        <span class="miniNode"><span class="miniCircle"><span class="icon" set:html={icons.file} /></span>Input</span>
+        <span class="miniDash" aria-hidden="true"></span>
+        <span class="miniNode"><span class="miniCircle"><span class="icon" set:html={icons.target} /></span>Clarification</span>
+        <span class="miniDash" aria-hidden="true"></span>
+        <span class="miniNode"><span class="miniCircle"><span class="icon" set:html={icons.clipboard} /></span>Comparable Quote</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2 class="sectionTitle">Choose the Entry Point Closest to Your RFQ</h2>
+        </div>
+      </div>
+
+      <div class="entryGrid">
+        {entryPoints.map((item) => (
+          <article class="entryCard">
+            <a href={item.href} class="entryMedia" aria-label={item.title}>
+              <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+            </a>
+            <div class="entryBody">
+              <h3 class="entryTitle">{item.title}</h3>
+              <p class="entryText">{item.desc}</p>
+              <a class="textLink" href={item.href}>
+                {item.cta}
+                <span class="icon" set:html={icons.arrow} />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2 class="sectionTitle">Anonymous RFQ Examples</h2>
+          <p class="sectionDesc">
+            Scan the cards first. Open the review path only when a case looks similar to your inquiry.
+          </p>
+        </div>
+      </div>
+
+      <div class="caseGrid">
+        {examples.map((item, index) => (
+          <article class="caseCard" data-case-card>
+            <div class="caseMedia">
+              <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+            </div>
+            <div class="caseBody">
+              <p class="caseNo">{item.caseNo}</p>
+              <h3 class="caseTitle">{item.title}</h3>
+              <p class="caseSummary">{item.summary}</p>
+
+              <div class="chipRow">
+                {item.chips.map((chip) => (
+                  <span class="chip">{chip}</span>
+                ))}
+              </div>
+
+              <button class="reviewToggle" type="button" data-case-toggle aria-expanded="false" aria-controls={`case-detail-${index}`}>
+                View Review Path
+                <span class="icon" set:html={icons.arrow} />
+              </button>
+
+              <div class="reviewDetail" id={`case-detail-${index}`} hidden>
+                <div class="detailRow"><strong>Buyer sent</strong><span>{item.buyerSent}</span></div>
+                <div class="detailRow"><strong>Risk found</strong><span>{item.riskFound}</span></div>
+                <div class="detailRow"><strong>Scope clarified</strong><span>{item.clarified}</span></div>
+                <div class="detailRow"><strong>Checkpoint</strong><span>{item.checkpoint}</span></div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="commonWrap">
+        <h2 class="commonTitle">What These Cases Have in Common</h2>
+        <div class="commonGrid">
+          {commonLessons.map((item) => (
+            <article class="commonItem">
+              <div class="commonIcon"><span class="icon" set:html={icons[item.icon] ?? icons.check} /></div>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2 class="sectionTitle">Which Case Looks Like Your RFQ?</h2>
+        </div>
+      </div>
+
+      <div class="actionGrid">
+        {actionCards.map((item) => (
+          <article class="actionCard">
+            <div class="actionIcon"><span class="icon" set:html={icons[item.icon] ?? icons.check} /></div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <a class="textLink" href={item.href}>
+              {item.cta}
+              <span class="icon" set:html={icons.arrow} />
+            </a>
+          </article>
+        ))}
+
+        <article class="startCard">
+          <h3>Not sure where to start?</h3>
+          <p>Send what you have. We will review your inquiry and guide the next step.</p>
+          <div class="startButtons">
+            <a class="btn primary" href="/contact">Send RFQ Now</a>
+            <a class="btn" href="/contact">Contact Us</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="caseCta">
+        <div class="ctaInner">
+          <div>
+            <h2 class="ctaTitle">Have a similar RFQ, even if the references are incomplete?</h2>
+            <p class="ctaText">
+              Send the OE number, VIN or vehicle model, photos, dimensions, quantity, destination, and packing notes you already have. We will clarify the scope before comparing suppliers.
+            </p>
+            <div class="ctaActions">
+              <a class="btn primary" href="/contact">Send RFQ</a>
+              <a class="btn" href="/how-it-works">See Workflow</a>
+            </div>
+          </div>
+
+          <div class="ctaMiniFlow" aria-label="RFQ review flow">
+            {ctaFlow.map((step) => (
+              <div class="ctaStep">
+                <div class="ctaIcon"><span class="icon" set:html={icons[step.icon] ?? icons.check} /></div>
+                <span>{step.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const toggles = document.querySelectorAll("[data-case-toggle]");
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const card = toggle.closest("[data-case-card]");
+        const targetId = toggle.getAttribute("aria-controls");
+        const panel = targetId ? document.getElementById(targetId) : null;
+        if (!card || !panel) return;
+
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!isOpen));
+        panel.hidden = isOpen;
+        card.classList.toggle("isOpen", !isOpen);
+      });
+    });
+  </script>
+</BaseLayout>

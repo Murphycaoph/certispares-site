@@ -1,805 +1,1238 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const brandGroups = [
-  { label: "HOWO", href: "/product/brand/howo/", image: "/images/brands/howo.webp", alt: "HOWO logo" },
-  { label: "Sinotruk", href: "/product/brand/sinotruk/", image: "/images/brands/sinotruk.png", alt: "Sinotruk logo" },
-  { label: "Shacman", href: "/product/brand/shacman/", image: "/images/brands/shacman.png", alt: "Shacman logo" },
-  { label: "Dongfeng", href: "/product/brand/dongfeng/", image: "/images/brands/dongfeng.png", alt: "Dongfeng logo" },
-  { label: "Foton", href: "/product/brand/foton/", image: "/images/brands/foton.png", alt: "Foton logo" },
-  { label: "FAW", href: "/product/brand/faw/", image: "/images/brands/faw.png", alt: "FAW logo" },
-  { label: "JAC", href: "/product/brand/jac/", image: "/images/brands/jac.png", alt: "JAC logo" },
-  { label: "MAN", href: "/product/brand/man/", image: "/images/brands/man.svg", alt: "MAN logo" },
-  { label: "Volvo Truck", href: "/product/brand/volvo-truck/", image: "/images/brands/volvo-truck.jpg", alt: "Volvo Trucks logo" },
-  { label: "Mercedes-Benz Truck", href: "/product/brand/mercedes-benz-truck/", image: "/images/brands/mercedes-benz-truck.svg", alt: "Mercedes-Benz Trucks logo" },
+const icons = {
+  truck: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>`,
+  gear: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><path d="m19 12 .9-1.8-2-3.4-2 .2a7 7 0 0 0-1.6-.9L13.5 4h-4l-.8 2.1c-.6.2-1.1.5-1.6.9l-2-.2-2 3.4L4 12l-.9 1.8 2 3.4 2-.2c.5.4 1 .7 1.6.9l.8 2.1h4l.8-2.1c.6-.2 1.1-.5 1.6-.9l2 .2 2-3.4L19 12z"/></svg>`,
+  list: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h1"/><path d="M3 12h1"/><path d="M3 18h1"/></svg>`,
+  file: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>`,
+  camera: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h4l1.5-2h5L16 8h4v11H4z"/><circle cx="12" cy="13.5" r="3.5"/></svg>`,
+  ruler: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 15 11-11 5 5L9 20z"/><path d="m14 6 2 2"/><path d="m11 9 2 2"/><path d="m8 12 2 2"/></svg>`,
+  cube: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12 4.5 7.7"/><path d="M12 12v8.5"/><path d="m12 12 7.5-4.3"/></svg>`,
+  pin: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.3 6-11a6 6 0 0 0-12 0c0 5.7 6 11 6 11z"/><circle cx="12" cy="10" r="2"/></svg>`,
+  target: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>`,
+  users: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11a4 4 0 1 0-8 0"/><path d="M4 20a8 8 0 0 1 16 0"/><path d="M18 8a3 3 0 0 1 3 3"/><path d="M3 11a3 3 0 0 1 3-3"/></svg>`,
+  shield: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>`,
+  arrow: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>`,
+  whatsapp: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 19 6 15.8A7.5 7.5 0 1 1 9 18.6z"/><path d="M9.3 8.7c.2 2.7 2.3 4.9 5 5.5l1.2-1.2"/></svg>`,
+};
+
+const entryPaths = [
+  {
+    n: "01",
+    title: "Brand-led RFQ",
+    desc: "For inquiries starting from truck brand, platform, VIN, model, or old supplier references.",
+    image: "/images/freight-truck-highway-sunset.webp",
+    tags: ["VIN", "Truck Platform", "Old Supplier Ref"],
+    href: "#brand-entry",
+    cta: "Browse Brands",
+  },
+  {
+    n: "02",
+    title: "System-led RFQ",
+    desc: "For brake, engine, suspension, axle, cooling, air system, and mixed category replenishment.",
+    image: "/images/Brake-System.webp",
+    tags: ["Brake", "Engine", "Suspension", "Cooling"],
+    href: "#part-entry",
+    cta: "Browse Part Systems",
+  },
+  {
+    n: "03",
+    title: "Mixed-SKU RFQ",
+    desc: "For spreadsheets, screenshots, mixed supplier lists, photos, and incomplete references.",
+    image: "/images/shipping-documents-export-paperwork.webp",
+    tags: ["Excel", "Photos", "Mixed List"],
+    href: "/contact",
+    cta: "Send RFQ Directly",
+  },
+];
+
+const brands = [
+  { label: "HOWO", href: "/product/brand/howo/", image: "/images/generated-brand-logos/howo.webp" },
+  { label: "SINOTRUK", href: "/product/brand/sinotruk/", image: "/images/generated-brand-logos/sinotruk.webp" },
+  { label: "SHACMAN", href: "/product/brand/shacman/", image: "/images/generated-brand-logos/shacman.webp" },
+  { label: "DONGFENG", href: "/product/brand/dongfeng/", image: "/images/generated-brand-logos/dongfeng.webp" },
+  { label: "FOTON", href: "/product/brand/foton/", image: "/images/generated-brand-logos/foton.webp" },
+  { label: "FAW", href: "/product/brand/faw/", image: "/images/generated-brand-logos/faw.webp" },
+  { label: "JAC", href: "/product/brand/jac/", image: "/images/generated-brand-logos/jac.webp" },
+  { label: "MAN", href: "/product/brand/man/", image: "/images/generated-brand-logos/man.webp" },
+  { label: "VOLVO TRUCK", href: "/product/brand/volvo-truck/", image: "/images/generated-brand-logos/volvo-truck.webp" },
+  { label: "MERCEDES-BENZ TRUCK", href: "/product/brand/mercedes-benz-truck/", image: "/images/generated-brand-logos/mercedes-benz-truck.webp" },
 ];
 
 const partSystems = [
   {
-    label: "Engine parts",
+    title: "Engine Parts",
     href: "/product/part/engine-parts/",
-    image: "/images/Engine-Parts.png",
-    alt: "Engine parts",
+    image: "/images/product-system-thumbs/engine.webp",
+    parts: "Filters, belts, pumps, sensors, gaskets, mounts and more.",
+    input: "OE / Photo / Model",
+    cta: "Start Engine RFQ",
   },
   {
-    label: "Brake system parts",
+    title: "Brake System Parts",
     href: "/product/part/brake-system-parts/",
-    image: "/images/Brake-System.png",
-    alt: "Brake system parts",
+    image: "/images/product-system-thumbs/brake.webp",
+    parts: "Brake chamber, lining, valve, drum, slack adjuster, air brake parts.",
+    input: "OE / Photo / Axle info",
+    cta: "Start Brake RFQ",
   },
   {
-    label: "Suspension parts",
+    title: "Suspension Parts",
     href: "/product/part/suspension-parts/",
-    image: "/images/Suspension.png",
-    alt: "Suspension parts",
+    image: "/images/product-system-thumbs/suspension.webp",
+    parts: "Leaf spring, shock absorber, torque rod, stabilizer, hanger, bushing.",
+    input: "OE / Photo / Model",
+    cta: "Start Suspension RFQ",
   },
   {
-    label: "Axle and wheel-end parts",
+    title: "Axle & Wheel-end Parts",
     href: "/product/part/axle-and-wheel-end-parts/",
-    image: "/images/assemblies/assembly-axle.png",
-    alt: "Axle and wheel-end parts",
+    image: "/images/product-system-thumbs/axle.webp",
+    parts: "Hub, bearing, seal, wheel bolt, king pin, wheel-end repair items.",
+    input: "OE / Photo / Model",
+    cta: "Start Axle RFQ",
   },
   {
-    label: "Gearbox and transmission parts",
+    title: "Gearbox & Transmission Parts",
     href: "/product/part/clutch-and-transmission-parts/",
-    image: "/images/kit/white background clutch and release parts flat lay, clutch disc, pressure plate, release bearing, pilot bearing, clutch fork, clean truck drivetrain catalog photo, no watermark, square composit.png",
-    alt: "Gearbox and transmission parts",
+    image: "/images/product-system-thumbs/gearbox.webp",
+    parts: "Clutch, gearbox parts, transmission components, repair items.",
+    input: "OE / Photo / Model",
+    cta: "Start Gearbox RFQ",
   },
   {
-    label: "Air system parts",
+    title: "Air System Parts",
     href: "/product/part/air-system-parts/",
-    image: "/images/kit/white background brake chamber and actuation parts flat lay, brake chamber, slack adjuster, push rod, clevis, repair diaphragm, air brake system parts catalog photo, no watermark, square composition.png",
-    alt: "Air system parts",
+    image: "/images/product-system-thumbs/air-system.webp",
+    parts: "Air valve, dryer, compressor, tank, hose, connector, pneumatic parts.",
+    input: "OE / Photo / Model",
+    cta: "Start Air System RFQ",
+  },
+  {
+    title: "Cooling System Parts",
+    href: "/product/part/cooling-system-parts/",
+    image: "/images/product-system-thumbs/cooling.webp",
+    parts: "Radiator, intercooler, fan clutch, water pump, hose, thermostat.",
+    input: "Dimensions / Photo",
+    cta: "Start Cooling RFQ",
+  },
+  {
+    title: "Rubber & Bushing Parts",
+    href: "/product/part/rubber-and-bushing-parts/",
+    image: "/images/product-system-thumbs/rubber.webp",
+    parts: "Mounts, bushings, rubber pads, seals, flexible joints.",
+    input: "Dimensions / Photo",
+    cta: "Start Rubber RFQ",
   },
 ];
 
-const entryCards = [
-  {
-    title: "Browse by brand",
-    desc: "Use this path when the buyer already knows the truck platform, brand family, or reference vehicle.",
-    bullets: [
-      "Better for platform-led RFQs",
-      "Useful when the RFQ starts from VIN, truck model, or an old supplier reference",
-      "Helps organize matching before quotation starts",
-    ],
-    href: "#brand-entry",
-    cta: "See brand entry",
-  },
-  {
-    title: "Browse by part system",
-    desc: "Use this path when the inquiry starts from the category itself, especially for mixed-brand replenishment or category-led RFQs.",
-    bullets: [
-      "Better for category-led replenishment",
-      "Useful when one RFQ covers multiple brands under the same system",
-      "Helps align suppliers on the same scope before quotation",
-    ],
-    href: "#part-entry",
-    cta: "See part systems",
-  },
+const sendInputs = [
+  { icon: "file", title: "OE / Part Number", text: "Best starting point when reference numbers are available." },
+  { icon: "truck", title: "VIN / Vehicle Details", text: "Brand, model, year, engine, axle, chassis number, or application." },
+  { icon: "camera", title: "Photos / Old Samples", text: "Useful when numbers are missing, unclear, or not trusted." },
+  { icon: "ruler", title: "Specs / Dimensions", text: "Important for rubber, cooling, axle, air system, and fitment-sensitive parts." },
+  { icon: "cube", title: "Quantity", text: "Trial quantity, repeat order quantity, or mixed-SKU replenishment plan." },
+  { icon: "pin", title: "Destination / Packing Notes", text: "Country, port, Incoterms, label, carton mark, pallet." },
 ];
 
-const processSteps = [
-  {
-    title: "Send the references you have",
-    desc: "Start with OE numbers, VIN, photos, part names, specs, or the parts list already in hand.",
-  },
-  {
-    title: "We confirm matching scope",
-    desc: "We review the RFQ first, then clarify fitment, application, and scope before quotations move out.",
-  },
-  {
-    title: "We compare workable suppliers",
-    desc: "We compare suppliers on the same scope so quotes are easier to review and easier to act on.",
-  },
-  {
-    title: "We follow up on QC, packing, documents, and shipment",
-    desc: "After confirmation, we keep the order moving through inspection points, packing checks, documents, and shipping coordination.",
-  },
+const process = [
+  { n: "01", icon: "file", title: "Input Received", output: "RFQ scope recorded" },
+  { n: "02", icon: "target", title: "Matching Scope Checked", output: "Matching risk clarified" },
+  { n: "03", icon: "users", title: "Suppliers Compared", output: "Comparable supplier options" },
+  { n: "04", icon: "shield", title: "QC & Shipment Follow-up", output: "Controlled order path" },
 ];
 
-const whyThisStructureWorks = [
-  {
-    title: "It matches how RFQs actually start",
-    desc: "Some buyers start from the truck platform. Others start from the part category. This structure fits both.",
-  },
-  {
-    title: "It helps buyers send clearer inquiry inputs",
-    desc: "The clearer the input, the easier it is to confirm fitment, align suppliers, and move the RFQ forward.",
-  },
-  {
-    title: "It supports inquiry-based sourcing instead of catalog-style search",
-    desc: "Buyers can start from real RFQ references instead of trying to force every inquiry through a catalog path.",
-  },
+const messyNotes = [
+  { icon: "truck", title: "Some buyers start from VIN", text: "Others start from old supplier references or certain parts." },
+  { icon: "camera", title: "Some RFQs only have photos", text: "Especially for old aftermarket parts or unclear numbers." },
+  { icon: "list", title: "Some lists cover several systems", text: "Brake, suspension, cooling, rubber, and others together." },
 ];
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Truck Parts Sourcing Entry by Brand or Part System",
+    name: "Start Your Truck Parts RFQ",
     description:
-      "A structured entry page for buyers who want to source truck parts from China by brand or by part category, using OE numbers, VIN, photos, and RFQ details.",
+      "Start a truck parts RFQ from brand, part system, or mixed parts list. CertiSpares reviews matching scope before quotation and supplier comparison.",
     url: "https://certispares.com/product/",
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://certispares.com/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Product",
-        item: "https://certispares.com/product/",
-      },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" },
+      { "@type": "ListItem", position: 2, name: "Parts RFQ", item: "https://certispares.com/product/" },
     ],
   },
 ];
 ---
 
 <BaseLayout
-  title="Truck Parts Sourcing by Brand and Part System | CertiSpares"
-  description="Browse truck parts sourcing support by brand or by part system. CertiSpares handles RFQs through OE numbers, VIN, photos, and vehicle details."
-  keywords={["truck parts catalog by brand", "truck parts by part system", "OE number sourcing", "VIN-based truck parts sourcing", "commercial vehicle parts sourcing China"]}
+  title="Start Your Truck Parts RFQ | CertiSpares"
+  description="Start your truck parts RFQ from brand, part system, or mixed parts list. Send OE numbers, VIN, photos, specs, or spreadsheets for matching review."
+  keywords={["truck parts RFQ", "truck parts by brand", "truck parts by system", "mixed SKU RFQ", "commercial vehicle parts sourcing"]}
   canonical="/product/"
-  ogImage="/images/Brake-System.png"
+  ogImage="/images/freight-truck-highway-sunset.webp"
   jsonLd={jsonLd}
 >
   <style>
     :root{
-      --bg:#eef3f7;
-      --text:#1d2a36;
-      --muted:#5f6d86;
-      --line:rgba(29,42,54,.10);
-      --brand:#3957E9;
+      --ink:#071a36;
+      --text:#10233d;
+      --muted:#5a6b84;
+      --line:rgba(16,35,61,.12);
+      --blue:#0f63ff;
+      --blue2:#2f7dff;
+      --soft:#eef5ff;
+      --wash:#f4f8fd;
     }
 
     :global(main){
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+      background:
+        radial-gradient(900px 460px at 8% 42%, rgba(47,125,255,.10), transparent 66%),
+        linear-gradient(180deg, #f6f9fd 0%, #edf4fb 100%);
     }
 
-    :global(.topbar){
-      background:#111F43 !important;
-      background-color:#111F43 !important;
-      opacity:1 !important;
-      backdrop-filter:none !important;
-      -webkit-backdrop-filter:none !important;
-      border-bottom:1px solid #111F43 !important;
-      box-shadow:none !important;
+    .icon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:0;
     }
 
-    :global(.menu),
-    :global(.menu a),
-    :global(.menu a:hover){
-      color:#fff;
+    .icon :global(svg){
+      width:1em;
+      height:1em;
+      display:block;
     }
 
-    :global(.menu a.active),
-    :global(.drawerNav a.active){
-      color:#fff;
-      background:rgba(57,87,233,.18);
-      border-color:rgba(57,87,233,.32);
+    .icon :global(path),
+    .icon :global(circle){
+      fill:none;
+      stroke:currentColor;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
     }
 
-    :global(.cta){
-      background:#3957E9;
-      color:#fff;
-    }
-
-    .hero{
+    .productHero{
       position:relative;
-      padding:46px 0 20px;
-      border-bottom:1px solid var(--line);
       overflow:hidden;
       isolation:isolate;
-      background:#0b1020;
+      min-height:438px;
+      background:#061427;
+      color:#fff;
     }
 
-    .heroBg{
+    .productHero::before{
+      content:"";
       position:absolute;
       inset:0;
       z-index:-2;
-      background:url("/images/Brake-System.png") center/cover no-repeat;
-      filter:blur(2px) saturate(.95) contrast(.95) brightness(.9);
+      background:url("/images/homepage/homepage-hero-truck.webp") center/cover no-repeat;
+      filter:saturate(1.04) contrast(1.04) brightness(.70);
       transform:scale(1.03);
     }
 
-    .overlay{
+    .productHero::after{
+      content:"";
       position:absolute;
       inset:0;
       z-index:-1;
       background:
-        linear-gradient(180deg, rgba(11,16,32,.28) 0%, rgba(11,16,32,.86) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%);
+        linear-gradient(90deg, rgba(5,16,34,.96) 0%, rgba(5,16,34,.82) 45%, rgba(5,16,34,.58) 100%),
+        radial-gradient(760px 360px at 24% 24%, rgba(15,99,255,.30), transparent 64%);
     }
 
     .heroInner{
-      position:relative;
-      padding:2px 0 22px;
       display:grid;
-      grid-template-columns:minmax(0, 1.15fr) minmax(320px, .85fr);
-      gap:22px;
-      align-items:end;
+      grid-template-columns:minmax(0, 1.02fr) minmax(330px, .72fr);
+      gap:48px;
+      align-items:center;
+      padding:58px 0 54px;
     }
 
     .eyebrow{
-      margin:0 0 10px;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.14em;
+      margin:0 0 14px;
+      color:#3c82ff;
+      font-size:13px;
+      font-weight:950;
+      line-height:1.2;
+      letter-spacing:.12em;
       text-transform:uppercase;
-      color:rgba(232,240,255,.76);
     }
 
-    h1{
-      margin:0 0 14px;
-      font-size:46px;
-      line-height:1.04;
-      letter-spacing:-.65px;
+    .heroTitle{
+      max-width:740px;
+      margin:0;
       color:#fff;
-      max-width:760px;
+      font-size:58px;
+      line-height:1.04;
+      letter-spacing:0;
+    }
+
+    .heroTitle span{
+      color:#3c82ff;
     }
 
     .heroLead{
-      margin:0;
-      max-width:740px;
-      color:rgba(232,240,255,.84);
-      line-height:1.8;
+      max-width:760px;
+      margin:22px 0 0;
+      color:rgba(239,246,255,.90);
+      font-size:17px;
+      line-height:1.72;
     }
 
-    .heroPanel{
-      padding:20px;
-      border-radius:24px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 18px 50px rgba(0,0,0,.18);
-      backdrop-filter:blur(10px);
-    }
-
-    .heroPanel b{
-      display:block;
-      margin-bottom:10px;
-      color:#fff;
-      font-size:16px;
-    }
-
-    .heroList{
-      display:grid;
-      gap:10px;
-    }
-
-    .heroListItem{
+    .heroActions,
+    .ctaActions{
       display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:rgba(255,255,255,.9);
-      line-height:1.6;
-      font-size:14px;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:28px;
     }
 
-    .heroDot{
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      margin-top:7px;
-      background:#4d79ff;
-      flex:0 0 10px;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:46px;
+      padding:0 22px;
+      border-radius:6px;
+      border:1px solid rgba(255,255,255,.32);
+      color:#fff;
+      font-weight:900;
+      text-decoration:none;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 34px rgba(7,18,38,.18);
+    }
+
+    .btn.primary{
+      background:var(--blue);
+      border-color:var(--blue);
+      box-shadow:0 16px 34px rgba(15,99,255,.26);
+    }
+
+    .btn.light{
+      color:var(--blue);
+      background:#fff;
+      border-color:#fff;
+    }
+
+    .heroActions .btn:not(.primary),
+    .ctaActions .btn:not(.primary){
+      color:#fff;
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.32);
+      backdrop-filter:blur(8px);
+    }
+
+    .heroActions .btn:not(.primary):hover,
+    .ctaActions .btn:not(.primary):hover{
+      background:rgba(255,255,255,.14);
+      border-color:rgba(255,255,255,.44);
+    }
+
+    .routerPanel{
+      position:relative;
+      padding:28px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(8,30,64,.84), rgba(6,18,38,.78));
+      box-shadow:0 24px 70px rgba(0,0,0,.34);
+      backdrop-filter:blur(12px);
+      animation:riseIn .72s ease both;
+    }
+
+    .routerTitle{
+      margin:0 0 20px;
+      color:#fff;
+      font-size:22px;
+      line-height:1.2;
+      letter-spacing:0;
+    }
+
+    .routerList{
+      display:grid;
+      gap:18px;
+    }
+
+    .routerItem{
+      display:grid;
+      grid-template-columns:60px 1fr;
+      gap:16px;
+      align-items:center;
+      position:relative;
+    }
+
+    .routerItem:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      left:29px;
+      top:62px;
+      width:1px;
+      height:26px;
+      background:linear-gradient(180deg, rgba(73,137,255,.9), rgba(73,137,255,.05));
+    }
+
+    .routerIcon{
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg, var(--blue), #2d7cff);
+      box-shadow:0 14px 34px rgba(15,99,255,.26);
+      font-size:27px;
+    }
+
+    .routerCopy strong{
+      display:block;
+      margin-bottom:5px;
+      color:#fff;
+      font-size:15px;
+      font-weight:950;
+    }
+
+    .routerCopy span{
+      display:block;
+      color:rgba(231,240,255,.78);
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .section{
+      padding:36px 0;
+    }
+
+    .section.compact{
+      padding-top:18px;
+    }
+
+    .section.alt{
+      background:linear-gradient(180deg, rgba(231,241,255,.58), rgba(245,249,253,.86));
+      border-block:1px solid rgba(16,35,61,.06);
+    }
+
+    .sectionHead{
+      display:flex;
+      justify-content:space-between;
+      gap:22px;
+      align-items:flex-end;
+      margin-bottom:22px;
+    }
+
+    .sectionKicker{
+      margin:0 0 8px;
+      color:var(--blue);
+      font-weight:950;
+      font-size:13px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
 
     .sectionTitle{
-      font-size:28px;
-      margin:0 0 12px;
-      letter-spacing:-.2px;
-      color:#1d2a36;
+      margin:0;
+      color:var(--ink);
+      font-size:32px;
+      line-height:1.16;
+      letter-spacing:0;
     }
 
     .sectionDesc{
-      margin:0 0 18px;
+      max-width:820px;
+      margin:8px 0 0;
       color:var(--muted);
-      line-height:1.75;
-      max-width:980px;
+      line-height:1.72;
     }
 
-    .grid2{
+    .entryGrid{
       display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:14px;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:22px;
     }
 
-    .grid4{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:12px;
-    }
-
-    .card{
+    .entryCard{
+      position:relative;
+      min-width:0;
+      overflow:hidden;
+      border-radius:8px;
       background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      border-radius:20px;
-      padding:18px;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+      border:1px solid rgba(16,35,61,.10);
+      box-shadow:0 18px 44px rgba(12,33,64,.08);
+      transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease;
     }
 
-    .card b{
-      display:block;
-      margin-bottom:8px;
-      color:#1d2a36;
-    }
-
-    .card p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.7;
-    }
-
-    .bulletList{
-      margin:14px 0 0;
-      padding:0;
-      list-style:none;
-      display:grid;
-      gap:10px;
-    }
-
-    .bulletItem{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-    .dot{
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      margin-top:7px;
-      background:#4A5462;
-      flex:0 0 10px;
-    }
-
-    .entryActions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-
-    .entryActions .btn.primary{
-      color:#fff;
-      background:#3957E9;
-    }
-
-    .entryActions .btn:not(.primary){
-      color:#fff;
-      background:#3957E9;
-      border-color:#3957E9;
-    }
-
-    .chipWrap{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .entryTileGrid{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:96px;
-      gap:12px;
-      overflow-x:auto;
-      padding:2px 2px 8px;
-      scrollbar-width:thin;
-      scroll-snap-type:x proximity;
-    }
-
-    .entryTileGrid::-webkit-scrollbar{
-      height:8px;
-    }
-
-    .entryTileGrid::-webkit-scrollbar-thumb{
-      background:rgba(57,87,233,.18);
-      border-radius:999px;
-    }
-
-    .entryTileGrid::-webkit-scrollbar-track{
-      background:rgba(29,42,54,.05);
-      border-radius:999px;
-    }
-
-    .entryTile{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-height:100%;
-      min-width:96px;
-      padding:10px 10px 12px;
-      border-radius:18px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      box-shadow:0 10px 24px rgba(24,39,56,.05);
-      color:inherit;
-      text-decoration:none;
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      scroll-snap-align:start;
-    }
-
-    .entryTile:hover{
-      transform:translateY(-2px);
-      box-shadow:0 14px 32px rgba(24,39,56,.08);
-      border-color:rgba(57,87,233,.22);
+    .entryCard:hover{
+      transform:translateY(-4px);
+      box-shadow:0 24px 58px rgba(12,33,64,.13);
+      border-color:rgba(15,99,255,.22);
     }
 
     .entryMedia{
       position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      aspect-ratio:1 / 1;
-      min-height:auto;
-      border-radius:18px;
+      aspect-ratio:16 / 8.2;
       overflow:hidden;
-      background:linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
-      border:1px solid rgba(29,42,54,.08);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+      background:#071a36;
     }
 
-    .entryMedia::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(120deg, transparent 0%, rgba(57,87,233,.06) 34%, transparent 66%),
-        radial-gradient(180px 80px at 50% -10%, rgba(57,87,233,.10), transparent 70%);
-      pointer-events:none;
-    }
-
-    .brandEntry .entryMedia{
-      padding:10px;
-    }
-
-    .brandEntry img{
-      position:relative;
-      z-index:1;
-      max-width:74px;
-      max-height:28px;
-      width:auto;
-      height:auto;
-      object-fit:contain;
-      display:block;
-      filter:saturate(.95) contrast(1.02);
-    }
-
-    .partEntry .entryMedia{
-      align-items:stretch;
-    }
-
-    .partEntry img{
+    .entryMedia img,
+    .systemMedia img{
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center;
       display:block;
+      transition:transform .34s ease;
+    }
+
+    .entryCard:hover .entryMedia img,
+    .systemCard:hover .systemMedia img{
+      transform:scale(1.06);
     }
 
     .entryBody{
+      padding:22px;
       display:grid;
-      gap:2px;
+      gap:12px;
     }
 
-    .entryBody b{
-      display:block;
-      color:#1d2a36;
-      font-size:12px;
-      line-height:1.3;
-      text-align:center;
-      word-break:break-word;
-      letter-spacing:-.08px;
-    }
-
-    .entryBody p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.65;
-      text-align:center;
-    }
-
-    .brandEntry .entryBody,
-    .partEntry .entryBody{
-      justify-items:center;
-    }
-
-    .chip{
-      display:inline-flex;
+    .entryHead{
+      display:flex;
+      gap:12px;
       align-items:center;
-      padding:9px 12px;
-      border-radius:999px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      color:#415066;
-      font-size:13px;
-      font-weight:800;
-      box-shadow:0 8px 18px rgba(24,39,56,.04);
     }
 
-    a.chip{
-      color:#3957E9;
-      border-color:rgba(57,87,233,.18);
-    }
-
-    a.chip:hover{
-      transform:translateY(-1px);
-      box-shadow:0 12px 24px rgba(24,39,56,.08);
-    }
-
-    .processGrid{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:14px;
-    }
-
-    .stepNo{
-      display:inline-flex;
+    .entryNo{
       width:34px;
       height:34px;
-      border-radius:12px;
-      align-items:center;
-      justify-content:center;
-      margin-bottom:12px;
-      background:rgba(74,84,98,.08);
-      border:1px solid rgba(74,84,98,.18);
-      color:#4A5462;
+      border-radius:8px;
+      display:grid;
+      place-items:center;
+      flex:0 0 34px;
+      color:#fff;
+      background:var(--blue);
+      font-size:13px;
       font-weight:950;
     }
 
-    .ctaBlock{
-      margin-top:14px;
-      border-radius:20px;
-      padding:18px;
-      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
-      border:1px solid rgba(57,87,233,.16);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:14px;
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
+    .entryTitle{
+      margin:0;
+      color:var(--ink);
+      font-size:23px;
+      line-height:1.2;
+      letter-spacing:0;
     }
 
-    .ctaBlock .left b{
-      display:block;
-      margin-bottom:6px;
-      color:#1d2a36;
-    }
-
-    .ctaBlock .left p{
+    .entryText,
+    .systemParts,
+    .inputCard p,
+    .messyItem p{
       margin:0;
       color:var(--muted);
-      line-height:1.75;
-      max-width:760px;
+      line-height:1.66;
     }
 
-    .ctaBlock .btn.primary{
-      color:#fff;
-      background:#3957E9;
+    .systemParts{
+      text-align:left;
     }
 
-    .ctaBlock .btn:not(.primary){
-      color:#fff;
-      background:#3957E9;
-      border-color:#3957E9;
+    .tagRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
     }
 
-    :global(.footerWrap){
-      background:transparent;
-      border-top:1px solid rgba(29,42,54,.10);
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:26px;
+      padding:0 9px;
+      border-radius:5px;
+      color:#0759e8;
+      background:#eaf2ff;
+      font-size:12px;
+      font-weight:900;
     }
 
-    :global(.footerTitle),
-    :global(.footerNav strong){
-      color:#1d2a36;
+    .textLink,
+    .reviewLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#0759e8;
+      font-weight:950;
+      text-decoration:none;
     }
 
-    :global(.footer),
-    :global(.footerNav span){
-      color:var(--muted);
+    .textLink .icon,
+    .reviewLink .icon{
+      font-size:17px;
+      transition:transform .18s ease;
     }
 
-    :global(.footerNav a){
+    .textLink:hover .icon,
+    .reviewLink:hover .icon{
+      transform:translateX(3px);
+    }
+
+    .brandArea{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 318px;
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .brandGrid{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .brandCard{
+      min-width:0;
+      min-height:176px;
+      display:grid;
+      grid-template-rows:1fr auto;
+      gap:12px;
+      padding:12px;
+      border-radius:8px;
       background:#fff;
-      border-color:rgba(29,42,54,.10);
+      border:1px solid rgba(16,35,61,.10);
+      color:inherit;
+      text-decoration:none;
+      box-shadow:0 14px 34px rgba(12,33,64,.06);
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .brandCard:hover{
+      transform:translateY(-3px);
+      box-shadow:0 20px 44px rgba(12,33,64,.11);
+      border-color:rgba(15,99,255,.24);
+    }
+
+    .brandLogo{
+      min-height:108px;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      border-radius:6px;
+      background:linear-gradient(180deg, #fff 0%, #f7faff 100%);
+      border:1px solid rgba(16,35,61,.07);
+    }
+
+    .brandLogo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      padding:8px;
+    }
+
+    .brandMeta{
+      display:grid;
+      gap:7px;
+      text-align:center;
+    }
+
+    .brandMeta strong{
+      min-height:18px;
+      color:var(--ink);
+      font-size:13px;
+      line-height:1.25;
+      font-weight:950;
+    }
+
+    .brandMeta span{
+      color:#0759e8;
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .brandRfqCard{
+      position:relative;
+      overflow:hidden;
+      min-height:100%;
+      padding:26px;
+      border-radius:8px;
+      background:linear-gradient(145deg, #e8f1ff 0%, #ffffff 58%, #dbeaff 100%);
+      border:1px solid rgba(15,99,255,.14);
+      box-shadow:0 18px 44px rgba(12,33,64,.08);
+      display:grid;
+      align-content:center;
+      gap:18px;
+    }
+
+    .brandRfqIcon{
+      width:58px;
+      height:58px;
+      border-radius:8px;
+      display:grid;
+      place-items:center;
+      color:#0759e8;
+      background:#fff;
+      border:1px solid rgba(15,99,255,.16);
+      box-shadow:0 12px 26px rgba(15,99,255,.10);
+      font-size:28px;
+    }
+
+    .brandRfqCard h3{
+      margin:0;
+      color:var(--ink);
+      font-size:25px;
+      line-height:1.18;
+      letter-spacing:0;
+    }
+
+    .brandRfqCard p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.68;
+    }
+
+    .brandRfqCard .btn{
+      color:#fff;
+      background:var(--blue);
+      border-color:var(--blue);
+    }
+
+    .systemGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .systemCard{
+      min-width:0;
+      display:grid;
+      grid-template-columns:126px 1fr;
+      gap:16px;
+      align-items:center;
+      padding:14px;
+      border-radius:8px;
+      background:#fff;
+      border:1px solid rgba(16,35,61,.10);
+      box-shadow:0 14px 34px rgba(12,33,64,.06);
+      color:inherit;
+      text-decoration:none;
+      text-align:left;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .systemCard:hover{
+      transform:translateY(-3px);
+      box-shadow:0 20px 44px rgba(12,33,64,.11);
+      border-color:rgba(15,99,255,.24);
+    }
+
+    .systemMedia{
+      aspect-ratio:1 / 1;
+      overflow:hidden;
+      border-radius:6px;
+      background:#f3f7fb;
+    }
+
+    .systemMedia img{
+      object-fit:cover;
+      padding:0;
+      background:#f3f7fb;
+    }
+
+    .systemBody{
+      min-width:0;
+      display:grid;
+      gap:7px;
+    }
+
+    .systemTitle{
+      margin:0;
+      color:var(--ink);
+      font-size:16px;
+      line-height:1.28;
+      letter-spacing:0;
+      text-align:left;
+    }
+
+    .systemInput{
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+      text-align:left;
+    }
+
+    .systemInput strong{
+      display:block;
+      color:var(--ink);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+    }
+
+    .systemCta{
+      color:#0759e8;
+      font-size:13px;
+      font-weight:950;
+      text-align:left;
+    }
+
+    .inputGrid{
+      display:grid;
+      grid-template-columns:repeat(6, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .inputCard{
+      min-width:0;
+      padding:22px 18px;
+      border-radius:8px;
+      background:#fff;
+      border:1px solid rgba(16,35,61,.10);
+      box-shadow:0 14px 34px rgba(12,33,64,.05);
+    }
+
+    .inputIcon,
+    .messyIcon{
+      width:48px;
+      height:48px;
+      border-radius:8px;
+      display:grid;
+      place-items:center;
+      margin-bottom:14px;
+      color:#0759e8;
+      background:#eef5ff;
+      border:1px solid rgba(15,99,255,.14);
+      font-size:25px;
+    }
+
+    .inputCard h3,
+    .messyItem h3{
+      margin:0 0 8px;
+      color:var(--ink);
+      font-size:16px;
+      line-height:1.28;
+      letter-spacing:0;
+    }
+
+    .processRail{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:22px;
+      align-items:start;
+    }
+
+    .processStep{
+      position:relative;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:14px;
+      min-width:0;
+    }
+
+    .processStep:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      top:24px;
+      left:calc(100% - 36px);
+      width:70px;
+      border-top:2px dashed rgba(15,99,255,.36);
+    }
+
+    .processNo{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:var(--blue);
+      box-shadow:0 12px 28px rgba(15,99,255,.20);
+      font-weight:950;
+    }
+
+    .processCopy h3{
+      margin:0 0 7px;
+      color:var(--ink);
+      font-size:16px;
+      line-height:1.28;
+      letter-spacing:0;
+    }
+
+    .processCopy p{
+      margin:0;
+      color:#0759e8;
+      font-size:13px;
+      font-weight:950;
+      line-height:1.45;
+    }
+
+    .messyWrap{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:1px;
+      overflow:hidden;
+      border-radius:8px;
+      background:rgba(16,35,61,.10);
+      border:1px solid rgba(16,35,61,.10);
+      box-shadow:0 16px 38px rgba(12,33,64,.05);
+    }
+
+    .messyItem{
+      min-width:0;
+      display:grid;
+      grid-template-columns:58px 1fr;
+      gap:16px;
+      padding:24px;
+      background:rgba(255,255,255,.78);
+    }
+
+    .messyIcon{
+      margin:0;
+    }
+
+    .productCta{
+      position:relative;
+      overflow:hidden;
+      border-radius:8px;
+      background:#061427;
+      color:#fff;
+      isolation:isolate;
+      box-shadow:0 24px 70px rgba(7,18,38,.24);
+    }
+
+    .productCta::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:url("/images/homepage/homepage-cta-port.webp") center/cover no-repeat;
+      filter:saturate(1.02) contrast(1.04) brightness(.70);
+      transform:scale(1.03);
+    }
+
+    .productCta::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(90deg, rgba(6,20,39,.96) 0%, rgba(6,20,39,.86) 46%, rgba(6,20,39,.58) 100%),
+        radial-gradient(720px 320px at 18% 18%, rgba(15,99,255,.30), transparent 64%);
+    }
+
+    .ctaInner{
+      display:grid;
+      grid-template-columns:minmax(0, .9fr) minmax(430px, 1.1fr);
+      gap:34px;
+      align-items:center;
+      padding:38px 42px;
+    }
+
+    .ctaTitle{
+      margin:0;
+      color:#fff;
+      font-size:33px;
+      line-height:1.15;
+      letter-spacing:0;
+    }
+
+    .ctaText{
+      max-width:620px;
+      margin:12px 0 0;
+      color:rgba(239,246,255,.84);
+      line-height:1.7;
+    }
+
+    .ctaFlow{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:14px;
+      align-items:start;
+    }
+
+    .ctaStep{
+      min-width:0;
+      display:grid;
+      justify-items:center;
+      gap:10px;
+      text-align:center;
+      color:rgba(239,246,255,.9);
+      font-size:12px;
+      font-weight:900;
+      line-height:1.32;
+    }
+
+    .ctaIcon{
+      width:46px;
+      height:46px;
+      border-radius:8px;
+      display:grid;
+      place-items:center;
+      color:#d9e8ff;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.22);
+      font-size:25px;
+    }
+
+    @keyframes riseIn{
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width: 1180px){
+      .brandArea{
+        grid-template-columns:1fr;
+      }
+
+      .systemGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .inputGrid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+
+      .processStep:not(:last-child)::after{
+        display:none;
+      }
     }
 
     @media (max-width: 980px){
-      .heroInner{ grid-template-columns:1fr; }
-      h1{ font-size:38px; }
-      .grid2,
-      .grid4,
-      .processGrid{
+      .heroInner,
+      .entryGrid,
+      .ctaInner{
         grid-template-columns:1fr;
       }
-      .ctaBlock{
-        flex-direction:column;
-        align-items:flex-start;
+
+      .heroInner{
+        gap:30px;
+        padding:50px 0 44px;
+      }
+
+      .heroTitle{
+        font-size:44px;
+      }
+
+      .brandGrid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+
+      .processRail,
+      .messyWrap{
+        grid-template-columns:1fr;
+      }
+
+      .ctaInner{
+        padding:30px 24px;
+      }
+
+      .ctaFlow{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px){
+      .productHero{
+        min-height:auto;
+      }
+
+      .heroTitle{
+        font-size:36px;
+      }
+
+      .heroLead{
+        font-size:15px;
+      }
+
+      .heroActions .btn,
+      .ctaActions .btn,
+      .brandRfqCard .btn{
+        flex:1 1 100%;
+      }
+
+      .routerPanel{
+        padding:22px 18px;
+      }
+
+      .routerItem{
+        grid-template-columns:52px 1fr;
+      }
+
+      .routerIcon{
+        width:50px;
+        height:50px;
+        font-size:23px;
+      }
+
+      .section{
+        padding:30px 0;
+      }
+
+      .sectionTitle{
+        font-size:26px;
+      }
+
+      .brandGrid,
+      .systemGrid,
+      .inputGrid,
+      .ctaFlow{
+        grid-template-columns:1fr;
+      }
+
+      .brandCard{
+        min-height:160px;
+      }
+
+      .messyItem{
+        grid-template-columns:1fr;
+      }
+
+      .systemCard{
+        grid-template-columns:96px 1fr;
+        gap:12px;
+        align-items:center;
+      }
+
+      .systemMedia{
+        aspect-ratio:1 / 1;
       }
     }
   </style>
 
-  <section class="hero">
-    <div class="heroBg" aria-hidden="true"></div>
-    <div class="overlay" aria-hidden="true"></div>
+  <header class="productHero">
     <div class="container">
       <div class="heroInner">
         <div>
-          <p class="eyebrow">CertiSpares / Product Entry</p>
-          <h1>Find the right truck parts from China — even without exact part numbers.</h1>
+          <p class="eyebrow">Parts RFQ Entry</p>
+          <h1 class="heroTitle">Start Your Truck Parts RFQ <span>From Brand, System, or Parts List</span></h1>
           <p class="heroLead">
-            Start from the truck brand or the part system.
-            Send OE numbers, VIN, photos, part names, specs, or your parts list.
-            We review the matching scope first, then move the RFQ into quotation, inspection, and shipping follow-up.
+            Send the references you already have: truck brand, VIN/model, OE numbers, photos, specs, or a mixed SKU list. We review the matching scope first, then move the RFQ into supplier comparison, quotation, QC, packing, documents, and shipment follow-up.
           </p>
+          <div class="heroActions">
+            <a class="btn primary" href="#brand-entry">Browse by Brand <span class="icon" set:html={icons.arrow} /></a>
+            <a class="btn" href="#part-entry">Browse by Part System <span class="icon" set:html={icons.arrow} /></a>
+            <a class="btn" href="/contact"><span class="icon" set:html={icons.whatsapp} /> Send RFQ Directly</a>
+          </div>
         </div>
 
-        <aside class="heroPanel">
-          <b>Choose the entry path that fits your RFQ</b>
-          <div class="heroList">
-            <div class="heroListItem"><span class="heroDot"></span><span>Use the brand path when the RFQ starts from a known vehicle platform or brand reference.</span></div>
-            <div class="heroListItem"><span class="heroDot"></span><span>Use the part-system path when the inquiry starts from the category itself, especially for mixed-brand replenishment.</span></div>
-            <div class="heroListItem"><span class="heroDot"></span><span>Then send the references you already have so matching and quotation can move forward on a clearer scope.</span></div>
+        <aside class="routerPanel" aria-label="RFQ entry router">
+          <h2 class="routerTitle">RFQ Entry Router</h2>
+          <div class="routerList">
+            <div class="routerItem">
+              <div class="routerIcon"><span class="icon" set:html={icons.truck} /></div>
+              <div class="routerCopy"><strong>Brand-led RFQ</strong><span>When the inquiry starts from truck platform or VIN.</span></div>
+            </div>
+            <div class="routerItem">
+              <div class="routerIcon"><span class="icon" set:html={icons.gear} /></div>
+              <div class="routerCopy"><strong>System-led RFQ</strong><span>When the inquiry starts from part system or category.</span></div>
+            </div>
+            <div class="routerItem">
+              <div class="routerIcon"><span class="icon" set:html={icons.list} /></div>
+              <div class="routerCopy"><strong>Mixed-SKU RFQ</strong><span>When the buyer sends spreadsheets, screenshots, photos, or mixed lists.</span></div>
+            </div>
           </div>
         </aside>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="section">
+  <section class="section compact">
     <div class="container">
-      <h2 class="sectionTitle">Choose Your Entry Path</h2>
-      <p class="sectionDesc">
-        Some RFQs start from a truck brand. Others start from the part category. Both paths lead into the same matching,
-        quotation, inspection, and shipping workflow.
-      </p>
-
-      <div class="grid2">
-        {entryCards.map((card) => (
-          <div class="card">
-            <b>{card.title}</b>
-            <p>{card.desc}</p>
-            <ul class="bulletList">
-              {card.bullets.map((bullet) => (
-                <li class="bulletItem"><span class="dot"></span><span>{bullet}</span></li>
-              ))}
-            </ul>
-            <div class="entryActions">
-              <a class="btn primary" href={card.href}>{card.cta}</a>
-              <a class="btn" href="/contact">Send RFQ</a>
+      <div class="sectionHead" style="justify-content:center; text-align:center;">
+        <div>
+          <h2 class="sectionTitle">1. Choose the Entry Path Closest to Your RFQ</h2>
+        </div>
+      </div>
+      <div class="entryGrid">
+        {entryPaths.map((item) => (
+          <article class="entryCard">
+            <div class="entryMedia">
+              <img src={item.image} alt={item.title} loading="eager" decoding="async" />
             </div>
-          </div>
+            <div class="entryBody">
+              <div class="entryHead">
+                <span class="entryNo">{item.n}</span>
+                <h3 class="entryTitle">{item.title}</h3>
+              </div>
+              <p class="entryText">{item.desc}</p>
+              <div class="tagRow">
+                {item.tags.map((tag) => <span class="tag">{tag}</span>)}
+              </div>
+              <a class="textLink" href={item.href}>
+                {item.cta}
+                <span class="icon" set:html={icons.arrow} />
+              </a>
+            </div>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
   <section class="section" id="brand-entry">
-      <div class="container">
-        <h2 class="sectionTitle">Brand Entry</h2>
-        <p class="sectionDesc">
-          Start here when the inquiry already begins with the truck brand, platform family, or reference vehicle.
-        </p>
-        <div class="entryTileGrid" aria-label="Brand entry options">
-          {brandGroups.map((brand) => (
-            <a class="entryTile brandEntry" href={brand.href}>
-              <div class="entryMedia">
-                <img src={brand.image} alt={brand.alt} loading="lazy" decoding="async" />
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2 class="sectionTitle">2. Start From the Truck Platform Your Buyer Already Knows</h2>
+          <p class="sectionDesc">Use this path when the RFQ starts from brand, model, VIN, chassis number, or old supplier references.</p>
+        </div>
+      </div>
+
+      <div class="brandArea">
+        <div class="brandGrid" aria-label="Truck brand RFQ entries">
+          {brands.map((brand) => (
+            <a class="brandCard" href={brand.href}>
+              <div class="brandLogo">
+                <img src={brand.image} alt={`${brand.label} logo`} loading="eager" decoding="sync" />
               </div>
-              <div class="entryBody">
-                <b>{brand.label}</b>
+              <div class="brandMeta">
+                <strong>{brand.label}</strong>
+                <span>Start Brand RFQ -></span>
               </div>
             </a>
           ))}
         </div>
-        <div class="ctaBlock">
-          <div class="left">
-            <b>Start from the platform your buyer already knows</b>
-            <p>
-              Each brand page shows the systems we can usually help with and what to send before quotation starts.
-            </p>
-          </div>
+
+        <aside class="brandRfqCard">
+          <div class="brandRfqIcon"><span class="icon" set:html={icons.file} /></div>
           <div>
-          <a class="btn primary" href="/contact">Send Brand RFQ</a>
-        </div>
+            <h3>Not sure which brand?</h3>
+            <p>Send what you have. We will review the matching scope first and guide the next RFQ path.</p>
+          </div>
+          <a class="btn" href="/contact">Send Mixed RFQ <span class="icon" set:html={icons.arrow} /></a>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="section" id="part-entry">
-      <div class="container">
-        <h2 class="sectionTitle">Part-System Entry</h2>
-        <p class="sectionDesc">
-          Start here when the RFQ begins with the category itself, especially for mixed-brand replenishment or system-led buying.
-        </p>
-        <div class="entryTileGrid" aria-label="Part system entry options">
-          {partSystems.map((system) => (
-            <a class="entryTile partEntry" href={system.href}>
-              <div class="entryMedia">
-                <img src={system.image} alt={system.alt} loading="lazy" decoding="async" />
-              </div>
-              <div class="entryBody">
-                <b>{system.label}</b>
-              </div>
-            </a>
-          ))}
-        </div>
-        <div class="ctaBlock">
-          <div class="left">
-            <b>Start from the part system when the RFQ is category-led</b>
-            <p>
-              Each part-system page shows the common parts we handle, what to send, and how the inquiry moves forward after matching starts.
-            </p>
-          </div>
+  <section class="section alt" id="part-entry">
+    <div class="container">
+      <div class="sectionHead">
         <div>
-          <a class="btn primary" href="/contact">Send Parts RFQ</a>
+          <h2 class="sectionTitle">3. Start From the Part System When the RFQ Is Category-led</h2>
+          <p class="sectionDesc">Use this path when one inquiry covers one system across several brands, or for mixed-SKU replenishment.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">What to send before matching starts</h2>
-      <p class="sectionDesc">
-        The clearer the input, the easier it is to confirm fitment, align suppliers, and move the RFQ forward.
-      </p>
-      <div class="grid4">
-        <div class="card"><b>OE number or part number</b><p>Best starting point when the buyer already has reference numbers.</p></div>
-        <div class="card"><b>VIN or vehicle details</b><p>Useful when fitment needs to be checked from vehicle information first.</p></div>
-        <div class="card"><b>Photos or old samples</b><p>Helpful when numbers are incomplete, unclear, or missing.</p></div>
-        <div class="card"><b>Specs or dimensions where needed</b><p>Important for system-led RFQs where fitment depends on size, thread, or application details.</p></div>
-        <div class="card"><b>Quantity and destination</b><p>Needed to line up quotation, consolidation, and shipment planning.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">What happens after you send the inquiry</h2>
-      <div class="processGrid">
-        {processSteps.map((step, index) => (
-          <div class="card">
-            <div class="stepNo">{index + 1}</div>
-            <b>{step.title}</b>
-            <p>{step.desc}</p>
-          </div>
-        ))}
-      </div>
-      <div class="ctaBlock">
-        <div class="left">
-          <b>Need the full workflow?</b>
-          <p>
-            Review <a href="/how-it-works">how the process works</a>, our <a href="/sourcing">truck parts sourcing service</a>,
-            and <a href="/capabilities">quality control and sourcing support</a> for the broader commercial and operational view.
-          </p>
-        </div>
-        <div>
-          <a class="btn primary" href="/how-it-works">See Workflow</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">Why buyers use this entry structure</h2>
-      <div class="grid2">
-        {whyThisStructureWorks.map((item) => (
-          <div class="card">
-            <b>{item.title}</b>
-            <p>{item.desc}</p>
-          </div>
+      <div class="systemGrid" aria-label="Part system RFQ entries">
+        {partSystems.map((item) => (
+          <a class="systemCard" href={item.href}>
+            <div class="systemMedia">
+              <img src={item.image} alt={item.title} loading="eager" decoding="async" />
+            </div>
+            <div class="systemBody">
+              <h3 class="systemTitle">{item.title}</h3>
+              <p class="systemParts">{item.parts}</p>
+              <p class="systemInput"><strong>Useful inputs:</strong>{item.input}</p>
+              <span class="systemCta">{item.cta} -></span>
+            </div>
+          </a>
         ))}
       </div>
     </div>
@@ -807,16 +1240,85 @@ const jsonLd = [
 
   <section class="section">
     <div class="container">
-      <div class="ctaBlock">
-        <div class="left">
-          <b>Ready to send the inquiry?</b>
-          <p>
-            Send the references you already have. We will review the inquiry and reply with the next workable sourcing step.
-          </p>
+      <div class="sectionHead">
+        <div>
+          <h2 class="sectionTitle">4. What to Send Before Matching Starts</h2>
         </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn primary" href="/contact">Send RFQ</a>
-          <a class="btn" href="/contact">See Contact Options</a>
+      </div>
+      <div class="inputGrid">
+        {sendInputs.map((item) => (
+          <article class="inputCard">
+            <div class="inputIcon"><span class="icon" set:html={icons[item.icon] ?? icons.file} /></div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2 class="sectionTitle">5. What Happens After You Send the Inquiry</h2>
+        </div>
+      </div>
+      <div class="processRail" aria-label="RFQ processing steps">
+        {process.map((step) => (
+          <article class="processStep">
+            <div class="processNo">{step.n}</div>
+            <div class="processCopy">
+              <h3>{step.title}</h3>
+              <p>Output: {step.output}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="sectionHead">
+        <div>
+          <h2 class="sectionTitle">6. Real Truck Parts RFQs Rarely Start Clean</h2>
+        </div>
+      </div>
+      <div class="messyWrap">
+        {messyNotes.map((item) => (
+          <article class="messyItem">
+            <div class="messyIcon"><span class="icon" set:html={icons[item.icon] ?? icons.file} /></div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="productCta">
+        <div class="ctaInner">
+          <div>
+            <h2 class="ctaTitle">Ready to Start Your RFQ?</h2>
+            <p class="ctaText">Send the references you already have. We will clarify the matching scope before quotation starts.</p>
+            <div class="ctaActions">
+              <a class="btn primary" href="/contact">Send RFQ <span class="icon" set:html={icons.arrow} /></a>
+              <a class="btn" href="/contact"><span class="icon" set:html={icons.whatsapp} /> Contact on WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="ctaFlow" aria-label="RFQ route summary">
+            <div class="ctaStep"><div class="ctaIcon"><span class="icon" set:html={icons.file} /></div><span>Brand / System / List</span></div>
+            <div class="ctaStep"><div class="ctaIcon"><span class="icon" set:html={icons.target} /></div><span>Matching Scope</span></div>
+            <div class="ctaStep"><div class="ctaIcon"><span class="icon" set:html={icons.users} /></div><span>Supplier Comparison</span></div>
+            <div class="ctaStep"><div class="ctaIcon"><span class="icon" set:html={icons.list} /></div><span>Quotation</span></div>
+            <div class="ctaStep"><div class="ctaIcon"><span class="icon" set:html={icons.truck} /></div><span>QC & Shipment</span></div>
+          </div>
         </div>
       </div>
     </div>

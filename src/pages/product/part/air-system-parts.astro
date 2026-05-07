@@ -24,6 +24,13 @@ const matchingInputs = [
   "Quantity list and destination",
 ];
 
+const inputGuide = [
+  { weak: "Air valve", better: "Valve reference, port size, thread type, pressure spec, and photos", why: "Air valves can look similar while using different standards or connection layouts." },
+  { weak: "Fittings", better: "Thread, port size, material, shape, and old sample photo", why: "Fitting mismatch is common when suppliers quote by name only." },
+  { weak: "Air dryer", better: "OE/reference, cartridge type, voltage if applicable, mounting photo", why: "Air dryer and cartridge choices depend on system layout and application." },
+  { weak: "Brake chamber items", better: "Chamber type, stroke, clevis/push rod reference, and quantity", why: "Air-side and brake-side items need one shared scope before supplier comparison." },
+];
+
 const processSteps = [
   { title: "You send the details", desc: "Share the references you already have, including OE numbers, valve references, specs, photos, or a parts list." },
   { title: "We check specs and fitment first", desc: "We review the technical scope before quotation starts so air-side items stay aligned." },
@@ -77,6 +84,7 @@ const jsonLd = [
   primaryCtaLabel="Send Air System Inquiry"
   painPointsHeading="Running into these issues when sourcing air system parts?"
   painPoints={painPoints}
+  inputGuide={inputGuide}
   matchingInputs={matchingInputs}
   processSteps={processSteps}
   whyWorkWithUsHeading="Why buyers use us for air system parts inquiries"

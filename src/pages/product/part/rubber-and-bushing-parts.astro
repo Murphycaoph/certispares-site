@@ -1,0 +1,94 @@
+---
+import PartInquiryPage from "../../../components/PartInquiryPage.astro";
+
+const painPoints = [
+  {
+    title: "Similar rubber parts can hide different dimensions",
+    desc: "Bushings, mounts, torque rod bushes, shackle kits, and rubber parts can look similar but differ by inner diameter, outer diameter, length, hardness, or load condition.",
+  },
+  {
+    title: "Material and hardness affect repeat orders",
+    desc: "A low quote may not match the needed rubber compound, bonded structure, or service condition, which can cause early failure.",
+  },
+  {
+    title: "Mixed chassis wear items are hard to compare",
+    desc: "Rubber and bushing RFQs often overlap with suspension and chassis items, so the order needs clear grouping before supplier comparison.",
+  },
+];
+
+const matchingInputs = [
+  "OE number or part number",
+  "Vehicle model, chassis application, or VIN",
+  "Inner diameter, outer diameter, length, or hardness if known",
+  "Part photos or old sample reference",
+  "Quantity list and destination",
+];
+
+const inputGuide = [
+  { weak: "Bushing", better: "ID, OD, total length, hardness if known, OE/reference, and photos", why: "Bushings often look similar but fail by size, hardness, or bonded structure." },
+  { weak: "Torque rod bush", better: "Rod application, pin size, bushing dimensions, and old sample photo", why: "Torque rod rubber parts need application and dimension checks before quoting." },
+  { weak: "Rubber mount", better: "Mounting position, dimensions, load condition, visible markings, and photos", why: "Mounts vary by position, load, and rubber-metal structure." },
+  { weak: "Mixed rubber items", better: "Grouped list with dimensions, application, quantity, and target quality basis", why: "Material and repeat-order consistency matter more than a low unit quote." },
+];
+
+const processSteps = [
+  { title: "You send the details", desc: "Share OE numbers, chassis details, dimensions, photos, old samples, or a mixed parts list." },
+  { title: "We check dimensions and application first", desc: "We review size, application, and material expectations before quotation starts." },
+  { title: "We compare workable suppliers", desc: "We compare suppliers on scope, quality basis, material expectations, and order practicality." },
+  { title: "We move into inspection and shipping", desc: "After confirmation, we continue with QC, packing checks, documents, and shipment coordination." },
+];
+
+const whyWorkWithUs = [
+  {
+    title: "We check size before quoting",
+    desc: "Rubber and bushing parts depend on dimensions, hardness, bonded structure, and chassis application, so we confirm first.",
+  },
+  {
+    title: "We compare more than unit price",
+    desc: "Material, molding quality, packing, and repeat-order consistency matter for rubber wear parts.",
+  },
+  {
+    title: "We support mixed chassis orders",
+    desc: "We can organize bushings, mounts, torque rod items, shackle kits, and suspension wear parts into one workable RFQ.",
+  },
+];
+
+const faq = [
+  { q: "Can I start with photos only?", a: "Yes. Photos, old samples, dimensions, vehicle model, or chassis application can help when OE numbers are missing." },
+  { q: "Which dimensions are most useful?", a: "Inner diameter, outer diameter, total length, pin size, and any visible marking are usually helpful." },
+  { q: "Can you combine rubber items with suspension parts?", a: "Yes. Rubber, bushing, torque rod, and suspension wear items can be organized into one inquiry scope." },
+];
+
+const relatedPaths = [
+  { title: "Suspension parts", desc: "For RFQs that also include torque rods, leaf spring items, or chassis support parts.", href: "/product/part/suspension-parts/" },
+  { title: "Axle and wheel-end parts", desc: "For chassis-side RFQs that also include hub, bearing, or axle-category items.", href: "/product/part/axle-and-wheel-end-parts/" },
+  { title: "Shacman parts sourcing", desc: "For rubber and chassis wear RFQs tied to Shacman truck platforms.", href: "/product/brand/shacman/" },
+];
+
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "WebPage", name: "Rubber and Bushing Parts Sourcing from China", description: "Send your rubber and bushing parts inquiry with OE numbers, dimensions, photos, old samples, or part lists and get clearer matching, workable quotes, and shipment follow-up.", url: "https://certispares.com/product/part/rubber-and-bushing-parts/" },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" }, { "@type": "ListItem", position: 2, name: "Product", item: "https://certispares.com/product/" }, { "@type": "ListItem", position: 3, name: "Rubber and Bushing Parts", item: "https://certispares.com/product/part/rubber-and-bushing-parts/" } ] },
+];
+---
+
+<PartInquiryPage
+  pageTitle="Send Your Rubber and Bushing Parts Inquiry | Clear Matching and Workable Quotes"
+  pageDescription="Send your rubber and bushing parts inquiry with OE numbers, dimensions, photos, old samples, or part lists. CertiSpares checks scope first, compares workable suppliers, and follows through into inspection and shipment."
+  keywords={["rubber and bushing parts sourcing from China", "truck bushing parts RFQ", "rubber parts supplier China", "suspension bushing inquiry", "commercial vehicle rubber parts sourcing"]}
+  canonical="/product/part/rubber-and-bushing-parts/"
+  ogImage="/images/Suspension.webp"
+  jsonLd={jsonLd}
+  systemLabel="Rubber and bushing parts"
+  heroTitle="Send your rubber and bushing parts inquiry and get clearer matching"
+  heroLead="Send OE numbers, chassis application, bushing dimensions, hardness if known, photos, old samples, or your parts list. We review the scope first, then move into quotation, inspection, and shipment follow-up."
+  primaryCtaLabel="Send Rubber and Bushing Inquiry"
+  painPointsHeading="Running into these issues when sourcing rubber and bushing parts?"
+  painPoints={painPoints}
+  inputGuide={inputGuide}
+  matchingInputs={matchingInputs}
+  processSteps={processSteps}
+  whyWorkWithUsHeading="Why buyers use us for rubber and bushing parts inquiries"
+  whyWorkWithUs={whyWorkWithUs}
+  faq={faq}
+  relatedPaths={relatedPaths}
+/>

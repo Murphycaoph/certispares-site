@@ -24,6 +24,13 @@ const matchingInputs = [
   "Quantity list and destination",
 ];
 
+const inputGuide = [
+  { weak: "Brake chamber", better: "Chamber type, stroke, port/thread, OE or photo", why: "Chambers with the same name can differ by type, mounting, and actuation details." },
+  { weak: "Brake drum", better: "OE number, outer diameter, height, bolt holes, and photo", why: "Drum dimensions decide whether the part can be installed and compared correctly." },
+  { weak: "Brake valve", better: "Valve reference, port size, pressure spec, and photos from each side", why: "Small valve and port differences can turn a fast quote into a wrong-scope quote." },
+  { weak: "Brake pads or linings", better: "OE/reference, lining size, material expectation, and quantity", why: "Material level and dimensions affect supplier choice, quality basis, and repeat orders." },
+];
+
 const processSteps = [
   { title: "You send the details", desc: "Share the references you already have, including OE numbers, vehicle details, specs, photos, or a parts list." },
   { title: "We check specs and fitment first", desc: "We confirm the scope before quotation starts so brake-side items are compared on the same basis." },
@@ -69,7 +76,7 @@ const jsonLd = [
   pageDescription="Send your brake system parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
   keywords={["brake system parts sourcing from China", "brake system parts RFQ", "brake system parts supplier China", "brake parts quote support", "brake parts inquiry"]}
   canonical="/product/part/brake-system-parts/"
-  ogImage="/images/Brake-System.png"
+  ogImage="/images/Brake-System.webp"
   jsonLd={jsonLd}
   systemLabel="Brake system parts"
   heroTitle="Send your brake system parts inquiry and get clearer matching"
@@ -77,6 +84,7 @@ const jsonLd = [
   primaryCtaLabel="Send Brake Inquiry"
   painPointsHeading="Running into these issues when sourcing brake system parts?"
   painPoints={painPoints}
+  inputGuide={inputGuide}
   matchingInputs={matchingInputs}
   processSteps={processSteps}
   whyWorkWithUsHeading="Why buyers use us for brake system parts inquiries"

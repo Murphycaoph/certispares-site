@@ -24,6 +24,13 @@ const matchingInputs = [
   "Quantity list and destination",
 ];
 
+const inputGuide = [
+  { weak: "Torque rod", better: "OE/reference, rod length, bushing size, hole center distance, and photos", why: "Torque rods can share a name but differ by length, bushing, and chassis layout." },
+  { weak: "Leaf spring", better: "Truck model, leaf count, length, width, load spec, and sample photo", why: "Load and dimension details decide whether suppliers quote the same spring scope." },
+  { weak: "Stabilizer parts", better: "Bar diameter, bushing size, bracket photo, and application", why: "Small bushing and bracket differences can make the quote unusable." },
+  { weak: "Suspension hardware", better: "Pin size, thread, dimensions, photos, and quantity list", why: "Hardware needs precise dimensions to avoid mixed-standard supplier quotes." },
+];
+
 const processSteps = [
   { title: "You send the details", desc: "Share the references you already have, including OE numbers, truck model, specs, photos, or a parts list." },
   { title: "We check specs and fitment first", desc: "We review the technical scope before quotation starts so suspension items stay aligned." },
@@ -69,7 +76,7 @@ const jsonLd = [
   pageDescription="Send your suspension parts inquiry with OE numbers, specs, photos, or part lists. CertiSpares checks fitment first, compares workable suppliers, and follows through into inspection and shipment."
   keywords={["suspension parts sourcing from China", "suspension parts RFQ", "suspension parts supplier China", "suspension quote support", "suspension parts inquiry"]}
   canonical="/product/part/suspension-parts/"
-  ogImage="/images/Suspension.png"
+  ogImage="/images/Suspension.webp"
   jsonLd={jsonLd}
   systemLabel="Suspension parts"
   heroTitle="Send your suspension parts inquiry and get clearer matching"
@@ -77,6 +84,7 @@ const jsonLd = [
   primaryCtaLabel="Send Suspension Inquiry"
   painPointsHeading="Running into these issues when sourcing suspension parts?"
   painPoints={painPoints}
+  inputGuide={inputGuide}
   matchingInputs={matchingInputs}
   processSteps={processSteps}
   whyWorkWithUsHeading="Why buyers use us for suspension parts inquiries"

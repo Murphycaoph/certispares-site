@@ -17,6 +17,12 @@ interface FaqItem {
   a: string;
 }
 
+interface InputGuideItem {
+  weak: string;
+  better: string;
+  why: string;
+}
+
 interface Props {
   pageTitle: string;
   pageDescription: string;
@@ -30,6 +36,7 @@ interface Props {
   primaryCtaLabel: string;
   painPointsHeading: string;
   painPoints: TextItem[];
+  inputGuide?: InputGuideItem[];
   matchingInputs: string[];
   processSteps: TextItem[];
   whyWorkWithUsHeading: string;
@@ -37,6 +44,7 @@ interface Props {
   faq: FaqItem[];
   relatedPathsHeading?: string;
   relatedPaths: LinkItem[];
+  whatsappHref?: string;
 }
 
 const {
@@ -52,6 +60,7 @@ const {
   primaryCtaLabel,
   painPointsHeading,
   painPoints,
+  inputGuide = [],
   matchingInputs,
   processSteps,
   whyWorkWithUsHeading,
@@ -59,6 +68,7 @@ const {
   faq,
   relatedPathsHeading = "Need to start from a truck brand instead?",
   relatedPaths,
+  whatsappHref = "https://wa.me/8615633022618?text=Hello%20CertiSpares%2C%20I%20want%20to%20discuss%20a%20commercial%20vehicle%20parts%20RFQ.",
 } = Astro.props;
 ---
 
@@ -115,6 +125,31 @@ const {
     </div>
   </section>
 
+  {inputGuide.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2 class="sectionTitle">Weak input vs. better RFQ input</h2>
+        <p class="sectionDesc">
+          You do not need perfect information before contacting us. But these details make {systemLabel.toLowerCase()} matching faster and reduce wrong-scope quotations.
+        </p>
+        <div class="inputGuide">
+          <div class="inputGuideHead">
+            <div>Weak input</div>
+            <div>Better input</div>
+            <div>Why it matters</div>
+          </div>
+          {inputGuide.map((item) => (
+            <div class="inputGuideRow">
+              <div>{item.weak}</div>
+              <div>{item.better}</div>
+              <div>{item.why}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="section">
     <div class="container">
       <div class="ctaBlock">
@@ -126,7 +161,7 @@ const {
           </p>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn primary" href="/contact">Chat on WhatsApp</a>
+          <a class="btn primary" href={whatsappHref} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
         </div>
       </div>
     </div>
@@ -200,7 +235,7 @@ const {
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
           <a class="btn primary" href="/contact">{primaryCtaLabel}</a>
-          <a class="btn" href="/contact">Contact Us</a>
+          <a class="btn" href="/how-it-works">See Workflow</a>
         </div>
       </div>
     </div>

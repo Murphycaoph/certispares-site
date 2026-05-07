@@ -12,13 +12,18 @@ const footerLinks = [
   },
   {
     href: "/product",
-    label: "Product",
-    desc: "Engine and gearbox platform catalog",
+    label: "Parts RFQ",
+    desc: "Truck parts RFQ entry and platform coverage",
+  },
+  {
+    href: "/cases",
+    label: "Cases",
+    desc: "Anonymous RFQ examples and sourcing checkpoints",
   },
   {
     href: "/sourcing",
-    label: "Sourcing Categories",
-    desc: "Truck spare parts and category coverage",
+    label: "Sourcing Strategy",
+    desc: "Multi-supplier consolidation and order planning",
   },
   {
     href: "/capabilities",
@@ -32,106 +37,15 @@ const footerLinks = [
   },
   {
     href: "/contact",
-    label: "Contact",
-    desc: "Request a truck parts quote",
+    label: "Send RFQ",
+    desc: "Send OE numbers, photos, part lists, and shipment details",
   },
 ];
 ---
 
-<style>
-  .footerWrap{
-    border-top:1px solid var(--site-line);
-    margin-top:10px;
-    background:var(--site-bg);
-  }
-  .footer{
-    padding:26px 0;
-    color:var(--site-muted);
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:18px;
-  }
-  .footerMeta{
-    display:grid;
-    gap:8px;
-    max-width:520px;
-  }
-  .footerTitle{
-    color:rgba(234,240,255,.94);
-    font-weight:800;
-  }
-  .footerSocial{
-    display:flex;
-    gap:5px;
-    margin-top:6px;
-    padding:5px 7px;
-    border-radius:14px;
-    border:1px solid var(--site-line);
-    background:rgba(255,255,255,.04);
-    width:max-content;
-  }
-  .socialIcon{
-    width:26px;
-    height:26px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:999px;
-    border:1px solid transparent;
-    background:rgba(255,255,255,.02);
-    color:rgba(234,240,255,.94);
-    transition:transform .15s ease, background .15s ease, border-color .15s ease;
-  }
-  .socialIcon:hover{
-    transform:translateY(-1px);
-    background:rgba(255,255,255,.08);
-    border-color:rgba(255,255,255,.16);
-  }
-  .socialIcon svg{
-    width:12px;
-    height:12px;
-    display:block;
-  }
-  .footerNav{
-    display:grid;
-    grid-template-columns:repeat(2, minmax(220px, 1fr));
-    gap:10px 12px;
-    max-width:560px;
-  }
-  .footerNav a{
-    display:block;
-    padding:10px 12px;
-    border-radius:12px;
-    border:1px solid var(--site-line);
-    background:rgba(255,255,255,.03);
-  }
-  .footerNav a:hover{
-    color:var(--site-text);
-    background:rgba(255,255,255,.06);
-  }
-  .footerNav strong{
-    display:block;
-    color:rgba(234,240,255,.94);
-    font-size:14px;
-    margin-bottom:4px;
-  }
-  .footerNav span{
-    display:block;
-    font-size:12px;
-    line-height:1.5;
-  }
-  @media (max-width: 980px){
-    .footerNav{
-      grid-template-columns:1fr;
-      max-width:none;
-    }
-  }
-</style>
-
 <div class="footerWrap">
-  <div class="container">
-    <footer class="footer">
+  <div class="container wide">
+    <footer class="footerShell">
       <div class="footerMeta">
         <div class="footerTitle">CertiSpares</div>
         <div>China truck parts sourcing and commercial vehicle spare parts support for importers, distributors, and fleet-related buyers.</div>

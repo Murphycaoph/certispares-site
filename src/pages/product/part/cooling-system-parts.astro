@@ -1,0 +1,94 @@
+---
+import PartInquiryPage from "../../../components/PartInquiryPage.astro";
+
+const painPoints = [
+  {
+    title: "Similar cooling parts can vary by layout",
+    desc: "Radiators, intercoolers, fans, pumps, and hoses may share a broad name but differ by core size, inlet position, outlet position, or mounting layout.",
+  },
+  {
+    title: "Dimensions matter before quotation",
+    desc: "Without clear size, port, and layout details, suppliers may quote a cooling part that looks close but cannot be installed.",
+  },
+  {
+    title: "Mixed cooling RFQs need one scope",
+    desc: "Cooling-system orders often combine radiators, hoses, pumps, clamps, and service items, so the RFQ needs a clear structure before supplier comparison.",
+  },
+];
+
+const matchingInputs = [
+  "OE number or part number",
+  "Vehicle model, engine model, or VIN",
+  "Core size, inlet/outlet position, or mounting details",
+  "Part photos or drawings",
+  "Quantity list and destination",
+];
+
+const inputGuide = [
+  { weak: "Radiator", better: "OE/reference, core size, inlet/outlet position, mounting points, and photos", why: "Radiators can look close but fail on port, core, or mounting layout." },
+  { weak: "Intercooler", better: "Dimensions, port direction, vehicle/engine application, and old sample photo", why: "Layout details decide whether the quoted part can be installed." },
+  { weak: "Cooling hose", better: "Shape photo, ID/OD, length, bend layout, and application", why: "Hoses are hard to quote correctly from a generic name." },
+  { weak: "Mixed cooling list", better: "Radiator, hose, pump, fan, clamp list with photos and packing notes", why: "Cooling parts are damage-sensitive, so scope and packing need early alignment." },
+];
+
+const processSteps = [
+  { title: "You send the details", desc: "Share OE numbers, vehicle or engine details, dimensions, photos, drawings, or a mixed parts list." },
+  { title: "We check the cooling layout first", desc: "We review dimensions, ports, and installation details before quotation starts." },
+  { title: "We compare workable suppliers", desc: "We compare suppliers on scope, quality level, packing practicality, and execution rather than price alone." },
+  { title: "We move into inspection and shipping", desc: "After confirmation, we continue with QC, packing checks, documents, and shipment coordination." },
+];
+
+const whyWorkWithUs = [
+  {
+    title: "We check physical details before quoting",
+    desc: "Cooling-system parts depend on dimensions, port location, mounting points, and application, so we confirm the scope first.",
+  },
+  {
+    title: "We keep suppliers aligned",
+    desc: "Quotes are easier to compare when every supplier is working from the same dimensions, reference photos, and packing expectations.",
+  },
+  {
+    title: "We support mixed cooling demand",
+    desc: "We can organize radiators, intercoolers, fans, pumps, hoses, and related service items into one workable RFQ.",
+  },
+];
+
+const faq = [
+  { q: "Can I start without OE numbers?", a: "Yes. Vehicle model, engine model, radiator dimensions, port positions, drawings, or photos can also help." },
+  { q: "Can you handle mixed cooling-system parts in one order?", a: "Yes. We can organize multiple cooling-side items into one structured inquiry and shipment plan." },
+  { q: "Do you support packing checks before shipment?", a: "Yes. Cooling parts can be damage-sensitive, so packing checks and shipment coordination are part of the follow-up scope." },
+];
+
+const relatedPaths = [
+  { title: "Engine parts", desc: "For engine-side RFQs that also include pumps, belts, sensors, or service items.", href: "/product/part/engine-parts/" },
+  { title: "Dongfeng parts sourcing", desc: "For cooling RFQs tied to a known Dongfeng truck platform.", href: "/product/brand/dongfeng/" },
+  { title: "Foton parts sourcing", desc: "For platform-led cooling and engine-side inquiries under Foton applications.", href: "/product/brand/foton/" },
+];
+
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "WebPage", name: "Cooling System Parts Sourcing from China", description: "Send your cooling system parts inquiry with OE numbers, dimensions, photos, drawings, or part lists and get clearer matching, workable quotes, and shipment follow-up.", url: "https://certispares.com/product/part/cooling-system-parts/" },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" }, { "@type": "ListItem", position: 2, name: "Product", item: "https://certispares.com/product/" }, { "@type": "ListItem", position: 3, name: "Cooling System Parts", item: "https://certispares.com/product/part/cooling-system-parts/" } ] },
+];
+---
+
+<PartInquiryPage
+  pageTitle="Send Your Cooling System Parts Inquiry | Clear Matching and Workable Quotes"
+  pageDescription="Send your cooling system parts inquiry with OE numbers, dimensions, photos, drawings, or part lists. CertiSpares checks scope first, compares workable suppliers, and follows through into inspection and shipment."
+  keywords={["cooling system parts sourcing from China", "radiator parts RFQ", "cooling system parts supplier China", "truck cooling parts inquiry", "intercooler radiator sourcing"]}
+  canonical="/product/part/cooling-system-parts/"
+  ogImage="/images/Engine-Parts.webp"
+  jsonLd={jsonLd}
+  systemLabel="Cooling system parts"
+  heroTitle="Send your cooling system parts inquiry and get clearer matching"
+  heroLead="Send OE numbers, engine or vehicle details, core dimensions, inlet/outlet position, mounting photos, drawings, or your parts list. We review the scope first, then move into quotation, inspection, and shipment follow-up."
+  primaryCtaLabel="Send Cooling Inquiry"
+  painPointsHeading="Running into these issues when sourcing cooling system parts?"
+  painPoints={painPoints}
+  inputGuide={inputGuide}
+  matchingInputs={matchingInputs}
+  processSteps={processSteps}
+  whyWorkWithUsHeading="Why buyers use us for cooling system parts inquiries"
+  whyWorkWithUs={whyWorkWithUs}
+  faq={faq}
+  relatedPaths={relatedPaths}
+/>

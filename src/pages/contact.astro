@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Contacts
@@ -8,11 +8,36 @@ const LOCATION = "Beijing / Hebei, China";
 // WhatsApp / Facebook
 const WHATSAPP_E164 = "8615633022618"; // digits only: country code + number
 const WHATSAPP_DISPLAY = "+86 156 3302 2618";
+const WHATSAPP_STARTER =
+  "Hello CertiSpares, I have a truck parts RFQ. Brand/model: __. OE/part no: __. Qty: __. Destination: __. Photos available: yes/no.";
 const WHATSAPP_URL =
-  `https://wa.me/${WHATSAPP_E164}?text=Hello%20CertiSpares,%20I%20want%20to%20request%20a%20parts%20quotation.`;
+  `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(WHATSAPP_STARTER)}`;
 
 // Facebook profile/page URL (public)
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61585722976089";
+
+const minimumInputs = [
+  "OE or part number if available",
+  "VIN, vehicle model, or engine/axle application",
+  "Photos, old samples, drawings, or dimensions",
+  "Quantity, destination country or port, and preferred Incoterms",
+  "Packaging, labeling, carton mark, or private label notes",
+];
+
+const rfqTypeGuides = [
+  {
+    title: "OE-number RFQ",
+    text: "Send OE or part numbers, quantity, destination, and any preferred brand or quality level.",
+  },
+  {
+    title: "Photo-only RFQ",
+    text: "Send clear photos from several angles, dimensions, visible marks, vehicle model, and installation position.",
+  },
+  {
+    title: "Mixed-SKU sheet",
+    text: "Send the spreadsheet, old supplier sheet, destination, target quantities, and notes for urgent or unclear lines.",
+  },
+];
 
 const jsonLd = [
   {
@@ -67,11 +92,11 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Send RFQ or Business Inquiry | CertiSpares"
-  description="Send your RFQ with OE numbers, vehicle model, quantities, and destination. Contact CertiSpares for commercial vehicle parts sourcing from China."
+  title="Send a Structured Truck Parts RFQ | CertiSpares"
+  description="Send a structured truck parts RFQ with OE numbers, VIN or vehicle model, photos, quantities, destination, Incoterms, packaging notes, and files."
   keywords={["send RFQ truck parts", "commercial vehicle parts inquiry", "OEM truck parts RFQ", "heavy duty truck parts RFQ", "business inquiry China sourcing"]}
   canonical="/contact/"
-  ogImage="/images/china-industrial-warehouse.jpg"
+  ogImage="/images/china-industrial-warehouse.webp"
   jsonLd={jsonLd}
 >
   <style>
@@ -88,46 +113,7 @@ const jsonLd = [
       background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
     }
 
-    :global(.topbar){
-      background:#111F43 !important;
-      background-color:#111F43 !important;
-      opacity:1 !important;
-      backdrop-filter:none !important;
-      -webkit-backdrop-filter:none !important;
-      border-bottom:1px solid #111F43 !important;
-      box-shadow:none !important;
-    }
-
-    :global(.menu){
-      color:#fff;
-    }
-
-    :global(.menu a){
-      color:#fff;
-    }
-
-    :global(.menu a:hover){
-      color:#fff;
-    }
-
-    :global(.menu a.active){
-      color:#fff;
-      background:rgba(57,87,233,.18);
-      border-color:rgba(57,87,233,.32);
-    }
-
-    :global(.drawerNav a.active){
-      color:#fff;
-      background:rgba(57,87,233,.18);
-      border-color:rgba(57,87,233,.32);
-    }
-
-    :global(.cta){
-      background:#3957E9;
-      color:#fff;
-    }
-
-    .pageHero{
+  .pageHero{
       position:relative;
       padding:46px 0 20px;
       border-bottom:1px solid var(--line);
@@ -139,7 +125,7 @@ const jsonLd = [
         #0b1020;
     }
 
-    .kicker{
+  .kicker{
       letter-spacing:.12em;
       text-transform:uppercase;
       font-size:.8rem;
@@ -148,7 +134,7 @@ const jsonLd = [
       color:rgba(255,255,255,.82);
     }
 
-    .title{
+  .title{
       margin:0 0 .8rem;
       font-size:40px;
       letter-spacing:-.4px;
@@ -156,49 +142,51 @@ const jsonLd = [
       color:#fff;
     }
 
-    .sub{
+  .sub{
       margin:0;
       max-width:78ch;
       color:rgba(225,233,255,.86);
       line-height:1.75;
     }
 
-    /* --- narrow container: FIX width issue --- */
-    .contentWrap{
-      max-width: 1100px;
+  .contentWrap{
+      width:min(var(--container-default), calc(100% - 64px));
       margin: 0 auto;
-      padding: 0 24px;
     }
 
-    .grid{
+  .grid{
       display:grid;
       grid-template-columns: .9fr 1.1fr;
       gap:16px;
       align-items:start;
     }
 
-    .card{
+  .card{
       padding:18px;
-      border-radius:18px;
+      border-radius:var(--radius-card);
       background:#fff;
       border:1px solid rgba(29,42,54,.10);
       box-shadow:0 14px 32px rgba(24,39,56,.05);
     }
 
-    .card h2{ margin:0 0 10px; font-size:18px; letter-spacing:-.2px; color:#1d2a36; }
-    .muted{ color:var(--muted); }
+  .card h2{ margin:0 0 10px; font-size:18px; letter-spacing:-.2px; color:#1d2a36; }
 
-    .infoList{ display:grid; gap:12px; margin-top:14px; }
-    .infoItem{
+  .muted{ color:var(--muted); }
+
+  .infoList{ display:grid; gap:12px; margin-top:14px; }
+
+  .infoItem{
       padding:14px;
       border-radius:16px;
       background:#fff;
       border:1px solid rgba(29,42,54,.10);
     }
-    .infoItem b{ display:block; margin-bottom:6px; color:#1d2a36; }
+
+  .infoItem b{ display:block; margin-bottom:6px; color:#1d2a36; }
 
     form{ display:grid; gap:12px; }
-    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+
+  .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
     label{ display:grid; gap:8px; font-weight:850; color:#1d2a36; }
 
     input, textarea, select{
@@ -219,7 +207,7 @@ const jsonLd = [
       box-shadow:0 0 0 4px rgba(57,87,233,.10);
     }
 
-    .row2 > label{ min-width: 0; }
+  .row2 > label{ min-width: 0; }
 
     textarea{
       min-height:120px;
@@ -231,21 +219,21 @@ const jsonLd = [
       color: rgba(95,109,134,.72);
     }
 
-    .hint{
+  .hint{
       font-size:12px;
       color:var(--muted);
       line-height:1.5;
       margin-top:-6px;
     }
 
-    .btnRow{
+  .btnRow{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       margin-top:6px;
     }
 
-    .note{
+  .note{
       margin-top:12px;
       padding:14px;
       border-radius:16px;
@@ -255,9 +243,74 @@ const jsonLd = [
       line-height:1.7;
       box-shadow:0 16px 40px rgba(24,39,56,.05);
     }
-    .note b{ color:#1d2a36; }
 
-    .linkPill{
+  .note b{ color:#1d2a36; }
+
+  .checkList{
+      margin:10px 0 0;
+      padding-left:18px;
+      display:grid;
+      gap:6px;
+    }
+
+  .checkList li{
+      color:var(--muted);
+      line-height:1.55;
+    }
+
+  .sampleBox{
+      margin-top:12px;
+      padding:14px;
+      border-radius:16px;
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      color:var(--muted);
+      line-height:1.7;
+      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    }
+
+  .sampleBox b{
+      display:block;
+      margin-bottom:6px;
+      color:#1d2a36;
+    }
+
+  .sampleBox p{
+      margin:0;
+      font-size:13px;
+      line-height:1.65;
+    }
+
+  .guideGrid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+
+  .guideCard{
+      padding:12px;
+      border-radius:16px;
+      background:#fff;
+      border:1px solid rgba(29,42,54,.10);
+      box-shadow:0 10px 24px rgba(24,39,56,.04);
+    }
+
+  .guideCard b{
+      display:block;
+      margin-bottom:6px;
+      color:#1d2a36;
+      font-size:13px;
+    }
+
+  .guideCard p{
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.55;
+    }
+
+  .linkPill{
       display:inline-flex;
       gap:8px;
       align-items:center;
@@ -269,40 +322,21 @@ const jsonLd = [
       text-decoration:none;
     }
 
-    .btnRow .btn.primary{
+  .btnRow .btn.primary{
       color:#fff;
       background:#3957E9;
     }
 
-    .btnRow .btn:not(.primary){
+  .btnRow .btn:not(.primary){
       color:#fff;
       background:#3957E9;
       border-color:#3957E9;
-    }
-
-    :global(.footerWrap){
-      background:transparent;
-      border-top:1px solid rgba(29,42,54,.10);
-    }
-
-    :global(.footerTitle),
-    :global(.footerNav strong){
-      color:#1d2a36;
-    }
-
-    :global(.footer),
-    :global(.footerNav span){
-      color:var(--muted);
-    }
-
-    :global(.footerNav a){
-      background:#fff;
-      border-color:rgba(29,42,54,.10);
-    }
-
-    @media (max-width: 980px){
+    }@media (max-width: 980px){
       .grid{ grid-template-columns:1fr; }
-      .row2{ grid-template-columns:1fr; }
+
+  .row2{ grid-template-columns:1fr; }
+
+  .guideGrid{ grid-template-columns:1fr; }
     }
   </style>
 
@@ -310,11 +344,11 @@ const jsonLd = [
     <div class="contentWrap">
       <p class="kicker">CertiSpares / Contact</p>
 
-      <h1 class="title">Send Your Truck Parts RFQ</h1>
+      <h1 class="title">Send a Structured Truck Parts RFQ</h1>
 
       <p class="sub">
-        Send your RFQ with OE or part numbers, vehicle model, quantity, and destination. If available, include photos,
-        part lists, or packaging notes. We usually reply within 24-48 hours with follow-up questions or the next sourcing step.
+        Send your RFQ with OE or part numbers, VIN or vehicle model, photos, quantity, destination, and packing notes.
+        We usually reply within 24-48 hours with follow-up questions or the next workable sourcing step.
       </p>
     </div>
   </header>
@@ -326,8 +360,8 @@ const jsonLd = [
         <div class="card">
           <h2>How to Contact Effectively</h2>
           <p class="muted" style="line-height:1.7;">
-            For the fastest handling, send the key RFQ details first: OE number, vehicle model, quantity, and destination.
-            We usually respond within 24-48 hours. For urgent communication, WhatsApp is faster than email.
+            For the fastest handling, send the key RFQ details first: OE number, VIN or vehicle model, quantity,
+            destination, and photos. We usually respond within 24-48 hours. For urgent clarification, WhatsApp is faster than email.
           </p>
           <p class="muted" style="line-height:1.7;">
             If you want to understand the workflow before sending an inquiry, review <a href="/how-it-works">how the process works</a>. If you are still comparing service scope, see our <a href="/sourcing">truck parts sourcing service</a> and <a href="/capabilities">quality control and sourcing support</a>.
@@ -368,7 +402,29 @@ const jsonLd = [
           </div>
 
           <div class="note">
-            <b>What to send:</b> OE or part numbers, vehicle brand/model, quantity, destination, and any photo, drawing, or packaging requirement you already have.
+            <b>Minimum useful RFQ:</b>
+            <ul class="checkList">
+              {minimumInputs.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="sampleBox">
+            <b>WhatsApp starter</b>
+            <p>{WHATSAPP_STARTER}</p>
+          </div>
+
+          <div class="sampleBox">
+            <b>Which kind of RFQ are you sending?</b>
+            <div class="guideGrid">
+              {rfqTypeGuides.map((item) => (
+                <div class="guideCard">
+                  <b>{item.title}</b>
+                  <p>{item.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -376,7 +432,7 @@ const jsonLd = [
         <div class="card">
           <h2>RFQ Submission Form</h2>
           <p class="muted" style="margin-bottom:14px; line-height:1.7;">
-            Submit the form here if you want us to review the RFQ directly. No account or email client is needed.
+            Submit the form here if you want us to review the RFQ directly. The clearer the inputs, the easier it is to compare suppliers on the same scope.
           </p>
           <p class="muted" style="margin-bottom:14px; line-height:1.7;">
             If you are still validating suppliers or quotations before submitting, start with <a href="/blog/how-to-identify-reliable-auto-parts-suppliers-in-china">our supplier screening guide</a> and <a href="/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers">quotation comparison guide</a>.
@@ -393,7 +449,7 @@ const jsonLd = [
             <!-- Required by Netlify -->
             <input type="hidden" name="form-name" value="rfq" />
 
-            <!-- 鉁?Force redirect after successful submission (most reliable) -->
+            <!-- 闁?Force redirect after successful submission (most reliable) -->
             <input type="hidden" name="redirect" value="https://certispares.com/thank-you/" />
 
             <!-- Honeypot field (hidden from humans, visible to bots) -->
@@ -418,8 +474,34 @@ const jsonLd = [
                 <input name="email" type="email" placeholder="you@company.com" required />
               </label>
               <label>
+                WhatsApp / phone
+                <input name="whatsapp" placeholder="+ country code and number" />
+              </label>
+            </div>
+
+            <div class="row2">
+              <label>
+                Preferred contact
+                <select name="preferredContact">
+                  <option value="Email">Email</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="Either">Either</option>
+                </select>
+              </label>
+              <label>
                 Destination
                 <input name="destination" placeholder="Country / Port (e.g., Mombasa)" />
+              </label>
+            </div>
+
+            <div class="row2">
+              <label>
+                OE / part number references
+                <input name="oeRefs" placeholder="OE, part no., casting mark, supplier code" />
+              </label>
+              <label>
+                VIN / vehicle model / application
+                <input name="vehicleRef" placeholder="VIN, truck model, engine model, axle application" />
               </label>
             </div>
 
@@ -430,21 +512,37 @@ const jsonLd = [
                   <option value="OEM/Part Numbers">OEM/Part Numbers</option>
                   <option value="Photos Only">Photos Only</option>
                   <option value="Mixed">Mixed</option>
+                  <option value="Old Supplier Sheet">Old Supplier Sheet</option>
                 </select>
               </label>
               <label>
                 Target quantity
-                <input name="qty" placeholder="e.g., 500 pcs / 1 pallet" />
+                <input name="qty" placeholder="e.g., 500 pcs / 1 pallet / 1 mixed container" />
+              </label>
+            </div>
+
+            <div class="row2">
+              <label>
+                Preferred Incoterms
+                <select name="incoterms">
+                  <option value="">Not sure yet</option>
+                  <option value="EXW">EXW</option>
+                  <option value="FOB">FOB</option>
+                  <option value="CIF">CIF</option>
+                  <option value="DAP/DDP discussion">DAP / DDP discussion</option>
+                </select>
+              </label>
+              <label>
+                Target market / old supplier reference
+                <input name="referenceMarket" placeholder="e.g., Kenya market / old supplier code / competitor reference" />
               </label>
             </div>
 
             <label>
-              Parts list (OEM/brand/model or description)
+              Parts list and matching notes
               <textarea
                 name="parts"
-                placeholder="Example:
-- OEM: XXXXX, Qty: 200
-- Brake pads for XXX truck model, Qty: 300"
+                placeholder="Example: Brake chamber 3519..., 200 pcs, for HOWO A7. Photos attached. Need neutral packing and FOB Tianjin quotation."
               ></textarea>
             </label>
 
@@ -474,13 +572,13 @@ const jsonLd = [
             <div class="btnRow">
               <button class="btn primary" type="submit">Submit RFQ</button>
               <a class="btn" href="/how-it-works">See Workflow</a>
-              <a class="btn" href="/capabilities">Capabilities</a>
+              <a class="btn" href="/capabilities">View Capabilities</a>
             </div>
 
             <div class="note">
-              <b>Minimum needed:</b> OE or part numbers, vehicle model or photos, quantity, destination port or country.
+              <b>Minimum needed:</b> OE or part numbers if available, VIN or vehicle model, photos or dimensions, quantity, destination port or country.
               <br />
-              <b>Helpful extras:</b> full part list, packaging requirements, target lead time, and any reference supplier data.
+              <b>Helpful extras:</b> full part list, packaging requirements, Incoterms, target lead time, and any old supplier reference data.
             </div>
           </form>
 

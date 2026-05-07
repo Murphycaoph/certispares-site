@@ -1,10 +1,10 @@
-// @ts-check
+﻿// @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://certispares.com", // ✅ 改成你的真实域名
+  site: "https://certispares.com",
   integrations: [
     sitemap({
       filter: (page) => page !== "https://certispares.com/thank-you/",

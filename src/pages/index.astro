@@ -14,58 +14,56 @@ const insights = rawPosts.slice(0, 3).map((p) => ({
   href: `/blog/${p.slug}`,
 }));
 
-const heroImages = [
-  "/images/hero.webp",
-  "/images/hero-02-commercial-fleet.webp",
-  "/images/hero-03-container-port.webp",
-  "/images/hero-04-logistics-truck.webp",
-].map((src, idx) => ({
-  src,
-  ...getImageDimensions(src),
-  loading: idx === 0 ? "eager" : "lazy",
-  fetchpriority: idx === 0 ? "high" : "low",
-}));
+const heroImage = {
+  src: "/images/homepage/homepage-hero-truck.webp",
+  ...getImageDimensions("/images/homepage/homepage-hero-truck.webp"),
+};
 
-const searchThemes = [
+const rfqFlowCards = [
   {
-    title: "Heavy duty truck parts",
-    desc: "Heavy-duty truck parts remain the core RFQ category, supported by structured supplier comparison for B2B aftermarket buyers.",
+    step: "Send RFQ",
+    title: "Share the buying context",
+    desc: "Send part lists, OE numbers, photos, quantities, destination, or vehicle details.",
   },
   {
-    title: "Light-, medium-, and heavy-duty coverage",
-    desc: "We handle RFQ sourcing across light-, medium-, and heavy-duty truck platforms for the commercial vehicle aftermarket.",
+    step: "Clarify",
+    title: "Confirm parts before price",
+    desc: "We check references, fitment notes, specifications, samples, and quotation scope.",
   },
   {
-    title: "Brand-based RFQs",
-    desc: "Common RFQs include Sinotruk HOWO, SHACMAN, Foton, Dongfeng, FAW, JAC, and OEM or part-number-based inquiries.",
+    step: "Compare",
+    title: "Match suppliers to execution",
+    desc: "Options are compared by price, MOQ, lead time, category fit, and risk.",
   },
-];
-
-const popularQueries = [
-  "heavy duty truck parts",
-  "truck spare parts",
-  "aftermarket truck parts",
-  "Sinotruk HOWO parts",
-  "Shacman parts",
-  "Foton truck parts",
+  {
+    step: "Control",
+    title: "Review order checkpoints",
+    desc: "Samples, packing, labels, documents, and QC details are controlled before shipment.",
+  },
+  {
+    step: "Consolidate",
+    title: "Ship a practical order mix",
+    desc: "Mixed SKUs and suppliers are coordinated into repeatable, cost-aware shipments.",
+  },
 ];
 
 const productBrands = [
-  { name: "Foton", image: "/images/brands/foton.png", alt: "Foton logo" },
-  { name: "DFSK", image: "/images/brands/dfsk.png", alt: "DFSK logo" },
-  { name: "Wuling", image: "/images/brands/wuling.png", alt: "Wuling logo" },
-  { name: "JAC", image: "/images/brands/jac.png", alt: "JAC logo" },
-  { name: "Dongfeng", image: "/images/brands/dongfeng.png", alt: "Dongfeng logo" },
-  { name: "JMC", image: "/images/brands/jmc.png", alt: "JMC logo" },
-  { name: "Sinotruk", image: "/images/brands/sinotruk.png", alt: "Sinotruk logo" },
-  { name: "SHACMAN", image: "/images/brands/shacman.png", alt: "Shacman logo" },
-  { name: "FAW", image: "/images/brands/faw.png", alt: "FAW logo" },
+  { name: "Foton", image: "/images/brands/foton.webp", alt: "Foton logo" },
+  { name: "DFSK", image: "/images/brands/dfsk.webp", alt: "DFSK logo" },
+  { name: "Wuling", image: "/images/brands/wuling.webp", alt: "Wuling logo" },
+  { name: "JAC", image: "/images/brands/jac.webp", alt: "JAC logo" },
+  { name: "Dongfeng", image: "/images/brands/dongfeng.webp", alt: "Dongfeng logo" },
+  { name: "JMC", image: "/images/brands/jmc.webp", alt: "JMC logo" },
+  { name: "Sinotruk", image: "/images/brands/sinotruk.webp", alt: "Sinotruk logo" },
+  { name: "SHACMAN", image: "/images/brands/shacman.webp", alt: "Shacman logo" },
+  { name: "FAW", image: "/images/brands/faw.webp", alt: "FAW logo" },
 ];
 
 const strategyCards = [
   {
     title: "Lower landed cost through consolidation",
     desc: "One container can combine multiple required products from multiple suppliers, helping buyers avoid shipping partially optimized orders and reducing the logistics cost carried by each SKU.",
+    image: "/images/homepage/homepage-landed-cost.webp",
     bullets: [
       "Multi-supplier loading into one container",
       "Better freight allocation across the order mix",
@@ -76,6 +74,7 @@ const strategyCards = [
   {
     title: "Faster turnover through balanced SKU sourcing",
     desc: "Instead of buying too deep into one product line just to fill a container, buyers can build a healthier stock mix across fast-moving and supporting items that fit real market demand.",
+    image: "/images/homepage/homepage-turnover.webp",
     bullets: [
       "Less pressure to overstock slow-moving SKUs",
       "Stronger inventory structure with the same budget",
@@ -84,6 +83,43 @@ const strategyCards = [
     href: "/sourcing",
   },
 ];
+
+const storyPanels = [
+  {
+    kicker: "Supplier fit",
+    title: "Start with the right supplier set.",
+    desc: "Category scope, response quality, MOQ, lead time, and execution risk are checked before buyers compare prices.",
+    image: "/images/homepage/homepage-supplier-fit.webp",
+  },
+  {
+    kicker: "Part confirmation",
+    title: "Clarify the part before quoting.",
+    desc: "OE references, VIN or chassis details, dimensions, samples, photos, and platform notes reduce wrong-item risk.",
+    image: "/images/homepage/homepage-part-confirmation.webp",
+  },
+  {
+    kicker: "QC and packing",
+    title: "Control the details buyers remember.",
+    desc: "Sampling, carton labels, packing standards, document review, and pre-shipment checks keep execution visible.",
+    image: "/images/homepage/homepage-qc-packing.webp",
+  },
+  {
+    kicker: "Shipment planning",
+    title: "Build the container around real demand.",
+    desc: "Multi-supplier consolidation protects freight efficiency without forcing buyers to overstock one narrow product line.",
+    image: "/images/homepage/homepage-shipment-planning.webp",
+  },
+];
+
+const insightImages = [
+  "/images/homepage/homepage-landed-cost.webp",
+  "/images/homepage/homepage-part-confirmation.webp",
+  "/images/homepage/homepage-qc-packing.webp",
+];
+
+insights.forEach((item, index) => {
+  item.image = insightImages[index % insightImages.length];
+});
 
 const jsonLd = [
   {
@@ -118,25 +154,25 @@ const jsonLd = [
   description="CertiSpares helps commercial vehicle aftermarket buyers source from China through multi-supplier consolidation, lower landed cost, and more balanced inventory planning."
   keywords={["commercial vehicle parts sourcing China", "heavy duty truck parts", "commercial vehicle aftermarket", "RFQ sourcing", "truck parts from China"]}
   canonical="/"
-  ogImage="/images/hero-01-highway-transport.jpg"
+  ogImage="/images/hero-01-highway-transport.webp"
   jsonLd={jsonLd}
 >
   <link
     slot="head"
     rel="preload"
     as="image"
-    href="/images/hero.webp"
+    href={heroImage.src}
     type="image/webp"
     fetchpriority="high"
   />
 
   <style>
   :root{
-    --bg:#eef3f7;
+    --bg:#F7F9FC;
     --text:#1d2a36;
-    --muted:#5f6d86;
-    --line:rgba(29,42,54,.10);
-    --brand:#3957E9;
+    --muted:#667085;
+    --line:#DFE6E9;
+    --brand:#0A2540;
     --brand2:#3957E9;
   }
 
@@ -145,49 +181,11 @@ const jsonLd = [
       linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
   }
 
-  :global(.topbar){
-    background:#111F43 !important;
-    background-color:#111F43 !important;
-    opacity:1 !important;
-    backdrop-filter:none !important;
-    -webkit-backdrop-filter:none !important;
-    border-bottom:1px solid #111F43 !important;
-    box-shadow:none !important;
-  }
-
-  :global(.menu){
-    color:#fff;
-  }
-
-  :global(.menu a){
-    color:#fff;
-  }
-
-  :global(.menu a:hover){
-    color:#fff;
-  }
-
-  :global(.menu a.active){
-    background:rgba(57,87,233,.18);
-    border-color:rgba(57,87,233,.32);
-    color:#fff;
-  }
-
-  :global(.drawerNav a.active){
-    background:rgba(57,87,233,.18);
-    border-color:rgba(57,87,233,.32);
-    color:#fff;
-  }
-
-  :global(.cta){
-    background:#3957E9;
-    color:#fff;
-  }
-
   .hero{
     position:relative;
     border-bottom:1px solid var(--line);
     overflow:hidden;
+    isolation:isolate;
   }
 
   .heroBg{
@@ -196,6 +194,26 @@ const jsonLd = [
       linear-gradient(180deg, rgba(11,16,32,.45) 0%, rgba(11,16,32,.86) 70%, rgba(11,16,32,1) 100%),
       radial-gradient(900px 420px at 25% 15%, rgba(57,87,233,.35), transparent 60%);
     overflow:hidden;
+  }
+
+  .heroBgImage{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    object-position:70% center;
+    filter:saturate(1.03) contrast(1.04) brightness(.88);
+  }
+
+  .heroBg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(900px 420px at 23% 18%, rgba(57,87,233,.24), transparent 62%),
+      radial-gradient(680px 360px at 56% 50%, rgba(255,255,255,.04), transparent 72%),
+      linear-gradient(90deg, rgba(5,12,26,.94) 0%, rgba(5,12,26,.82) 24%, rgba(5,12,26,.28) 52%, rgba(5,12,26,.48) 74%, rgba(5,12,26,.88) 100%),
+      linear-gradient(180deg, rgba(5,12,26,.14) 0%, rgba(5,12,26,.58) 78%, rgba(5,12,26,.96) 100%);
   }
 
   .heroSlider{
@@ -256,16 +274,31 @@ const jsonLd = [
   }
 
   .heroNav:hover{ background:rgba(17,26,51,.65); }
+
   .heroNav.prev{ left:16px; }
+
   .heroNav.next{ right:16px; }
 
   .heroInner{
     position:relative;
-    padding:78px 0 56px;
+    width:min(1760px, calc(100vw - 64px));
+    margin:0 auto;
+    padding:74px 0 54px;
     display:grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap:18px;
+    grid-template-columns:minmax(480px, 650px) minmax(300px, 360px);
+    justify-content:space-between;
+    gap:clamp(220px, 25vw, 520px);
     align-items:center;
+  }
+
+  .homeHero .container{
+    width:100%;
+    max-width:none;
+  }
+
+  .heroCopy{
+    position:relative;
+    z-index:2;
   }
 
   h1{
@@ -274,6 +307,10 @@ const jsonLd = [
     line-height:1.03;
     letter-spacing:-.6px;
     color:#fff;
+  }
+
+  h1 span{
+    color:#2f6bff;
   }
 
   .sub{
@@ -287,37 +324,116 @@ const jsonLd = [
 
   .heroBtns .btn:not(.primary){
     color:#fff;
+    background:rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.22);
   }
 
   .heroCard{
-    background:rgba(17,26,51,.62);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:18px;
-    box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    justify-self:end;
+    width:min(360px, 100%);
+    background:rgba(7,18,38,.74);
+    border:1px solid rgba(255,255,255,.14);
+    border-left:3px solid rgba(255,255,255,.72);
+    border-radius:8px;
+    padding:22px;
+    box-shadow:0 18px 42px rgba(0,0,0,.28);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
   }
 
   .heroCard h3{ margin:0 0 10px; font-size:16px; letter-spacing:.2px; color:#fff; }
+
   .list{ margin:0; padding:0; list-style:none; display:grid; gap:10px; }
+
   .li{ display:flex; gap:10px; align-items:flex-start; color:rgba(255,255,255,.92); line-height:1.5; }
 
   .dot{
-    width:10px;
-    height:10px;
+    width:18px;
+    height:18px;
     border-radius:999px;
-    margin-top:6px;
-    background:linear-gradient(135deg, var(--brand), var(--brand2));
-    flex:0 0 10px;
+    margin-top:2px;
+    background:#2365ff;
+    flex:0 0 18px;
+    display:inline-grid;
+    place-items:center;
+    box-shadow:0 0 0 4px rgba(35,101,255,.14);
   }
 
-  .more{ display:inline-block; margin-top:10px; font-weight:900; color:rgba(234,240,255,.92); }
+  .dot::after{
+    content:"";
+    width:7px;
+    height:4px;
+    border-left:2px solid #fff;
+    border-bottom:2px solid #fff;
+    transform:rotate(-45deg) translateY(-1px);
+  }
+
+  .more{ display:inline-block; margin-top:10px; font-weight:900; color:var(--brand); }
+
+  .heroCard .more{ color:rgba(255,255,255,.92); }
+
   .more:hover{ color:var(--brand2); }
 
   .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+
   .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
 
-  .sectionTitle{ font-size:28px; margin:0 0 12px; letter-spacing:-.2px; color:#1d2a36; }
+  .flowGrid{
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0, 1fr));
+    gap:14px;
+    position:relative;
+  }
+
+  .flowCard{
+    padding:22px;
+    display:grid;
+    gap:12px;
+    align-content:start;
+    border-left:0;
+    text-align:center;
+  }
+
+  .flowStep{
+    width:50px;
+    height:50px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    justify-self:center;
+    border-radius:999px;
+    background:#2365ff;
+    color:#fff;
+    font-size:13px;
+    font-family:"Work Sans", Arial, sans-serif;
+    font-weight:800;
+    box-shadow:0 12px 24px rgba(35,101,255,.20);
+  }
+
+  .flowCard small{
+    color:#2365ff;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .flowCard b{
+    display:block;
+    font-size:16px;
+    line-height:1.32;
+  }
+
+  .flowCard p{
+    margin:0;
+    line-height:1.62;
+    font-size:14px;
+  }
+
+  .sectionTitle{ font-size:30px; margin:0 0 12px; letter-spacing:-.025em; color:#1d2a36; }
+
   .sectionDesc{ margin:0 0 18px; color:var(--muted); line-height:1.7; max-width:980px; }
+
   .sectionHead{
     display:flex;
     align-items:baseline;
@@ -325,47 +441,60 @@ const jsonLd = [
     flex-wrap:wrap;
     margin-bottom:12px;
   }
+
   .sectionHead .sectionTitle{
     margin:0;
   }
+
   .sectionJump{
-    color:#3957E9;
+    color:var(--brand);
     font-size:14px;
-    font-weight:700;
+    font-weight:800;
     text-decoration:none;
     white-space:nowrap;
   }
+
   .sectionJump:hover{
     text-decoration:underline;
     text-underline-offset:3px;
   }
-  .chipRow{ display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 0; }
-
-  .chip{
-    padding:8px 12px;
-    border-radius:999px;
-    border:1px solid rgba(29,42,54,.10);
-    background:#fff;
-    font-size:12px;
-    font-weight:800;
-    color:#415066;
-  }
 
   .strip{
     margin-top:18px;
+    width:min(980px, calc(100vw - 96px));
     display:grid;
     grid-template-columns: repeat(4,1fr);
     gap:12px;
   }
 
   .kpi{
-    background:rgba(255,255,255,.03);
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+    background:rgba(255,255,255,.045);
     border:1px solid var(--line);
-    border-radius:16px;
+    border-radius:8px;
     padding:14px;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
   }
 
-  .kpi .n{ font-weight:950; font-size:18px; color:#fff; }
+  .kpi .icon{
+    width:30px;
+    height:30px;
+    flex:0 0 30px;
+    display:inline-grid;
+    place-items:center;
+    border-radius:8px;
+    background:#2365ff;
+    color:#fff;
+    font-size:12px;
+    font-weight:900;
+    box-shadow:0 8px 18px rgba(35,101,255,.22);
+  }
+
+  .kpi .n{ font-weight:950; font-size:14px; color:#fff; line-height:1.2; }
+
   .kpi .t{ color:rgba(255,255,255,.88); font-size:12px; margin-top:6px; line-height:1.4; }
 
   .insightsHead{
@@ -377,7 +506,7 @@ const jsonLd = [
     font-weight:900;
     color:#1d2a36;
     padding:8px 10px;
-    border-radius:10px;
+    border-radius:8px;
     border:1px solid rgba(29,42,54,.10);
     background:#fff;
     white-space:nowrap;
@@ -387,6 +516,91 @@ const jsonLd = [
 
   .postCard b{ margin-bottom:8px; font-size:16px; line-height:1.35; }
 
+  .insightsGrid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr)) minmax(300px, .95fr);
+    gap:14px;
+    align-items:stretch;
+  }
+
+  .postCard{
+    overflow:hidden;
+    padding:0;
+  }
+
+  .postCard .postMeta,
+  .postCard b,
+  .postCard p,
+  .postCard .postMore{
+    margin-left:18px;
+    margin-right:18px;
+  }
+
+  .postCard .postMore{
+    margin-bottom:18px;
+  }
+
+  .postImage{
+    display:block;
+    min-height:118px;
+    margin:0 0 16px;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+  }
+
+  .postImage::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(8,14,30,.04), rgba(8,14,30,.28));
+  }
+
+  .rfqPanel{
+    position:relative;
+    overflow:hidden;
+    border-radius:8px;
+    padding:28px;
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    color:#fff;
+    background:#071226;
+    box-shadow:0 18px 42px rgba(10,37,64,.16);
+  }
+
+  .rfqPanel::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(90deg, rgba(7,18,38,.95), rgba(7,18,38,.76)),
+      url("/images/homepage/homepage-cta-port.webp") center/cover;
+    transform:scale(1.02);
+  }
+
+  .rfqPanel h3,
+  .rfqPanel p,
+  .rfqPanel a{
+    position:relative;
+    z-index:1;
+  }
+
+  .rfqPanel h3{
+    margin:0 0 12px;
+    color:#fff;
+    font-size:27px;
+    line-height:1.08;
+  }
+
+  .rfqPanel p{
+    margin:0 0 18px;
+    color:rgba(234,240,255,.84);
+    line-height:1.65;
+  }
+
   .postMeta{
     display:flex; gap:10px; flex-wrap:wrap; align-items:center;
     font-size:12px; color:#6d7b91;
@@ -395,7 +609,7 @@ const jsonLd = [
 
   .postTag{
     padding:.18rem .55rem;
-    border-radius:999px;
+    border-radius:8px;
     border:1px solid rgba(74,84,98,.16);
     background:rgba(74,84,98,.08);
     font-weight:800;
@@ -415,7 +629,7 @@ const jsonLd = [
   .card{
     background:#fff;
     border:1px solid rgba(29,42,54,.10);
-    box-shadow:0 14px 32px rgba(24,39,56,.05);
+    box-shadow:0 8px 20px rgba(10,37,64,.04);
   }
 
   .card b{
@@ -435,6 +649,39 @@ const jsonLd = [
   .strategyCard{
     display:flex;
     flex-direction:column;
+    gap:14px;
+    overflow:hidden;
+    padding:0;
+  }
+
+  .strategyMedia{
+    position:relative;
+    min-height:132px;
+    max-height:150px;
+    overflow:hidden;
+    background:#0b1020;
+  }
+
+  .strategyMedia img{
+    width:100%;
+    height:100%;
+    min-height:132px;
+    max-height:150px;
+    object-fit:cover;
+    display:block;
+    filter:saturate(1.02) contrast(1.02);
+  }
+
+  .strategyMedia::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(8,14,30,.04), rgba(8,14,30,.40));
+  }
+
+  .strategyBody{
+    padding:18px;
+    display:grid;
     gap:14px;
   }
 
@@ -470,10 +717,10 @@ const jsonLd = [
   .productBand{
     position:relative;
     overflow:hidden;
-    border-radius:20px;
+    border-radius:8px;
     border:1px solid rgba(29,42,54,.10);
-    background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(246,249,253,.98) 100%);
-    box-shadow:0 14px 32px rgba(24,39,56,.05);
+    background:#fff;
+    box-shadow:0 8px 20px rgba(10,37,64,.04);
     padding:18px 0;
   }
 
@@ -521,7 +768,7 @@ const jsonLd = [
     width:144px;
     height:88px;
     padding:12px;
-    border-radius:20px;
+    border-radius:8px;
     background:linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
     border:1px solid rgba(29,42,54,.08);
     box-shadow:0 10px 24px rgba(24,39,56,.06);
@@ -549,7 +796,7 @@ const jsonLd = [
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:16px;
+    border-radius:8px;
     background:rgba(255,255,255,.72);
     backdrop-filter:blur(4px);
   }
@@ -564,6 +811,81 @@ const jsonLd = [
     filter:saturate(.92) contrast(1.04);
   }
 
+  .storyGrid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:14px;
+  }
+
+  .storyPanel{
+    position:relative;
+    min-height:260px;
+    max-height:300px;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+    border-radius:var(--radius-card);
+    border:1px solid rgba(29,42,54,.10);
+    background:#0b1020;
+    box-shadow:0 8px 24px rgba(10,37,64,.08);
+  }
+
+  .storyPanel img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    filter:saturate(1.04) contrast(1.02);
+    transform:scale(1.02);
+  }
+
+  .storyPanel::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, rgba(8,14,30,.08) 0%, rgba(8,14,30,.58) 54%, rgba(8,14,30,.92) 100%),
+      radial-gradient(760px 320px at 18% 20%, rgba(57,87,233,.20), transparent 60%);
+  }
+
+  .storyCopy{
+    position:relative;
+    z-index:1;
+    padding:18px;
+    max-width:560px;
+  }
+
+  .storyKicker{
+    display:inline-flex;
+    margin:0 0 10px;
+    padding:6px 10px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(17,26,51,.52);
+    color:rgba(255,255,255,.92);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  .storyCopy h3{
+    margin:0 0 10px;
+    color:#fff;
+    font-size:20px;
+    line-height:1.18;
+    letter-spacing:-.2px;
+  }
+
+  .storyCopy p{
+    margin:0;
+    color:rgba(234,240,255,.84);
+    line-height:1.6;
+    font-size:14px;
+  }
+
   @keyframes marqueeRight{
     from{ transform:translateX(-50%); }
     to{ transform:translateX(0); }
@@ -574,78 +896,81 @@ const jsonLd = [
     42%, 100%{ transform:translateX(140%); }
   }
 
-  :global(.footerWrap){
-    background:transparent;
-    border-top:1px solid rgba(29,42,54,.10);
-  }
-
-  :global(.footerTitle),
-  :global(.footerNav strong){
-    color:#1d2a36;
-  }
-
-  :global(.footer),
-  :global(.footerNav span){
-    color:#5f6d86;
-  }
-
-  :global(.footerNav a){
-    background:#fff;
-    border-color:rgba(29,42,54,.10);
-  }
-
   .postMore:hover{ color:#4A5462; }
 
   @media (max-width: 980px){
-    .heroInner{ grid-template-columns:1fr; padding:60px 0 46px; }
+    .heroInner{
+      width:min(calc(100% - 32px), var(--container-default));
+      grid-template-columns:1fr;
+      gap:18px;
+      padding:60px 0 46px;
+    }
     h1{ font-size:40px; }
-    .grid3{ grid-template-columns:1fr; }
-    .grid2{ grid-template-columns:1fr; }
-    .strategyGrid{ grid-template-columns:1fr; }
-    .strip{ grid-template-columns:1fr 1fr; }
-    .insightsHead{ align-items:flex-start; }
-    .heroNav{ width:38px; height:38px; border-radius:12px; }
-    .heroNav.prev{ left:10px; }
-    .heroNav.next{ right:10px; }
+
+  .grid3{ grid-template-columns:1fr; }
+
+  .grid2{ grid-template-columns:1fr; }
+
+  .flowGrid{ grid-template-columns:1fr; }
+
+  .insightsGrid{ grid-template-columns:1fr; }
+
+  .strategyGrid{ grid-template-columns:1fr; }
+
+  .storyGrid{ grid-template-columns:1fr; }
+
+  .storyPanel{
+    min-height:230px;
+    max-height:none;
+  }
+
+  .strategyMedia,
+  .strategyMedia img{
+    min-height:120px;
+    max-height:130px;
+  }
+
+  .strip{
+    width:100%;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .insightsHead{ align-items:flex-start; }
+
+  .heroNav{ width:38px; height:38px; border-radius:12px; }
+
+  .heroNav.prev{ left:10px; }
+
+  .heroNav.next{ right:10px; }
   }
 
   @media (prefers-reduced-motion: reduce){
     .heroSlide{ transition:none; }
-    .logoTrack{ animation:none; }
+
+  .logoTrack{ animation:none; }
   }
   </style>
 
-  <header class="hero">
+  <header class="hero homeHero">
       <div class="heroBg">
-        <div class="heroSlider" id="heroSlider" aria-label="Hero images">
-        {heroImages.map((image, idx) => (
-          <div
-            class={`heroSlide ${idx === 0 ? "is-active" : ""}`}
-            aria-hidden={idx === 0 ? "false" : "true"}
-          >
-            <img
-              src={image.src}
-              alt=""
-              width={image.width}
-              height={image.height}
-              loading={image.loading}
-              fetchpriority={image.fetchpriority}
-              decoding="async"
-            />
-          </div>
-        ))}
-
-        <button class="heroNav prev" type="button" aria-label="Previous image">&larr;</button>
-        <button class="heroNav next" type="button" aria-label="Next image">&rarr;</button>
-      </div>
+        <img
+          class="heroBgImage"
+          src={heroImage.src}
+          alt=""
+          width={heroImage.width}
+          height={heroImage.height}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
     </div>
 
     <div class="container">
       <div class="heroInner">
-        <div>
-          <h1>Commercial Vehicle Parts Sourcing from China</h1>
+        <div class="heroCopy">
+          <h1>Commercial Vehicle Parts Sourcing from China, <span>Simplified.</span></h1>
           <p class="sub">
-            CertiSpares helps commercial vehicle aftermarket buyers source from China through multi-supplier consolidation, lower landed cost, and more balanced inventory planning. Combine multiple products from different suppliers into one optimized container and build a healthier order mix for repeat business.
+            CertiSpares helps aftermarket buyers source commercial vehicle parts from China through supplier comparison, QC checkpoints, and multi-supplier container consolidation.
           </p>
 
           <div class="heroBtns">
@@ -654,22 +979,23 @@ const jsonLd = [
           </div>
 
           <div class="strip">
-            <div class="kpi"><div class="n">Cost</div><div class="t">Multi-supplier consolidation to lower landed cost per order</div></div>
-            <div class="kpi"><div class="n">Mix</div><div class="t">Balanced multi-SKU sourcing aligned with real replenishment demand</div></div>
-            <div class="kpi"><div class="n">QC</div><div class="t">Sampling &middot; Packing check &middot; Loading supervision</div></div>
-            <div class="kpi"><div class="n">Control</div><div class="t">Supplier comparison, document accuracy, and shipment traceability</div></div>
+            <div class="kpi"><div class="icon">C</div><div><div class="n">Cost Advantage</div><div class="t">Multi-supplier consolidation to reduce landed cost.</div></div></div>
+            <div class="kpi"><div class="icon">M</div><div><div class="n">Wide Selection</div><div class="t">Truck, trailer, bus, and light commercial vehicle parts.</div></div></div>
+            <div class="kpi"><div class="icon">Q</div><div><div class="n">Quality Assurance</div><div class="t">Sampling, packing checks, and loading supervision.</div></div></div>
+            <div class="kpi"><div class="icon">D</div><div><div class="n">Reliable Delivery</div><div class="t">Shipment coordination across suppliers and SKUs.</div></div></div>
           </div>
         </div>
 
         <aside class="heroCard">
-          <h3>Why Buyers Use This Model</h3>
+          <h3>Why Buyers Choose CertiSpares</h3>
           <ul class="list">
-            <li class="li"><span class="dot"></span><span>One order can combine multiple needed SKUs from multiple suppliers in one container.</span></li>
-            <li class="li"><span class="dot"></span><span>Buyers avoid filling containers by overbuying a narrow product line.</span></li>
-            <li class="li"><span class="dot"></span><span>The result is lower logistics cost, better stock structure, and cleaner reorder planning.</span></li>
-            <li class="li"><span class="dot"></span><span>QC checkpoints and shipment coordination keep the model practical, not theoretical.</span></li>
+            <li class="li"><span class="dot"></span><span>One-to-one RFQ support from inquiry to shipment.</span></li>
+            <li class="li"><span class="dot"></span><span>Supplier comparison across verified China networks.</span></li>
+            <li class="li"><span class="dot"></span><span>Mixed SKU and multi-supplier container consolidation.</span></li>
+            <li class="li"><span class="dot"></span><span>QC checkpoints, packing checks, and loading coordination.</span></li>
+            <li class="li"><span class="dot"></span><span>Clear communication before price, production, and delivery.</span></li>
           </ul>
-          <a class="more" href="/sourcing">See the sourcing strategy &rarr;</a>
+          <a class="more" href="/sourcing">View Sourcing Strategy &rarr;</a>
         </aside>
       </div>
     </div>
@@ -677,7 +1003,7 @@ const jsonLd = [
 
   <section class="section">
     <div class="container">
-      <h2 class="sectionTitle">Brands We Support</h2>
+      <h2 class="sectionTitle">Brands and Platforms We Support</h2>
       <p class="sectionDesc">
         We support sourcing across mainstream commercial vehicle brands and the aftermarket parts demand linked to those platforms.
       </p>
@@ -700,6 +1026,30 @@ const jsonLd = [
   <section class="section">
     <div class="container">
       <div class="sectionHead">
+        <h2 class="sectionTitle">What We Check Before a Quote Becomes Useful</h2>
+        <a class="sectionJump" href="/capabilities">View Capabilities &rarr;</a>
+      </div>
+      <p class="sectionDesc">
+        A useful quote starts before the price line. Buyers need the right part interpretation, supplier scope, shipment plan, and reorder logic before a China sourcing offer becomes commercially usable.
+      </p>
+      <div class="storyGrid">
+        {storyPanels.map((panel) => (
+          <article class="storyPanel">
+            <img src={panel.image} alt="" loading="lazy" decoding="async" />
+            <div class="storyCopy">
+              <p class="storyKicker">{panel.kicker}</p>
+              <h3>{panel.title}</h3>
+              <p>{panel.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sectionHead">
         <h2 class="sectionTitle">How You Save Cost and Improve Turnover</h2>
         <a class="sectionJump" href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">Detailed explanation &rarr;</a>
       </div>
@@ -712,16 +1062,21 @@ const jsonLd = [
       <div class="strategyGrid">
         {strategyCards.map((item) => (
           <div class="card strategyCard">
-            <div>
-              <b>{item.title}</b>
-              <p>{item.desc}</p>
+            <div class="strategyMedia">
+              <img src={item.image} alt="" loading="lazy" decoding="async" />
             </div>
-            <ul class="strategyList">
-              {item.bullets.map((bullet) => (
-                <li class="strategyItem"><span class="strategyDot"></span><span>{bullet}</span></li>
-              ))}
-            </ul>
-            <a class="more" href={item.href}>View the strategy page &rarr;</a>
+            <div class="strategyBody">
+              <div>
+                <b>{item.title}</b>
+                <p>{item.desc}</p>
+              </div>
+              <ul class="strategyList">
+                {item.bullets.map((bullet) => (
+                  <li class="strategyItem"><span class="strategyDot"></span><span>{bullet}</span></li>
+                ))}
+              </ul>
+              <a class="more" href={item.href}>View Sourcing Strategy &rarr;</a>
+            </div>
           </div>
         ))}
       </div>
@@ -730,53 +1085,26 @@ const jsonLd = [
 
   <section class="section">
     <div class="container">
-      <h2 class="sectionTitle">What We Do</h2>
+      <div class="sectionHead">
+        <h2 class="sectionTitle">How It Works</h2>
+        <a class="sectionJump" href="/how-it-works">See full workflow &rarr;</a>
+      </div>
       <p class="sectionDesc">
-        We support B2B buyers in the commercial vehicle aftermarket with RFQ sourcing anchored in heavy-duty truck parts,
-        while covering light-, medium-, and heavy-duty truck platforms where broader sourcing is needed.
+        CertiSpares is built around the work that happens after a buyer sends a parts list: clarification, supplier comparison, order control, and mixed-shipment coordination.
       </p>
-      <div class="grid3">
-        {searchThemes.map((item) => (
-          <div class="card"><b>{item.title}</b><p>{item.desc}</p></div>
+      <div class="flowGrid">
+        {rfqFlowCards.map((item, index) => (
+          <article class="card flowCard">
+            <span class="flowStep">{index + 1}</span>
+            <small>{item.step}</small>
+            <b>{item.title}</b>
+            <p>{item.desc}</p>
+          </article>
         ))}
       </div>
-      <div class="chipRow" aria-label="Popular search phrases">
-        {popularQueries.map((query) => (
-          <span class="chip">{query}</span>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">Why Choose Us</h2>
       <p class="sectionDesc">
-        From supplier comparison to QC checkpoints and export coordination, we make commercial vehicle aftermarket sourcing
-        more structured for importers, distributors, wholesalers, and fleet maintenance buyers.
+        The best first message is practical rather than polished. If you have an OE number, VIN or chassis reference, truck brand and model, part photos, quantity, destination, Incoterms, or packing requirements, send them together. Those details help us confirm fitment and quotation scope before price negotiation starts.
       </p>
-      <p class="sectionDesc">
-        For a deeper look at inspection scope, document checks, and execution control, see our <a href="/capabilities">sourcing support capabilities</a>.
-      </p>
-      <div class="grid3">
-        <div class="card"><b>RFQ sourcing</b><p>Multiple supplier options with price, lead time, and sourcing risk comparison.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-        <div class="card"><b>Quality control</b><p>Sampling, packaging verification, loading supervision, and photo or video checkpoints.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-        <div class="card"><b>Consolidation and shipping</b><p>Consolidation planning, document control, and shipping coordination designed to lower landed cost and support a healthier inventory structure.</p><a class="more" href="/capabilities">Learn more &rarr;</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">How It Works</h2>
-      <p class="sectionDesc">
-        Our workflow is built for B2B truck parts sourcing, from RFQ intake to supplier comparison, QC checkpoints,
-        and shipment coordination for repeat aftermarket orders.
-      </p>
-      <div class="grid2">
-        <div class="card"><b>Step 1-2</b><p>Share the RFQ, then receive supplier comparison across the right truck platform and part scope.</p><a class="more" href="/how-it-works">Learn more &rarr;</a></div>
-        <div class="card"><b>Step 3-4</b><p>Confirm the order with QC checkpoints, then move into consolidation, documents, and shipping with a focus on lower landed cost and better inventory balance.</p><a class="more" href="/how-it-works">Learn more &rarr;</a></div>
-      </div>
     </div>
   </section>
 
@@ -795,9 +1123,10 @@ const jsonLd = [
         <a class="viewAll" href="/blog">View all &rarr;</a>
       </div>
 
-      <div class="grid3">
+      <div class="insightsGrid">
         {insights.map((p) => (
           <a class="card postCard" href={p.href}>
+            <span class="postImage" style={`background-image:url('${p.image}')`}></span>
             <div class="postMeta">
               <span class="postTag">{p.tag}</span>
             </div>
@@ -806,66 +1135,14 @@ const jsonLd = [
             <span class="postMore">Read &rarr;</span>
           </a>
         ))}
+        <aside class="rfqPanel">
+          <h3>Ready to Source Smarter?</h3>
+          <p>
+            Send your RFQ with OE numbers, photos, quantities, or vehicle details. We will help clarify the part, compare supplier options, and suggest a practical shipment plan.
+          </p>
+          <a class="btn secondary" href="/contact">Send Your RFQ Now &rarr;</a>
+        </aside>
       </div>
     </div>
   </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="sectionTitle">Send Your RFQ</h2>
-      <p class="sectionDesc">
-        Send us your RFQ with OEM numbers, part numbers, vehicle brand and model, or photos.
-        We will reply with supplier comparison, lead time, and sourcing suggestions for your truck parts order.
-      </p>
-      <div class="grid3">
-        <div class="card"><b>Email</b><p>murphy@certispares.com</p><a class="more" href="/contact">Learn more &rarr;</a></div>
-        <div class="card"><b>WhatsApp</b><p>+86 156 3302 2618</p><a class="more" href="/contact">Learn more &rarr;</a></div>
-        <div class="card"><b>Location</b><p>Beijing / Hebei, China</p><a class="more" href="/contact">Learn more &rarr;</a></div>
-      </div>
-    </div>
-  </section>
-
-  <script is:inline>
-    (() => {
-      const root = document.getElementById("heroSlider");
-      if (!root) return;
-
-      const slides = Array.from(root.querySelectorAll(".heroSlide"));
-      const prev = root.querySelector(".heroNav.prev");
-      const next = root.querySelector(".heroNav.next");
-      if (slides.length <= 1) return;
-
-      let i = 0;
-
-      const set = (n) => {
-        slides[i].classList.remove("is-active");
-        slides[i].setAttribute("aria-hidden", "true");
-
-        i = (n + slides.length) % slides.length;
-
-        slides[i].classList.add("is-active");
-        slides[i].setAttribute("aria-hidden", "false");
-      };
-
-      const goPrev = () => set(i - 1);
-      const goNext = () => set(i + 1);
-
-      prev && prev.addEventListener("click", goPrev);
-      next && next.addEventListener("click", goNext);
-
-      let timer = setInterval(goNext, 6000);
-
-      root.addEventListener("mouseenter", () => { clearInterval(timer); });
-      root.addEventListener("mouseleave", () => { timer = setInterval(goNext, 6000); });
-
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          clearInterval(timer);
-        } else {
-          clearInterval(timer);
-          timer = setInterval(goNext, 6000);
-        }
-      });
-    })();
-  </script>
 </BaseLayout>
