@@ -30,6 +30,8 @@ The site should sell the sourcing workflow, not pretend to own an exhaustive par
 
 The next phase should formalize the logic already visible on the live site. Do not redesign the business model from scratch.
 
+For the current page-by-page visual rebuild approach, use `docs/page-rebuild-design-logic-2026-05-08.md`. That document defines how to turn text-heavy pages into image-rich, interactive, RFQ-oriented pages while preserving the strategic rules in this context file.
+
 The main task is to make the RFQ-first architecture clearer, more indexable, and more conversion-oriented by standardizing:
 
 - public paths
@@ -212,6 +214,7 @@ The deep research should be converted into execution documents under an appropri
 | `fitment-disclaimer-policy.md` | Define fitment disclaimers and exact-fit limits by page type |
 | `certispares-blog-clusters.md` | Define topic clusters, link targets, and article priorities |
 | `certispares-internal-linking-plan.md` | Define home-hub-leaf-RFQ and blog-to-landing-page linking |
+| `docs/page-rebuild-design-logic-2026-05-08.md` | Define the current page-by-page visual rebuild method for reducing text density, adding images, interaction, and clearer RFQ paths |
 
 ## Acceptance Criteria
 
