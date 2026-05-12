@@ -1,144 +1,172 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getImageDimensions } from "../lib/imageDimensions";
 
-/**
- * 濞达絿濮烽獮鍥捶?images 闁烩晩鍠栫紞宥夋煂鐏炵偓绠掗弶鈺傜懁缁ㄦ椽宕堕幘鍛獥
- * - logistics-container-export-port.jpg
- * - factory-quality-inspection-metal-parts.jpeg
- * - shipping-documents-export-paperwork.jpg
- *
- * 濞戞挸顑夊浼村箣閹存粍绮﹂柣顫妺缁椾礁顕ｉ悩韫驳 Capabilities 濡炪倗鏁稿▓鎴炵▔婢跺簼绮撻柛銉︽嫕缁辨瑩鐛懜闈涚瑩闁挎稑顦埀?
- */
+const CONTACT_EMAIL = "murphy@certispares.com";
+const WHATSAPP_E164 = "8615633022618";
+const WHATSAPP_DISPLAY = "+86 156 3302 2618";
+const starterMessage = `Hello CertiSpares, I want to check if my truck parts RFQ fits your capability model.
 
-const heroCards = [
+Photos / OE numbers / list available:
+Truck brand or model:
+Quantity:
+Destination:
+Main concern: scope / supplier comparison / QC / documents / shipment`;
+
+const whatsappUrl = `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(starterMessage)}`;
+const emailUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Truck parts RFQ capability review")}&body=${encodeURIComponent(starterMessage)}`;
+
+const icons = {
+  target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+  file: '<svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5Z"/><path d="M15 3v5h5"/><path d="M8 13h8M8 17h6"/></svg>',
+  eye: '<svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  scope: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/><path d="M7 12h2M15 12h2"/></svg>',
+  users: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M2 21v-2a4 4 0 0 1 3-3.87"/></svg>',
+  qc: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>',
+  label: '<svg viewBox="0 0 24 24"><path d="M4 7V4h3"/><path d="M17 4h3v3"/><path d="M20 17v3h-3"/><path d="M7 20H4v-3"/><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 11h6M9 14h4"/></svg>',
+  document: '<svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6Z"/><path d="M15 3v4h4"/><path d="m9 14 2 2 4-5"/><path d="M9 9h5"/></svg>',
+  logistics: '<svg viewBox="0 0 24 24"><path d="M3 7h11v10H3Z"/><path d="M14 11h4l3 3v3h-7Z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M6 10h5"/></svg>',
+  box: '<svg viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>',
+  gears: '<svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="16" r="3"/><path d="M8 2v3M8 11v3M2 8h3M11 8h3M16 10v3M16 19v3M10 16h3M19 16h3"/></svg>',
+  container: '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 7v10M11 7v10M15 7v10"/><path d="M5 20h14"/></svg>',
+  note: '<svg viewBox="0 0 24 24"><path d="M5 3h14v18H5Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+  chat: '<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.4-4A8 8 0 1 1 21 12Z"/></svg>',
+  factory: '<svg viewBox="0 0 24 24"><path d="M3 21V9l6 4V9l6 4V5h6v16Z"/><path d="M7 17h2M12 17h2M17 17h2"/><path d="m4 4 16 16"/></svg>',
+  shield: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>',
+  list: '<svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+  whatsapp: '<svg viewBox="0 0 24 24"><path d="M20 11.8a8 8 0 0 1-11.7 7.1L4 20l1.2-4.1A8 8 0 1 1 20 11.8Z"/><path d="M9.2 8.3c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.4.5c-.1.2-.1.3 0 .5.4.8 1.1 1.5 2 2 .2.1.3.1.5-.1l.6-.7c.2-.2.4-.2.7-.1l1.7.8c.3.1.5.3.5.6 0 .5-.3 1.2-.7 1.5-.5.4-1.7.5-3.3-.2-2.7-1.2-4.5-3.8-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.1.7-1.8 1-2Z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+};
+
+const controlAreas = [
+  { title: "RFQ Scope Review", text: "Check fitment, OE reference, photo, and category scope.", icon: "scope" },
+  { title: "Supplier Comparison", text: "Compare supplier fit, MOQ, lead time, price, and risk.", icon: "users" },
+  { title: "QC Checkpoints", text: "Sampling, appearance, quantity, labels, and photo evidence.", icon: "qc" },
+  { title: "Packing & Label Control", text: "Verify packing methods, labels, carton marks, and protection.", icon: "label" },
+  { title: "Document Consistency", text: "Keep PI, CI, PL, labels, and carton marks consistent.", icon: "document" },
+  { title: "Consolidation & Logistics", text: "Plan container loading, export shipping, and delivery follow-up.", icon: "logistics" },
+];
+
+const overviewCards = [
   {
-    img: "/images/logistics-container-export-port.webp",
-    tag: "Coverage scope",
-    title: "Full truck segment coverage",
-    desc: "Sourcing support across light-, medium-, and heavy-duty trucks, with deeper experience in heavy-duty platforms.",
+    title: "Application-Based Coverage",
+    text: "Light-, medium-, and heavy-duty truck RFQs are reviewed through platform, OE reference, part photo, and category fit.",
+    icon: "target",
   },
   {
-    img: "/images/factory-quality-inspection-metal-parts.webp",
-    tag: "Structured sourcing",
-    title: "Supplier comparison before order release",
-    desc: "Supplier options are screened and compared on fitment, lead time, MOQ, and execution risk before quotation is finalized.",
+    title: "Quote Basis Before Decision",
+    text: "Supplier comparison, MOQ, lead time, packing basis, and replacement risk are organized before buyer commitment.",
+    icon: "file",
   },
   {
-    img: "/images/shipping-documents-export-paperwork.webp",
-    tag: "Operational control",
-    title: "QC, paperwork, and shipment coordination",
-    desc: "Inspection checkpoints, document review, and consolidation planning are built into the order workflow.",
+    title: "Visible Execution After Selection",
+    text: "Inspection checkpoints, document control, consolidation planning, and logistics follow-up stay connected after supplier selection.",
+    icon: "eye",
   },
-].map((item) => ({
-  ...item,
-  ...getImageDimensions(item.img),
-}));
+];
 
-const groups = [
+const capabilityCards = [
   {
+    n: "01",
     title: "Coverage Scope",
-    badge: "Core",
-    items: [
-      { t: "Truck segment coverage", p: "We support RFQs across light-, medium-, and heavy-duty truck applications in the commercial vehicle aftermarket." },
-      { t: "Heavy-duty depth", p: "Heavy-duty truck parts remain the strongest category, especially for repeat RFQs, mixed-SKU orders, and platform-based sourcing." },
-      { t: "Application-based matching", p: "Coverage is handled by OE reference, vehicle model, part number, and application logic instead of broad product labels alone." },
-    ],
+    icon: "logistics",
+    check: "Truck segment, platform, OE reference, part photo, and category fit.",
+    use: "Light-, medium-, and heavy-duty truck RFQs with stronger depth in heavy-duty platforms.",
+    output: "Clear coverage confirmation before supplier outreach.",
   },
   {
+    n: "02",
     title: "Product Range",
-    badge: "Core",
-    items: [
-      { t: "Engine and drivetrain", p: "Coverage includes engine components, clutch and transmission-related parts, and other drivetrain RFQs tied to specific vehicle platforms." },
-      { t: "Chassis and suspension", p: "We regularly handle chassis, steering, axle, brake, and suspension categories for commercial vehicle aftermarket demand." },
-      { t: "Wear parts and mixed orders", p: "Fast-moving service parts, maintenance items, and mixed-SKU consolidation orders can be combined into one sourcing workflow." },
-    ],
+    icon: "gears",
+    check: "Engine, drivetrain, chassis, steering, axle, brake, suspension, wear parts, and mixed items.",
+    use: "Mixed-SKU replenishment and platform-based aftermarket sourcing.",
+    output: "Category organization and item-level scope map.",
   },
   {
+    n: "03",
     title: "Supplier Network",
-    badge: "Core",
-    items: [
-      { t: "Northern China clusters", p: "Supplier sourcing is supported by access to Northern China manufacturing clusters relevant to heavy-duty and commercial vehicle parts." },
-      { t: "Structured supplier screening", p: "Factories are compared on category fit, production feasibility, delivery consistency, and documentation responsiveness." },
-      { t: "Comparison before recommendation", p: "Quotes are normalized and reviewed against sourcing risk, not simply passed through from the first available supplier." },
-    ],
+    icon: "users",
+    check: "Supplier type, category fit, production feasibility, delivery consistency, and document responsiveness.",
+    use: "Avoiding first-available supplier decisions.",
+    output: "Shortlisted supplier options with comparison notes.",
   },
   {
+    n: "04",
     title: "Quality Control",
-    badge: "Core",
-    items: [
-      { t: "Inspection checkpoints", p: "QC scope is defined by product type and order risk, including sampling, appearance checks, quantity checks, and packing review before shipment." },
-      { t: "Packaging and labeling verification", p: "Carton marks, labels, barcode rules, palletization, and protection methods are checked before cargo release." },
-      { t: "Document consistency control", p: "PI, CI, PL, and packing details are cross-checked to reduce mismatches between goods, labels, and export paperwork." },
-    ],
+    icon: "qc",
+    check: "Sampling, appearance, quantity, function, labels, carton marks, and photo evidence.",
+    use: "Reducing avoidable mismatch before shipment.",
+    output: "QC photos, check reports, and pre-release confirmation.",
   },
   {
+    n: "05",
+    title: "Document Control",
+    icon: "document",
+    check: "PI, invoice, packing list, item names, quantities, carton marks, and consignee details.",
+    use: "Keeping goods, labels, and export paperwork consistent.",
+    output: "Document cross-check and consistency confirmation.",
+  },
+  {
+    n: "06",
     title: "Consolidation & Logistics",
-    badge: "Core",
-    items: [
-      { t: "Consolidation planning", p: "Orders from multiple suppliers can be combined under a clearer loading, packing, and dispatch plan that helps reduce landed cost across the full SKU basket." },
-      { t: "Export execution", p: "Shipment booking support, document coordination, and milestone follow-up keep delivery more predictable." },
-      { t: "Operational visibility", p: "Packing status, shipment readiness, and document progress are tracked so buyers can see how the order is shaping a better inventory structure before dispatch." },
-    ],
+    icon: "container",
+    check: "Multi-supplier cargo, loading plan, dispatch milestones, shipment readiness, and delivery follow-up.",
+    use: "Supporting lower landed cost and cleaner mixed-SKU shipments.",
+    output: "Consolidation plan and shipment status updates.",
   },
 ];
 
-const strategyBlocks = [
-  {
-    title: "Reduce shipping cost through container consolidation",
-    desc: "Our sourcing model helps buyers combine multiple required products from multiple suppliers into one container, so freight, loading, and export execution support a lower landed cost outcome instead of staying as a separate operational task.",
-    points: [
-      "More complete container utilization across mixed supplier orders",
-      "Less need to ship fragmented factory orders separately",
-      "Better freight efficiency across the total SKU basket",
-    ],
-  },
-  {
-    title: "Improve inventory turnover through balanced multi-SKU sourcing",
-    desc: "We help buyers build a healthier order mix instead of overbuying a narrow product range just to fill a container. That supports faster stock movement, cleaner replenishment logic, and better cash-flow use.",
-    points: [
-      "Less pressure to overstock slower-moving items",
-      "Stronger inventory structure within the same purchasing budget",
-      "Better conditions for repeat orders when quality and supply stay stable",
-    ],
-  },
+const outputCards = [
+  { title: "Coverage Confirmation", text: "Which platform, OE reference, product detail, or visible feature is being used before supplier outreach.", icon: "target" },
+  { title: "Supplier Comparison Notes", text: "Capability, lead time, MOQ, price level, packing basis, and execution notes.", icon: "users" },
+  { title: "Quotation Clarification Notes", text: "Open questions, replacement risks, unclear references, and assumptions to confirm.", icon: "chat" },
+  { title: "QC & Packing Checkpoints", text: "Photo evidence, quantity check, label / carton mark confirmation, and packing review.", icon: "qc" },
+  { title: "Document Consistency Check", text: "PI, invoice, packing list, item names, quantities, carton marks, and consignee details.", icon: "document" },
+  { title: "Consolidation & Shipment Status", text: "Loading plan visibility, export progress, and delivery follow-up through shipment milestones.", icon: "logistics" },
 ];
 
-const deliverables = [
-  { t: "Coverage confirmation", p: "Which truck platform, part scope, OE reference, or visible product details are being used before supplier outreach." },
-  { t: "Supplier comparison sheet", p: "Supplier options compared by capability, lead time, MOQ, price level, packing basis, and execution notes." },
-  { t: "Quotation clarification notes", p: "Open questions, replacement risks, unclear OE references, and assumptions that should be confirmed before order release." },
-  { t: "QC and packing checkpoints", p: "Photo evidence, quantity checks, label or carton mark confirmation, and packing review tied to the order." },
-  { t: "Document consistency check", p: "PI, invoice, packing list, carton marks, item names, and quantities reviewed for avoidable mismatches." },
-  { t: "Consolidation and shipment status", p: "Loading plan visibility, export progress, and delivery follow-up through shipment milestones." },
+const handoffs = [
+  {
+    n: "01",
+    stage: "Before Quotation",
+    buyer: ["OE number, VIN/chassis", "Photos and part details", "Quantity and demand plan", "Destination and Incoterms", "Packing requirements"],
+    checks: ["Part scope and category", "Supplier type and capability", "Replacement risk", "Quote assumptions", "Open unknowns"],
+  },
+  {
+    n: "02",
+    stage: "Before Order",
+    buyer: ["Item selection", "Target terms", "Label rules and branding", "Acceptable alternatives", "Payment / order notes"],
+    checks: ["Supplier quote basis", "MOQ, lead time, packing", "Payment / order details", "Production feasibility"],
+  },
+  {
+    n: "03",
+    stage: "Before Shipment",
+    buyer: ["Final documents approval", "Carton marks", "Consignee details", "Dispatch plan", "Special packing needs"],
+    checks: ["Packing evidence", "Document consistency", "Loading plan", "Shipment milestones"],
+  },
 ];
 
 const boundaries = [
-  { t: "We are not a factory", p: "We organize sourcing and QC; production remains with approved suppliers." },
-  { t: "No unrealistic claims", p: "We don't promise the cheapest option every time. We optimize for predictable delivery." },
-  { t: "Clear QC scope", p: "QC checkpoints are defined per order and product criticality." },
-  { t: "Traceable paperwork", p: "Consistency across invoices, packing lists, and carton marks." },
+  { title: "We Are Not a Factory", text: "We organize sourcing, comparison, QC, and shipment follow-up. Production remains with approved suppliers.", icon: "factory" },
+  { title: "No Unrealistic Claims", text: "We do not promise the cheapest option every time. We optimize for fit, execution, and predictable delivery.", icon: "shield" },
+  { title: "QC Scope Is Defined Per Order", text: "Inspection checkpoints depend on product type, order value, risk level, and buyer requirements.", icon: "list" },
+  { title: "Traceable Paperwork Matters", text: "Invoices, packing lists, item names, labels, carton marks, and quantities should remain consistent.", icon: "document" },
 ];
 
-const checkpointRows = [
-  { stage: "Before quotation", buyer: "OE number, VIN/chassis, photos, quantity, destination, packing needs", certispares: "Clarify part scope, supplier type, replacement risk, and quote assumptions" },
-  { stage: "Before order", buyer: "Confirm item selection, target terms, label rules, and acceptable alternatives", certispares: "Align supplier quote basis, MOQ, lead time, packing, and payment/order notes" },
-  { stage: "Before shipment", buyer: "Confirm final documents, marks, consignee details, and dispatch plan", certispares: "Check packing evidence, document consistency, loading plan, and shipment milestones" },
-];
+const ctaFlow = ["RFQ Input", "Scope Review", "Supplier Comparison", "QC / Documents", "Shipment Follow-up"];
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Truck Parts Sourcing, QC & Export Support",
+    name: "Truck Parts Sourcing Capabilities From RFQ to Shipment",
     description:
-      "Capabilities for sourcing commercial vehicle aftermarket parts across light-, medium-, and heavy-duty trucks, with structured supplier comparison, QC checkpoints, and consolidation support.",
+      "Capability matrix for commercial vehicle aftermarket sourcing support, including RFQ scope review, supplier comparison, QC checkpoints, document control, consolidation, and shipment follow-up.",
     url: "https://certispares.com/capabilities/",
   },
   {
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: "Commercial vehicle parts sourcing support",
+    serviceType: "Commercial vehicle parts sourcing capability support",
     provider: {
       "@type": "Organization",
       name: "CertiSpares",
@@ -146,600 +174,902 @@ const jsonLd = [
     },
     areaServed: "Worldwide",
     description:
-      "Structured sourcing support covering supplier comparison, inspection checkpoints, documentation control, and logistics coordination for truck parts from China.",
+      "RFQ-first sourcing support covering matching scope review, supplier comparison, QC checkpoints, packing and document control, consolidation planning, and shipment follow-up from China.",
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://certispares.com/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Capabilities",
-        item: "https://certispares.com/capabilities/",
-      },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://certispares.com/" },
+      { "@type": "ListItem", position: 2, name: "Capabilities", item: "https://certispares.com/capabilities/" },
     ],
   },
 ];
 ---
 
 <BaseLayout
-  title="Truck Parts Quality Control and Sourcing Support | CertiSpares"
-  description="See how CertiSpares supports commercial vehicle buyers with supplier screening, inspection checkpoints, document control, and logistics coordination from China."
-  keywords={["truck parts sourcing support", "truck parts quality control", "export documentation China", "commercial vehicle parts QC"]}
+  title="Truck Parts Sourcing Capabilities From RFQ to Shipment | CertiSpares"
+  description="See how CertiSpares helps commercial vehicle buyers control RFQ scope review, supplier comparison, QC checkpoints, packing, documents, consolidation, and shipment follow-up from China."
+  keywords={["truck parts sourcing capabilities", "truck parts QC checkpoints", "supplier comparison China", "commercial vehicle parts document control"]}
   canonical="/capabilities/"
-  ogImage="/images/logistics-container-export-port.webp"
+  ogImage="/images/container-loading-supervision.webp"
   jsonLd={jsonLd}
 >
   <style>
     :root{
-      --bg:#eef3f7;
-      --text:#1d2a36;
-      --muted:#5f6d86;
-      --line:rgba(29,42,54,.10);
-      --brand:#3957E9;
-      --brand2:#3957E9;
+      --cap-navy:#061735;
+      --cap-ink:#071b42;
+      --cap-text:#52627d;
+      --cap-line:#dce4ef;
+      --cap-blue:#1f66ff;
+      --cap-green:#12a86c;
+      --cap-bg:#eef3f8;
+      --cap-card:#fff;
     }
 
     :global(main){
       background:transparent;
     }
 
-  .pageHero{
+    :global(.capabilitiesHero svg *),
+    :global(.capBody svg *){
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.9;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .capabilitiesHero{
       position:relative;
       overflow:hidden;
-      border-bottom:1px solid var(--line);
+      color:#fff;
       background:
-        linear-gradient(180deg, rgba(11,16,32,.34) 0%, rgba(11,16,32,.82) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.24), transparent 60%),
-        url("/images/logistics-container-export-port.webp") center/cover no-repeat,
-        #0b1020;
+        linear-gradient(90deg, rgba(4,17,42,.96) 0%, rgba(4,17,42,.78) 48%, rgba(4,17,42,.96) 100%),
+        linear-gradient(180deg, rgba(4,17,42,.12), rgba(4,17,42,.78)),
+        url("/images/container-loading-supervision.webp") center/cover no-repeat,
+        #061735;
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
 
-  .pageHero::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(90deg, rgba(11,16,32,.92) 0%, rgba(11,16,32,.68) 48%, rgba(11,16,32,.92) 100%);
-      pointer-events:none;
-      z-index:0;
-    }
-
-  .heroInner{
+    .heroInner{
+      display:grid;
+      grid-template-columns:minmax(0, .9fr) minmax(390px, .82fr);
+      gap:48px;
+      align-items:center;
+      min-height:520px;
+      padding:58px 0;
       position:relative;
       z-index:1;
-      padding-top:2px;
-      padding-bottom:22px;
     }
 
-  .contentSection{
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+    .eyebrow{
+      margin:0 0 14px;
+      color:#58a0ff;
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
-  .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; color:#1d2a36; }
+    .heroCopy h1{
+      max-width:760px;
+      margin:0;
+      color:#fff;
+      font-size:56px;
+      line-height:1.08;
+      letter-spacing:0;
+    }
 
-  .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.7; max-width:980px; }
+    .heroCopy p{
+      max-width:720px;
+      margin:22px 0 0;
+      color:rgba(238,246,255,.9);
+      font-size:18px;
+      line-height:1.65;
+    }
 
-  .heroSupportNote{
+    .heroActions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .actionBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:50px;
+      padding:0 24px;
+      border-radius:6px;
+      font-size:14px;
+      font-weight:900;
+      text-decoration:none;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .actionBtn span{
+      width:20px;
+      height:20px;
+      display:inline-flex;
+    }
+
+    .actionBtn.primary{
+      color:#fff;
+      background:linear-gradient(135deg, #0ebc78, #07975f);
+      box-shadow:0 14px 30px rgba(9,151,95,.24);
+    }
+
+    .actionBtn.secondary{
+      color:#fff;
+      border:1px solid rgba(255,255,255,.38);
+      background:rgba(255,255,255,.05);
+    }
+
+    .actionBtn:hover{
+      transform:translateY(-1px);
+    }
+
+    .controlPanel{
+      padding:28px;
+      border:1px solid rgba(255,255,255,.24);
+      border-radius:8px;
+      background:rgba(5,20,48,.72);
+      box-shadow:0 24px 70px rgba(0,0,0,.22);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .controlPanel h2{
+      margin:0 0 20px;
+      color:#fff;
+      font-size:22px;
+      letter-spacing:0;
+    }
+
+    .controlGrid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .controlItem{
+      display:grid;
+      grid-template-columns:44px minmax(0, 1fr);
+      gap:12px;
+      align-items:start;
+      padding:12px;
+      border-radius:8px;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .controlItem strong{
+      display:block;
+      margin-bottom:4px;
+      color:#fff;
+      font-size:14px;
+      line-height:1.25;
+    }
+
+    .controlItem span:last-child{
+      color:rgba(230,239,255,.78);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .iconBox{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      color:var(--cap-blue);
+      background:#eef5ff;
+      border:1px solid rgba(31,102,255,.2);
+      flex:0 0 auto;
+    }
+
+    .controlItem .iconBox{
+      color:#37d58d;
+      background:rgba(11,169,109,.14);
+      border-color:rgba(55,213,141,.24);
+    }
+
+    .capBody{
+      background:linear-gradient(180deg, #f8fbff 0%, var(--cap-bg) 100%);
+      color:var(--cap-ink);
+    }
+
+    .sectionBlock{
+      padding:34px 0;
+    }
+
+    .sectionHeader{
+      max-width:880px;
+      margin:0 auto 22px;
+      text-align:center;
+    }
+
+    .sectionHeader.left{
+      margin:0 0 22px;
+      text-align:left;
+    }
+
+    .sectionHeader h2{
+      margin:0;
+      color:var(--cap-ink);
+      font-size:31px;
+      line-height:1.18;
+      letter-spacing:0;
+    }
+
+    .sectionHeader h2 span{
+      color:var(--cap-blue);
+    }
+
+    .sectionHeader p{
+      margin:12px 0 0;
+      color:var(--cap-text);
+      font-size:16px;
+      line-height:1.62;
+    }
+
+    .overviewGrid{
       display:grid;
       grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:12px;
-      max-width:1040px;
-      margin-top:18px;
+      gap:18px;
     }
 
-  .supportNoteItem{
-      border-left:3px solid rgba(255,255,255,.72);
-      padding:12px 14px;
+    .overviewCard,
+    .matrixCard,
+    .outputCard,
+    .handoffCard,
+    .boundaryCard{
+      border:1px solid var(--cap-line);
       border-radius:8px;
-      background:rgba(255,255,255,.08);
-      border-top:1px solid rgba(255,255,255,.12);
-      border-right:1px solid rgba(255,255,255,.12);
-      border-bottom:1px solid rgba(255,255,255,.12);
-      color:rgba(234,240,255,.84);
-      font-size:13px;
+      background:var(--cap-card);
+      box-shadow:0 12px 30px rgba(17,31,67,.05);
+    }
+
+    .overviewCard{
+      display:grid;
+      grid-template-columns:72px minmax(0, 1fr);
+      gap:18px;
+      align-items:start;
+      min-height:150px;
+      padding:24px;
+    }
+
+    .overviewCard .iconBox{
+      width:64px;
+      height:64px;
+      color:#fff;
+      background:linear-gradient(135deg, #2074ff, #115be5);
+      border-color:transparent;
+      box-shadow:0 14px 28px rgba(31,102,255,.18);
+    }
+
+    h3{
+      margin:0;
+      color:var(--cap-ink);
+      font-size:17px;
+      line-height:1.28;
+      letter-spacing:0;
+    }
+
+    p{
+      letter-spacing:0;
+    }
+
+    .overviewCard p,
+    .matrixCard p,
+    .outputCard p,
+    .boundaryCard p{
+      margin:8px 0 0;
+      color:var(--cap-text);
+      font-size:14px;
+      line-height:1.56;
+    }
+
+    .matrixGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .matrixCard{
+      position:relative;
+      display:grid;
+      grid-template-columns:88px minmax(0, 1fr);
+      gap:18px;
+      min-height:330px;
+      padding:24px;
+      overflow:hidden;
+    }
+
+    .matrixNo{
+      position:absolute;
+      top:18px;
+      left:18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:34px;
+      height:24px;
+      padding:0 8px;
+      border-radius:5px;
+      color:#fff;
+      background:var(--cap-blue);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .matrixIcon{
+      width:72px;
+      height:72px;
+      margin-top:54px;
+      color:var(--cap-blue);
+    }
+
+    .matrixText h3{
+      margin-bottom:16px;
+    }
+
+    .miniLabel{
+      display:block;
+      margin:13px 0 3px;
+      color:var(--cap-ink);
+      font-size:12px;
+      font-weight:900;
+      line-height:1.25;
+    }
+
+    .economicsBand{
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:minmax(0, .85fr) minmax(0, 1.2fr) auto;
+      gap:22px;
+      align-items:center;
+      padding:26px;
+      border-radius:8px;
+      color:#fff;
+      background:
+        linear-gradient(90deg, rgba(5,20,48,.98), rgba(5,20,48,.9)),
+        url("/images/port-container-loading-night.webp") center/cover no-repeat;
+      box-shadow:0 20px 50px rgba(7,31,67,.16);
+    }
+
+    .economicsBand h2{
+      margin:0 0 10px;
+      color:#fff;
+      font-size:27px;
+      line-height:1.18;
+    }
+
+    .economicsBand p{
+      margin:0;
+      color:rgba(238,246,255,.84);
+      font-size:14px;
       line-height:1.58;
     }
 
-  .supportNoteItem strong{
-      display:block;
-      margin-bottom:5px;
-      color:#fff;
-      font-size:14px;
-      line-height:1.3;
-    }
-
-  .imgGrid{
+    .economicsCards{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns:repeat(2, minmax(0, 1fr));
       gap:14px;
     }
 
-  .imgCard{
-      position:relative;
-      border-radius:var(--radius-card);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      min-height: 220px;
+    .economicsCard{
+      display:grid;
+      grid-template-columns:108px minmax(0, 1fr);
+      gap:14px;
+      align-items:center;
+      padding:12px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:8px;
+      background:rgba(255,255,255,.06);
     }
 
-  .imgCard img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
+    .economicsImage{
+      min-height:110px;
+      border-radius:6px;
+      background:var(--img) center/cover no-repeat;
+    }
+
+    .economicsCard strong{
       display:block;
-      filter:saturate(1.05) contrast(1.02);
-      transform: scale(1.02);
+      margin-bottom:6px;
+      color:#fff;
+      font-size:14px;
     }
 
-    /* 闁?闁哄倸娲ら悺褔寮ㄩ幆褎韬柛銉ュ綖缁楀倿妫?*/
-    .imgOverlay{
-      position:absolute;
-      left:0; right:0; bottom:0;
-      padding:14px 14px 12px;
-      background: linear-gradient(to top, rgba(6,16,42,.88), rgba(6,16,42,.10));
+    .outputGrid{
+      display:grid;
+      grid-template-columns:repeat(6, minmax(0, 1fr));
+      gap:14px;
     }
 
-  .imgTag{
+    .outputCard{
+      min-height:210px;
+      padding:22px 16px;
+      text-align:center;
+    }
+
+    .outputCard .iconBox{
+      margin:0 auto 14px;
+      width:56px;
+      height:56px;
+      background:#f5f9ff;
+    }
+
+    .handoffGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .handoffCard{
+      padding:20px;
+    }
+
+    .handoffTitle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:16px;
+    }
+
+    .handoffNo{
       display:inline-flex;
       align-items:center;
-      gap:8px;
+      justify-content:center;
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      color:#fff;
+      background:var(--cap-blue);
       font-size:12px;
       font-weight:900;
-      color:#fff;
-      margin-bottom:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(17,26,51,.62);
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(6px);
     }
 
-  .imgTitle{
-      margin:0 0 6px;
-      font-size:14px;
-      font-weight:950;
-      letter-spacing:-.15px;
-      color:rgba(234,240,255,.98);
-    }
-
-  .imgDesc{
-      margin:0;
-      font-size:12px;
-      line-height:1.6;
-      color:rgba(234,240,255,.80);
-      max-width: 520px;
-    }
-
-  .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
-
-  .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-
-  .strategySection{
+    .handoffCols{
       display:grid;
-      gap:14px;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
     }
 
-  .strategyWrap{
-      border-radius:var(--radius-card);
-      padding:18px;
-      background:linear-gradient(135deg, rgba(57,87,233,.08), rgba(255,255,255,.96));
-      border:1px solid rgba(57,87,233,.16);
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
+    .handoffCols strong{
+      display:block;
+      margin-bottom:8px;
+      color:var(--cap-ink);
+      font-size:13px;
     }
 
-  .strategyLead{
-      margin:0 0 16px;
-      color:var(--muted);
-      line-height:1.75;
-      max-width:920px;
-    }
-
-  .strategyCard{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      border-radius:var(--radius-card);
-      padding:18px;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
-
-  .strategyCard b{
-      color:#1d2a36;
-    }
-
-  .strategyCard p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.7;
-    }
-
-  .strategyList{
+    .checkList{
+      display:grid;
+      gap:7px;
       margin:0;
       padding:0;
       list-style:none;
+    }
+
+    .checkList li{
+      position:relative;
+      padding-left:18px;
+      color:var(--cap-text);
+      font-size:12px;
+      line-height:1.42;
+    }
+
+    .checkList li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:.38em;
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:#e5f6ef;
+      border:1px solid var(--cap-green);
+    }
+
+    .boundaryGrid{
       display:grid;
-      gap:10px;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
     }
 
-  .strategyItem{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:var(--muted);
-      line-height:1.6;
+    .boundaryCard{
+      display:grid;
+      grid-template-columns:64px minmax(0, 1fr);
+      gap:16px;
+      padding:20px;
+      min-height:148px;
     }
 
-  .strategyLink{
+    .boundaryCard .iconBox{
+      width:58px;
+      height:58px;
+    }
+
+    .finalCta{
+      position:relative;
+      overflow:hidden;
+      border-radius:8px;
+      padding:34px;
+      color:#fff;
+      background:
+        linear-gradient(90deg, rgba(5,20,48,.98), rgba(5,20,48,.86)),
+        url("/images/logistics-container-export-port.webp") center/cover no-repeat;
+      box-shadow:0 20px 50px rgba(7,31,67,.16);
+    }
+
+    .finalInner{
+      display:grid;
+      grid-template-columns:minmax(0, .9fr) minmax(360px, .9fr);
+      gap:28px;
+      align-items:center;
+    }
+
+    .finalCta h2{
+      max-width:560px;
+      margin:0;
+      color:#fff;
+      font-size:30px;
+      line-height:1.16;
+    }
+
+    .finalCta h2 span{
+      color:#4fdf98;
+    }
+
+    .finalCta p{
+      max-width:680px;
+      margin:12px 0 0;
+      color:rgba(238,246,255,.86);
+      font-size:15px;
+      line-height:1.62;
+    }
+
+    .ctaFlow{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:10px;
+      align-items:start;
+    }
+
+    .ctaStep{
+      position:relative;
+      display:grid;
+      justify-items:center;
+      gap:8px;
+      color:rgba(238,246,255,.9);
+      font-size:12px;
+      font-weight:900;
+      text-align:center;
+    }
+
+    .ctaStep::after{
+      content:"";
+      position:absolute;
+      top:18px;
+      left:calc(50% + 25px);
+      width:calc(100% - 50px);
+      height:1px;
+      background:rgba(79,223,152,.55);
+    }
+
+    .ctaStep:last-child::after{
+      display:none;
+    }
+
+    .ctaDot{
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      font-weight:900;
-      color:#3957E9;
-      text-decoration:none;
-    }
-
-  .group{
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      border-radius:var(--radius-card);
-      padding:18px;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
-
-  .groupTitle{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; margin-bottom:12px;
-    }
-
-  .groupTitle h2{ margin:0; font-size:16px; letter-spacing:-.2px; color:#1d2a36; }
-
-  .badge{
-      font-size:12px;
-      padding:6px 10px;
+      justify-content:center;
+      width:38px;
+      height:38px;
       border-radius:999px;
-      background:rgba(74,84,98,.08);
-      border:1px solid rgba(74,84,98,.16);
-      color:#4A5462;
-      font-weight:850;
-    }
-
-  .itemList{ display:grid; gap:10px; }
-
-  .item{
-      display:flex; gap:12px; align-items:flex-start;
-      padding:14px;
-      border-radius:var(--radius-card);
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-    }
-
-  .dot{
-      width:10px; height:10px; border-radius:999px; margin-top:7px;
-      background:#4A5462;
-      flex:0 0 10px;
-    }
-
-  .itTitle{ font-weight:900; margin-bottom:6px; color:#1d2a36; }
-
-  .itText{ margin:0; color:var(--muted); line-height:1.7; }
-
-  .ctaBlock{
-      margin-top:14px;
-      border-radius:var(--radius-card);
-      padding:18px;
-      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
-      border:1px solid rgba(57,87,233,.16);
-      display:flex; justify-content:space-between; align-items:center; gap:14px;
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
-    }
-
-  .ctaBlock .left b{ display:block; margin-bottom:6px; color:#1d2a36; }
-
-  .ctaBlock .left p{ margin:0; color:var(--muted); line-height:1.7; max-width:760px; }
-
-  .ctaBlock .btn.primary{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.24);
       color:#fff;
-      background:#3957E9;
     }
 
-  .ctaBlock .btn:not(.primary){
-      color:#fff;
-      background:#3957E9;
-      border-color:#3957E9;
+    @media (max-width:1180px){
+      .heroInner,
+      .finalInner,
+      .economicsBand{
+        grid-template-columns:1fr;
+      }
+
+      .controlGrid,
+      .economicsCards{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .matrixGrid,
+      .handoffGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .outputGrid,
+      .boundaryGrid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
     }
 
-  .card{
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
+    @media (max-width:820px){
+      .heroInner{
+        min-height:auto;
+        padding:46px 0 36px;
+      }
 
-  .card b{
-      color:#1d2a36;
-    }
+      .heroCopy h1{
+        font-size:36px;
+      }
 
-  .card p{
-      color:var(--muted);
-    }
+      .heroCopy p{
+        font-size:16px;
+      }
 
-  .checkpointTable{
-      display:grid;
-      border:1px solid rgba(29,42,54,.10);
-      border-radius:var(--radius-card);
-      overflow:hidden;
-      background:#fff;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
+      .controlGrid,
+      .overviewGrid,
+      .matrixGrid,
+      .outputGrid,
+      .handoffGrid,
+      .boundaryGrid,
+      .handoffCols,
+      .economicsCards,
+      .ctaFlow{
+        grid-template-columns:1fr;
+      }
 
-  .checkpointRow{
-      display:grid;
-      grid-template-columns:180px 1fr 1fr;
-      border-top:1px solid rgba(29,42,54,.08);
-    }
+      .overviewCard,
+      .matrixCard,
+      .boundaryCard{
+        grid-template-columns:1fr;
+      }
 
-  .checkpointRow:first-child{ border-top:0; }
+      .matrixIcon{
+        margin-top:38px;
+      }
 
-  .checkpointCell{
-      padding:14px;
-      color:var(--muted);
-      line-height:1.65;
-      border-left:1px solid rgba(29,42,54,.08);
-    }
+      .economicsBand,
+      .finalCta,
+      .controlPanel{
+        padding:22px;
+      }
 
-  .checkpointCell:first-child{
-      border-left:0;
-      color:#1d2a36;
-      font-weight:900;
-      background:rgba(74,84,98,.06);
-    }
+      .economicsCard{
+        grid-template-columns:1fr;
+      }
 
-  .checkpointHead{
-      background:#101828;
-      color:#fff;
-      font-weight:950;
-    }
+      .economicsImage{
+        min-height:150px;
+      }
 
-  .checkpointHead .checkpointCell{
-      color:#fff;
-      background:transparent;
-      border-left:1px solid rgba(255,255,255,.12);
-    }
+      .sectionBlock{
+        padding:26px 0;
+      }
 
-  .checkpointHead .checkpointCell:first-child{ border-left:0; }
+      .sectionHeader{
+        text-align:left;
+      }
 
-  @media (max-width: 980px){
-      .heroInner{ padding-top:18px; padding-bottom:18px; }
+      .sectionHeader h2{
+        font-size:26px;
+      }
 
-  .imgGrid{ grid-template-columns: 1fr; }
-
-  .grid3{ grid-template-columns:1fr; }
-
-  .grid2{ grid-template-columns:1fr; }
-
-  .heroSupportNote{ grid-template-columns:1fr; }
-
-  .checkpointRow{ grid-template-columns:1fr; }
-
-  .checkpointCell{ border-left:0; border-top:1px solid rgba(29,42,54,.08); }
-
-  .checkpointCell:first-child{ border-top:0; }
-
-  .ctaBlock{ flex-direction:column; align-items:flex-start; }
-
-  .imgCard{ min-height: 240px; }
+      .ctaStep::after{
+        display:none;
+      }
     }
   </style>
 
-<header class="pageHero">
-  <div class="container heroInner">
-    <p class="kicker">CertiSpares / Capabilities</p>
-    <h1 class="title">Truck Parts Quality Control and Sourcing Support</h1>
-    <p class="sub">
-      CertiSpares supports commercial vehicle buyers with supplier screening, inspection checkpoints, document control, and logistics coordination from China. The focus is not just finding supply, but keeping sourcing decisions operationally controlled through execution.
-    </p>
-
-    <div class="heroSupportNote">
-      <div class="supportNoteItem">
-        <strong>Coverage is handled by application</strong>
-        Light-, medium-, and heavy-duty truck RFQs are reviewed through vehicle platform, OE reference, part photo, and category fit.
-      </div>
-      <div class="supportNoteItem">
-        <strong>Quotes are checked before decisions</strong>
-        Supplier comparison, MOQ, lead time, packing basis, and replacement risk are organized before the buyer commits.
-      </div>
-      <div class="supportNoteItem">
-        <strong>Execution stays visible</strong>
-        Inspection checkpoints, document control, consolidation planning, and logistics follow-up stay connected after supplier selection.
-      </div>
-    </div>
-  </div>
-</header>
-
-  <section class="contentSection">
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">Capability Overview</h2>
-        <p class="sectionDesc">
-          These operating areas show how coverage scope, supplier management, QC, and delivery coordination work together in one sourcing process.
+  <header class="capabilitiesHero">
+    <div class="container wide heroInner">
+      <div class="heroCopy">
+        <p class="eyebrow">Our Capabilities</p>
+        <h1>Truck Parts Sourcing Capabilities From RFQ to Shipment</h1>
+        <p>
+          We help buyers keep sourcing decisions visible before quotation, before order release, and before shipment:
+          from matching scope and supplier comparison to QC, packing, documents, and logistics follow-up.
         </p>
+        <div class="heroActions">
+          <a class="actionBtn primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <span set:html={icons.whatsapp}></span>
+            Chat on WhatsApp
+          </a>
+          <a class="actionBtn secondary" href="/product">Start Parts RFQ <span aria-hidden="true">-&gt;</span></a>
+        </div>
+      </div>
 
-        <div class="imgGrid">
-          {heroCards.map((x) => (
-            <div class="imgCard">
-              <img
-                src={x.img}
-                alt={x.title}
-                loading="lazy"
-                decoding="async"
-                width={x.width}
-                height={x.height}
-              />
-              <div class="imgOverlay">
-                <div class="imgTag">{x.tag}</div>
-                <h3 class="imgTitle">{x.title}</h3>
-                <p class="imgDesc">{x.desc}</p>
-              </div>
+      <aside class="controlPanel" aria-label="Capability control areas">
+        <h2>Capability Control Areas</h2>
+        <div class="controlGrid">
+          {controlAreas.map((item) => (
+            <div class="controlItem">
+              <span class="iconBox" aria-hidden="true" set:html={icons[item.icon]}></span>
+              <span>
+                <strong>{item.title}</strong>
+                {item.text}
+              </span>
             </div>
           ))}
         </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="capBody">
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>What Our Capability Model Controls</h2>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="strategySection">
-          <div class="strategyWrap">
-            <h2 class="sectionTitle">Commercial Advantage in the Sourcing Model</h2>
-            <p class="strategyLead">
-              Our capability goes beyond order execution. It helps buyers improve the economics of each shipment by reducing logistics cost and building a more balanced inventory structure across multiple SKUs.
-            </p>
-            <p class="strategyLead">
-              If you want the broader service logic behind this model, see our <a href="/sourcing">truck parts sourcing service</a>. If you want the RFQ-to-delivery path, review <a href="/how-it-works">how the workflow works</a>.
-            </p>
-
-            <div class="grid2">
-              {strategyBlocks.map((item) => (
-                <div class="strategyCard">
-                  <div>
-                    <b>{item.title}</b>
-                    <p>{item.desc}</p>
-                  </div>
-
-                  <ul class="strategyList">
-                    {item.points.map((point) => (
-                      <li class="strategyItem">
-                        <div class="dot"></div>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+      <div class="overviewGrid">
+        {overviewCards.map((card) => (
+          <article class="overviewCard">
+            <span class="iconBox" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <div>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
             </div>
-          </div>
-
-          <a class="strategyLink" href="/sourcing">See how the sourcing strategy works &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-      <h2 class="sectionTitle">What We Do</h2>
-      <p class="sectionDesc">
-        Each RFQ can vary by product and market, but the capability model below stays consistent across sourcing decisions and order execution.
-      </p>
-
-      <div class="grid3">
-        {groups.map((g) => (
-          <div class="group">
-            <div class="groupTitle">
-              <h2>{g.title}</h2>
-              <div class="badge">{g.badge}</div>
-            </div>
-
-            <div class="itemList">
-              {g.items.map((it) => (
-                <div class="item">
-                  <div class="dot"></div>
-                  <div>
-                    <div class="itTitle">{it.t}</div>
-                    <p class="itText">{it.p}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          </article>
         ))}
       </div>
+    </section>
 
-      <div class="ctaBlock">
-        <div class="left">
-          <b>Need a structured RFQ response?</b>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Capability <span>Matrix</span></h2>
+      </div>
+      <div class="matrixGrid">
+        {capabilityCards.map((card) => (
+          <article class="matrixCard">
+            <span class="matrixNo">{card.n}</span>
+            <span class="matrixIcon" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <div class="matrixText">
+              <h3>{card.title}</h3>
+              <span class="miniLabel">What we check</span>
+              <p>{card.check}</p>
+              <span class="miniLabel">Typical use</span>
+              <p>{card.use}</p>
+              <span class="miniLabel">Output</span>
+              <p>{card.output}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="economicsBand">
+        <div>
+          <h2>Capabilities Support Better Sourcing Economics</h2>
           <p>
-            Send OEM or part numbers, vehicle details, quantities, destination, and packing requirements.
-            We will review the sourcing scope, compare supplier options, and respond with a plan that supports execution, lower landed cost, and a more workable inventory mix.
+            Capability control is not only about avoiding mistakes. Supplier comparison, packing control,
+            document consistency, and consolidation planning also help buyers build more practical shipments
+            and healthier turnover with the same budget.
           </p>
         </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn primary" href="/contact">Send RFQ</a>
-          <a class="btn" href="/how-it-works">See Workflow</a>
-        </div>
-      </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">What You Receive</h2>
-        <p class="sectionDesc">
-          Each output is meant to make sourcing decisions more traceable and operationally easier to manage. The point is not to produce more documents; it is to make every quote and shipment easier to verify.
-        </p>
-        <p class="sectionDesc">
-          For a deeper quality-focused perspective, read our <a href="/blog/why-quality-control-matters-commercial-vehicle-parts">commercial vehicle parts quality control checklist</a> and <a href="/blog/how-to-audit-a-truck-parts-factory-in-china">truck parts factory audit guide</a>.
-        </p>
-
-        <div class="grid2">
-          {deliverables.map((d) => (
-            <div class="card">
-              <b>{d.t}</b>
-              <p>{d.p}</p>
+        <div class="economicsCards">
+          <article class="economicsCard">
+            <div class="economicsImage" style="--img:url('/images/sourcing/compare-container-ship.webp')"></div>
+            <div>
+              <strong>Container Consolidation</strong>
+              <p>Combine cargo from multiple suitable suppliers under one coordinated shipment path.</p>
             </div>
-          ))}
+          </article>
+          <article class="economicsCard">
+            <div class="economicsImage" style="--img:url('/images/sourcing/advantage-warehouse-shelves.webp')"></div>
+            <div>
+              <strong>Balanced SKU Sourcing</strong>
+              <p>Avoid overbuying narrow product lines just to fill space. Build a better mix of fast- and medium-moving SKUs.</p>
+            </div>
+          </article>
         </div>
+        <a class="actionBtn secondary" href="/sourcing">View Sourcing Strategy <span aria-hidden="true">-&gt;</span></a>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">Who Confirms What</h2>
-        <p class="sectionDesc">
-          Good sourcing work depends on clean handoffs. This is the responsibility split we try to keep visible during an RFQ, especially when the list includes mixed SKUs, unclear OE references, or private-label packing.
-        </p>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>What Buyers <span>Receive</span></h2>
+      </div>
+      <div class="outputGrid">
+        {outputCards.map((card) => (
+          <article class="outputCard">
+            <span class="iconBox" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
 
-        <div class="checkpointTable">
-          <div class="checkpointRow checkpointHead">
-            <div class="checkpointCell">Stage</div>
-            <div class="checkpointCell">Buyer input</div>
-            <div class="checkpointCell">CertiSpares check</div>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Who Confirms What</h2>
+        <p>Good sourcing work depends on clean handoffs. We keep buyer input and CertiSpares checks visible at each stage.</p>
+      </div>
+      <div class="handoffGrid">
+        {handoffs.map((card) => (
+          <article class="handoffCard">
+            <div class="handoffTitle">
+              <span class="handoffNo">{card.n}</span>
+              <h3>{card.stage}</h3>
+            </div>
+            <div class="handoffCols">
+              <div>
+                <strong>Buyer confirms</strong>
+                <ul class="checkList">
+                  {card.buyer.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
+              <div>
+                <strong>CertiSpares checks</strong>
+                <ul class="checkList">
+                  {card.checks.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Service Boundaries That Keep Cooperation Clear</h2>
+      </div>
+      <div class="boundaryGrid">
+        {boundaries.map((card) => (
+          <article class="boundaryCard">
+            <span class="iconBox" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <div>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="finalCta">
+        <div class="finalInner">
+          <div>
+            <h2>Want to check if your RFQ fits this <span>capability model?</span></h2>
+            <p>
+              Send photos, OE numbers, VIN/model details, old supplier lists, or a mixed parts sheet.
+              We will review what you have, ask clarification questions, and confirm the next workable sourcing step through conversation.
+            </p>
+            <div class="heroActions">
+              <a class="actionBtn primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <span set:html={icons.whatsapp}></span>
+                Chat on WhatsApp
+              </a>
+              <a class="actionBtn secondary" href={emailUrl}>
+                <span set:html={icons.mail}></span>
+                Send by Email
+              </a>
+            </div>
           </div>
-          {checkpointRows.map((row) => (
-            <div class="checkpointRow">
-              <div class="checkpointCell">{row.stage}</div>
-              <div class="checkpointCell">{row.buyer}</div>
-              <div class="checkpointCell">{row.certispares}</div>
-            </div>
-          ))}
+          <div class="ctaFlow" aria-label="Capability conversation path">
+            {ctaFlow.map((item, index) => (
+              <div class="ctaStep">
+                <span class="ctaDot">{String(index + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">Service boundaries</h2>
-        <p class="sectionDesc">
-          Clear expectations keep cooperation stable and predictable.
-        </p>
-
-        <div class="grid2">
-          {boundaries.map((b) => (
-            <div class="card">
-              <b>{b.t}</b>
-              <p>{b.p}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  </section>
+  </main>
 </BaseLayout>

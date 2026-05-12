@@ -1,51 +1,176 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Contacts
 const CONTACT_EMAIL = "murphy@certispares.com";
 const LOCATION = "Beijing / Hebei, China";
-
-// WhatsApp / Facebook
-const WHATSAPP_E164 = "8615633022618"; // digits only: country code + number
+const WHATSAPP_E164 = "8615633022618";
 const WHATSAPP_DISPLAY = "+86 156 3302 2618";
-const WHATSAPP_STARTER =
-  "Hello CertiSpares, I have a truck parts RFQ. Brand/model: __. OE/part no: __. Qty: __. Destination: __. Photos available: yes/no.";
-const WHATSAPP_URL =
-  `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(WHATSAPP_STARTER)}`;
-
-// Facebook profile/page URL (public)
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61585722976089";
 
-const minimumInputs = [
-  "OE or part number if available",
-  "VIN, vehicle model, or engine/axle application",
-  "Photos, old samples, drawings, or dimensions",
-  "Quantity, destination country or port, and preferred Incoterms",
-  "Packaging, labeling, carton mark, or private label notes",
+const whatsappStarter = `Hello CertiSpares, I have a truck parts inquiry.
+
+Truck brand / model:
+Part name or OE number:
+Quantity:
+Destination:
+Photos or list available: Yes / No`;
+
+const shortChatStarter =
+  "Hello CertiSpares, I have a truck parts inquiry. Can I send you photos / OE numbers / a parts list?";
+
+const whatsappUrl = `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(whatsappStarter)}`;
+const quickWhatsappUrl = `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(shortChatStarter)}`;
+const emailSubject = "Truck parts sourcing inquiry";
+const emailBody = `${whatsappStarter}
+
+Additional notes:`;
+const emailUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+const startItems = [
+  "Photos or old samples",
+  "OE / part numbers",
+  "VIN, model, or truck platform",
+  "Mixed parts list or supplier quote",
 ];
 
-const rfqTypeGuides = [
+const contactChannels = [
   {
-    title: "OE-number RFQ",
-    text: "Send OE or part numbers, quantity, destination, and any preferred brand or quality level.",
+    title: "Email",
+    text: "Best for Excel lists, PDF inquiries, formal RFQs, and quotation records.",
+    action: "Send Email",
+    href: emailUrl,
+    meta: CONTACT_EMAIL,
+    iconClass: "mail",
   },
   {
-    title: "Photo-only RFQ",
-    text: "Send clear photos from several angles, dimensions, visible marks, vehicle model, and installation position.",
+    title: "Facebook",
+    text: "Follow updates or start a sourcing conversation through our social page.",
+    action: "Message on Facebook",
+    href: FACEBOOK_URL,
+    meta: "@CertiSpares",
+    iconClass: "facebook",
   },
   {
-    title: "Mixed-SKU sheet",
-    text: "Send the spreadsheet, old supplier sheet, destination, target quantities, and notes for urgent or unclear lines.",
+    title: "WeChat",
+    text: "For buyers or partners who prefer WeChat communication. Scan the QR code to connect.",
+    action: "",
+    href: "",
+    meta: "QR code placeholder",
+    iconClass: "wechat",
   },
 ];
+
+const sendItems = [
+  {
+    title: "Photos",
+    text: "Product photos, old samples, labels, packaging, installation position.",
+    icon: "camera",
+  },
+  {
+    title: "OE / Part Numbers",
+    text: "OE numbers, supplier part numbers, old invoice references, or cross references.",
+    icon: "barcode",
+  },
+  {
+    title: "Truck Details",
+    text: "Brand, model, VIN, engine, axle, year, chassis number, or platform.",
+    icon: "truck",
+  },
+  {
+    title: "Parts List",
+    text: "Excel, PDF, screenshots, WhatsApp lists, or old supplier quotations.",
+    icon: "file",
+  },
+  {
+    title: "Quantity",
+    text: "Trial quantity, repeat order quantity, or mixed-SKU demand.",
+    icon: "box",
+  },
+  {
+    title: "Destination",
+    text: "Country, port, Incoterms, or packing notes if available.",
+    icon: "pin",
+  },
+];
+
+const chatSteps = [
+  {
+    n: "01",
+    title: "You send what you have",
+    text: "Photos, part numbers, model details, old quotes, or a rough list.",
+    icon: "message",
+  },
+  {
+    n: "02",
+    title: "We ask clarification questions",
+    text: "Fitment, dimensions, quantity, quality level, packing, and destination are clarified in conversation.",
+    icon: "question",
+  },
+  {
+    n: "03",
+    title: "We confirm the sourcing scope",
+    text: "Confirmed items are separated from uncertain items before supplier comparison.",
+    icon: "scope",
+  },
+  {
+    n: "04",
+    title: "We move to quotation and follow-up",
+    text: "Once the scope is clear enough, suppliers, QC, packing, documents, and shipment follow-up can move forward.",
+    icon: "quote",
+  },
+];
+
+const trustCards = [
+  {
+    title: "Photos need discussion",
+    text: "Many aftermarket RFQs start from photos, labels, or old samples, not complete part numbers.",
+    icon: "camera",
+  },
+  {
+    title: "Fitment needs confirmation",
+    text: "Truck platform, VIN, axle, engine, or dimensions may change the correct item.",
+    icon: "truck",
+  },
+  {
+    title: "Mixed lists need sorting",
+    text: "A buyer's list may include brake, suspension, cooling, rubber, and electrical items together.",
+    icon: "list",
+  },
+  {
+    title: "Trust builds through response",
+    text: "Fast clarification, clear questions, and visible follow-up are often more useful than a long form.",
+    icon: "shield",
+  },
+];
+
+const processLine = ["Message", "Clarify", "Confirm Scope", "Quote", "Follow-up"];
+
+const icons = {
+  whatsapp: '<svg viewBox="0 0 24 24"><path d="M20 11.8a8 8 0 0 1-11.7 7.1L4 20l1.2-4.1A8 8 0 1 1 20 11.8Z"/><path d="M9.2 8.3c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.4.5c-.1.2-.1.3 0 .5.4.8 1.1 1.5 2 2 .2.1.3.1.5-.1l.6-.7c.2-.2.4-.2.7-.1l1.7.8c.3.1.5.3.5.6 0 .5-.3 1.2-.7 1.5-.5.4-1.7.5-3.3-.2-2.7-1.2-4.5-3.8-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.1.7-1.8 1-2Z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+  facebook: '<svg viewBox="0 0 24 24"><path d="M14 8h2V4h-3a5 5 0 0 0-5 5v3H6v4h2v4h4v-4h3l1-4h-4V9a1 1 0 0 1 1-1h1Z"/></svg>',
+  wechat: '<svg viewBox="0 0 24 24"><path d="M10 17a7 7 0 1 1 6.9-8.3"/><path d="m5 18-1 3 3-1"/><path d="M14 20a5 5 0 1 0-3.8-8.3"/><path d="m19 21 2 1-.7-2.4"/><path d="M7.5 10h.01"/><path d="M11.5 10h.01"/><path d="M15 16h.01"/><path d="M18 16h.01"/></svg>',
+  camera: '<svg viewBox="0 0 24 24"><path d="M14.5 4 16 7h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3l1.5-3h5Z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+  barcode: '<svg viewBox="0 0 24 24"><path d="M4 7V5a1 1 0 0 1 1-1h2"/><path d="M17 4h2a1 1 0 0 1 1 1v2"/><path d="M20 17v2a1 1 0 0 1-1 1h-2"/><path d="M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M7 8v8"/><path d="M10 8v8"/><path d="M14 8v8"/><path d="M17 8v8"/></svg>',
+  truck: '<svg viewBox="0 0 24 24"><path d="M10 17h4V5H2v12h3"/><path d="M14 8h4l4 4v5h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/></svg>',
+  file: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>',
+  box: '<svg viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>',
+  pin: '<svg viewBox="0 0 24 24"><path d="M12 21s7-5.3 7-12a7 7 0 1 0-14 0c0 6.7 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>',
+  message: '<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.4-4A8 8 0 1 1 21 12Z"/></svg>',
+  question: '<svg viewBox="0 0 24 24"><path d="M9.1 9a3 3 0 1 1 5.8 1c-.6 1.4-2.4 1.7-2.8 3"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>',
+  scope: '<svg viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/><path d="m8 8 2 2 4-4"/><path d="m8 15 2 2 4-4"/></svg>',
+  quote: '<svg viewBox="0 0 24 24"><path d="M6 17h12"/><path d="M6 13h12"/><path d="M6 9h8"/><path d="M5 3h11l3 3v15H5Z"/><path d="M16 3v4h4"/></svg>',
+  list: '<svg viewBox="0 0 24 24"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>',
+  shield: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>',
+};
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Send an RFQ or Business Inquiry",
+    name: "Talk to CertiSpares About Your Truck Parts RFQ",
     description:
-      "Contact CertiSpares with an RFQ or business inquiry using OE numbers, vehicle model, quantity, destination, and related files.",
+      "Contact CertiSpares through WhatsApp, email, Facebook, or WeChat to discuss truck parts RFQs, photos, OE numbers, VIN or model details, rough lists, and sourcing questions.",
     url: "https://certispares.com/contact/",
   },
   {
@@ -64,7 +189,7 @@ const jsonLd = [
         "@type": "ContactPoint",
         contactType: "sales",
         email: CONTACT_EMAIL,
-        telephone: "+86 156 3302 2618",
+        telephone: WHATSAPP_DISPLAY,
         availableLanguage: ["en"],
       },
     ],
@@ -92,523 +217,1155 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Send a Structured Truck Parts RFQ | CertiSpares"
-  description="Send a structured truck parts RFQ with OE numbers, VIN or vehicle model, photos, quantities, destination, Incoterms, packaging notes, and files."
-  keywords={["send RFQ truck parts", "commercial vehicle parts inquiry", "OEM truck parts RFQ", "heavy duty truck parts RFQ", "business inquiry China sourcing"]}
+  title="Talk to Us About Your Truck Parts RFQ | CertiSpares"
+  description="Start a truck parts sourcing conversation with CertiSpares. Send photos, OE numbers, VIN or model details, rough parts lists, Excel files, PDFs, or old supplier references by WhatsApp or email."
+  keywords={["truck parts WhatsApp RFQ", "commercial vehicle parts inquiry", "truck parts sourcing contact", "OE number inquiry", "photo based truck parts RFQ"]}
   canonical="/contact/"
-  ogImage="/images/china-industrial-warehouse.webp"
+  ogImage="/images/hero-04-logistics-truck.webp"
   jsonLd={jsonLd}
 >
   <style>
     :root{
-      --bg:#eef3f7;
-      --text:#1d2a36;
-      --muted:#5f6d86;
-      --line:rgba(29,42,54,.10);
-      --brand:#3957E9;
-      --brand2:#3957E9;
+      --contact-bg:#f3f6fb;
+      --contact-ink:#0d1d3d;
+      --contact-text:#30405d;
+      --contact-muted:#65728a;
+      --contact-line:rgba(13,29,61,.11);
+      --contact-blue:#2365ff;
+      --contact-green:#0f9f67;
+      --contact-navy:#071f43;
+      --contact-soft:#eef5ff;
     }
 
     :global(main){
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+      background:var(--contact-bg);
+      color:var(--contact-text);
     }
 
-  .pageHero{
+    .contactHero{
       position:relative;
-      padding:46px 0 20px;
-      border-bottom:1px solid var(--line);
       overflow:hidden;
       isolation:isolate;
-      background:
-        linear-gradient(180deg, rgba(11,16,32,.34) 0%, rgba(11,16,32,.82) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%),
-        #0b1020;
-    }
-
-  .kicker{
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-size:.8rem;
-      opacity:.82;
-      margin:0 0 .75rem;
-      color:rgba(255,255,255,.82);
-    }
-
-  .title{
-      margin:0 0 .8rem;
-      font-size:40px;
-      letter-spacing:-.4px;
-      line-height:1.12;
+      background:#071226;
       color:#fff;
     }
 
-  .sub{
-      margin:0;
-      max-width:78ch;
-      color:rgba(225,233,255,.86);
-      line-height:1.75;
+    .contactHero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:url("/images/hero-04-logistics-truck.webp") center/cover no-repeat;
+      filter:saturate(.92) contrast(1.02) brightness(.76);
+      transform:scale(1.02);
     }
 
-  .contentWrap{
-      width:min(var(--container-default), calc(100% - 64px));
-      margin: 0 auto;
+    .contactHero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(90deg, rgba(7,18,38,.97) 0%, rgba(7,18,38,.85) 46%, rgba(7,18,38,.55) 74%, rgba(7,18,38,.80) 100%),
+        linear-gradient(180deg, rgba(7,18,38,.18) 0%, rgba(7,18,38,.88) 100%);
     }
 
-  .grid{
+    .heroInner{
       display:grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap:16px;
+      grid-template-columns:minmax(0, 1fr) minmax(340px, 420px);
+      gap:48px;
+      align-items:center;
+      min-height:520px;
+      padding:58px 0 42px;
+    }
+
+    .eyebrow{
+      margin:0 0 13px;
+      color:rgba(234,240,255,.74);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .heroCopy h1{
+      margin:0;
+      max-width:760px;
+      color:#fff;
+      font-size:clamp(40px, 4.4vw, 58px);
+      line-height:1.05;
+      letter-spacing:0;
+    }
+
+    .heroCopy h1 span{
+      color:#52d38f;
+    }
+
+    .heroCopy p{
+      margin:22px 0 0;
+      max-width:740px;
+      color:rgba(234,240,255,.88);
+      font-size:17px;
+      line-height:1.72;
+    }
+
+    .heroActions,
+    .buttonRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .actionBtn,
+    .channelBtn,
+    .formBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      min-height:46px;
+      padding:0 20px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.20);
+      color:#fff;
+      font-size:14px;
+      font-weight:900;
+      transition:transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+
+    .actionBtn svg,
+    .channelBtn svg,
+    .formBtn svg{
+      width:19px;
+      height:19px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .actionBtn.primary{
+      border-color:rgba(20,184,116,.95);
+      background:#0f9f67;
+      box-shadow:0 18px 38px rgba(15,159,103,.18);
+    }
+
+    .actionBtn.secondary{
+      background:rgba(255,255,255,.07);
+    }
+
+    .actionBtn:hover,
+    .channelBtn:hover,
+    .formBtn:hover{
+      transform:translateY(-2px);
+    }
+
+    .sectionJump{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:18px;
+      color:rgba(234,240,255,.78);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .startPanel{
+      padding:24px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:8px;
+      background:rgba(255,255,255,.94);
+      color:var(--contact-ink);
+      box-shadow:0 24px 58px rgba(0,0,0,.24);
+    }
+
+    .startPanel h2{
+      margin:0 0 16px;
+      color:var(--contact-ink);
+      font-size:22px;
+      letter-spacing:0;
+    }
+
+    .startList{
+      display:grid;
+      gap:10px;
+    }
+
+    .startItem{
+      display:grid;
+      grid-template-columns:34px minmax(0, 1fr);
+      gap:12px;
+      align-items:center;
+      padding:10px;
+      border-radius:8px;
+      background:#f7fbff;
+      border:1px solid rgba(13,29,61,.08);
+      color:var(--contact-text);
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .miniIcon,
+    .cardIcon,
+    .stepIcon,
+    .trustIcon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      color:var(--contact-blue);
+      background:#f7fbff;
+      border:1px solid rgba(35,101,255,.22);
+    }
+
+    .miniIcon{
+      width:34px;
+      height:34px;
+    }
+
+    .miniIcon svg,
+    .cardIcon svg,
+    .stepIcon svg,
+    .trustIcon svg{
+      width:19px;
+      height:19px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.75;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .miniIcon svg *,
+    .cardIcon svg *,
+    .stepIcon svg *,
+    .trustIcon svg *,
+    .actionBtn svg *,
+    .channelBtn svg *,
+    .formBtn svg *,
+    .whatsappIcon svg *{
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.75;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    :global(.miniIcon svg *),
+    :global(.cardIcon svg *),
+    :global(.stepIcon svg *),
+    :global(.trustIcon svg *),
+    :global(.actionBtn svg *),
+    :global(.channelBtn svg *),
+    :global(.formBtn svg *),
+    :global(.whatsappIcon svg *){
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.75;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .panelFoot{
+      margin:16px 0 0;
+      padding-top:16px;
+      border-top:1px solid rgba(13,29,61,.10);
+      color:var(--contact-ink);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .pageBody{
+      padding:28px 0 0;
+    }
+
+    .sectionBlock{
+      padding:28px 0;
+    }
+
+    .sectionHeader{
+      margin:0 auto 22px;
+      max-width:840px;
+      text-align:center;
+    }
+
+    .sectionHeader h2{
+      margin:0;
+      color:var(--contact-ink);
+      font-size:30px;
+      line-height:1.16;
+      letter-spacing:0;
+    }
+
+    .sectionHeader h2 span{
+      color:var(--contact-green);
+    }
+
+    .sectionHeader p{
+      margin:10px auto 0;
+      max-width:780px;
+      color:var(--contact-muted);
+      line-height:1.65;
+    }
+
+    .channelGrid{
+      display:grid;
+      grid-template-columns:minmax(280px, .95fr) repeat(3, minmax(0, 1fr));
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .channelCard,
+    .sendCard,
+    .starterCard,
+    .messageCard,
+    .trustCard{
+      border:1px solid var(--contact-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
+
+    .whatsappCard{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:300px;
+      padding:24px;
+      background:
+        linear-gradient(180deg, rgba(15,159,103,.96), rgba(6,95,70,.98)),
+        #0f9f67;
+      color:#fff;
+      border-color:rgba(255,255,255,.12);
+      box-shadow:0 20px 48px rgba(15,159,103,.18);
+    }
+
+    .recommended{
+      align-self:flex-end;
+      padding:5px 8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      color:#fff;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .whatsappIcon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:58px;
+      height:58px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.20);
+    }
+
+    .brandMark{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:58px;
+      height:58px;
+      border-radius:14px;
+      background:var(--mark-bg, var(--contact-blue));
+      box-shadow:0 12px 24px rgba(17,31,67,.10);
+      flex:0 0 auto;
+    }
+
+    .brandMark::before{
+      content:"";
+      display:block;
+      width:31px;
+      height:31px;
+      background:var(--mark-fg, #fff);
+      -webkit-mask:var(--mark-icon) center / contain no-repeat;
+      mask:var(--mark-icon) center / contain no-repeat;
+    }
+
+    .brandMark.whatsapp{
+      --mark-bg:rgba(255,255,255,.14);
+      --mark-fg:#fff;
+      --mark-icon:url("/images/contact/si-whatsapp.svg");
+      border:1px solid rgba(255,255,255,.14);
+    }
+
+    .brandMark.mail{
+      --mark-bg:#2365ff;
+      --mark-icon:url("/images/contact/lucide-mail.svg");
+    }
+
+    .brandMark.facebook{
+      --mark-bg:#1877f2;
+      --mark-icon:url("/images/contact/si-facebook.svg");
+    }
+
+    .brandMark.wechat{
+      --mark-bg:#16a365;
+      --mark-icon:url("/images/contact/si-wechat.svg");
+    }
+
+    .whatsappIcon svg{
+      width:32px;
+      height:32px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.7;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .whatsappCard h3,
+    .channelCard h3{
+      margin:18px 0 10px;
+      font-size:22px;
+      color:inherit;
+      letter-spacing:0;
+    }
+
+    .whatsappCard p,
+    .channelCard p{
+      margin:0;
+      line-height:1.62;
+    }
+
+    .whatsappCard p{
+      color:rgba(255,255,255,.88);
+    }
+
+    .channelCard{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:300px;
+      padding:24px;
+      text-align:center;
+    }
+
+    .channelCard p{
+      color:var(--contact-muted);
+      font-size:14px;
+    }
+
+    .channelMeta,
+    .whatsappMeta{
+      margin-top:13px;
+      color:var(--contact-muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .whatsappMeta{
+      color:rgba(255,255,255,.90);
+    }
+
+    .channelBtn{
+      width:100%;
+      margin-top:18px;
+      color:#fff;
+      background:var(--contact-blue);
+      border-color:var(--contact-blue);
+    }
+
+    .channelBtn.whatsapp{
+      background:#fff;
+      color:#066d48;
+      border-color:#fff;
+    }
+
+    .cardIcon{
+      width:48px;
+      height:48px;
+    }
+
+    .cardIcon.green{
+      color:#0f9f67;
+      border-color:rgba(15,159,103,.22);
+      background:#f0fff8;
+    }
+
+    .qrBox{
+      display:grid;
+      place-items:center;
+      width:126px;
+      height:126px;
+      margin:18px auto 0;
+      border-radius:8px;
+      padding:8px;
+      background:#fff;
+      border:1px solid rgba(13,29,61,.12);
+      box-shadow:0 12px 24px rgba(17,31,67,.06);
+    }
+
+    .qrBox img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius:4px;
+    }
+
+    .sendGrid{
+      display:grid;
+      grid-template-columns:repeat(6, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .sendCard{
+      min-height:188px;
+      padding:20px 16px;
+      text-align:center;
+    }
+
+    .sendCard .cardIcon{
+      margin:0 auto 13px;
+      color:var(--contact-green);
+      border-color:rgba(15,159,103,.22);
+      background:#f0fff8;
+    }
+
+    .sendCard h3{
+      margin:0 0 9px;
+      color:var(--contact-ink);
+      font-size:16px;
+      letter-spacing:0;
+    }
+
+    .sendCard p{
+      margin:0;
+      color:var(--contact-muted);
+      font-size:13px;
+      line-height:1.58;
+    }
+
+    .workGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:18px;
+      padding:24px;
+      border:1px solid var(--contact-line);
+      border-radius:8px;
+      background:linear-gradient(180deg, #fff 0%, #edf4ff 100%);
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
+
+    .stepCard{
+      position:relative;
+      min-width:0;
+    }
+
+    .stepCard::after{
+      content:"";
+      position:absolute;
+      top:31px;
+      left:70px;
+      right:-18px;
+      height:1px;
+      border-top:1px dashed rgba(35,101,255,.38);
+    }
+
+    .stepCard:last-child::after{
+      display:none;
+    }
+
+    .stepIcon{
+      width:60px;
+      height:60px;
+      border-radius:999px;
+      background:#fff;
+      color:var(--contact-blue);
+      box-shadow:0 12px 28px rgba(17,31,67,.08);
+    }
+
+    .stepNumber{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:30px;
+      height:30px;
+      margin:12px 0 10px;
+      border-radius:999px;
+      background:#e9fff5;
+      color:#0f9f67;
+      border:1px solid rgba(15,159,103,.22);
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .stepCard h3{
+      margin:0 0 8px;
+      color:var(--contact-ink);
+      font-size:16px;
+      line-height:1.3;
+      letter-spacing:0;
+    }
+
+    .stepCard p{
+      margin:0;
+      color:var(--contact-muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .starterMessageGrid{
+      display:grid;
+      grid-template-columns:minmax(0, .85fr) minmax(360px, .7fr);
+      gap:22px;
       align-items:start;
     }
 
-  .card{
+    .starterCard,
+    .messageCard{
+      padding:24px;
+    }
+
+    .starterCard h2,
+    .messageCard h2{
+      margin:0 0 10px;
+      color:var(--contact-ink);
+      font-size:24px;
+      letter-spacing:0;
+    }
+
+    .starterCard p,
+    .messageCard p{
+      margin:0;
+      color:var(--contact-muted);
+      line-height:1.65;
+    }
+
+    .messageBox{
+      margin:18px 0 0;
       padding:18px;
-      border-radius:var(--radius-card);
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+      border-radius:8px;
+      background:linear-gradient(180deg, #f4fff9 0%, #eef5ff 100%);
+      border:1px solid rgba(15,159,103,.14);
+      color:var(--contact-text);
+      font-size:14px;
+      line-height:1.7;
+      white-space:pre-wrap;
     }
 
-  .card h2{ margin:0 0 10px; font-size:18px; letter-spacing:-.2px; color:#1d2a36; }
-
-  .muted{ color:var(--muted); }
-
-  .infoList{ display:grid; gap:12px; margin-top:14px; }
-
-  .infoItem{
-      padding:14px;
-      border-radius:16px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
+    .formGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
 
-  .infoItem b{ display:block; margin-bottom:6px; color:#1d2a36; }
+    form{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
 
-    form{ display:grid; gap:12px; }
+    label{
+      display:grid;
+      gap:7px;
+      color:var(--contact-ink);
+      font-size:13px;
+      font-weight:900;
+    }
 
-  .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
-    label{ display:grid; gap:8px; font-weight:850; color:#1d2a36; }
-
-    input, textarea, select{
+    input,
+    textarea{
       width:100%;
-      border-radius:14px;
-      border:1px solid rgba(29,42,54,.12);
+      min-width:0;
+      border:1px solid rgba(13,29,61,.13);
+      border-radius:8px;
       background:#fff;
-      color:var(--text);
-      padding:12px 12px;
+      color:var(--contact-text);
+      padding:12px;
+      font:inherit;
       outline:none;
-      font: inherit;
-      box-sizing: border-box;
-      min-width: 0;
     }
-
-    input:focus, textarea:focus, select:focus{
-      border-color:rgba(57,87,233,.45);
-      box-shadow:0 0 0 4px rgba(57,87,233,.10);
-    }
-
-  .row2 > label{ min-width: 0; }
 
     textarea{
-      min-height:120px;
+      min-height:130px;
       resize:vertical;
+    }
+
+    input:focus,
+    textarea:focus{
+      border-color:rgba(35,101,255,.48);
+      box-shadow:0 0 0 4px rgba(35,101,255,.10);
     }
 
     input::placeholder,
     textarea::placeholder{
-      color: rgba(95,109,134,.72);
+      color:rgba(101,114,138,.72);
     }
 
-  .hint{
-      font-size:12px;
-      color:var(--muted);
-      line-height:1.5;
-      margin-top:-6px;
+    .fileInput{
+      padding:12px;
+      background:#f7fbff;
     }
 
-  .btnRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:6px;
+    .formBtn{
+      width:100%;
+      color:#fff;
+      background:var(--contact-blue);
+      border-color:var(--contact-blue);
+      cursor:pointer;
     }
 
-  .note{
-      margin-top:12px;
-      padding:14px;
-      border-radius:16px;
-      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
-      border:1px solid rgba(57,87,233,.16);
-      color:var(--muted);
-      line-height:1.7;
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
-    }
-
-  .note b{ color:#1d2a36; }
-
-  .checkList{
-      margin:10px 0 0;
-      padding-left:18px;
-      display:grid;
-      gap:6px;
-    }
-
-  .checkList li{
-      color:var(--muted);
-      line-height:1.55;
-    }
-
-  .sampleBox{
-      margin-top:12px;
-      padding:14px;
-      border-radius:16px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      color:var(--muted);
-      line-height:1.7;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
-
-  .sampleBox b{
-      display:block;
-      margin-bottom:6px;
-      color:#1d2a36;
-    }
-
-  .sampleBox p{
+    .formNote{
       margin:0;
+      color:var(--contact-muted);
+      font-size:12px;
+      line-height:1.55;
+      text-align:center;
+    }
+
+    .trustGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .trustCard{
+      display:grid;
+      grid-template-columns:56px minmax(0, 1fr);
+      gap:14px;
+      align-items:flex-start;
+      padding:18px;
+      background:#f8fbff;
+    }
+
+    .trustIcon{
+      width:56px;
+      height:56px;
+    }
+
+    .trustCard h3{
+      margin:0 0 7px;
+      color:var(--contact-ink);
+      font-size:16px;
+      letter-spacing:0;
+    }
+
+    .trustCard p{
+      margin:0;
+      color:var(--contact-muted);
       font-size:13px;
+      line-height:1.58;
+    }
+
+    .finalCta{
+      margin:8px 0 0;
+      padding:28px;
+      border-radius:8px;
+      background:
+        linear-gradient(90deg, rgba(7,31,67,.96), rgba(7,31,67,.82)),
+        url("/images/container-stacking-yard-sunset.webp") center/cover no-repeat;
+      color:#fff;
+      box-shadow:0 18px 42px rgba(7,31,67,.18);
+    }
+
+    .finalInner{
+      display:grid;
+      grid-template-columns:minmax(0, .9fr) minmax(520px, 1fr);
+      gap:28px;
+      align-items:center;
+    }
+
+    .finalCta h2{
+      margin:0 0 10px;
+      color:#fff;
+      font-size:30px;
+      letter-spacing:0;
+    }
+
+    .finalCta h2 span{
+      color:#52d38f;
+    }
+
+    .finalCta p{
+      margin:0;
+      max-width:720px;
+      color:rgba(234,240,255,.78);
       line-height:1.65;
     }
 
-  .guideGrid{
-      margin-top:12px;
+    .processLine{
       display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:10px;
-    }
-
-  .guideCard{
-      padding:12px;
-      border-radius:16px;
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      box-shadow:0 10px 24px rgba(24,39,56,.04);
-    }
-
-  .guideCard b{
-      display:block;
-      margin-bottom:6px;
-      color:#1d2a36;
-      font-size:13px;
-    }
-
-  .guideCard p{
-      margin:0;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.55;
-    }
-
-  .linkPill{
-      display:inline-flex;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
       gap:8px;
+    }
+
+    .processItem{
+      position:relative;
+      display:grid;
+      justify-items:center;
+      gap:9px;
+      color:rgba(234,240,255,.84);
+      font-size:12px;
+      font-weight:850;
+      text-align:center;
+    }
+
+    .processItem::after{
+      content:"";
+      position:absolute;
+      top:18px;
+      left:calc(50% + 25px);
+      width:calc(100% - 42px);
+      height:1px;
+      background:rgba(82,211,143,.48);
+    }
+
+    .processItem:last-child::after{
+      display:none;
+    }
+
+    .processDot{
+      display:inline-flex;
       align-items:center;
-      padding:8px 12px;
+      justify-content:center;
+      width:36px;
+      height:36px;
       border-radius:999px;
-      border:1px solid rgba(29,42,54,.10);
-      background:#fff;
-      color:#1d2a36;
-      text-decoration:none;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.20);
+      color:#fff;
+      font-size:12px;
+      font-weight:950;
     }
 
-  .btnRow .btn.primary{
-      color:#fff;
-      background:#3957E9;
+    @media (max-width:1180px){
+      .channelGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .whatsappCard{
+        grid-column:span 2;
+      }
+
+      .sendGrid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+
+      .trustGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .finalInner,
+      .starterMessageGrid{
+        grid-template-columns:1fr;
+      }
     }
 
-  .btnRow .btn:not(.primary){
-      color:#fff;
-      background:#3957E9;
-      border-color:#3957E9;
-    }@media (max-width: 980px){
-      .grid{ grid-template-columns:1fr; }
+    @media (max-width:900px){
+      .heroInner{
+        grid-template-columns:1fr;
+        min-height:auto;
+        padding:48px 0 34px;
+      }
 
-  .row2{ grid-template-columns:1fr; }
+      .workGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
 
-  .guideGrid{ grid-template-columns:1fr; }
+      .stepCard::after,
+      .processItem::after{
+        display:none;
+      }
+
+      .processLine{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width:680px){
+      .heroCopy h1{
+        font-size:36px;
+      }
+
+      .heroCopy p{
+        font-size:16px;
+      }
+
+      .sectionBlock{
+        padding:24px 0;
+      }
+
+      .sectionHeader{
+        text-align:left;
+      }
+
+      .sectionHeader h2{
+        font-size:26px;
+      }
+
+      .channelGrid,
+      .sendGrid,
+      .workGrid,
+      .trustGrid,
+      .formGrid,
+      .processLine{
+        grid-template-columns:1fr;
+      }
+
+      .whatsappCard{
+        grid-column:auto;
+      }
+
+      .channelCard,
+      .whatsappCard{
+        min-height:auto;
+      }
+
+      .trustCard{
+        grid-template-columns:48px minmax(0, 1fr);
+      }
+
+      .trustIcon{
+        width:48px;
+        height:48px;
+      }
+
+      .finalCta{
+        padding:22px;
+      }
     }
   </style>
 
-  <header class="pageHero">
-    <div class="contentWrap">
-      <p class="kicker">CertiSpares / Contact</p>
+  <header class="contactHero">
+    <div class="container wide heroInner">
+      <div class="heroCopy">
+        <p class="eyebrow">CertiSpares / Contact</p>
+        <h1>Talk to Us About Your <span>Truck Parts RFQ</span></h1>
+        <p>
+          You do not need a perfect RFQ to start. Send the references you already have: photos,
+          OE numbers, VIN/model, old supplier lists, or a short message. We will clarify the matching scope through conversation.
+        </p>
+        <div class="heroActions">
+          <a class="actionBtn primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <span set:html={icons.whatsapp}></span>
+            Chat on WhatsApp
+          </a>
+          <a class="actionBtn secondary" href={emailUrl}>
+            <span set:html={icons.mail}></span>
+            Send Email
+          </a>
+        </div>
+        <a class="sectionJump" href="#what-you-can-send">View what you can send <span aria-hidden="true">↓</span></a>
+      </div>
 
-      <h1 class="title">Send a Structured Truck Parts RFQ</h1>
-
-      <p class="sub">
-        Send your RFQ with OE or part numbers, VIN or vehicle model, photos, quantity, destination, and packing notes.
-        We usually reply within 24-48 hours with follow-up questions or the next workable sourcing step.
-      </p>
+      <aside class="startPanel" aria-label="Start with what you have">
+        <h2>Start With What You Have</h2>
+        <div class="startList">
+          {startItems.map((item) => (
+            <div class="startItem">
+              <span class="miniIcon" aria-hidden="true" set:html={icons.scope}></span>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+        <p class="panelFoot">We help clarify the rest in chat.</p>
+      </aside>
     </div>
   </header>
 
-  <section class="section">
-    <div class="contentWrap">
-      <div class="grid">
-        <!-- Left: contact info -->
-        <div class="card">
-          <h2>How to Contact Effectively</h2>
-          <p class="muted" style="line-height:1.7;">
-            For the fastest handling, send the key RFQ details first: OE number, VIN or vehicle model, quantity,
-            destination, and photos. We usually respond within 24-48 hours. For urgent clarification, WhatsApp is faster than email.
-          </p>
-          <p class="muted" style="line-height:1.7;">
-            If you want to understand the workflow before sending an inquiry, review <a href="/how-it-works">how the process works</a>. If you are still comparing service scope, see our <a href="/sourcing">truck parts sourcing service</a> and <a href="/capabilities">quality control and sourcing support</a>.
-          </p>
+  <main class="pageBody">
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Choose the <span>Easiest Way</span> to Start</h2>
+        <p>WhatsApp is the fastest path for photo-based RFQs and quick clarification. Email is better for files and formal records.</p>
+      </div>
 
-          <div class="infoList">
-            <div class="infoItem">
-              <b>Email</b>
-              <div class="muted">
-                <a class="linkPill" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-                <div style="margin-top:8px;">Best for RFQ files, part lists, and detailed business inquiries.</div>
+      <div class="channelGrid">
+        <article class="whatsappCard">
+          <span class="recommended">Recommended</span>
+          <div>
+            <span class="brandMark whatsapp" aria-hidden="true"></span>
+            <h3>WhatsApp</h3>
+            <p>Fastest way to discuss photos, part references, model details, and sourcing questions.</p>
+            <a class="channelBtn whatsapp" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <span set:html={icons.whatsapp}></span>
+              Chat on WhatsApp
+            </a>
+            <div class="whatsappMeta">{WHATSAPP_DISPLAY}</div>
+          </div>
+          <p class="whatsappMeta">Best for quick clarification and photo-based RFQs.</p>
+        </article>
+
+        {contactChannels.map((channel) => (
+          <article class="channelCard">
+            <span class={`brandMark ${channel.iconClass}`} aria-hidden="true"></span>
+            <h3>{channel.title}</h3>
+            <p>{channel.text}</p>
+            {channel.href && (
+              <a class="channelBtn" href={channel.href} target={channel.title === "Facebook" ? "_blank" : undefined} rel={channel.title === "Facebook" ? "noopener noreferrer" : undefined}>
+                {channel.action}
+              </a>
+            )}
+            {channel.title === "WeChat" && (
+              <div class="qrBox">
+                <img src="/images/contact/wechat-qr.png" alt="CertiSpares WeChat QR code" loading="lazy" decoding="async" />
               </div>
-            </div>
+            )}
+            <div class="channelMeta">{channel.meta}</div>
+          </article>
+        ))}
+      </div>
+    </section>
 
-            <div class="infoItem">
-              <b>WhatsApp</b>
-              <div class="muted">
-                <a class="linkPill" href={WHATSAPP_URL} target="_blank" rel="noopener">
-                  Chat on WhatsApp ({WHATSAPP_DISPLAY})
-                </a>
-                <div style="margin-top:8px;">Best for faster follow-up, photos, quick clarification, and urgent RFQs.</div>
-              </div>
-            </div>
+    <section id="what-you-can-send" class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>What You <span>Can Send</span></h2>
+        <p>Any of these details can help. You can start with one photo or one part number; we will ask for the rest if needed.</p>
+      </div>
 
-            <div class="infoItem">
-              <b>Facebook</b>
-              <div class="muted">
-                <a class="linkPill" href={FACEBOOK_URL} target="_blank" rel="noopener">
-                  Visit our Facebook
-                </a>
-              </div>
-            </div>
+      <div class="sendGrid">
+        {sendItems.map((item) => (
+          <article class="sendCard">
+            <span class="cardIcon" aria-hidden="true" set:html={icons[item.icon]}></span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
 
-            <div class="infoItem">
-              <b>Location</b>
-              <div class="muted">{LOCATION}</div>
-            </div>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>How We Move From <span>Chat</span> to a Workable Quote</h2>
+        <p>Conversation stays practical: clarify what is known, separate uncertain items, then move toward comparable supplier options.</p>
+      </div>
+
+      <div class="workGrid">
+        {chatSteps.map((step) => (
+          <article class="stepCard">
+            <span class="stepIcon" aria-hidden="true" set:html={icons[step.icon]}></span>
+            <span class="stepNumber">{step.n}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="starterMessageGrid">
+        <article class="starterCard">
+          <h2>Copy a Simple WhatsApp Message</h2>
+          <p>You can edit the message before sending. A rough start is enough; photos, Excel sheets, PDFs, and screenshots are welcome.</p>
+          <div class="messageBox">{whatsappStarter}</div>
+          <div class="buttonRow">
+            <a class="actionBtn primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <span set:html={icons.whatsapp}></span>
+              Open WhatsApp With This Message
+            </a>
+            <a class="actionBtn secondary" href={emailUrl}>
+              <span set:html={icons.mail}></span>
+              Send by Email
+            </a>
           </div>
+        </article>
 
-          <div class="note">
-            <b>Minimum useful RFQ:</b>
-            <ul class="checkList">
-              {minimumInputs.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div class="sampleBox">
-            <b>WhatsApp starter</b>
-            <p>{WHATSAPP_STARTER}</p>
-          </div>
-
-          <div class="sampleBox">
-            <b>Which kind of RFQ are you sending?</b>
-            <div class="guideGrid">
-              {rfqTypeGuides.map((item) => (
-                <div class="guideCard">
-                  <b>{item.title}</b>
-                  <p>{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: RFQ form (Netlify Forms) -->
-        <div class="card">
-          <h2>RFQ Submission Form</h2>
-          <p class="muted" style="margin-bottom:14px; line-height:1.7;">
-            Submit the form here if you want us to review the RFQ directly. The clearer the inputs, the easier it is to compare suppliers on the same scope.
-          </p>
-          <p class="muted" style="margin-bottom:14px; line-height:1.7;">
-            If you are still validating suppliers or quotations before submitting, start with <a href="/blog/how-to-identify-reliable-auto-parts-suppliers-in-china">our supplier screening guide</a> and <a href="/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers">quotation comparison guide</a>.
-          </p>
+        <article class="messageCard">
+          <h2>Prefer to Leave a Message Here?</h2>
+          <p>For faster clarification, WhatsApp is recommended. This form is only a light message option.</p>
 
           <form
-            name="rfq"
+            name="contact-message"
             method="POST"
             action="/thank-you"
             data-netlify="true"
             netlify-honeypot="bot-field"
             enctype="multipart/form-data"
           >
-            <!-- Required by Netlify -->
-            <input type="hidden" name="form-name" value="rfq" />
-
-            <!-- 闁?Force redirect after successful submission (most reliable) -->
+            <input type="hidden" name="form-name" value="contact-message" />
             <input type="hidden" name="redirect" value="https://certispares.com/thank-you/" />
 
-            <!-- Honeypot field (hidden from humans, visible to bots) -->
             <p style="display:none">
-              <label>Don't fill this out: <input name="bot-field" /></label>
+              <label>Do not fill this out: <input name="bot-field" /></label>
             </p>
 
-            <div class="row2">
+            <div class="formGrid">
               <label>
                 Name
                 <input name="name" placeholder="Your name" required />
               </label>
               <label>
-                Company
-                <input name="company" placeholder="Company name" />
-              </label>
-            </div>
-
-            <div class="row2">
-              <label>
-                Email
-                <input name="email" type="email" placeholder="you@company.com" required />
-              </label>
-              <label>
-                WhatsApp / phone
-                <input name="whatsapp" placeholder="+ country code and number" />
-              </label>
-            </div>
-
-            <div class="row2">
-              <label>
-                Preferred contact
-                <select name="preferredContact">
-                  <option value="Email">Email</option>
-                  <option value="WhatsApp">WhatsApp</option>
-                  <option value="Either">Either</option>
-                </select>
-              </label>
-              <label>
-                Destination
-                <input name="destination" placeholder="Country / Port (e.g., Mombasa)" />
-              </label>
-            </div>
-
-            <div class="row2">
-              <label>
-                OE / part number references
-                <input name="oeRefs" placeholder="OE, part no., casting mark, supplier code" />
-              </label>
-              <label>
-                VIN / vehicle model / application
-                <input name="vehicleRef" placeholder="VIN, truck model, engine model, axle application" />
-              </label>
-            </div>
-
-            <div class="row2">
-              <label>
-                Parts info type
-                <select name="infoType">
-                  <option value="OEM/Part Numbers">OEM/Part Numbers</option>
-                  <option value="Photos Only">Photos Only</option>
-                  <option value="Mixed">Mixed</option>
-                  <option value="Old Supplier Sheet">Old Supplier Sheet</option>
-                </select>
-              </label>
-              <label>
-                Target quantity
-                <input name="qty" placeholder="e.g., 500 pcs / 1 pallet / 1 mixed container" />
-              </label>
-            </div>
-
-            <div class="row2">
-              <label>
-                Preferred Incoterms
-                <select name="incoterms">
-                  <option value="">Not sure yet</option>
-                  <option value="EXW">EXW</option>
-                  <option value="FOB">FOB</option>
-                  <option value="CIF">CIF</option>
-                  <option value="DAP/DDP discussion">DAP / DDP discussion</option>
-                </select>
-              </label>
-              <label>
-                Target market / old supplier reference
-                <input name="referenceMarket" placeholder="e.g., Kenya market / old supplier code / competitor reference" />
+                Email or WhatsApp
+                <input name="contact" placeholder="Email or WhatsApp" required />
               </label>
             </div>
 
             <label>
-              Parts list and matching notes
-              <textarea
-                name="parts"
-                placeholder="Example: Brake chamber 3519..., 200 pcs, for HOWO A7. Photos attached. Need neutral packing and FOB Tianjin quotation."
-              ></textarea>
+              Country / Market
+              <input name="market" placeholder="Country or market" />
             </label>
 
             <label>
-              Attach files (optional)
-              <input
-                type="file"
-                name="files"
-                multiple
-                accept=".xlsx,.xls,.pdf,.png,.jpg,.jpeg"
-              />
-            </label>
-            <div class="hint">
-              Supported formats: Excel, PDF, PNG, JPG. Multiple files allowed.
-            </div>
-
-            <label>
-              Packaging / labeling requirements (optional)
-              <textarea name="pack" placeholder="Carton marks, private label, barcode, pallet type, etc."></textarea>
+              Message
+              <textarea name="message" placeholder="Tell us what you have: photos, OE numbers, truck model, rough list, or sourcing question." required></textarea>
             </label>
 
             <label>
-              Notes (optional)
-              <textarea name="notes" placeholder="Target price level, lead time expectations, competitor references, etc."></textarea>
+              Upload files
+              <input class="fileInput" type="file" name="files" multiple accept=".xlsx,.xls,.pdf,.png,.jpg,.jpeg" />
             </label>
 
-            <div class="btnRow">
-              <button class="btn primary" type="submit">Submit RFQ</button>
-              <a class="btn" href="/how-it-works">See Workflow</a>
-              <a class="btn" href="/capabilities">View Capabilities</a>
-            </div>
-
-            <div class="note">
-              <b>Minimum needed:</b> OE or part numbers if available, VIN or vehicle model, photos or dimensions, quantity, destination port or country.
-              <br />
-              <b>Helpful extras:</b> full part list, packaging requirements, Incoterms, target lead time, and any old supplier reference data.
-            </div>
+            <button class="formBtn" type="submit">Send Message</button>
+            <p class="formNote">For faster clarification, WhatsApp is recommended.</p>
           </form>
+        </article>
+      </div>
+    </section>
 
-          <!-- Optional: light click tracking for WhatsApp / Facebook -->
-          <script>
-            (function(){
-              // Outbound click tracking (WhatsApp / Facebook)
-              document.addEventListener("click", (e) => {
-                const a = e.target?.closest?.("a");
-                if (!a) return;
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Why Chat First Works Better for <span>Truck Parts RFQs</span></h2>
+      </div>
 
-                const href = a.getAttribute("href") || "";
-                const isWhatsApp = href.includes("wa.me") || href.includes("whatsapp");
-                const isFacebook = href.includes("facebook.com");
+      <div class="trustGrid">
+        {trustCards.map((card) => (
+          <article class="trustCard">
+            <span class="trustIcon" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <div>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
 
-                try {
-                  if (typeof gtag === "function" && (isWhatsApp || isFacebook)) {
-                    gtag("event", "outbound_click", {
-                      event_category: "engagement",
-                      link_url: href,
-                      link_type: isWhatsApp ? "whatsapp" : "facebook",
-                      page_location: window.location.href,
-                    });
-                  }
-                } catch (err) {}
-              });
-            })();
-          </script>
+    <section class="container wide sectionBlock">
+      <div class="finalCta">
+        <div class="finalInner">
+          <div>
+            <h2>Start the <span>Conversation</span> First</h2>
+            <p>
+              Send what you already have. We will help clarify the parts, supplier options, quotation basis,
+              and next sourcing step through direct communication.
+            </p>
+            <div class="heroActions">
+              <a class="actionBtn primary" href={quickWhatsappUrl} target="_blank" rel="noopener noreferrer">
+                <span set:html={icons.whatsapp}></span>
+                Chat on WhatsApp
+              </a>
+              <a class="actionBtn secondary" href={emailUrl}>
+                <span set:html={icons.mail}></span>
+                Send Email
+              </a>
+            </div>
+          </div>
+          <div class="processLine" aria-label="Conversation to quote process">
+            {processLine.map((item, index) => (
+              <div class="processItem">
+                <span class="processDot">{String(index + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 </BaseLayout>

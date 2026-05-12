@@ -1,218 +1,257 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getImageDimensions } from "../lib/imageDimensions";
 
-const strategyCards = [
+const CONTACT_EMAIL = "murphy@certispares.com";
+const WHATSAPP_E164 = "8615633022618";
+const whatsappStarter = `Hello CertiSpares, I have a mixed truck parts sourcing inquiry.
+
+Parts list / photos available:
+Truck brand or market:
+Quantity:
+Destination:
+Main goal: supplier mix / SKU mix / shipment plan`;
+
+const whatsappUrl = `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(whatsappStarter)}`;
+const emailUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Mixed truck parts sourcing inquiry")}&body=${encodeURIComponent(whatsappStarter)}`;
+
+const controlItems = [
   {
-    title: "Container consolidation lowers logistics cost",
-    desc: "CertiSpares can combine products from multiple approved suppliers into one container, helping buyers spread freight and export overhead across a broader and more practical order mix.",
-    image: "/images/sourcing/advantage-warehouse-shelves.webp",
-    points: [
-      "Lower landed cost than treating each factory order as a separate shipment",
-      "Better container utilization without forcing excess volume into one SKU family",
-      "One coordinated loading and document path across mixed supplier cargo",
-    ],
+    title: "Supplier Mix",
+    text: "Multiple suppliers support different part categories.",
+    icon: "users",
   },
   {
-    title: "Balanced multi-SKU sourcing improves turnover",
-    desc: "Instead of overcommitting to a narrow product line, buyers can source the mix they actually need across multiple SKUs and build a healthier inventory structure with the same budget.",
-    image: "/images/sourcing/advantage-inventory-worker.webp",
-    points: [
-      "More stock depth in the right fast- and medium-moving lines",
-      "Cleaner replenishment logic based on demand rather than container pressure",
-      "Better cash-flow efficiency and stronger reorder probability",
-    ],
+    title: "SKU Mix",
+    text: "Order structure follows market demand, not container pressure.",
+    icon: "box",
+  },
+  {
+    title: "Quote Basis",
+    text: "MOQ, lead time, packing, Incoterms, and item scope are aligned.",
+    icon: "sheet",
+  },
+  {
+    title: "Shipment Plan",
+    text: "Cargo, documents, carton marks, and loading path are coordinated.",
+    icon: "ship",
   },
 ];
 
-const problemCards = [
+const frictionCards = [
   {
     title: "One supplier rarely fills the right container alone",
-    desc: "Many buyers do not have enough demand in a single product line to fill a container efficiently without distorting the order.",
-    image: "/images/sourcing/traditional-buying-friction.webp",
+    text: "A single product range may not create enough useful volume without distorting the order.",
+    icon: "container",
   },
   {
-    title: "Buying just to fill space can create slow stock",
-    desc: "When the container target drives the order, buyers often take too much of a few SKUs and create inventory that moves slower than planned.",
-    image: "/images/sourcing/friction-container-yard.webp",
+    title: "Buying to fill space creates slow stock",
+    text: "When container utilization drives the order, buyers may overbuy a few SKUs that do not move fast enough.",
+    icon: "stock",
   },
   {
-    title: "Slow-moving stock ties up working capital",
-    desc: "Overstocked items absorb freight, storage, and cash that could otherwise support faster-moving replenishment and repeat orders.",
-    image: "/images/sourcing/friction-port-topview.webp",
+    title: "Slow stock ties up working capital",
+    text: "Cash, storage, and freight cost get trapped in inventory that does not support the next reorder cycle.",
+    icon: "cash",
   },
 ];
 
-const comparisonCards = [
+const advantageCards = [
   {
-    title: "Buying vertically from one supplier at a time",
+    title: "Lower Landed Cost Through Consolidation",
     image: "/images/sourcing/compare-container-ship.webp",
     bullets: [
-      "Container planning depends on one product range alone",
-      "Buyers may increase quantities mainly to reach shipping efficiency",
-      "A narrow SKU mix can leave stock unbalanced after arrival",
-      "Cash is tied more heavily to a few lines and slower sell-through risk rises",
+      "Freight and export overhead spread across a broader SKU mix",
+      "Better container utilization without forcing excess quantity into one line",
+      "One coordinated loading, packing, and document path",
     ],
   },
   {
-    title: "Buying through a coordinated multi-SKU model",
-    image: "/images/sourcing/compare-warehouse-team.webp",
+    title: "Healthier Turnover Through Balanced SKU Sourcing",
+    image: "/images/insights/insights-platform-sourcing-overview.webp",
     bullets: [
-      "Multiple needed SKUs can be built into one container across suppliers",
-      "Order volume follows market demand more closely instead of filling space",
-      "Inventory arrives in a more balanced structure for sales and replenishment",
-      "Stable quality and supply consistency support cleaner repeat-order cycles",
+      "More budget placed into fast- and medium-moving SKUs",
+      "Less pressure to overbuy just to fill container space",
+      "Cleaner repeat-order logic and stronger cash-flow efficiency",
     ],
-  },
-];
-
-const outcomeCards = [
-  {
-    t: "Lower landed cost",
-    p: "Freight efficiency improves when multiple supplier orders move as one managed shipment.",
-  },
-  {
-    t: "Better inventory structure",
-    p: "Budget can be distributed across the SKUs buyers truly need instead of overloading a few items.",
-  },
-  {
-    t: "Faster stock turnover",
-    p: "Balanced purchasing makes it easier for inventory to move in line with actual market demand.",
-  },
-  {
-    t: "Better cash-flow efficiency",
-    p: "Capital is less likely to be trapped in slow-moving stock created only for shipping convenience.",
-  },
-  {
-    t: "Stronger reorder logic",
-    p: "A healthier stock mix makes repeat ordering more practical when quality and supply remain stable.",
-  },
-  {
-    t: "Practical supply-chain coordination",
-    p: "Supplier comparison, QC, packing review, and export follow-up keep the model operationally controlled.",
   },
 ];
 
 const benchmarkCards = [
   {
-    label: "Indicative freight benchmark",
-    metric: "50% to 100%",
-    headline: "container loading can roughly halve implied freight cost per CBM",
-    note: "Based on an April 2026 public-lane benchmark model using 20GP capacity normalization.",
+    metric: "50% → 100%",
+    title: "Container loading improvement",
+    text: "Container loading improvement can reduce implied freight cost per CBM in the model.",
+    icon: "container",
   },
   {
-    label: "Illustrative turnover model",
-    metric: "1.5x to 3.0x",
-    headline: "inventory turnover improvement under a balanced multi-SKU sourcing model",
-    note: "Illustrative distributor model comparing concentrated buying with a balanced replenishment mix.",
+    metric: "1.5x → 3.0x",
+    title: "Turnover improvement",
+    text: "Illustrative turnover improvement under balanced multi-SKU sourcing.",
+    icon: "chart",
   },
   {
-    label: "Days inventory outstanding",
-    metric: "243 to 122",
-    headline: "inventory days in the same illustrative model",
-    note: "Shows how reducing slow-moving overstock can improve capital rotation and reorder timing.",
+    metric: "243 → 122 days",
+    title: "Inventory days",
+    text: "Inventory days reduced in the illustrative distributor model.",
+    icon: "clock",
   },
   {
-    label: "GMROI effect",
-    metric: "0.5x to 1.0x",
-    headline: "gross margin return on inventory in the same model",
-    note: "Illustrates how healthier SKU balance can make the same inventory budget more productive.",
-  },
-];
-
-const categories = [
-  {
-    title: "RFQ-Driven Sourcing",
-    tag: "Step 1-2",
-    desc:
-      "Buyers send RFQs with OE numbers, vehicle models, part lists, photos, quantities, and destination details. We structure the request before supplier outreach starts.",
-    bullets: ["RFQ intake and clarification", "Part lists, OE numbers, and vehicle data", "Built for importers, distributors, and wholesalers"],
-    href: "/contact",
-    img: "/images/Brake-System.webp",
-  },
-  {
-    title: "Product & Technical Matching",
-    tag: "Step 3",
-    desc:
-      "Before quotation, part matching is checked against OE references, EPC logic, vehicle platform information, and available technical details to reduce mismatch risk.",
-    bullets: ["OE and part-number review", "EPC and vehicle-platform matching", "Fitment checked before pricing"],
-    href: "/contact",
-    img: "/images/Suspension.webp",
-  },
-  {
-    title: "Supplier Sourcing",
-    tag: "Step 4",
-    desc:
-      "We identify suitable suppliers by product category, production relevance, and execution fit, with heavy-duty truck parts as a deeper strength while also supporting light- and medium-duty platforms.",
-    bullets: ["Factories selected by category fit", "Heavy-duty depth with broader truck coverage", "Focus on execution capability, not just catalog match"],
-    href: "/contact",
-    img: "/images/Engine-Parts.webp",
-  },
-].map((item) => ({
-  ...item,
-  ...getImageDimensions(item.img),
-}));
-
-const processCards = [
-  {
-    t: "Supplier Comparison",
-    p: "Supplier options are compared on price, MOQ, lead time, technical fit, and execution reliability instead of simply forwarding whichever quote arrives first.",
-  },
-  {
-    t: "Quotation Consolidation",
-    p: "Multiple supplier quotations can be aligned into one clearer response with unified currency, Incoterms, validity, and item structure for easier review.",
-  },
-  {
-    t: "Order Coordination",
-    p: "After order confirmation, production follow-up, QC checkpoints, and document review are tracked so the buyer can see how the RFQ moves into execution.",
+    metric: "0.5x → 1.0x",
+    title: "GMROI effect",
+    text: "GMROI improvement in the same illustrative model.",
+    icon: "growth",
   },
 ];
 
-const mixedRfqSteps = [
+const singleLineBullets = [
+  "One supplier / one product range",
+  "Volume increased to reach shipping efficiency",
+  "Narrow SKU mix after arrival",
+  "Higher slow-moving stock risk",
+  "Cash tied to fewer lines",
+];
+
+const balancedBullets = [
+  "Multiple needed SKUs across suitable suppliers",
+  "Order follows demand instead of container pressure",
+  "Healthier stock structure after arrival",
+  "Better repeat replenishment logic",
+  "Supplier comparison, QC, packing, and shipment control included",
+];
+
+const gainCards = [
   {
-    t: "Split the list by system and supplier type",
-    p: "Brake, suspension, engine, rubber, axle, electrical, and body items are separated so supplier matching follows category reality instead of one long mixed sheet.",
+    title: "Lower Landed Cost",
+    text: "Freight efficiency improves when cargo moves as one managed shipment.",
+    icon: "cash",
   },
   {
-    t: "Mark uncertain lines before pricing",
-    p: "Items with unclear OE references, missing photos, duplicate descriptions, or possible left/right and model variants are flagged before supplier comparison.",
+    title: "Better SKU Structure",
+    text: "Budget can be spread across the products buyers actually need.",
+    icon: "grid",
   },
   {
-    t: "Build supplier groups around shipment logic",
-    p: "We look at which suppliers can support the right item groups, MOQ, packing, and lead time while still fitting the buyer's container or LCL plan.",
+    title: "Faster Stock Turnover",
+    text: "Balanced purchasing supports movement closer to market demand.",
+    icon: "chart",
   },
   {
-    t: "Return a cleaner commercial view",
-    p: "The buyer reviews a more usable response: confirmed lines, clarification lines, supplier options, quote basis, and consolidation notes.",
+    title: "Better Cash Efficiency",
+    text: "Less capital trapped in slow-moving inventory.",
+    icon: "wallet",
+  },
+  {
+    title: "Stronger Reorder Logic",
+    text: "Repeat buying becomes easier when the first order structure is healthier.",
+    icon: "repeat",
+  },
+  {
+    title: "Controlled Execution",
+    text: "Supplier comparison, QC, packing, and export follow-up keep the model practical.",
+    icon: "shield",
+  },
+];
+
+const mixedListSteps = [
+  {
+    n: "01",
+    title: "Split the List",
+    text: "Brake, suspension, engine, rubber, axle, electrical, and body items are separated by sourcing reality.",
+  },
+  {
+    n: "02",
+    title: "Mark Uncertain Lines",
+    text: "Unclear OE references, missing photos, duplicate descriptions, and left/right variants are flagged before pricing.",
+  },
+  {
+    n: "03",
+    title: "Group Suppliers Around Shipment Logic",
+    text: "Suppliers are selected by item group, MOQ, packing, lead time, and consolidation fit.",
+  },
+  {
+    n: "04",
+    title: "Return a Cleaner Commercial View",
+    text: "The buyer sees confirmed lines, clarification lines, supplier options, quote basis, and consolidation notes.",
+  },
+];
+
+const sourcingPath = [
+  {
+    title: "RFQ / Chat Input",
+    text: "Photos, OE numbers, model details, supplier quotes, Excel lists.",
+    icon: "message",
+  },
+  {
+    title: "Scope Clarification",
+    text: "Confirmed lines and uncertain lines are separated.",
+    icon: "scope",
+  },
+  {
+    title: "Supplier Grouping",
+    text: "Suppliers are grouped by category fit and shipment logic.",
+    icon: "users",
+  },
+  {
+    title: "Quotation Alignment",
+    text: "MOQ, price, lead time, packing, Incoterms, and validity are aligned.",
+    icon: "sheet",
+  },
+  {
+    title: "Execution Follow-up",
+    text: "QC, packing, documents, loading, and shipment status are tracked.",
+    icon: "ship",
   },
 ];
 
 const faq = [
   {
     q: "Do you provide a full product catalogue?",
-    a: "The process is RFQ-first because technical matching and supplier comparison are more important than showing a broad catalogue. Send OE numbers, vehicle data, part lists, or photos and we will structure the request.",
+    a: "CertiSpares is RFQ-first. We can discuss product families and common systems, but sourcing starts from the buyer's parts list, photos, OE numbers, vehicle references, and shipment requirements.",
   },
   {
-    q: "Can you help us optimize a mixed-SKU container instead of quoting one line only?",
-    a: "Yes. This is one of the main commercial advantages of the model. We can review the SKU mix, supplier options, and shipment structure so the order supports both lower landed cost and a healthier inventory position.",
+    q: "Can you help optimize a mixed-SKU container?",
+    a: "Yes. Mixed-SKU sourcing is one of the strongest use cases because supplier mix, SKU mix, MOQ, packing, loading, and document coordination all affect the final commercial result.",
   },
   {
     q: "Can you handle private label packaging?",
-    a: "Yes. Share carton marks, label or barcode format, and any packaging requirements. These details can be checked during packing review before shipment.",
+    a: "Yes. Share label artwork, carton marks, barcode rules, pallet requirements, and any market-specific packaging notes. These details are checked during quotation and packing follow-up.",
   },
   {
-    q: "What information helps you quote faster?",
-    a: "OE or part numbers, vehicle brand and model, quantities, destination, target Incoterms, and any technical or packaging notes help the RFQ move faster and with fewer clarifications.",
+    q: "What information helps the sourcing review move faster?",
+    a: "Photos, OE or supplier part numbers, old quotations, Excel lists, quantity, destination, target packing, and any urgent lines help us split confirmed items from items that need clarification.",
   },
 ];
+
+const ctaFlow = ["List / Photos", "Clarify", "Supplier Mix", "Quote Basis", "Shipment Plan"];
+
+const icons = {
+  users: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>',
+  box: '<svg viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>',
+  sheet: '<svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5Z"/><path d="M16 3v4h4"/><path d="M8 12h8"/><path d="M8 16h6"/></svg>',
+  ship: '<svg viewBox="0 0 24 24"><path d="M3 16h18l-2 4H5Z"/><path d="M5 16V8h11l3 4v4"/><path d="M8 8V5h5v3"/><path d="M7 20c2 1 4 1 6 0 2 1 4 1 6 0"/></svg>',
+  container: '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 7v10M11 7v10M15 7v10"/><path d="M5 20h14"/></svg>',
+  stock: '<svg viewBox="0 0 24 24"><path d="M5 19V5"/><path d="M5 19h14"/><path d="M8 10h3v6H8z"/><path d="M13 7h3v9h-3z"/><path d="m8 5 10 10"/></svg>',
+  cash: '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 9h.01M18 15h.01"/></svg>',
+  chart: '<svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 3 5-7"/></svg>',
+  clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  growth: '<svg viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M4 19V5"/><path d="m7 16 4-5 3 3 5-8"/><path d="M16 6h3v3"/></svg>',
+  grid: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>',
+  wallet: '<svg viewBox="0 0 24 24"><path d="M4 7h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4Z"/><path d="M4 7l12-3v3"/><path d="M16 13h.01"/></svg>',
+  repeat: '<svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg>',
+  shield: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>',
+  message: '<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.4-4A8 8 0 1 1 21 12Z"/></svg>',
+  scope: '<svg viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/><path d="m8 9 2 2 4-4"/></svg>',
+  whatsapp: '<svg viewBox="0 0 24 24"><path d="M20 11.8a8 8 0 0 1-11.7 7.1L4 20l1.2-4.1A8 8 0 1 1 20 11.8Z"/><path d="M9.2 8.3c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.4.5c-.1.2-.1.3 0 .5.4.8 1.1 1.5 2 2 .2.1.3.1.5-.1l.6-.7c.2-.2.4-.2.7-.1l1.7.8c.3.1.5.3.5.6 0 .5-.3 1.2-.7 1.5-.5.4-1.7.5-3.3-.2-2.7-1.2-4.5-3.8-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.1.7-1.8 1-2Z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+};
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Commercial Vehicle Parts Sourcing from China",
+    name: "Multi-Supplier Truck Parts Sourcing Built Around Cost and Turnover",
     description:
-      "Commercial vehicle sourcing support for aftermarket buyers, combining supplier comparison, container consolidation, balanced multi-SKU planning, and delivery coordination.",
+      "Sourcing strategy page for commercial vehicle parts buyers, covering multi-supplier consolidation, balanced SKU sourcing, quotation alignment, benchmark models, and shipment planning.",
     url: "https://certispares.com/sourcing/",
   },
   {
@@ -249,741 +288,1106 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Truck Parts Sourcing Service from China | Consolidation and Supplier Comparison"
-  description="A truck parts sourcing service built around supplier comparison, quotation consolidation, and multi-supplier container planning for commercial vehicle buyers."
-  keywords={["truck spare parts", "heavy duty truck parts", "container consolidation", "inventory turnover sourcing", "commercial vehicle spare parts"]}
+  title="Multi-Supplier Truck Parts Sourcing | Cost and Turnover Strategy"
+  description="Multi-supplier truck parts sourcing built around supplier comparison, balanced SKU sourcing, quotation consolidation, lower landed cost, turnover logic, and shipment planning."
+  keywords={["truck parts sourcing strategy", "multi supplier sourcing", "container consolidation", "truck parts SKU mix", "landed cost sourcing", "inventory turnover sourcing"]}
   canonical="/sourcing/"
-  ogImage="/images/Brake-System.webp"
+  ogImage="/images/sourcing/compare-container-ship.webp"
   jsonLd={jsonLd}
 >
   <style>
     :root{
-      --bg:#eef3f7;
-      --text:#1d2a36;
-      --muted:#5f6d86;
-      --line:rgba(29,42,54,.10);
-      --brand:#3957E9;
-      --brand2:#3957E9;
+      --source-bg:#f3f6fb;
+      --source-ink:#0d1d3d;
+      --source-text:#30405d;
+      --source-muted:#66738c;
+      --source-line:rgba(13,29,61,.11);
+      --source-blue:#2365ff;
+      --source-green:#0f9f67;
+      --source-navy:#071f43;
+      --source-soft:#eef5ff;
+      --source-danger:#c74747;
     }
 
-    :global(main){ background:transparent; }
-
-  .sectionTitle{ font-size:22px; margin:0 0 10px; letter-spacing:-.2px; color:#1d2a36; }
-
-  .sectionDesc{ margin:0 0 16px; color:var(--muted); line-height:1.75; max-width:980px; }
-
-  .sectionHead{
-      display:flex;
-      align-items:baseline;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:10px;
+    :global(main){
+      background:var(--source-bg);
+      color:var(--source-text);
     }
 
-  .sectionHead .sectionTitle{ margin:0; }
-
-  .sectionJump{
-      color:#3957E9;
-      font-size:14px;
-      font-weight:700;
-      text-decoration:none;
-      white-space:nowrap;
-    }
-
-  .sectionJump:hover{
-      text-decoration:underline;
-      text-underline-offset:3px;
-    }
-
-  .pageHero{
+    .sourcingHero{
       position:relative;
       overflow:hidden;
-      border-bottom:1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(11,16,32,.34) 0%, rgba(11,16,32,.82) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%),
-        #0b1020;
+      isolation:isolate;
+      background:#071226;
+      color:#fff;
     }
 
-  .pageHero::before{
+    .sourcingHero::before{
       content:"";
-      position:absolute; inset:-120px -120px -120px -120px;
-      pointer-events:none;
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:url("/images/sourcing/compare-container-ship.webp") center/cover no-repeat;
+      filter:saturate(.96) contrast(1.02) brightness(.74);
+      transform:scale(1.02);
+    }
+
+    .sourcingHero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
       background:
-        radial-gradient(900px 420px at 18% 10%, rgba(47,91,255,.12), transparent 60%),
-        radial-gradient(900px 420px at 78% 18%, rgba(47,91,255,.08), transparent 62%),
-        linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size:auto, auto, 64px 64px, 64px 64px;
-      opacity:.22;
-      filter:blur(.2px);
+        linear-gradient(90deg, rgba(7,18,38,.97) 0%, rgba(7,18,38,.84) 44%, rgba(7,18,38,.50) 72%, rgba(7,18,38,.82) 100%),
+        linear-gradient(180deg, rgba(7,18,38,.18) 0%, rgba(7,18,38,.90) 100%);
     }
 
-  .heroInner{
-      position:relative;
-      padding-top:2px;
-      padding-bottom:22px;
+    .heroInner{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(340px, 430px);
+      gap:54px;
+      align-items:center;
+      min-height:535px;
+      padding:62px 0 42px;
     }
 
-  .contentSection{
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
-    }
-
-  .kicker{
-      letter-spacing:.12em;
+    .eyebrow{
+      margin:0 0 14px;
+      color:rgba(234,240,255,.74);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.14em;
       text-transform:uppercase;
-      font-size:.8rem;
-      opacity:.82;
-      margin:0 0 .75rem;
+    }
+
+    .heroCopy h1{
+      margin:0;
+      max-width:820px;
       color:#fff;
+      font-size:clamp(40px, 4.4vw, 58px);
+      line-height:1.05;
+      letter-spacing:0;
     }
 
-  .title{
-      margin:0 0 .8rem;
-      font-size:40px;
-      letter-spacing:-.4px;
-      line-height:1.12;
-      color:#fff;
+    .heroCopy h1 span,
+    .sectionHeader h2 span,
+    .finalCta h2 span{
+      color:#52d38f;
     }
 
-  .sub{
-      margin:0;
-      max-width:78ch;
-      color:rgba(225,233,255,.86);
-      line-height:1.75;
+    .heroCopy p{
+      margin:22px 0 0;
+      max-width:760px;
+      color:rgba(234,240,255,.88);
+      font-size:17px;
+      line-height:1.72;
     }
 
-  .heroBrief{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:16px;
-      margin-top:26px;
-      max-width:1180px;
+    .heroActions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:30px;
     }
 
-  .heroBriefItem{
-      border-left:3px solid rgba(255,255,255,.72);
-      min-height:148px;
-      padding:20px 22px !important;
-      border-radius:8px;
-      background:rgba(255,255,255,.08);
-      border-top:1px solid rgba(255,255,255,.12);
-      border-right:1px solid rgba(255,255,255,.12);
-      border-bottom:1px solid rgba(255,255,255,.12);
-      color:rgba(234,240,255,.86);
-      line-height:1.68;
-      font-size:14px;
-      display:grid;
-      gap:10px;
-      align-content:start;
-    }
-
-  .heroBriefItem strong{
-      display:block;
-      margin:0;
-      color:#fff;
-      font-size:16px;
-      line-height:1.35;
-    }
-
-  .heroBriefItem p{
-      margin:0;
-      color:rgba(234,240,255,.82);
-      line-height:1.68;
-    }
-
-  .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
-
-  .grid2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-
-  .benchmarkGrid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
-
-  .stepGrid{ display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:14px; }
-
-  .card,
-    .infoCard{
-      background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      border-radius:var(--radius-card);
-      padding:18px;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
-    }
-
-  .card b,
-    .infoCard b{
-      display:block;
-      margin-bottom:8px;
-      color:#1d2a36;
-    }
-
-  .card p,
-    .infoCard p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.7;
-    }
-
-  .stepCard{
-      display:grid;
-      gap:10px;
-      align-content:start;
-    }
-
-  .stepNo{
-      width:38px;
-      height:38px;
+    .actionBtn,
+    .lightBtn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      border-radius:12px;
-      background:#101828;
+      gap:9px;
+      min-height:46px;
+      padding:0 20px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.20);
       color:#fff;
-      font-weight:950;
-      font-size:13px;
+      font-size:14px;
+      font-weight:900;
+      transition:transform .16s ease, background .16s ease, border-color .16s ease;
     }
 
-  .benchmarkCard{
-      display:flex;
-      flex-direction:column;
+    .actionBtn svg,
+    .lightBtn svg{
+      width:18px;
+      height:18px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .actionBtn.primary{
+      background:#0f9f67;
+      border-color:#0f9f67;
+      box-shadow:0 18px 38px rgba(15,159,103,.18);
+    }
+
+    .actionBtn.secondary{
+      background:rgba(255,255,255,.07);
+    }
+
+    .actionBtn:hover,
+    .lightBtn:hover{
+      transform:translateY(-2px);
+    }
+
+    .controlPanel{
+      padding:24px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:8px;
+      background:rgba(7,18,38,.76);
+      box-shadow:0 24px 58px rgba(0,0,0,.30);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .controlPanel h2{
+      margin:0 0 16px;
+      color:#fff;
+      font-size:20px;
+      letter-spacing:0;
+    }
+
+    .controlList{
+      display:grid;
       gap:10px;
     }
 
-  .benchmarkLabel{
+    .controlItem{
+      display:grid;
+      grid-template-columns:38px minmax(0, 1fr);
+      gap:12px;
+      align-items:start;
+      padding:12px;
+      border-radius:8px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .iconBox,
+    .metricIcon,
+    .gainIcon,
+    .pathIcon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      color:var(--source-blue);
+      background:#f7fbff;
+      border:1px solid rgba(35,101,255,.22);
+    }
+
+    .controlItem .iconBox{
+      width:38px;
+      height:38px;
+      color:#52d38f;
+      background:rgba(82,211,143,.10);
+      border-color:rgba(82,211,143,.24);
+    }
+
+    .iconBox svg,
+    .metricIcon svg,
+    .gainIcon svg,
+    .pathIcon svg{
+      width:20px;
+      height:20px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.75;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .controlItem strong{
+      display:block;
+      margin:0 0 4px;
+      color:#fff;
+      font-size:14px;
+      line-height:1.25;
+    }
+
+    .controlItem span:last-child{
+      color:rgba(234,240,255,.72);
       font-size:12px;
-      line-height:1;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#5f6d86;
+      line-height:1.45;
     }
 
-  .benchmarkMetric{
-      font-size:34px;
-      line-height:1;
-      letter-spacing:-.04em;
-      font-weight:900;
-      color:#1d2a36;
+    .pageBody{
+      padding:26px 0 0;
     }
 
-  .benchmarkHeadline{
+    .sectionBlock{
+      padding:28px 0;
+    }
+
+    .sectionHeader{
+      margin:0 auto 22px;
+      max-width:920px;
+      text-align:center;
+    }
+
+    .sectionHeader.left{
+      margin-left:0;
+      text-align:left;
+    }
+
+    .sectionHeader h2{
       margin:0;
-      color:#1d2a36;
-      font-size:16px;
-      line-height:1.6;
-      font-weight:700;
+      color:var(--source-ink);
+      font-size:30px;
+      line-height:1.16;
+      letter-spacing:0;
     }
 
-  .benchmarkNote{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
+    .sectionHeader p{
+      margin:10px auto 0;
+      max-width:820px;
+      color:var(--source-muted);
       line-height:1.65;
     }
 
-  .visualCard{
-      position:relative;
+    .sectionHeader.left p{
+      margin-left:0;
+    }
+
+    .frictionGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:0;
       overflow:hidden;
-      min-height:280px;
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow:0 16px 36px rgba(17,31,67,.10);
-      background:#0f172a;
+      border:1px solid var(--source-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
     }
 
-  .visualCard::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image:var(--card-bg);
-      background-position:center;
-      background-size:cover;
-      background-repeat:no-repeat;
-      transform:scale(1.03);
-      z-index:0;
-    }
-
-  .visualCard::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(180deg, rgba(8,14,30,.22) 0%, rgba(8,14,30,.72) 58%, rgba(8,14,30,.92) 100%),
-        radial-gradient(900px 420px at 20% 16%, rgba(57,87,233,.22), transparent 60%);
-      z-index:1;
-    }
-
-  .visualCard > *{
-      position:relative;
-      z-index:2;
-    }
-
-  .visualCard b,
-    .visualCard p,
-    .visualCard .bulletItem,
-    .visualCard .sectionLabel{
-      color:#fff;
-    }
-
-  .visualCard p{
-      color:rgba(234,240,255,.86);
-    }
-
-  .visualCard .bulletItem{
-      color:rgba(234,240,255,.88);
-    }
-
-  .visualCard .dot{
-      background:rgba(255,255,255,.86);
-    }
-
-  .visualCard .sectionLabel{
-      display:inline-flex;
+    .frictionCard{
+      display:grid;
+      grid-template-columns:70px minmax(0, 1fr);
+      gap:18px;
       align-items:center;
-      margin-bottom:12px;
-      padding:6px 10px;
+      min-height:150px;
+      padding:24px;
+      border-left:1px solid var(--source-line);
+    }
+
+    .frictionCard:first-child{
+      border-left:0;
+    }
+
+    .frictionCard .iconBox{
+      width:70px;
+      height:70px;
       border-radius:999px;
-      background:rgba(17,26,51,.52);
-      border:1px solid rgba(255,255,255,.12);
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.04em;
-      text-transform:uppercase;
+      color:var(--source-blue);
+      background:#eef5ff;
     }
 
-  .advantageCard{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+    .frictionCard h3,
+    .advantageCard h3,
+    .gainCard h3,
+    .stepItem h3,
+    .pathItem h3{
+      margin:0 0 8px;
+      color:var(--source-ink);
+      font-size:17px;
+      line-height:1.3;
+      letter-spacing:0;
     }
 
-  .bulletList,
-    .catList{
+    .frictionCard p,
+    .gainCard p,
+    .stepItem p,
+    .pathItem p{
       margin:0;
-      padding:0;
-      list-style:none;
+      color:var(--source-muted);
+      font-size:13px;
+      line-height:1.62;
+    }
+
+    .advantageGrid{
       display:grid;
-      gap:8px;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:20px;
     }
 
-  .bulletItem,
-    .catLi{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-  .compareWrap{
-      border-radius:var(--radius-card);
-      padding:18px;
-      background:linear-gradient(135deg, rgba(57,87,233,.08), rgba(255,255,255,.96));
-      border:1px solid rgba(57,87,233,.16);
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
-    }
-
-  .catGrid{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-
-  .catCard{
+    .advantageCard{
       position:relative;
-      border-radius:var(--radius-card);
       overflow:hidden;
+      min-height:310px;
+      padding:28px;
+      border-radius:8px;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      min-height:308px;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
+      background:#071f43;
+      box-shadow:0 18px 42px rgba(17,31,67,.14);
+      color:#fff;
       isolation:isolate;
     }
 
-  .catCard img{
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-      filter:saturate(1.02) contrast(1.02) brightness(.99);
-      transform:scale(1.02);
+    .advantageCard::before{
+      content:"";
+      position:absolute;
+      inset:0;
       z-index:-2;
+      background:var(--card-bg) center/cover no-repeat;
+      transform:scale(1.02);
+      filter:saturate(.98) contrast(1.03) brightness(.82);
     }
 
-  .catShade{
-      position:absolute; inset:0;
+    .advantageCard::after{
+      content:"";
+      position:absolute;
+      inset:0;
       z-index:-1;
       background:
-        linear-gradient(to top, rgba(6,16,42,.94), rgba(6,16,42,.28) 58%, rgba(6,16,42,.10)),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.16), transparent 60%);
+        linear-gradient(90deg, rgba(7,31,67,.96), rgba(7,31,67,.70) 55%, rgba(7,31,67,.36)),
+        linear-gradient(180deg, rgba(7,31,67,.12), rgba(7,31,67,.82));
     }
 
-  .catInner{ padding:16px; }
+    .advantageCard h3{
+      max-width:420px;
+      color:#fff;
+      font-size:23px;
+    }
 
-  .catTag{
+    .checkList,
+    .compareList{
+      display:grid;
+      gap:12px;
+      margin:20px 0 0;
+      padding:0;
+      list-style:none;
+    }
+
+    .checkList li,
+    .compareList li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:rgba(234,240,255,.86);
+      line-height:1.55;
+      font-size:14px;
+    }
+
+    .checkDot,
+    .badDot{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      font-size:12px;
-      font-weight:900;
-      color:#fff;
-      margin-bottom:10px;
-      padding:6px 10px;
+      justify-content:center;
+      width:18px;
+      height:18px;
+      margin-top:2px;
       border-radius:999px;
-      background:rgba(17,26,51,.62);
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(6px);
+      flex:0 0 auto;
+      font-size:12px;
+      font-weight:950;
     }
 
-  .catTitle{
+    .checkDot{
+      color:#fff;
+      background:#0f9f67;
+    }
+
+    .badDot{
+      color:#fff;
+      background:var(--source-danger);
+    }
+
+    .benchmarkGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .metricCard,
+    .gainCard,
+    .messagePanel,
+    .faqItem{
+      border:1px solid var(--source-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
+
+    .metricCard{
+      display:grid;
+      grid-template-columns:54px minmax(0, 1fr);
+      gap:14px;
+      padding:20px;
+      align-items:start;
+    }
+
+    .metricIcon{
+      width:54px;
+      height:54px;
+      color:var(--source-green);
+      background:#effff7;
+      border-color:rgba(15,159,103,.20);
+    }
+
+    .metricCard b{
+      display:block;
       margin:0 0 8px;
+      color:var(--source-ink);
+      font-size:25px;
+      letter-spacing:0;
+    }
+
+    .metricCard strong{
+      display:block;
+      color:var(--source-ink);
+      font-size:14px;
+      line-height:1.25;
+    }
+
+    .metricCard p{
+      margin:8px 0 0;
+      color:var(--source-muted);
+      font-size:12px;
+      line-height:1.55;
+    }
+
+    .modelNote{
+      max-width:920px;
+      margin:16px auto 0;
+      color:var(--source-muted);
+      font-size:13px;
+      line-height:1.62;
+      text-align:center;
+    }
+
+    .compareSection{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 74px minmax(0, 1fr);
+      gap:0;
+      align-items:start;
+    }
+
+    .compareCard{
+      padding:24px 28px 26px;
+      border:1px solid var(--source-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
+
+    .compareCard.bad{
+      border-color:rgba(199,71,71,.25);
+      background:linear-gradient(135deg, #fff 0%, #fff7f7 100%);
+    }
+
+    .compareCard.good{
+      border-color:rgba(15,159,103,.25);
+      background:linear-gradient(135deg, #fff 0%, #f1fff8 100%);
+    }
+
+    .compareCard h3{
+      margin:0 0 16px;
+      color:var(--source-ink);
+      font-size:22px;
+      letter-spacing:0;
+    }
+
+    .compareCard.bad h3{
+      color:#aa2d2d;
+    }
+
+    .compareCard.good h3{
+      color:#08784d;
+    }
+
+    .compareList li{
+      color:var(--source-text);
+    }
+
+    .vsBubble{
+      align-self:center;
+      justify-self:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:54px;
+      height:54px;
+      border-radius:999px;
+      background:#071f43;
+      color:#fff;
       font-size:16px;
       font-weight:950;
-      letter-spacing:-.15px;
-      color:#fff;
+      box-shadow:0 16px 34px rgba(7,31,67,.18);
+      z-index:2;
     }
 
-  .catDesc{
-      margin:0 0 12px;
-      font-size:12px;
-      line-height:1.65;
-      color:rgba(255,255,255,.88);
-      max-width:520px;
+    .gainGrid{
+      display:grid;
+      grid-template-columns:repeat(6, minmax(0, 1fr));
+      gap:12px;
     }
 
-  .dot{
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      margin-top:6px;
-      background:#4A5462;
-      flex:0 0 10px;
+    .gainCard{
+      min-height:190px;
+      padding:20px 16px;
+      text-align:center;
     }
 
-  .catCtaRow{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
-
-  .catCtaRow .btn.primary,
-    .ctaBlock .btn.primary{
-      color:#fff;
-      background:#3957E9;
+    .gainIcon{
+      width:50px;
+      height:50px;
+      margin:0 auto 14px;
+      color:var(--source-blue);
+      background:#f7fbff;
     }
 
-  .catCtaRow .btn:not(.primary){
-      color:#fff;
-      background:#3957E9;
-      border-color:#3957E9;
+    .mixedGrid{
+      display:grid;
+      grid-template-columns:minmax(300px, .78fr) minmax(0, 1fr);
+      gap:24px;
+      align-items:stretch;
     }
 
-  .catLi{
-      color:rgba(255,255,255,.9);
+    .mixedImage{
+      overflow:hidden;
+      min-height:430px;
+      border:1px solid var(--source-line);
+      border-radius:8px;
+      background:
+        linear-gradient(180deg, rgba(3,18,42,.02), rgba(3,18,42,.1)),
+        url("/images/insights/insights-problem-mixed-specifications.webp") center/cover no-repeat;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
     }
 
-  .catLi .dot{
-      background:rgba(255,255,255,.88);
+    .stepList{
+      display:grid;
+      gap:12px;
     }
 
-  .faq{
+    .stepItem{
+      display:grid;
+      grid-template-columns:44px minmax(0, 1fr);
+      gap:14px;
+      padding:18px;
+      border:1px solid var(--source-line);
+      border-radius:8px;
       background:#fff;
-      border:1px solid rgba(29,42,54,.10);
-      border-radius:var(--radius-card);
-      padding:18px;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+      box-shadow:0 10px 26px rgba(17,31,67,.05);
     }
 
-  .faqItem{ padding:12px 0; border-top:1px solid rgba(29,42,54,.10); }
-
-  .faqItem:first-child{ border-top:0; padding-top:0; }
-
-  .faqQ{ margin:0 0 6px; font-weight:950; letter-spacing:-.1px; color:#1d2a36; }
-
-  .faqA{ margin:0; color:var(--muted); line-height:1.7; }
-
-  .ctaBlock{
-      margin-top:14px;
-      border-radius:var(--radius-card);
-      padding:18px;
-      background:linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
-      border:1px solid rgba(57,87,233,.16);
-      display:flex; justify-content:space-between; align-items:center; gap:14px;
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
+    .stepNo{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      background:#0f9f67;
+      color:#fff;
+      font-size:13px;
+      font-weight:950;
     }
 
-  .ctaBlock .left b{ display:block; margin-bottom:6px; color:#1d2a36; }
+    .pathPanel{
+      padding:24px;
+      border:1px solid var(--source-line);
+      border-radius:8px;
+      background:linear-gradient(180deg, #fff 0%, #edf4ff 100%);
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
 
-  .ctaBlock .left p{ margin:0; color:var(--muted); line-height:1.75; max-width:760px; }@media (max-width: 980px){
-      .grid3{ grid-template-columns:1fr; }
+    .pathGrid{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:14px;
+    }
 
-  .grid2{ grid-template-columns:1fr; }
+    .pathItem{
+      position:relative;
+      padding-top:58px;
+      min-width:0;
+    }
 
-  .benchmarkGrid{ grid-template-columns:1fr; }
+    .pathItem::after{
+      content:"";
+      position:absolute;
+      top:24px;
+      left:58px;
+      right:-14px;
+      height:1px;
+      border-top:1px dashed rgba(35,101,255,.38);
+    }
 
-  .stepGrid{ grid-template-columns:1fr; }
+    .pathItem:last-child::after{
+      display:none;
+    }
 
-  .catGrid{ grid-template-columns:1fr; }
+    .pathIcon{
+      position:absolute;
+      top:0;
+      left:0;
+      width:48px;
+      height:48px;
+      color:var(--source-blue);
+      background:#fff;
+      box-shadow:0 10px 24px rgba(17,31,67,.08);
+    }
 
-  .heroBrief{ grid-template-columns:1fr; }
+    .faqGrid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
 
-  .ctaBlock{ flex-direction:column; align-items:flex-start; }
+    details.faqItem{
+      overflow:hidden;
+    }
 
-  .catCard{ min-height:300px; }
+    summary{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      min-height:56px;
+      padding:0 18px;
+      color:var(--source-ink);
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+    }
 
-  .heroInner{ padding-top:18px; padding-bottom:18px; }
+    summary::-webkit-details-marker{
+      display:none;
+    }
+
+    summary::after{
+      content:"+";
+      color:var(--source-blue);
+      font-size:18px;
+      font-weight:900;
+    }
+
+    details[open] summary::after{
+      content:"-";
+    }
+
+    details p{
+      margin:0;
+      padding:0 18px 18px;
+      color:var(--source-muted);
+      line-height:1.65;
+    }
+
+    .finalCta{
+      margin:8px 0 0;
+      padding:28px;
+      border-radius:8px;
+      background:
+        linear-gradient(90deg, rgba(7,31,67,.96), rgba(7,31,67,.82)),
+        url("/images/container-stacking-yard-sunset.webp") center/cover no-repeat;
+      color:#fff;
+      box-shadow:0 18px 42px rgba(7,31,67,.18);
+    }
+
+    .finalInner{
+      display:grid;
+      grid-template-columns:minmax(0, .9fr) minmax(520px, 1fr);
+      gap:28px;
+      align-items:center;
+    }
+
+    .finalCta h2{
+      margin:0 0 10px;
+      color:#fff;
+      font-size:30px;
+      letter-spacing:0;
+    }
+
+    .finalCta p{
+      margin:0;
+      max-width:720px;
+      color:rgba(234,240,255,.78);
+      line-height:1.65;
+    }
+
+    .ctaFlow{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:8px;
+    }
+
+    .ctaStep{
+      position:relative;
+      display:grid;
+      justify-items:center;
+      gap:9px;
+      color:rgba(234,240,255,.84);
+      font-size:12px;
+      font-weight:850;
+      text-align:center;
+    }
+
+    .ctaStep::after{
+      content:"";
+      position:absolute;
+      top:18px;
+      left:calc(50% + 25px);
+      width:calc(100% - 42px);
+      height:1px;
+      background:rgba(82,211,143,.48);
+    }
+
+    .ctaStep:last-child::after{
+      display:none;
+    }
+
+    .ctaDot{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.20);
+      color:#fff;
+      font-size:12px;
+      font-weight:950;
+    }
+
+    :global(.sourcingHero svg *),
+    :global(.pageBody svg *){
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.75;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    @media (max-width:1180px){
+      .frictionGrid,
+      .advantageGrid,
+      .mixedGrid,
+      .finalInner{
+        grid-template-columns:1fr;
+      }
+
+      .frictionCard{
+        border-left:0;
+        border-top:1px solid var(--source-line);
+      }
+
+      .frictionCard:first-child{
+        border-top:0;
+      }
+
+      .benchmarkGrid,
+      .gainGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .pathGrid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+
+      .pathItem::after{
+        display:none;
+      }
+    }
+
+    @media (max-width:900px){
+      .heroInner,
+      .compareSection{
+        grid-template-columns:1fr;
+      }
+
+      .heroInner{
+        min-height:auto;
+        padding:48px 0 34px;
+      }
+
+      .vsBubble{
+        margin:14px 0;
+      }
+
+      .pathGrid,
+      .ctaFlow{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .ctaStep::after{
+        display:none;
+      }
+    }
+
+    @media (max-width:680px){
+      .heroCopy h1{
+        font-size:35px;
+      }
+
+      .heroCopy p{
+        font-size:16px;
+      }
+
+      .sectionBlock{
+        padding:24px 0;
+      }
+
+      .sectionHeader{
+        text-align:left;
+      }
+
+      .sectionHeader h2{
+        font-size:26px;
+      }
+
+      .frictionCard{
+        grid-template-columns:1fr;
+      }
+
+      .benchmarkGrid,
+      .gainGrid,
+      .pathGrid,
+      .faqGrid,
+      .ctaFlow{
+        grid-template-columns:1fr;
+      }
+
+      .mixedImage{
+        min-height:280px;
+      }
+
+      .finalCta{
+        padding:22px;
+      }
     }
   </style>
 
-  <header class="pageHero">
-    <div class="container heroInner">
-      <p class="kicker">CertiSpares / Sourcing Strategy</p>
-      <h1 class="title">Truck Parts Sourcing Service from China</h1>
-      <p class="sub">
-        This truck parts sourcing service is built for commercial vehicle buyers who need supplier comparison, quotation consolidation, and multi-supplier container planning in one workflow. The goal is to reduce landed cost, improve inventory structure, and support healthier repeat-order cycles.
-      </p>
-
-      <div class="heroBrief">
-        <div class="heroBriefItem">
-          <strong>For mixed truck-parts RFQs</strong>
-          <p>Heavy-duty, medium-duty, and light-duty requests can start from OE numbers, vehicle details, photos, or a mixed SKU spreadsheet.</p>
-        </div>
-        <div class="heroBriefItem">
-          <strong>Built around comparison</strong>
-          <p>Supplier options and quotations are aligned before the buyer reviews price, MOQ, lead time, packing, and shipment assumptions.</p>
-        </div>
-        <div class="heroBriefItem">
-          <strong>Planned for repeat buying</strong>
-          <p>Container consolidation and balanced multi-SKU sourcing are used to lower landed cost without creating a weak inventory structure.</p>
+  <header class="sourcingHero">
+    <div class="container wide heroInner">
+      <div class="heroCopy">
+        <p class="eyebrow">CertiSpares / Sourcing Strategy</p>
+        <h1>Multi-Supplier Truck Parts Sourcing Built Around <span>Cost and Turnover</span></h1>
+        <p>
+          Many truck parts buyers do not need one full container of one product line. We help organize mixed RFQs,
+          compare suppliers on the same basis, consolidate quotations, and plan a more practical shipment structure.
+        </p>
+        <div class="heroActions">
+          <a class="actionBtn primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <span set:html={icons.whatsapp}></span>
+            Start Sourcing Conversation
+          </a>
+          <a class="actionBtn secondary" href="/cases">View Cases <span aria-hidden="true">→</span></a>
         </div>
       </div>
+
+      <aside class="controlPanel" aria-label="Sourcing control logic">
+        <h2>Sourcing Control Logic</h2>
+        <div class="controlList">
+          {controlItems.map((item) => (
+            <div class="controlItem">
+              <span class="iconBox" aria-hidden="true" set:html={icons[item.icon]}></span>
+              <span>
+                <strong>{item.title}</strong>
+                {item.text}
+              </span>
+            </div>
+          ))}
+        </div>
+      </aside>
     </div>
   </header>
 
-  <section class="contentSection">
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">Why the Traditional Buying Pattern Creates Friction</h2>
-        <p class="sectionDesc">
-          Many aftermarket buyers do not need one full container of a single product line at one time. But if they buy vertically from only one supplier, they often face a difficult trade-off between shipping efficiency and healthy inventory levels.
-        </p>
-
-        <div class="grid3">
-          {problemCards.map((item) => (
-            <div class="card visualCard" style={`--card-bg: url('${item.image}')`}>
-              <span class="sectionLabel">Buying friction</span>
-              <b>{item.title}</b>
-              <p>{item.desc}</p>
+  <main class="pageBody">
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Why Traditional One-Supplier Buying Creates Friction</h2>
+      </div>
+      <div class="frictionGrid">
+        {frictionCards.map((card) => (
+          <article class="frictionCard">
+            <span class="iconBox" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <div>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
             </div>
-          ))}
-        </div>
+          </article>
+        ))}
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">The Two Strategic Advantages</h2>
-        <p class="sectionDesc">
-          The commercial advantage comes from how the order is built before shipment: the supplier mix, the SKU mix, and the loading plan all affect cost, turnover, and the quality of the next reorder cycle.
-        </p>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>The Two <span>Strategic Advantages</span></h2>
+      </div>
+      <div class="advantageGrid">
+        {advantageCards.map((card) => (
+          <article class="advantageCard" style={`--card-bg:url('${card.image}')`}>
+            <h3>{card.title}</h3>
+            <ul class="checkList">
+              {card.bullets.map((bullet) => (
+                <li><span class="checkDot">✓</span><span>{bullet}</span></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
 
-        <div class="grid2">
-          {strategyCards.map((item) => (
-            <div class="card visualCard advantageCard" style={`--card-bg: url('${item.image}')`}>
-              <span class="sectionLabel">Strategic advantage</span>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Benchmark Snapshot <span>(Illustrative Model)</span></h2>
+      </div>
+      <div class="benchmarkGrid">
+        {benchmarkCards.map((card) => (
+          <article class="metricCard">
+            <span class="metricIcon" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <div>
+              <b>{card.metric}</b>
+              <strong>{card.title}</strong>
+              <p>{card.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="modelNote">
+        These are benchmark and illustrative models. Actual results depend on SKU mix, supplier options,
+        freight lane, quantities, packing, and local market demand.
+      </p>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Single-Line Buying vs. <span>Balanced Container Logic</span></h2>
+      </div>
+      <div class="compareSection">
+        <article class="compareCard bad">
+          <h3>Single-Line Buying</h3>
+          <ul class="compareList">
+            {singleLineBullets.map((bullet) => (
+              <li><span class="badDot">×</span><span>{bullet}</span></li>
+            ))}
+          </ul>
+        </article>
+        <span class="vsBubble">VS</span>
+        <article class="compareCard good">
+          <h3>Balanced Multi-SKU Sourcing</h3>
+          <ul class="compareList">
+            {balancedBullets.map((bullet) => (
+              <li><span class="checkDot">✓</span><span>{bullet}</span></li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>What Buyers Gain With the <span>Same Budget</span></h2>
+      </div>
+      <div class="gainGrid">
+        {gainCards.map((card) => (
+          <article class="gainCard">
+            <span class="gainIcon" aria-hidden="true" set:html={icons[card.icon]}></span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="mixedGrid">
+        <div>
+          <div class="sectionHeader left">
+            <h2>How We Turn a Mixed Parts List Into a Workable Sourcing Plan</h2>
+            <p>
+              Buyers often send Excel sheets, screenshots, supplier codes, photos, OE numbers, and sales notes.
+              The first job is to turn that input into a sourcing structure suppliers and buyers can both understand.
+            </p>
+          </div>
+          <div
+            class="mixedImage"
+            role="img"
+            aria-label="Mixed truck parts RFQ list with sourcing notes"
+            style="background-image:linear-gradient(180deg, rgba(3,18,42,.02), rgba(3,18,42,.1)), url('/images/insights/insights-problem-mixed-specifications.webp');"
+          >
+          </div>
+        </div>
+
+        <div class="stepList">
+          {mixedListSteps.map((step) => (
+            <article class="stepItem">
+              <span class="stepNo">{step.n}</span>
               <div>
-                <b>{item.title}</b>
-                <p>{item.desc}</p>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
               </div>
-
-              <ul class="bulletList">
-                {item.points.map((point) => (
-                  <li class="bulletItem"><span class="dot"></span><span>{point}</span></li>
-                ))}
-              </ul>
-            </div>
+            </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="sectionHead">
-          <h2 class="sectionTitle">Benchmark Snapshot</h2>
-          <a class="sectionJump" href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">Read the full analysis &rarr;</a>
-        </div>
-        <p class="sectionDesc">
-          The strategy is supported by two benchmark views: an indicative freight model based on public April 2026 lane references, and an illustrative distributor model comparing concentrated buying with balanced multi-SKU replenishment.
-        </p>
-        <p class="sectionDesc">
-          If you want the operational side behind this service model, review our <a href="/capabilities">sourcing support capabilities</a>. If you want to see the RFQ path from inquiry to delivery, go to <a href="/how-it-works">how the workflow works</a>.
-        </p>
-
-        <div class="benchmarkGrid">
-          {benchmarkCards.map((item) => (
-            <div class="infoCard benchmarkCard">
-              <div class="benchmarkLabel">{item.label}</div>
-              <div class="benchmarkMetric">{item.metric}</div>
-              <p class="benchmarkHeadline">{item.headline}</p>
-              <p class="benchmarkNote">{item.note}</p>
-            </div>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>The Practical <span>Sourcing Path</span></h2>
+        <p>For the full RFQ-to-shipment workflow, buyers can continue to the How It Works page.</p>
+      </div>
+      <div class="pathPanel">
+        <div class="pathGrid">
+          {sourcingPath.map((item) => (
+            <article class="pathItem">
+              <span class="pathIcon" aria-hidden="true" set:html={icons[item.icon]}></span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="compareWrap">
-          <h2 class="sectionTitle">Single-Line Buying vs. Balanced Container Logic</h2>
-          <p class="sectionDesc">
-            The difference is practical. When container planning follows real SKU demand instead of one supplier's volume, buyers can protect both freight efficiency and stock movement.
-          </p>
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="faqGrid">
+        {faq.map((item) => (
+          <details class="faqItem">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
 
-          <div class="grid2">
-            {comparisonCards.map((item) => (
-              <div class="card visualCard advantageCard" style={`--card-bg: url('${item.image}')`}>
-                <span class="sectionLabel">Sourcing logic</span>
-                <div>
-                  <b>{item.title}</b>
-                </div>
-
-                <ul class="bulletList">
-                  {item.bullets.map((bullet) => (
-                    <li class="bulletItem"><span class="dot"></span><span>{bullet}</span></li>
-                  ))}
-                </ul>
+    <section class="container wide sectionBlock">
+      <div class="finalCta">
+        <div class="finalInner">
+          <div>
+            <h2>Have a mixed parts list or container plan to <span>discuss?</span></h2>
+            <p>
+              Send what you already have: photos, Excel lists, supplier quotes, OE numbers, quantities, and destination.
+              We can review the sourcing structure first and clarify the next workable step through conversation.
+            </p>
+            <div class="heroActions">
+              <a class="actionBtn primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <span set:html={icons.whatsapp}></span>
+                Chat on WhatsApp
+              </a>
+              <a class="actionBtn secondary" href={emailUrl}>
+                <span set:html={icons.mail}></span>
+                Send by Email
+              </a>
+            </div>
+          </div>
+          <div class="ctaFlow" aria-label="Mixed sourcing conversation path">
+            {ctaFlow.map((item, index) => (
+              <div class="ctaStep">
+                <span class="ctaDot">{String(index + 1).padStart(2, "0")}</span>
+                <span>{item}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
     </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">What Buyers Gain with the Same Budget</h2>
-        <p class="sectionDesc">
-          The goal is not simply to move cargo. The goal is to turn the same purchasing budget into a more productive inventory position and a stronger follow-up order pattern.
-        </p>
-
-        <div class="grid3">
-          {outcomeCards.map((item) => (
-            <div class="infoCard">
-              <b>{item.t}</b>
-              <p>{item.p}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">How the Sourcing Process Works in Practice</h2>
-        <p class="sectionDesc">
-          The strategy only performs when execution is disciplined. RFQ clarification, technical matching, supplier comparison, QC, and shipment coordination are what turn the sourcing logic into a workable commercial result.
-        </p>
-
-        <div class="catGrid">
-          {categories.map((c) => (
-            <div class="catCard">
-              <img
-                src={c.img}
-                alt={c.title}
-                loading="lazy"
-                decoding="async"
-                width={c.width}
-                height={c.height}
-              />
-              <div class="catShade"></div>
-
-              <div class="catInner">
-                <div class="catTag">{c.tag}</div>
-                <h3 class="catTitle">{c.title}</h3>
-                <p class="catDesc">{c.desc}</p>
-
-                <ul class="catList">
-                  {c.bullets.map((b) => (
-                    <li class="catLi"><span class="dot"></span><span>{b}</span></li>
-                  ))}
-                </ul>
-
-                <div class="catCtaRow">
-                  <a class="btn primary" href={c.href}>Send RFQ</a>
-                  <a class="btn" href="/how-it-works">See Workflow</a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">How We Handle a Mixed Parts List</h2>
-        <p class="sectionDesc">
-          Many buyers do not send a neat catalog request. They send a spreadsheet, screenshots, supplier codes, photos, OE numbers, and notes from their sales team. The first job is to turn that into a quotation structure that suppliers and buyers can both understand.
-        </p>
-
-        <div class="stepGrid">
-          {mixedRfqSteps.map((item, index) => (
-            <div class="infoCard stepCard">
-              <span class="stepNo">{String(index + 1).padStart(2, "0")}</span>
-              <b>{item.t}</b>
-              <p>{item.p}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">Execution Control After Supplier Selection</h2>
-        <p class="sectionDesc">
-          After supplier sourcing, the next stages are quotation alignment, order coordination, and shipment control, so the commercial logic is carried through into execution.
-        </p>
-        <p class="sectionDesc">
-          For a deeper explanation of quotation review, see <a href="/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers">how to compare supplier quotations</a>. For a broader cost-and-turnover view, see <a href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">how container consolidation improves inventory turnover</a>.
-        </p>
-
-        <div class="grid3">
-          {processCards.map((item) => (
-            <div class="infoCard">
-              <b>{item.t}</b>
-              <p>{item.p}</p>
-            </div>
-          ))}
-        </div>
-
-        <div class="ctaBlock">
-          <div class="left">
-            <b>Need a sourcing plan built around container efficiency and stock turnover?</b>
-            <p>
-              Send your RFQ with SKU list, OE or part numbers, quantities, destination, and packaging requirements. We can review the sourcing scope and reply with a practical plan for supplier comparison, consolidation, and balanced order planning.
-            </p>
-          </div>
-          <div class="right">
-            <a class="btn primary" href="/contact">Send RFQ &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="sectionTitle">FAQ</h2>
-        <p class="sectionDesc">Quick answers for buyers who want a clearer view of how the sourcing model is handled.</p>
-
-        <div class="faq">
-          {faq.map((x) => (
-            <div class="faqItem">
-              <p class="faqQ">{x.q}</p>
-              <p class="faqA">{x.a}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  </section>
+  </main>
 </BaseLayout>

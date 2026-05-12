@@ -1,32 +1,172 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogArchive from "../components/BlogArchive.astro";
 import { getCollection } from "astro:content";
-import { getTagSummaries, mapBlogPosts } from "../lib/blogArchive";
+import { mapBlogPosts } from "../lib/blogArchive";
 
 const rawPosts = await getCollection("blog");
 const posts = mapBlogPosts(rawPosts);
-const tagSummaries = getTagSummaries(posts);
+const postBySlug = new Map(posts.map((post) => [post.href.replace("/blog/", ""), post]));
+const postByHref = new Map(posts.map((post) => [post.href, post]));
 
-const featuredPosts = posts.filter((post) => post.featured).slice(0, 3);
-const clusters = tagSummaries
-  .map((tag) => ({
-    tag: tag.label,
-    items: posts.filter((post) => post.tagSlug === tag.slug).slice(0, 3),
-  }))
-  .filter((cluster) => cluster.items.length > 0);
+const getPost = (slug: string) => postBySlug.get(slug) ?? posts[0];
 
-const currentTag = Astro.url.searchParams.get("tag") ?? "";
-const currentPageRaw = Number.parseInt(Astro.url.searchParams.get("page") ?? "1", 10);
-const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? currentPageRaw : 1;
+const categories = [
+  {
+    title: "RFQ Clarification",
+    href: "#rfq-clarification",
+    icon: ["M7 4h7l4 4v12H7z", "M14 4v5h5", "M10 13h6", "M10 17h4"],
+    image: "/images/insights/insights-topic-rfq-clarification.webp",
+    summary: "How references, fitment scope, and missing details affect quotation accuracy.",
+    posts: [
+      getPost("how-air-brake-chambers-work-in-heavy-trucks"),
+      getPost("truck-brake-pads-vs-brake-linings-whats-the-difference"),
+      getPost("oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know"),
+    ],
+  },
+  {
+    title: "Supplier Comparison",
+    href: "#supplier-comparison",
+    icon: ["M5 19h14", "M7 15V9", "M12 15V5", "M17 15v-8"],
+    image: "/images/insights/insights-topic-supplier-comparison.webp",
+    summary: "How to compare suppliers on the same basis beyond unit price.",
+    posts: [
+      getPost("how-to-compare-auto-parts-quotations-from-chinese-suppliers"),
+      getPost("why-price-alone-should-not-determine-your-auto-parts-supplier"),
+      getPost("how-to-identify-reliable-auto-parts-suppliers-in-china"),
+    ],
+  },
+  {
+    title: "QC & Inspection",
+    href: "#qc-inspection",
+    icon: ["M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z", "M9 11l2 2 4-4"],
+    image: "/images/insights/insights-topic-qc-inspection.webp",
+    summary: "Inspection points, sample checks, and quality signals before shipment.",
+    posts: [
+      getPost("why-quality-control-matters-commercial-vehicle-parts"),
+      getPost("how-to-inspect-truck-brake-drums-before-shipment"),
+      getPost("how-to-avoid-quality-disputes-when-importing-auto-parts"),
+    ],
+  },
+  {
+    title: "Consolidation & Logistics",
+    href: "#consolidation-logistics",
+    icon: ["M4 8h10v7H4z", "M14 10h3l3 3v2h-6z", "M7 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z", "M17 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"],
+    image: "/images/insights/insights-topic-consolidation-logistics.webp",
+    summary: "Container planning, loading structure, and multi-supplier coordination.",
+    posts: [
+      getPost("how-container-consolidation-improves-cost-and-inventory-turnover"),
+      getPost("exw-fob-cif-auto-parts-buyers"),
+      getPost("minimum-order-quantity-moq-explained-for-auto-parts-buyers"),
+    ],
+  },
+  {
+    title: "Packing & Documents",
+    href: "#packing-documents",
+    icon: ["M4 8l8-4 8 4-8 4z", "M4 8v8l8 4 8-4V8", "M12 12v8"],
+    image: "/images/insights/insights-topic-packing-documents.webp",
+    summary: "Packing marks, documents, labels, and shipment readiness details.",
+    posts: [
+      getPost("how-to-identify-reliable-auto-parts-suppliers-in-china"),
+      getPost("payment-terms-auto-parts-trade-tt-lc-explained"),
+      getPost("how-to-avoid-quality-disputes-when-importing-auto-parts"),
+    ],
+  },
+  {
+    title: "Aftermarket Replenishment",
+    href: "#aftermarket-replenishment",
+    icon: ["M6 8h9a4 4 0 0 1 0 8H8", "M8 16l3-3", "M8 16l3 3", "M18 8l-3-3", "M18 8l-3 3"],
+    image: "/images/insights/insights-topic-aftermarket-replenishment.webp",
+    summary: "How buyers structure mixed fast-moving and slow-moving SKU lists.",
+    posts: [
+      getPost("common-wear-parts-commercial-vehicles-replacement-cycle"),
+      getPost("how-container-consolidation-improves-cost-and-inventory-turnover"),
+      getPost("bth-industrial-belt-auto-parts-sourcing"),
+    ],
+  },
+];
+
+const problemCards = [
+  {
+    title: "Wrong quotation",
+    image: "/images/insights/insights-problem-wrong-quotation.webp",
+    body: "Usually caused by unclear fitment scope, missing references, or mixed item information.",
+    href: "/contact?context=wrong-quotation",
+  },
+  {
+    title: "Mixed specifications",
+    image: "/images/insights/insights-problem-mixed-specifications.webp",
+    body: "Different dimensions, materials, or standards make comparison meaningless.",
+    href: "#supplier-comparison",
+  },
+  {
+    title: "Supplier range gaps",
+    image: "/images/insights/insights-problem-supplier-gap.webp",
+    body: "One supplier may not cover all SKUs across multiple systems or platforms.",
+    href: "#aftermarket-replenishment",
+  },
+  {
+    title: "Packing inconsistency",
+    image: "/images/insights/insights-problem-packing-inconsistency.webp",
+    body: "Incorrect carton marks or packing details often create receiving and resale problems.",
+    href: "#packing-documents",
+  },
+];
+
+const articleCards = [
+  {
+    post: getPost("how-air-brake-chambers-work-in-heavy-trucks"),
+    image: "/images/insights/insights-article-brake-chamber-rfq.webp",
+    topic: "RFQ Clarification",
+    operationalTags: ["Brake System", "OE Number", "Fitment Scope"],
+    usefulFor: "Distributors handling brake-system replenishment.",
+  },
+  {
+    post: getPost("how-to-compare-auto-parts-quotations-from-chinese-suppliers"),
+    image: "/images/insights/insights-article-beyond-unit-price.webp",
+    topic: "Supplier Comparison",
+    operationalTags: ["MOQ", "Lead Time", "Quotation Basis"],
+    usefulFor: "Buyers comparing multiple China supplier offers.",
+  },
+  {
+    post: getPost("how-container-consolidation-improves-cost-and-inventory-turnover"),
+    image: "/images/insights/insights-article-container-planning.webp",
+    topic: "Consolidation",
+    operationalTags: ["Container", "CBM", "Loading Plan"],
+    usefulFor: "Importers building mixed-SKU containers.",
+  },
+  {
+    post: getPost("how-to-avoid-quality-disputes-when-importing-auto-parts"),
+    image: "/images/insights/insights-article-packing-list-carton-marks.webp",
+    topic: "Packing & Documents",
+    operationalTags: ["Packing List", "Carton Marks", "QC Records"],
+    usefulFor: "Teams trying to reduce shipment disputes.",
+  },
+];
+
+const platformLinks = [
+  { label: "HOWO", href: "/product/brand/howo" },
+  { label: "Shacman", href: "/product/brand/shacman" },
+  { label: "Dongfeng", href: "/product/brand/dongfeng" },
+  { label: "Foton", href: "/product/brand/foton" },
+  { label: "JAC", href: "/product/brand/jac" },
+];
+
+const systemLinks = [
+  { label: "Brake", href: "/product/part/brake-system-parts", symbol: "B" },
+  { label: "Engine", href: "/product/part/engine-parts", symbol: "E" },
+  { label: "Suspension", href: "/product/part/suspension-parts", symbol: "S" },
+  { label: "Cooling", href: "/product/part/cooling-system-parts", symbol: "C" },
+  { label: "Rubber", href: "/product/part/rubber-and-bushing-parts", symbol: "R" },
+  { label: "Air System", href: "/product/part/air-system-parts", symbol: "A" },
+];
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Truck Parts Sourcing Insights",
+    name: "Sourcing Insights for Commercial Vehicle RFQs",
     description:
-      "A knowledge hub covering truck parts sourcing in China, quality control, supplier selection, and commercial vehicle aftermarket trends for B2B buyers.",
+      "Practical sourcing notes for commercial vehicle aftermarket buyers covering RFQ clarification, supplier comparison, QC checkpoints, consolidation, packing, documents, and replenishment planning.",
     url: "https://certispares.com/blog/",
   },
   {
@@ -42,7 +182,7 @@ const jsonLd = [
       {
         "@type": "ListItem",
         position: 2,
-        name: "Insights",
+        name: "Sourcing Insights",
         item: "https://certispares.com/blog/",
       },
     ],
@@ -51,321 +191,963 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Truck Parts Sourcing Insights | CertiSpares"
-  description="Commercial vehicle sourcing insights for B2B buyers and sourcing managers, covering truck parts sourcing in China, quality control, supplier selection, and aftermarket trends."
-  keywords={["truck parts sourcing blog", "commercial vehicle parts insights", "China sourcing blog", "truck parts quality control"]}
+  title="Sourcing Insights for Commercial Vehicle RFQs | CertiSpares"
+  description="Practical sourcing insights for commercial vehicle RFQs, supplier comparison, QC checkpoints, consolidation, packing documents, and aftermarket replenishment planning."
+  keywords={["commercial vehicle RFQ insights", "truck parts sourcing knowledge", "supplier comparison truck parts", "China truck parts RFQ"]}
   canonical="/blog/"
-  ogImage="/images/insights-hero-collage.webp"
+  ogImage="/images/insights/insights-hero-sourcing-yard.webp"
   jsonLd={jsonLd}
 >
   <style>
     :root{
-      --bg:#eef3f7;
-      --text:#1d2a36;
-      --muted:#5f6d86;
-      --line:rgba(29,42,54,.10);
-      --brand:#3957E9;
+      --insight-bg:#f4f7fb;
+      --insight-ink:#111f43;
+      --insight-text:#25324a;
+      --insight-muted:#66738c;
+      --insight-line:rgba(17,31,67,.10);
+      --insight-blue:#2365ff;
+      --insight-blue-dark:#0a2540;
+      --insight-soft:#eaf1fb;
     }
 
     :global(main){
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+      background:var(--insight-bg);
+      color:var(--insight-text);
     }
 
-  .hero{
+    .insightsHero{
       position:relative;
-      padding:46px 0 20px;
-      border-bottom:1px solid var(--line);
       overflow:hidden;
       isolation:isolate;
-      background:#0b1020;
+      min-height:520px;
+      background:#071226;
+      color:#fff;
     }
 
-  .heroBg{
+    .insightsHero::before{
+      content:"";
       position:absolute;
       inset:0;
       z-index:-2;
-      background:url("/images/insights-hero-collage.webp") center/cover no-repeat;
-      filter:blur(2px) saturate(.95) contrast(.95) brightness(.92);
-      transform:scale(1.03);
+      background:url("/images/insights/insights-hero-sourcing-yard.webp") center/cover no-repeat;
+      filter:saturate(.96) contrast(1.02) brightness(.72);
+      transform:scale(1.02);
     }
 
-  .overlay{
+    .insightsHero::after{
+      content:"";
       position:absolute;
       inset:0;
       z-index:-1;
       background:
-        linear-gradient(180deg, rgba(11,16,32,.28) 0%, rgba(11,16,32,.86) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%);
+        linear-gradient(90deg, rgba(7,18,38,.96) 0%, rgba(7,18,38,.80) 40%, rgba(7,18,38,.52) 72%, rgba(7,18,38,.76) 100%),
+        linear-gradient(180deg, rgba(7,18,38,.18) 0%, rgba(7,18,38,.90) 100%);
     }
 
-  .kicker{
-      margin:0 0 .75rem;
-      color:#fff;
-      font-size:.8rem;
+    .heroInner{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(320px, 420px);
+      gap:48px;
+      align-items:center;
+      min-height:520px;
+      padding:64px 0 44px;
+    }
+
+    .heroCopy{
+      max-width:760px;
+    }
+
+    .eyebrow{
+      margin:0 0 14px;
+      color:#6fa0ff;
+      font-size:13px;
+      font-weight:900;
       letter-spacing:.12em;
       text-transform:uppercase;
-      opacity:.82;
     }
 
-  .title{
-      margin:0 0 .8rem;
+    .heroCopy h1{
+      margin:0;
+      max-width:760px;
       color:#fff;
-      font-size:40px;
-      line-height:1.12;
-      letter-spacing:-.4px;
+      font-size:clamp(42px, 5vw, 66px);
+      line-height:1.02;
+      letter-spacing:0;
     }
 
-  .sub{
-      margin:0;
-      max-width:72ch;
-      color:rgba(225,233,255,.86);
-      line-height:1.75;
+    .heroCopy p{
+      margin:22px 0 0;
+      max-width:680px;
+      color:rgba(234,240,255,.88);
+      font-size:18px;
+      line-height:1.72;
     }
 
-  .wrap{
-      padding:22px 0 10px;
-    }
-
-  .featured{
-      padding:14px 0 10px;
-      border-bottom:1px solid rgba(29,42,54,.10);
-      margin-bottom:6px;
-    }
-
-  .sectionTitle{
+    .heroActions{
       display:flex;
-      align-items:baseline;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:30px;
+    }
+
+    .actionBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:48px;
+      padding:0 22px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.24);
+      color:#fff;
+      font-size:14px;
+      font-weight:900;
+      transition:transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+
+    .actionBtn.primary{
+      border-color:#2365ff;
+      background:#2365ff;
+      box-shadow:0 16px 34px rgba(35,101,255,.22);
+    }
+
+    .actionBtn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.42);
+      background:rgba(255,255,255,.08);
+    }
+
+    .actionBtn.primary:hover{
+      background:#2f6bff;
+      border-color:#2f6bff;
+    }
+
+    .categoryPanel{
+      padding:22px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:8px;
+      background:rgba(7,18,38,.74);
+      box-shadow:0 24px 58px rgba(0,0,0,.30);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .panelTitle{
+      margin:0 0 16px;
+      color:#fff;
+      font-size:18px;
+      line-height:1.2;
+    }
+
+    .categoryList{
+      display:grid;
+      gap:8px;
+    }
+
+    .categoryLink{
+      display:grid;
+      grid-template-columns:34px minmax(0, 1fr) auto;
+      gap:12px;
+      align-items:center;
+      padding:10px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+      color:#fff;
+      transition:background .16s ease, transform .16s ease, border-color .16s ease;
+    }
+
+    .categoryLink:hover{
+      transform:translateX(2px);
+      border-color:rgba(111,160,255,.38);
+      background:rgba(35,101,255,.12);
+    }
+
+    .categoryIcon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:34px;
+      height:34px;
+      border:1px solid rgba(111,160,255,.42);
+      border-radius:8px;
+      color:#6fa0ff;
+      flex:0 0 34px;
+    }
+
+    .categoryIcon svg{
+      width:23px;
+      height:23px;
+      display:block;
+      margin:auto;
+      transform:translateY(1.5px);
+      stroke:currentColor;
+      stroke-width:1.7;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      fill:none;
+      overflow:visible;
+    }
+
+    .categoryIcon svg path{
+      fill:none;
+      stroke:currentColor;
+    }
+
+    .categoryLink strong{
+      display:block;
+      color:#fff;
+      font-size:13px;
+      line-height:1.25;
+    }
+
+    .categoryLink span{
+      display:block;
+      margin-top:3px;
+      color:rgba(234,240,255,.66);
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    .pageShell{
+      padding:30px 0 0;
+    }
+
+    .sectionBlock{
+      padding:34px 0;
+    }
+
+    .sectionHeader{
+      display:flex;
+      align-items:flex-end;
       justify-content:space-between;
-      gap:10px;
-      margin:0 0 10px;
+      gap:22px;
+      margin-bottom:18px;
     }
 
-  .sectionTitle h2{
+    .sectionHeader h2{
       margin:0;
-      font-size:1.05rem;
-      letter-spacing:.02em;
-      color:#1d2a36;
+      color:var(--insight-ink);
+      font-size:28px;
+      line-height:1.18;
+      letter-spacing:0;
     }
 
-  .sectionTitle p{
-      margin:0;
-      color:var(--muted);
-      font-size:.9rem;
+    .sectionHeader p{
+      margin:6px 0 0;
+      max-width:720px;
+      color:var(--insight-muted);
+      line-height:1.65;
+    }
+
+    .sectionLink{
+      color:#2365ff;
+      font-size:14px;
+      font-weight:900;
       white-space:nowrap;
     }
 
-  .featuredGrid,
-    .clusterGrid{
+    .topicGrid{
       display:grid;
-      grid-template-columns:repeat(12, 1fr);
-      gap:12px;
-      padding:8px 0 14px;
+      grid-template-columns:repeat(6, minmax(0, 1fr));
+      gap:14px;
     }
 
-  .featuredCard,
-    .clusterCard{
-      border:1px solid rgba(29,42,54,.10);
-      border-radius:18px;
+    .topicCard{
+      overflow:hidden;
+      border:1px solid var(--insight-line);
+      border-radius:8px;
       background:#fff;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+      transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
     }
 
-  .featuredCard{
-      grid-column:span 4;
+    .topicCard:hover{
+      transform:translateY(-3px);
+      border-color:rgba(35,101,255,.20);
+      box-shadow:0 20px 46px rgba(17,31,67,.09);
+    }
+
+    .topicVisual{
       display:block;
-      padding:16px;
-      text-decoration:none;
-      transition:transform .12s ease, border-color .12s ease;
-    }
-
-  .featuredCard:hover{
-      transform:translateY(-2px);
-      border-color:rgba(29,42,54,.16);
-    }
-
-  .featuredCard h3{
-      margin:.6rem 0 .45rem;
-      font-size:1.08rem;
-      line-height:1.35;
-      color:#1d2a36;
-      display:-webkit-box;
-      -webkit-box-orient:vertical;
-      -webkit-line-clamp:2;
+      aspect-ratio:16 / 11;
       overflow:hidden;
+      background:#dce5f0;
     }
 
-  .clusters{
-      padding:14px 0 6px;
-      border-bottom:1px solid rgba(29,42,54,.10);
-      margin-bottom:6px;
+    .topicVisual img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .3s ease;
     }
 
-  .clusterCard{
-      grid-column:span 4;
-      padding:14px;
+    .topicCard:hover .topicVisual img{
+      transform:scale(1.04);
     }
 
-  .clusterCardHeader{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      margin-bottom:10px;
+    .topicBody{
+      padding:14px 13px 15px;
     }
 
-  .tag,
-    .clusterTag{
-      display:inline-flex;
-      padding:.18rem .55rem;
-      border-radius:999px;
-      border:1px solid rgba(74,84,98,.16);
-      background:rgba(74,84,98,.08);
-      color:#4A5462;
-      font-size:.78rem;
-    }
-
-  .meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.45rem;
-      align-items:center;
-      color:var(--muted);
-      font-size:.82rem;
-    }
-
-  .dot{
-      opacity:.6;
-    }
-
-  .excerpt{
+    .topicBody h3{
       margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      display:-webkit-box;
-      -webkit-box-orient:vertical;
-      -webkit-line-clamp:3;
-      overflow:hidden;
+      color:var(--insight-ink);
+      font-size:15px;
+      line-height:1.25;
+      letter-spacing:0;
     }
 
-  .clusterMiniList{
+    .topicBody p{
+      margin:8px 0 12px;
+      color:var(--insight-muted);
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    .miniList{
+      display:grid;
+      gap:8px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .miniList a{
+      display:block;
+      color:#22304a;
+      font-size:11px;
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    .miniList a:hover{
+      color:#2365ff;
+    }
+
+    .topicCta{
+      display:inline-flex;
+      margin-top:13px;
+      color:#2365ff;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .problemWrap{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 260px;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .problemGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .problemCard{
+      overflow:hidden;
+      display:block;
+      border:1px solid var(--insight-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 12px 28px rgba(17,31,67,.05);
+    }
+
+    .problemCard img{
+      width:100%;
+      aspect-ratio:16 / 9;
+      object-fit:cover;
+      display:block;
+    }
+
+    .problemCard div{
+      padding:16px;
+    }
+
+    .problemCard h3{
+      margin:0 0 8px;
+      color:var(--insight-ink);
+      font-size:15px;
+      line-height:1.25;
+      letter-spacing:0;
+    }
+
+    .problemCard p{
+      margin:0;
+      color:var(--insight-muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .sideCta{
       display:flex;
       flex-direction:column;
-      gap:8px;
+      justify-content:space-between;
+      gap:18px;
+      min-height:100%;
+      padding:22px;
+      border-radius:8px;
+      background:#071f43;
+      color:#fff;
+      box-shadow:0 16px 34px rgba(7,31,67,.18);
     }
 
-  .miniLink{
-      display:-webkit-box;
-      -webkit-box-orient:vertical;
-      -webkit-line-clamp:2;
+    .sideCta h3{
+      margin:0 0 10px;
+      color:#fff;
+      font-size:22px;
+      line-height:1.15;
+      letter-spacing:0;
+    }
+
+    .sideCta p{
+      margin:0;
+      color:rgba(234,240,255,.78);
+      font-size:14px;
+      line-height:1.65;
+    }
+
+    .sideCta .actionBtn{
+      width:100%;
+      margin-top:18px;
+    }
+
+    .articleGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .articleCard{
       overflow:hidden;
-      color:#1d2a36;
-      font-size:.92rem;
+      display:flex;
+      flex-direction:column;
+      border:1px solid var(--insight-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+      transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+
+    .articleCard:hover{
+      transform:translateY(-3px);
+      border-color:rgba(35,101,255,.20);
+      box-shadow:0 20px 46px rgba(17,31,67,.09);
+    }
+
+    .articleVisual{
+      position:relative;
+      display:block;
+      aspect-ratio:16 / 10;
+      overflow:hidden;
+      background:#dce5f0;
+    }
+
+    .articleVisual img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .3s ease;
+    }
+
+    .articleCard:hover .articleVisual img{
+      transform:scale(1.04);
+    }
+
+    .articleTag{
+      position:absolute;
+      left:12px;
+      bottom:12px;
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 9px;
+      border-radius:6px;
+      background:#2365ff;
+      color:#fff;
+      font-size:10px;
       font-weight:900;
-      line-height:1.35;
-      text-decoration:none;
-      opacity:.92;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
-  .miniMeta{
-      margin-top:2px;
-      color:var(--muted);
-      font-size:.78rem;
+    .articleBody{
+      display:flex;
+      flex:1;
+      flex-direction:column;
+      padding:18px;
     }
 
-  .archiveSection{
-      padding-top:2px;
-    }@media (max-width: 980px){
-      .title{
-        font-size:34px;
+    .articleMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:10px;
+      color:#71809a;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .articleBody h3{
+      margin:0;
+      color:var(--insight-ink);
+      font-size:19px;
+      line-height:1.25;
+      letter-spacing:0;
+    }
+
+    .articleBody p{
+      margin:10px 0 14px;
+      color:var(--insight-muted);
+      font-size:14px;
+      line-height:1.62;
+    }
+
+    .useful{
+      margin-top:auto;
+      padding-top:12px;
+      border-top:1px solid rgba(17,31,67,.08);
+      color:#44536d;
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .chipRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:12px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:0 8px;
+      border-radius:6px;
+      background:#edf3ff;
+      color:#2450a8;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .browseGrid{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+      gap:18px;
+    }
+
+    .browseBlock{
+      overflow:hidden;
+      border:1px solid var(--insight-line);
+      border-radius:8px;
+      background:linear-gradient(180deg, #fff 0%, #edf4ff 100%);
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
+
+    .platformBlock{
+      display:grid;
+      grid-template-columns:210px minmax(0, 1fr);
+    }
+
+    .platformImage{
+      min-height:100%;
+      background:url("/images/insights/insights-platform-sourcing-overview.webp") center/cover no-repeat;
+    }
+
+    .browseBody{
+      padding:22px;
+    }
+
+    .browseBody h2{
+      margin:0;
+      color:var(--insight-ink);
+      font-size:22px;
+      letter-spacing:0;
+    }
+
+    .browseBody p{
+      margin:7px 0 18px;
+      color:var(--insight-muted);
+      line-height:1.6;
+    }
+
+    .tileGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .linkTile{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:66px;
+      padding:10px;
+      border:1px solid rgba(17,31,67,.10);
+      border-radius:8px;
+      background:#fff;
+      color:var(--insight-ink);
+      font-size:13px;
+      font-weight:900;
+      text-align:center;
+      transition:transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .linkTile:hover{
+      transform:translateY(-2px);
+      border-color:rgba(35,101,255,.22);
+      background:#f9fbff;
+    }
+
+    .systemSymbol{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:8px;
+      border:1px solid rgba(35,101,255,.18);
+      color:#2365ff;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .finalCta{
+      margin:34px 0 0;
+      padding:26px;
+      border-radius:8px;
+      background:#071f43;
+      color:#fff;
+      box-shadow:0 18px 42px rgba(7,31,67,.18);
+    }
+
+    .ctaInner{
+      display:grid;
+      grid-template-columns:minmax(0, .95fr) minmax(420px, 1fr);
+      gap:28px;
+      align-items:center;
+    }
+
+    .finalCta h2{
+      margin:0 0 8px;
+      color:#fff;
+      font-size:28px;
+      letter-spacing:0;
+    }
+
+    .finalCta p{
+      margin:0;
+      color:rgba(234,240,255,.78);
+      line-height:1.65;
+    }
+
+    .flowStrip{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .flowStep{
+      min-height:82px;
+      padding:13px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:8px;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      text-align:center;
+    }
+
+    .flowStep strong{
+      display:block;
+      color:#fff;
+      font-size:13px;
+      line-height:1.25;
+    }
+
+    .flowStep span{
+      display:block;
+      margin-bottom:7px;
+      color:#6fa0ff;
+      font-size:18px;
+      font-weight:900;
+    }
+
+    @media (max-width:1180px){
+      .articleGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
       }
 
-  .featuredCard,
-      .clusterCard{
-        grid-column:span 12;
+      .topicGrid{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+
+      .problemWrap,
+      .browseGrid{
+        grid-template-columns:1fr;
+      }
+
+      .problemGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 720px){
-      .heroBg{
-        transform:scale(1.04);
+    @media (max-width:900px){
+      .heroInner{
+        grid-template-columns:1fr;
+        min-height:auto;
+        padding:48px 0 34px;
+      }
+
+      .insightsHero{
+        min-height:auto;
+      }
+
+      .categoryPanel{
+        max-width:none;
+      }
+
+      .sectionHeader{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .platformBlock{
+        grid-template-columns:1fr;
+      }
+
+      .platformImage{
+        min-height:220px;
+      }
+
+      .ctaInner{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:680px){
+      .heroCopy h1{
+        font-size:38px;
+      }
+
+      .heroCopy p{
+        font-size:16px;
+      }
+
+      .topicGrid,
+      .articleGrid,
+      .problemGrid,
+      .tileGrid,
+      .flowStrip{
+        grid-template-columns:1fr;
+      }
+
+      .sectionBlock{
+        padding:26px 0;
+      }
+
+      .finalCta{
+        padding:22px;
       }
     }
   </style>
 
-  <header class="hero">
-    <div class="heroBg" aria-hidden="true"></div>
-    <div class="overlay" aria-hidden="true"></div>
-
-    <div class="container">
-      <p class="kicker">CertiSpares / Insights</p>
-      <h1 class="title">A Knowledge Hub for Commercial Vehicle Sourcing</h1>
-      <p class="sub">
-        Analysis and practical guidance for B2B buyers and sourcing managers covering truck parts sourcing in China,
-        quality control, supplier selection, and commercial vehicle aftermarket trends.
-      </p>
-    </div>
-  </header>
-
-  <section class="container wrap">
-    {featuredPosts.length > 0 && (
-      <section class="featured">
-        <div class="sectionTitle">
-          <h2>Featured Guides</h2>
-          <p>Key sourcing topics</p>
+  <header class="insightsHero">
+    <div class="container wide heroInner">
+      <div class="heroCopy">
+        <p class="eyebrow">Sourcing Insights</p>
+        <h1>Sourcing Insights for Commercial Vehicle RFQs</h1>
+        <p>
+          Practical notes on RFQ clarification, supplier comparison, QC checkpoints, consolidation planning,
+          packing documents, and aftermarket replenishment for truck parts sourcing from China.
+        </p>
+        <div class="heroActions">
+          <a class="actionBtn primary" href="#browseTopics">Browse Topics <span aria-hidden="true">&rarr;</span></a>
+          <a class="actionBtn" href="/contact?context=sourcing-insights">Start Your RFQ <span aria-hidden="true">&rarr;</span></a>
         </div>
+      </div>
 
-        <div class="featuredGrid">
-          {featuredPosts.map((post) => (
-            <a class="featuredCard" href={post.href}>
-              <div class="meta">
-                <span class="tag">{post.tag}</span>
-                <span class="dot">&middot;</span>
-                <span>{post.date}</span>
-                <span class="dot">&middot;</span>
-                <span>{post.readTime}</span>
-              </div>
-              <h3>{post.title}</h3>
-              <p class="excerpt">{post.excerpt}</p>
+      <aside class="categoryPanel" aria-label="Insight categories">
+        <h2 class="panelTitle">Insight Categories</h2>
+        <div class="categoryList">
+          {categories.map((category) => (
+            <a class="categoryLink" href={category.href}>
+              <span class="categoryIcon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <g transform="translate(0 0)">
+                    {category.icon.map((path) => <path d={path}></path>)}
+                  </g>
+                </svg>
+              </span>
+              <span>
+                <strong>{category.title}</strong>
+                <span>{category.summary}</span>
+              </span>
+              <span aria-hidden="true">&rarr;</span>
             </a>
           ))}
         </div>
-      </section>
-    )}
+      </aside>
+    </div>
+  </header>
 
-    <section class="clusters">
-      <div class="sectionTitle">
-        <h2>Topics</h2>
-        <p>Browse by sourcing theme</p>
+  <div class="pageShell">
+    <section class="container wide sectionBlock" id="browseTopics">
+      <div class="sectionHeader">
+        <div>
+          <h2>Browse by Sourcing Topic</h2>
+          <p>Choose the topic closest to your current RFQ situation.</p>
+        </div>
       </div>
 
-      <div class="clusterGrid">
-        {clusters.slice(0, 6).map((cluster) => (
-          <div class="clusterCard">
-            <div class="clusterCardHeader">
-              <span class="clusterTag">{cluster.tag}</span>
+      <div class="topicGrid">
+        {categories.map((category) => (
+          <article class="topicCard" id={category.href.slice(1)}>
+            <a class="topicVisual" href={category.href}>
+              <img src={category.image} alt={`${category.title} sourcing topic`} loading="lazy" decoding="async" />
+            </a>
+            <div class="topicBody">
+              <h3>{category.title}</h3>
+              <p>{category.summary}</p>
+              <ul class="miniList">
+                {category.posts.filter(Boolean).map((post) => (
+                  <li><a href={post.href}>{post.title}</a></li>
+                ))}
+              </ul>
+              <a class="topicCta" href={category.href}>Browse {category.title} <span aria-hidden="true">&nbsp;&rarr;</span></a>
             </div>
-
-            <div class="clusterMiniList">
-              {cluster.items.map((item) => (
-                <div>
-                  <a class="miniLink" href={item.href}>{item.title}</a>
-                  <div class="miniMeta">{item.date} &middot; {item.readTime}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>
 
-    <section class="archiveSection">
-      <BlogArchive
-        posts={posts}
-        tagSummaries={tagSummaries}
-        requestedTag={currentTag}
-        requestedPage={currentPage}
-        basePath="/blog/"
-      />
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <div>
+          <h2>Most Common RFQ Problems</h2>
+          <p>Real issues buyers face during truck parts sourcing.</p>
+        </div>
+      </div>
+
+      <div class="problemWrap">
+        <div class="problemGrid">
+          {problemCards.map((problem) => (
+            <a class="problemCard" href={problem.href}>
+              <img src={problem.image} alt={`${problem.title} RFQ problem`} loading="lazy" decoding="async" />
+              <div>
+                <h3>{problem.title}</h3>
+                <p>{problem.body}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <aside class="sideCta">
+          <div>
+            <h3>Have a similar situation?</h3>
+            <p>Send the references you already have. We will review the matching scope before quotation starts.</p>
+          </div>
+          <div>
+            <a class="actionBtn primary" href="/contact?context=rfq-problem">Send RFQ Now <span aria-hidden="true">&rarr;</span></a>
+            <a class="actionBtn" href="/contact">Contact on WhatsApp</a>
+          </div>
+        </aside>
+      </div>
     </section>
-  </section>
+
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <div>
+          <h2>Practical Sourcing Notes</h2>
+          <p>Operational knowledge for RFQ scenarios and sourcing execution.</p>
+        </div>
+        <a class="sectionLink" href="#browseTopics">View topics <span aria-hidden="true">&rarr;</span></a>
+      </div>
+
+      <div class="articleGrid">
+        {articleCards.map((item) => (
+          <article class="articleCard">
+            <a class="articleVisual" href={item.post.href}>
+              <img src={item.image} alt={item.post.title} loading="lazy" decoding="async" />
+              <span class="articleTag">{item.topic}</span>
+            </a>
+            <div class="articleBody">
+              <div class="articleMeta">
+                <span>{item.post.date}</span>
+                <span>&middot;</span>
+                <span>{item.post.readTime}</span>
+              </div>
+              <h3><a href={item.post.href}>{item.post.title}</a></h3>
+              <p>{item.post.excerpt}</p>
+              <div class="chipRow">
+                {item.operationalTags.map((tag) => <span class="chip">{tag}</span>)}
+              </div>
+              <div class="useful"><strong>Useful for:</strong> {item.usefulFor}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="browseGrid">
+        <section class="browseBlock platformBlock">
+          <div class="platformImage" aria-hidden="true"></div>
+          <div class="browseBody">
+            <h2>Browse by Truck Platform</h2>
+            <p>Insights for major commercial vehicle platforms and inquiry contexts.</p>
+            <div class="tileGrid">
+              {platformLinks.map((item) => (
+                <a class="linkTile" href={item.href}>{item.label}</a>
+              ))}
+              <a class="linkTile" href="/product">View All</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="browseBlock">
+          <div class="browseBody">
+            <h2>Browse by Part System</h2>
+            <p>Insights for key part systems and sourcing categories.</p>
+            <div class="tileGrid">
+              {systemLinks.map((item) => (
+                <a class="linkTile" href={item.href}>
+                  <span class="systemSymbol" aria-hidden="true">{item.symbol}</span>
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="finalCta">
+        <div class="ctaInner">
+          <div>
+            <h2>Have a Similar RFQ Situation?</h2>
+            <p>
+              Send OE numbers, photos, vehicle references, or your replenishment list.
+              CertiSpares will review the matching scope before quotation starts.
+            </p>
+            <div class="heroActions">
+              <a class="actionBtn primary" href="/contact?context=sourcing-insights-bottom">Start Your RFQ <span aria-hidden="true">&rarr;</span></a>
+              <a class="actionBtn" href="/how-it-works">See How It Works <span aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+
+          <div class="flowStrip" aria-label="RFQ workflow">
+            <div class="flowStep"><span>01</span><strong>RFQ Input</strong></div>
+            <div class="flowStep"><span>02</span><strong>Matching Scope</strong></div>
+            <div class="flowStep"><span>03</span><strong>Supplier Comparison</strong></div>
+            <div class="flowStep"><span>04</span><strong>Quotation</strong></div>
+            <div class="flowStep"><span>05</span><strong>Shipment Follow-up</strong></div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </div>
 </BaseLayout>

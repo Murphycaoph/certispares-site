@@ -64,7 +64,7 @@ const partSystems = [
   {
     title: "Engine Parts",
     href: "/product/part/engine-parts/",
-    image: "/images/product-system-thumbs/engine.webp",
+    image: "/images/product-system-abstract/engine.png",
     parts: "Filters, belts, pumps, sensors, gaskets, mounts and more.",
     input: "OE / Photo / Model",
     cta: "Start Engine RFQ",
@@ -72,7 +72,7 @@ const partSystems = [
   {
     title: "Brake System Parts",
     href: "/product/part/brake-system-parts/",
-    image: "/images/product-system-thumbs/brake.webp",
+    image: "/images/product-system-abstract/brake.png",
     parts: "Brake chamber, lining, valve, drum, slack adjuster, air brake parts.",
     input: "OE / Photo / Axle info",
     cta: "Start Brake RFQ",
@@ -80,7 +80,7 @@ const partSystems = [
   {
     title: "Suspension Parts",
     href: "/product/part/suspension-parts/",
-    image: "/images/product-system-thumbs/suspension.webp",
+    image: "/images/product-system-abstract/suspension.png",
     parts: "Leaf spring, shock absorber, torque rod, stabilizer, hanger, bushing.",
     input: "OE / Photo / Model",
     cta: "Start Suspension RFQ",
@@ -88,7 +88,7 @@ const partSystems = [
   {
     title: "Axle & Wheel-end Parts",
     href: "/product/part/axle-and-wheel-end-parts/",
-    image: "/images/product-system-thumbs/axle.webp",
+    image: "/images/product-system-abstract/axle.png",
     parts: "Hub, bearing, seal, wheel bolt, king pin, wheel-end repair items.",
     input: "OE / Photo / Model",
     cta: "Start Axle RFQ",
@@ -96,7 +96,7 @@ const partSystems = [
   {
     title: "Gearbox & Transmission Parts",
     href: "/product/part/clutch-and-transmission-parts/",
-    image: "/images/product-system-thumbs/gearbox.webp",
+    image: "/images/product-system-abstract/gearbox.png",
     parts: "Clutch, gearbox parts, transmission components, repair items.",
     input: "OE / Photo / Model",
     cta: "Start Gearbox RFQ",
@@ -104,7 +104,7 @@ const partSystems = [
   {
     title: "Air System Parts",
     href: "/product/part/air-system-parts/",
-    image: "/images/product-system-thumbs/air-system.webp",
+    image: "/images/product-system-abstract/air-system.png",
     parts: "Air valve, dryer, compressor, tank, hose, connector, pneumatic parts.",
     input: "OE / Photo / Model",
     cta: "Start Air System RFQ",
@@ -112,7 +112,7 @@ const partSystems = [
   {
     title: "Cooling System Parts",
     href: "/product/part/cooling-system-parts/",
-    image: "/images/product-system-thumbs/cooling.webp",
+    image: "/images/product-system-abstract/cooling.png",
     parts: "Radiator, intercooler, fan clutch, water pump, hose, thermostat.",
     input: "Dimensions / Photo",
     cta: "Start Cooling RFQ",
@@ -120,7 +120,7 @@ const partSystems = [
   {
     title: "Rubber & Bushing Parts",
     href: "/product/part/rubber-and-bushing-parts/",
-    image: "/images/product-system-thumbs/rubber.webp",
+    image: "/images/product-system-abstract/rubber.png",
     parts: "Mounts, bushings, rubber pads, seals, flexible joints.",
     input: "Dimensions / Photo",
     cta: "Start Rubber RFQ",
@@ -735,13 +735,13 @@ const jsonLd = [
       aspect-ratio:1 / 1;
       overflow:hidden;
       border-radius:6px;
-      background:#f3f7fb;
+      background:linear-gradient(180deg,#f8fbff,#eef5ff);
     }
 
     .systemMedia img{
-      object-fit:cover;
-      padding:0;
-      background:#f3f7fb;
+      object-fit:contain;
+      padding:12px;
+      background:transparent;
     }
 
     .systemBody{

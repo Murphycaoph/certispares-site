@@ -1,216 +1,208 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getImageDimensions } from "../lib/imageDimensions";
 
-/**
- * About page 闂?v2
- * Strategy:
- * - Do not over-emphasize Foton
- * - Position CertiSpares around selected leading China commercial vehicle brands
- * - Add founder mindset with audit background
- * - Keep strong workflow / execution identity
- */
-
-const aboutHighlights = [
+const controlItems = [
   {
-    img: "/images/hebei-industrial-park-aerial.webp",
-    tag: "Market focus",
-    title: "Commercial vehicle aftermarket focus",
-    desc: "The business is built around commercial vehicle aftermarket demand where RFQ clarity, repeat orders, and execution discipline matter.",
+    title: "RFQ Scope",
+    text: "Clarify part details, fitment and demand",
   },
   {
-    img: "/images/china-industrial-warehouse.webp",
-    tag: "Supplier base",
-    title: "Northern China sourcing relevance",
-    desc: "Northern China matters because many heavy-duty and commercial vehicle parts clusters, factories, and supporting supply chains are concentrated there.",
+    title: "Supplier Comparison",
+    text: "Compare based on the same scope",
   },
   {
-    img: "/images/container-loading-supervision.webp",
-    tag: "Approach",
-    title: "Structured sourcing and risk control",
-    desc: "The sourcing model follows a clearer review logic across RFQ intake, supplier comparison, execution checkpoints, and documentation consistency.",
-  },
-].map((item) => ({
-  ...item,
-  ...getImageDimensions(item.img),
-}));
-
-const pillars = [
-  {
-    t: "Why commercial vehicle aftermarket",
-    p: "The commercial vehicle aftermarket is where sourcing discipline has the most practical value: part matching is more technical, repeat demand matters more, and poor execution creates costly downstream problems.",
+    title: "Packing Notes",
+    text: "Packing, labels and carton marks",
   },
   {
-    t: "Truck segment coverage",
-    p: "CertiSpares supports light-, medium-, and heavy-duty truck platforms, with stronger depth in heavy-duty systems where RFQs often require closer technical and supplier screening.",
+    title: "QC Checkpoints",
+    text: "Inspection points and photo evidence",
   },
   {
-    t: "Why this approach exists",
-    p: "The company is built around structured sourcing, supplier comparison, and controllable execution rather than broad catalogue presentation or generic trading language.",
+    title: "Documents",
+    text: "PI, CI, PL, COO and other documents",
+  },
+  {
+    title: "Shipment Follow-up",
+    text: "Container, tracking and after-sales follow-up",
   },
 ];
 
-const operatingFit = [
+const existCards = [
   {
-    t: "We are a sourcing operator, not a factory profile",
-    p: "CertiSpares coordinates supplier selection, RFQ clarification, QC checkpoints, documents, and shipment execution. Production stays with matched suppliers.",
+    title: "Commercial Vehicle Aftermarket Focus",
+    text: "Built around truck parts RFQs where fitment clarity, repeat orders, and execution discipline matter.",
+    icon: "target",
   },
   {
-    t: "The best fit is a real parts list",
-    p: "The model works best when buyers send OE numbers, old supplier sheets, photos, mixed SKUs, or repeat-order demand that needs sorting before quotation.",
+    title: "Northern China Sourcing Relevance",
+    text: "Connected to supplier clusters and supporting supply chains for heavy-duty and commercial vehicle parts.",
+    icon: "pin",
   },
   {
-    t: "The goal is repeatable supply, not one cheap quote",
-    p: "A low price is only useful if the part is right, packing is acceptable, lead time is realistic, and the same path can be repeated on future orders.",
-  },
-];
-
-const workflowSteps = [
-  {
-    step: "01",
-    t: "Supplier capability organization",
-    p: "Suppliers are organized by category, product fit, response quality, location, and execution feasibility before matching starts.",
-  },
-  {
-    step: "02",
-    t: "Inquiry structuring and product mapping",
-    p: "OEM numbers, product names, photos, vehicle references, and buyer notes are aligned to improve quotation clarity and reduce mismatch risk.",
-  },
-  {
-    step: "03",
-    t: "Quotation comparison",
-    p: "Supplier options can be compared on price, lead time, MOQ, packing, and supply stability, not price alone.",
-  },
-  {
-    step: "04",
-    t: "Execution after order confirmation",
-    p: "Once the order moves forward, we coordinate purchasing, production follow-up, packing checks, and shipment preparation.",
-  },
-  {
-    step: "05",
-    t: "Logistics and document consistency",
-    p: "Packing list, invoice data, labels, carton marks, and shipment-related files are checked for consistency to reduce avoidable issues.",
-  },
-  {
-    step: "06",
-    t: "Repeat-order support",
-    p: "A proven supply path becomes easier to repeat, standardize, and expand across future orders and mixed categories.",
+    title: "Structured Sourcing & Risk Control",
+    text: "RFQs are reviewed through matching scope, supplier comparison, QC checkpoints, documents, and shipment execution.",
+    icon: "shield",
   },
 ];
 
-const differenceCards = [
+const practiceCards = [
   {
-    t: "Why Northern China matters",
-    p: "Being closer to Northern China supplier clusters improves response speed, factory screening relevance, and sourcing depth in many heavy-duty and commercial vehicle categories.",
+    title: "A sourcing operator, not a factory profile",
+    text: "Production stays with matched suppliers. CertiSpares coordinates RFQ clarification, supplier selection, QC checkpoints, documents, and shipment follow-up.",
   },
   {
-    t: "Why heavy-duty runs deeper",
-    p: "Heavy-duty truck parts remain the stronger area because the supplier base, product familiarity, and workflow experience are deeper there, while light- and medium-duty support remains part of the sourcing scope.",
+    title: "Best fit: a real parts list",
+    text: "The model works best when buyers send OE numbers, old supplier sheets, photos, mixed SKUs, or repeat-order demand that needs sorting.",
   },
   {
-    t: "Why process matters",
-    p: "A sourcing decision is only useful if it holds through quotation, production, packing, documents, and shipment. That is why the process is managed end to end.",
-  },
-  {
-    t: "Why buyers stay",
-    p: "The goal is to create a sourcing path that becomes easier to repeat, check, and expand over time instead of restarting from zero on each RFQ.",
+    title: "Repeatable supply, not one cheap quote",
+    text: "A low price only matters when the part is right, packing is acceptable, lead time is realistic, and the path can be repeated.",
   },
 ];
 
-const whatWeSupport = [
+const marketPoints = [
   {
-    t: "Brake system",
-    p: "Brake pads, brake drums, calipers, chambers, valves, repair kits, and related aftermarket components depending on scope.",
+    title: "Heavy-duty depth",
+    text: "Stronger supplier familiarity in heavy-duty systems and China truck platforms.",
   },
   {
-    t: "Chassis & suspension",
-    p: "Torque rods, stabilizer parts, bushings, hub-related parts, bearings, suspension hardware, and related categories.",
+    title: "Light & medium-duty support",
+    text: "Supported when the RFQ scope, part details, and supplier fit are clear.",
   },
   {
-    t: "Steering / drivetrain",
-    p: "Selected steering and drivetrain-related aftermarket parts based on market demand and supplier capability.",
-  },
-  {
-    t: "Electrical / body / mixed SKUs",
-    p: "Lights, mirrors, wiring consumables, and selected body or electrical items where consolidation matters.",
+    title: "Mixed aftermarket demand",
+    text: "Useful for buyers managing replenishment across brake, chassis, cooling, rubber, electrical, and related systems.",
   },
 ];
 
-const buyerTypes = [
+const workSteps = [
   {
-    t: "Distributors",
-    p: "Buyers looking for stable commercial vehicle parts supply with clearer execution and repeat-order potential.",
+    title: "Clarify the RFQ",
+    text: "OE numbers, photos, VIN/model, supplier notes, and buyer lists are organized before quotation.",
   },
   {
-    t: "Aftermarket wholesalers",
-    p: "Importers managing mixed categories who need cleaner quotation handling and consolidation support.",
+    title: "Compare Suppliers",
+    text: "Supplier options are checked by fit, MOQ, lead time, price level, packing, and execution feasibility.",
   },
   {
-    t: "Fleet-related buyers",
-    p: "Buyers who value fitment clarity, delivery predictability, and fewer after-sales disputes.",
+    title: "Control Checkpoints",
+    text: "Packing, labels, QC evidence, documents, and shipment preparation are followed before dispatch.",
   },
   {
-    t: "Growth-stage importers",
-    p: "Companies that need sourcing structure and execution discipline, not just scattered supplier quotes.",
+    title: "Make It Repeatable",
+    text: "A proven sourcing path becomes easier to repeat, standardize, and expand for future orders.",
   },
 ];
 
-const founderMindset = [
+const founderCards = [
   {
-    t: "Audit to sourcing mindset",
-    p: "The founder's audit background shaped a process-first way of working: review the facts, clarify the scope, compare options, and control the points where mistakes usually happen.",
+    title: "Review before assumption",
+    text: "Do not push a quote forward before the matching scope is reasonably clear.",
   },
   {
-    t: "Control before assumption",
-    p: "That mindset carries into sourcing through requirement clarification, document checks, and quotation review before an order is pushed forward.",
+    title: "Compare on the same basis",
+    text: "Supplier comparison only matters when item scope, packing, MOQ, lead time, and documents are comparable.",
   },
   {
-    t: "Built for credible execution",
-    p: "The aim is not to look bigger than reality. It is to run a sourcing model that stays clear, credible, and scalable as RFQ volume grows.",
+    title: "Control the visible checkpoints",
+    text: "Packing, labels, photos, documents, and shipment status should be checked before problems become disputes.",
+  },
+];
+
+const supportCards = [
+  {
+    title: "Brake System",
+    text: "Brake chamber, drums, linings, valves, repair kits, and related components.",
+    image: "/images/insights/insights-article-brake-chamber-rfq.webp",
+  },
+  {
+    title: "Chassis & Suspension",
+    text: "Torque rods, bushings, stabilizer parts, hub-related parts, bearings, and suspension hardware.",
+    image: "/images/assemblies/assembly-suspension.webp",
+  },
+  {
+    title: "Steering / Drivetrain",
+    text: "Selected steering and drivetrain-related aftermarket parts based on RFQ scope.",
+    image: "/images/assemblies/assembly-axle.webp",
+  },
+  {
+    title: "Electrical / Body / Mixed SKUs",
+    text: "Lights, mirrors, wiring consumables, selected body parts, and mixed replenishment items.",
+    image: "/images/insights/insights-topic-aftermarket-replenishment.webp",
+  },
+];
+
+const buyerCards = [
+  {
+    title: "Distributors",
+    text: "Need stable supply and cleaner repeat-order execution.",
+  },
+  {
+    title: "Aftermarket Wholesalers",
+    text: "Manage mixed categories and multi-supplier replenishment.",
+  },
+  {
+    title: "Fleet-related Buyers",
+    text: "Care about fitment clarity, delivery predictability, and fewer disputes.",
+  },
+  {
+    title: "Growth-stage Importers",
+    text: "Need sourcing structure before building a larger China supplier base.",
   },
 ];
 
 const principles = [
   {
-    tag: "Clarity",
-    t: "Clear inputs lead to clearer execution",
-    p: "We standardize RFQ inputs before quotation and order execution begin.",
+    title: "Clarity",
+    text: "Clear inputs lead to clearer execution.",
   },
   {
-    tag: "Evidence",
-    t: "QC evidence before shipment",
-    p: "Photo/video records, packing checks, and label verification help reduce avoidable disputes.",
+    title: "Evidence",
+    text: "QC evidence before shipment reduces avoidable disputes.",
   },
   {
-    tag: "Trace",
-    t: "Traceability in documentation",
-    p: "PI / CI / PL consistency and carton mark alignment improve customs and payment flow.",
+    title: "Trace",
+    text: "PI, CI, PL, labels, and carton marks should stay consistent.",
   },
   {
-    tag: "Repeat",
-    t: "Built for repeat orders",
-    p: "We optimize around stable suppliers, repeatable workflow, and scalable execution.",
+    title: "Repeat",
+    text: "A stable path should become easier to repeat and expand.",
   },
+];
+
+const ctaSteps = [
+  "RFQ Input",
+  "Matching Scope",
+  "Supplier Comparison",
+  "Quotation",
+  "QC & Shipment Follow-up",
 ];
 
 const faqs = [
   {
     q: "Do you need OEM / part numbers?",
-    a: "OEM or part numbers are ideal, but photos, dimensions, vehicle references, and usage scenarios can also help us structure the inquiry.",
+    a: "OE or part numbers are useful, but they are not the only way to start. Photos, dimensions, VIN or model references, old supplier sheets, and packaging notes can also help clarify the RFQ scope.",
   },
   {
     q: "Can you support mixed-SKU orders?",
-    a: "Yes. Mixed-SKU consolidation is one of the areas where a structured sourcing workflow becomes especially useful.",
+    a: "Yes. Mixed-SKU aftermarket RFQs are often a good fit because they need supplier comparison, consolidation thinking, packing control, and repeat-order structure.",
   },
   {
     q: "Do you only work with one supplier?",
-    a: "Not necessarily. Depending on the order, we may compare multiple supplier options for stability, price, lead time, and packaging suitability.",
+    a: "No. Supplier options depend on the RFQ scope, category, quantity, lead time, packing needs, and execution feasibility. The goal is to compare on a clear basis.",
   },
   {
     q: "What kind of buyers do you usually support?",
-    a: "Typically distributors, importers, wholesalers, and fleet-related buyers who value stable supply and cleaner execution.",
+    a: "CertiSpares is built for importers, distributors, wholesalers, and fleet-related buyers who need commercial vehicle aftermarket RFQs clarified before sourcing moves forward.",
   },
 ];
+
+const iconPath = {
+  target: ["M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z", "M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z", "M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z", "M18 6l3-3"],
+  pin: ["M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z", "M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"],
+  shield: ["M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z", "M9 11l2 2 4-4"],
+};
 
 const jsonLd = [
   {
@@ -218,7 +210,7 @@ const jsonLd = [
     "@type": "AboutPage",
     name: "About CertiSpares",
     description:
-      "CertiSpares is a commercial vehicle parts sourcing partner built around an audit-minded sourcing approach, Northern China supplier access, and structured risk control.",
+      "CertiSpares is a focused sourcing operator for commercial vehicle aftermarket RFQs that need sorting, clarification, supplier comparison, QC checkpoints, and controlled execution.",
     url: "https://certispares.com/about/",
   },
   {
@@ -255,576 +247,1054 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="About CertiSpares | Commercial Vehicle Parts Sourcing Partner"
-  description="About CertiSpares, a commercial vehicle aftermarket sourcing partner covering light-, medium-, and heavy-duty trucks with stronger depth in heavy-duty systems."
-  keywords={["commercial vehicle parts sourcing partner", "heavy duty truck parts", "commercial vehicle aftermarket China", "RFQ sourcing China", "supplier comparison truck parts"]}
+  title="About CertiSpares | Commercial Vehicle RFQ Sourcing Operator"
+  description="About CertiSpares, a focused sourcing operator for commercial vehicle aftermarket RFQs that need sorting, supplier comparison, QC checkpoints, documents, and shipment follow-up."
+  keywords={["commercial vehicle RFQ sourcing", "truck parts sourcing operator", "commercial vehicle aftermarket China", "supplier comparison truck parts", "RFQ clarification"]}
   canonical="/about/"
-  ogImage="/images/hebei-industrial-park-aerial.webp"
+  ogImage="/images/insights/insights-hero-sourcing-yard.webp"
   jsonLd={jsonLd}
 >
   <style>
     :root{
-      --bg:#eef3f7;
-      --text:#1d2a36;
-      --muted:#5f6d86;
-      --line:rgba(29,42,54,.10);
-      --brand:#3957E9;
-      --brand2:#3957E9;
+      --about-bg:#f4f7fb;
+      --about-ink:#111f43;
+      --about-text:#28364f;
+      --about-muted:#66738c;
+      --about-line:rgba(17,31,67,.10);
+      --about-blue:#2365ff;
+      --about-navy:#071f43;
+      --about-soft:#edf4ff;
     }
 
     :global(main){
-      background:transparent;
+      background:var(--about-bg);
+      color:var(--about-text);
     }
 
-  .pageHero{
+    .aboutHero{
       position:relative;
-      border-bottom:1px solid var(--line);
       overflow:hidden;
       isolation:isolate;
-      background:
-        linear-gradient(180deg, rgba(11,16,32,.34) 0%, rgba(11,16,32,.82) 72%, rgba(11,16,32,1) 100%),
-        radial-gradient(900px 420px at 25% 20%, rgba(57,87,233,.22), transparent 60%),
-        url("/images/hebei-industrial-park-aerial.webp") center/cover no-repeat,
-        #0b1020;
+      background:#071226;
+      color:#fff;
     }
 
-  .pageHero::after{
+    .aboutHero::before{
       content:"";
       position:absolute;
       inset:0;
-      background:linear-gradient(90deg, rgba(11,16,32,.90) 0%, rgba(11,16,32,.64) 52%, rgba(11,16,32,.90) 100%);
-      pointer-events:none;
-      z-index:0;
+      z-index:-2;
+      background:url("/images/insights/insights-hero-sourcing-yard.webp") center/cover no-repeat;
+      filter:saturate(.95) contrast(1.02) brightness(.70);
+      transform:scale(1.02);
     }
 
-  .heroInner{
-      position:relative;
-      z-index:1;
-      padding-top:2px;
-      padding-bottom:22px;
+    .aboutHero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(90deg, rgba(7,18,38,.96) 0%, rgba(7,18,38,.82) 43%, rgba(7,18,38,.52) 74%, rgba(7,18,38,.78) 100%),
+        linear-gradient(180deg, rgba(7,18,38,.20) 0%, rgba(7,18,38,.90) 100%);
     }
 
-  .contentSection{
-      background:linear-gradient(180deg, #f5f8fc 0%, #eef3f7 100%);
+    .heroInner{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(330px, 410px);
+      gap:48px;
+      align-items:center;
+      min-height:510px;
+      padding:58px 0 38px;
     }
 
-  .kicker{
+    .eyebrow{
+      margin:0 0 14px;
+      color:#6fa0ff;
+      font-size:13px;
+      font-weight:900;
       letter-spacing:.12em;
       text-transform:uppercase;
-      font-size:.8rem;
-      opacity:.82;
-      margin:0 0 .75rem;
-      color:rgba(255,255,255,.82);
     }
 
-  .title{
-      margin:0 0 .8rem;
-      font-size:40px;
-      letter-spacing:-.4px;
-      line-height:1.12;
-      color:#fff;
-    }
-
-  .sub{
+    .heroCopy h1{
       margin:0;
-      max-width:78ch;
-      color:rgba(225,233,255,.86);
-      line-height:1.75;
+      max-width:780px;
+      color:#fff;
+      font-size:clamp(40px, 4.6vw, 58px);
+      line-height:1.04;
+      letter-spacing:0;
     }
 
-  .contentWrap{
-      width:min(var(--container-default), calc(100% - 64px));
-      margin: 0 auto;
+    .heroCopy p{
+      margin:22px 0 0;
+      max-width:720px;
+      color:rgba(234,240,255,.88);
+      font-size:18px;
+      line-height:1.72;
     }
 
-  .sectionTitle{
-      font-size: 24px;
-      margin: 0 0 10px;
-      letter-spacing: -.2px;
-      color:#1d2a36;
+    .heroActions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:30px;
     }
 
-  .sectionDesc{
-      margin: 0 0 18px;
-      color: var(--muted);
-      line-height: 1.75;
-      max-width: 980px;
+    .actionBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:48px;
+      padding:0 22px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.24);
+      color:#fff;
+      font-size:14px;
+      font-weight:900;
+      transition:transform .16s ease, background .16s ease, border-color .16s ease;
     }
 
-  .grid3{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .actionBtn.primary{
+      border-color:#2365ff;
+      background:#2365ff;
+      box-shadow:0 16px 34px rgba(35,101,255,.22);
     }
 
-  .grid2{
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+    .actionBtn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.42);
+      background:rgba(255,255,255,.08);
     }
 
-  .imgGrid{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .controlPanel{
+      padding:22px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:8px;
+      background:rgba(7,18,38,.74);
+      box-shadow:0 24px 58px rgba(0,0,0,.30);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
     }
 
-  .imgCard{
-      position: relative;
-      border-radius:var(--radius-card);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      height: 250px;
+    .controlPanel h2{
+      margin:0 0 15px;
+      color:#fff;
+      font-size:18px;
+      letter-spacing:0;
     }
 
-  .imgCard img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.05) contrast(1.02);
-      transform: scale(1.02);
+    .controlList{
+      display:grid;
+      gap:8px;
     }
 
-  .imgOverlay{
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 14px 14px 12px;
-      background: linear-gradient(to top, rgba(6,16,42,.9), rgba(6,16,42,.14));
+    .controlItem{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-height:42px;
+      padding:9px 10px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+      color:rgba(234,240,255,.92);
+      font-size:13px;
+      font-weight:850;
     }
 
-  .imgTag{
-      display: inline-flex;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(17,26,51,.62);
-      border: 1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(6px);
+    .controlItem strong{
+      display:block;
+      color:#fff;
+      font-size:13px;
+      line-height:1.2;
     }
 
-  .imgTitle{
-      margin: 0 0 6px;
-      font-size: 14px;
-      font-weight: 950;
-      letter-spacing: -.15px;
-      color: rgba(234,240,255,.98);
+    .controlItem small{
+      display:block;
+      margin-top:3px;
+      color:rgba(234,240,255,.68);
+      font-size:11px;
+      font-weight:700;
+      line-height:1.35;
     }
 
-  .imgDesc{
-      margin: 0;
-      font-size: 12px;
-      line-height: 1.6;
-      color: rgba(234,240,255,.82);
-      max-width: 520px;
+    .controlIcon,
+    .cardIcon,
+    .principleIcon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      border:1px solid rgba(111,160,255,.42);
+      color:#6fa0ff;
+      flex:0 0 auto;
     }
 
-  .card{
-      padding: 16px;
-      border-radius:var(--radius-card);
-      background: #fff;
-      border: 1px solid rgba(29,42,54,.10);
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    .controlIcon{
+      width:28px;
+      height:28px;
     }
 
-  .card b{
-      display: block;
-      margin-bottom: 8px;
-      font-size: 16px;
-      font-weight: 900;
-      color: #1d2a36;
+    .controlIcon::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:2px;
+      border:1.5px solid currentColor;
     }
 
-  .card p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
+    .pageBody{
+      padding:20px 0 0;
     }
 
-  .workflowGrid{
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 8px;
+    .sectionBlock{
+      padding:24px 0;
     }
 
-  .workflowCard{
-      display: flex;
-      gap: 14px;
-      padding: 16px;
-      border-radius:var(--radius-card);
-      background: #fff;
-      border: 1px solid rgba(29,42,54,.10);
-      align-items: flex-start;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    .sectionHeader{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:22px;
+      margin-bottom:18px;
     }
 
-  .stepNo{
-      flex: 0 0 auto;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 950;
-      font-size: 14px;
-      background: rgba(74,84,98,.08);
-      border: 1px solid rgba(74,84,98,.18);
-      color: #4A5462;
+    .sectionHeader h2{
+      margin:0;
+      color:var(--about-ink);
+      font-size:28px;
+      line-height:1.18;
+      letter-spacing:0;
     }
 
-  .workflowTitle{
-      margin: 2px 0 6px;
-      font-size: 16px;
-      font-weight: 950;
-      color: #1d2a36;
+    .sectionHeader p{
+      margin:7px 0 0;
+      max-width:760px;
+      color:var(--about-muted);
+      line-height:1.65;
     }
 
-  .workflowText{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
+    .grid3,
+    .supportGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
     }
 
-  .row{
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 14px;
-      border-radius:var(--radius-card);
-      background: #fff;
-      border: 1px solid rgba(29,42,54,.10);
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+    .grid4{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
     }
 
-  .badge{
-      flex: 0 0 auto;
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(74,84,98,.08);
-      border: 1px solid rgba(74,84,98,.16);
-      color: #4A5462;
-      font-weight: 900;
-      margin-top: 2px;
+    .infoCard,
+    .statementCard,
+    .buyerCard{
+      border:1px solid var(--about-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
     }
 
-  .rt{
-      font-weight: 950;
-      margin-bottom: 6px;
-      color: #1d2a36;
+    .infoCard{
+      padding:24px;
     }
 
-  .rp{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
+    .cardIcon{
+      width:46px;
+      height:46px;
+      margin-bottom:16px;
+      color:#2365ff;
+      background:#f7faff;
+    }
+
+    .cardIcon svg{
+      width:25px;
+      height:25px;
+      display:block;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .infoCard h3,
+    .statementCard h3,
+    .buyerCard h3{
+      margin:0 0 10px;
+      color:var(--about-ink);
+      font-size:18px;
+      line-height:1.25;
+      letter-spacing:0;
+    }
+
+    .infoCard p,
+    .statementCard p,
+    .buyerCard p{
+      margin:0;
+      color:var(--about-muted);
+      font-size:14px;
+      line-height:1.65;
+    }
+
+    .statementCard{
+      padding:24px;
+      background:linear-gradient(180deg, #fff 0%, #edf4ff 100%);
+    }
+
+    .splitStage{
+      display:grid;
+      grid-template-columns:minmax(0, .98fr) minmax(0, 1.45fr);
+      gap:34px;
+      align-items:start;
+    }
+
+    .imagePanel{
+      overflow:hidden;
+      min-height:330px;
+      border:1px solid var(--about-line);
+      border-radius:8px;
+      background:#dce5f0;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
+
+    .imagePanel img,
+    .supportImage img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .focusPanel,
+    .founderPanel{
+      display:grid;
+      grid-template-columns:minmax(0, .85fr) minmax(0, 1fr);
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .marketPoints{
+      display:grid;
+      gap:12px;
+      align-content:center;
+    }
+
+    .pointRow{
+      display:grid;
+      grid-template-columns:42px minmax(0, 1fr);
+      gap:14px;
+      align-items:flex-start;
+      padding:10px 0;
+    }
+
+    .pointMark{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:42px;
+      height:42px;
+      border-radius:8px;
+      border:1px solid rgba(35,101,255,.20);
+      color:#2365ff;
+      font-size:16px;
+      font-weight:900;
+      background:#f7faff;
+    }
+
+    .pointRow h3{
+      margin:0 0 7px;
+      color:var(--about-ink);
+      font-size:17px;
+      letter-spacing:0;
+    }
+
+    .pointRow p{
+      margin:0;
+      color:var(--about-muted);
+      line-height:1.62;
+    }
+
+    .workPanel{
+      min-width:0;
+    }
+
+    .workTrack{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:18px;
+      position:relative;
+      padding-top:8px;
+    }
+
+    .workStep{
+      position:relative;
+      padding-top:54px;
+      min-width:0;
+    }
+
+    .workStep::before{
+      content:"";
+      position:absolute;
+      top:18px;
+      left:46px;
+      right:-18px;
+      height:1px;
+      border-top:1px dashed rgba(35,101,255,.45);
+    }
+
+    .workStep:last-child::before{
+      display:none;
+    }
+
+    .workNumber{
+      position:absolute;
+      top:0;
+      left:0;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:38px;
+      height:38px;
+      border-radius:999px;
+      background:#2365ff;
+      color:#fff;
+      font-size:13px;
+      font-weight:950;
+      box-shadow:0 12px 24px rgba(35,101,255,.18);
+    }
+
+    .workStep h3{
+      margin:0 0 10px;
+      color:var(--about-ink);
+      font-size:16px;
+      line-height:1.28;
+      letter-spacing:0;
+    }
+
+    .workStep p{
+      margin:0;
+      color:var(--about-muted);
+      font-size:13px;
+      line-height:1.62;
+    }
+
+    .logicList{
+      display:grid;
+      gap:12px;
+    }
+
+    .logicItem{
+      padding:17px 18px;
+      border:1px solid var(--about-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 12px 28px rgba(17,31,67,.05);
+    }
+
+    .logicItem h3{
+      margin:0 0 7px;
+      color:var(--about-ink);
+      font-size:16px;
+      letter-spacing:0;
+    }
+
+    .logicItem p{
+      margin:0;
+      color:var(--about-muted);
+      line-height:1.62;
+    }
+
+    .supportGrid{
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .supportCard{
+      overflow:hidden;
+      border:1px solid var(--about-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,31,67,.06);
+    }
+
+    .supportImage{
+      aspect-ratio:16 / 10;
+      overflow:hidden;
+      background:#dce5f0;
+    }
+
+    .supportBody{
+      padding:14px;
+    }
+
+    .supportBody h3{
+      margin:0 0 8px;
+      color:var(--about-ink);
+      font-size:16px;
+      letter-spacing:0;
+    }
+
+    .supportBody p{
+      margin:0;
+      color:var(--about-muted);
+      font-size:13px;
+      line-height:1.58;
+    }
+
+    .supportActions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .lightBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:42px;
+      padding:0 17px;
+      border:1px solid rgba(35,101,255,.20);
+      border-radius:8px;
+      background:#fff;
+      color:#2365ff;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .buyerCard{
+      padding:20px;
+      background:linear-gradient(180deg, #fff 0%, #f0f5ff 100%);
+    }
+
+    .principleBand{
+      padding:26px;
+      border-radius:8px;
+      background:#071f43;
+      color:#fff;
+      box-shadow:0 18px 42px rgba(7,31,67,.18);
+    }
+
+    .principleBand h2{
+      margin:0 0 18px;
+      color:#fff;
+      font-size:26px;
+      letter-spacing:0;
+    }
+
+    .principleGrid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .principleItem{
+      min-height:150px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:8px;
+      background:rgba(255,255,255,.06);
+    }
+
+    .fitThinkGrid{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(360px, .98fr);
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .ctaFlow{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:10px;
+      min-width:560px;
+    }
+
+    .ctaStep{
+      position:relative;
+      display:grid;
+      justify-items:center;
+      gap:9px;
+      color:rgba(234,240,255,.82);
+      font-size:12px;
+      font-weight:850;
+      line-height:1.25;
+      text-align:center;
+    }
+
+    .ctaStep::after{
+      content:"";
+      position:absolute;
+      top:19px;
+      left:calc(50% + 24px);
+      width:calc(100% - 38px);
+      height:1px;
+      background:rgba(255,255,255,.30);
+    }
+
+    .ctaStep:last-child::after{
+      display:none;
+    }
+
+    .ctaIcon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:38px;
+      height:38px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.24);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .principleIcon{
+      width:38px;
+      height:38px;
+      margin-bottom:14px;
+      color:#6fa0ff;
+    }
+
+    .principleItem h3{
+      margin:0 0 8px;
+      color:#fff;
+      font-size:16px;
+      letter-spacing:0;
+    }
+
+    .principleItem p{
+      margin:0;
+      color:rgba(234,240,255,.76);
+      font-size:13px;
+      line-height:1.58;
+    }
+
+    .faqGrid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
     }
 
     details{
-      background: #fff;
-      border: 1px solid rgba(29,42,54,.10);
-      border-radius:var(--radius-card);
-      padding: 14px 16px;
-      box-shadow:0 14px 32px rgba(24,39,56,.05);
+      border:1px solid var(--about-line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 12px 28px rgba(17,31,67,.05);
     }
 
     summary{
-      cursor: pointer;
-      font-weight: 900;
-      color: #1d2a36;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      min-height:56px;
+      padding:0 18px;
+      color:var(--about-ink);
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+    }
+
+    summary::-webkit-details-marker{
+      display:none;
+    }
+
+    summary::after{
+      content:"+";
+      color:#2365ff;
+      font-size:18px;
+      font-weight:900;
+    }
+
+    details[open] summary::after{
+      content:"-";
     }
 
     details p{
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.75;
+      margin:0;
+      padding:0 18px 18px;
+      color:var(--about-muted);
+      line-height:1.65;
     }
 
-  .ctaBlock{
-      margin-top: 14px;
-      background: linear-gradient(135deg, rgba(57,87,233,.10), rgba(255,255,255,.92));
-      border: 1px solid rgba(57,87,233,.16);
-      border-radius:var(--radius-card);
-      padding: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      box-shadow:0 16px 40px rgba(24,39,56,.05);
-    }
-
-  .ctaBlock .left b{
-      display: block;
-      margin-bottom: 6px;
-      color: #1d2a36;
-    }
-
-  .ctaBlock .left p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
-      max-width: 760px;
-    }
-
-  .ctaBlock .btn.primary{
+    .finalCta{
+      margin:8px 0 0;
+      padding:28px;
+      border-radius:8px;
+      background:
+        linear-gradient(90deg, rgba(7,31,67,.96), rgba(7,31,67,.82)),
+        url("/images/insights/insights-topic-consolidation-logistics.webp") center/cover no-repeat;
       color:#fff;
-      background:#3957E9;
+      box-shadow:0 18px 42px rgba(7,31,67,.18);
     }
 
-  .ctaBlock .btn:not(.primary){
+    .finalCtaInner{
+      display:grid;
+      grid-template-columns:minmax(0, .9fr) minmax(560px, 1.1fr);
+      gap:28px;
+      align-items:center;
+    }
+
+    .finalCta h2{
+      margin:0 0 8px;
       color:#fff;
-      background:#3957E9;
-      border-color:#3957E9;
-    }@media (max-width: 980px){
-      .heroInner{ padding-top:18px; padding-bottom:18px; }
+      font-size:28px;
+      letter-spacing:0;
+    }
 
-  .imgGrid{ grid-template-columns: 1fr; }
+    .finalCta p{
+      margin:0;
+      max-width:720px;
+      color:rgba(234,240,255,.78);
+      line-height:1.65;
+    }
 
-  .grid3{ grid-template-columns: 1fr; }
+    @media (max-width:1180px){
+      .grid3,
+      .supportGrid,
+      .principleGrid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
 
-  .grid2{ grid-template-columns: 1fr; }
+      .grid4{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
 
-  .workflowGrid{ grid-template-columns: 1fr; }
+      .splitStage,
+      .focusPanel,
+      .founderPanel,
+      .fitThinkGrid,
+      .finalCtaInner{
+        grid-template-columns:1fr;
+      }
 
-  .ctaBlock{ flex-direction: column; align-items: flex-start; }
+      .ctaFlow{
+        min-width:0;
+      }
+    }
 
-  .imgCard{ height: 260px; }
+    @media (max-width:900px){
+      .heroInner{
+        grid-template-columns:1fr;
+      }
+
+      .heroInner{
+        min-height:auto;
+        padding:48px 0 34px;
+      }
+
+      .imagePanel{
+        min-height:280px;
+      }
+
+      .workTrack{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+
+      .workStep::before{
+        display:none;
+      }
+
+      .ctaFlow{
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
+
+      .ctaStep::after{
+        display:none;
+      }
+    }
+
+    @media (max-width:680px){
+      .heroCopy h1{
+        font-size:38px;
+      }
+
+      .heroCopy p{
+        font-size:16px;
+      }
+
+      .sectionBlock{
+        padding:26px 0;
+      }
+
+      .sectionHeader{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .grid3,
+      .grid4,
+      .supportGrid,
+      .principleGrid,
+      .workTrack,
+      .ctaFlow,
+      .faqGrid{
+        grid-template-columns:1fr;
+      }
+
+      .finalCta{
+        padding:22px;
+      }
     }
   </style>
 
-  <header class="pageHero">
-    <div class="contentWrap heroInner">
-      <p class="kicker">CertiSpares / About</p>
+  <header class="aboutHero">
+    <div class="container wide heroInner">
+      <div class="heroCopy">
+        <p class="eyebrow">About CertiSpares</p>
+        <h1>Built for Commercial Vehicle RFQs That Need Sorting</h1>
+        <p>
+          CertiSpares helps importers, distributors, wholesalers, and fleet-related buyers turn incomplete truck parts
+          inquiries into clearer matching scope, comparable supplier options, and controllable order execution.
+        </p>
+        <div class="heroActions">
+          <a class="actionBtn primary" href="/contact?context=about-hero">Send RFQ <span aria-hidden="true">&rarr;</span></a>
+          <a class="actionBtn" href="/capabilities">View Capabilities <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
 
-      <h1 class="title">
-        Built for Commercial Vehicle RFQs That Need Sorting
-      </h1>
-
-      <p class="sub">
-        CertiSpares handles commercial vehicle aftermarket RFQs when the buyer needs more than a quick supplier contact: clearer part matching, practical supplier comparison, and steadier execution across light-, medium-, and heavy-duty truck demand. The sourcing scope includes familiar Chinese commercial vehicle platforms such as Sinotruk HOWO, Sinotruk, SHACMAN, Foton, Dongfeng, FAW Jiefang, and JAC, while each RFQ is still reviewed by part details, vehicle reference, supplier fit, and shipment plan.
-      </p>
+      <aside class="controlPanel" aria-label="What CertiSpares controls before shipment">
+        <h2>What We Control Before Shipment</h2>
+        <div class="controlList">
+          {controlItems.map((item) => (
+            <div class="controlItem">
+              <span class="controlIcon" aria-hidden="true"></span>
+              <span>
+                <strong>{item.title}</strong>
+                <small>{item.text}</small>
+              </span>
+            </div>
+          ))}
+        </div>
+      </aside>
     </div>
   </header>
 
-  <section class="contentSection">
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">Why This Business Exists</h2>
-        <p class="sectionDesc">
-          CertiSpares exists because many aftermarket RFQs do not arrive as clean catalog selections. They arrive as OE numbers, photos, old supplier sheets, mixed truck platforms, and urgent replacement demand. The work is to turn that into a quote path a buyer can actually use.
-        </p>
-
-        <div class="imgGrid">
-          {aboutHighlights.map((x) => (
-            <div class="imgCard">
-              <img
-                src={x.img}
-                alt={x.title}
-                loading="lazy"
-                decoding="async"
-                width={x.width}
-                height={x.height}
-              />
-              <div class="imgOverlay">
-                <div class="imgTag">{x.tag}</div>
-                <h3 class="imgTitle">{x.title}</h3>
-                <p class="imgDesc">{x.desc}</p>
-              </div>
-            </div>
-          ))}
+  <main class="pageBody">
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <div>
+          <h2>Why CertiSpares Exists</h2>
+          <p>Many aftermarket RFQs do not arrive as clean catalog selections. They arrive as references, photos, old sheets, and mixed demand that needs sorting.</p>
         </div>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">What This Means in Practice</h2>
-        <p class="sectionDesc">
-          The position is intentionally narrow: commercial vehicle aftermarket sourcing from China, with the most value where RFQs require clarification, supplier comparison, and order follow-through.
-        </p>
-
-        <div class="grid3">
-          {operatingFit.map((x) => (
-            <div class="card">
-              <b>{x.t}</b>
-              <p>{x.p}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="contentWrap">
-      <h2 class="sectionTitle">Market Focus</h2>
-      <p class="sectionDesc">
-        The focus is commercial vehicle aftermarket sourcing because this is where buyers need more than supplier contact details.
-        They need technical clarity, reliable execution, and a process that can hold up across repeat orders and mixed sourcing scenarios.
-      </p>
 
       <div class="grid3">
-        {pillars.map((x) => (
-          <div class="card">
-            <b>{x.t}</b>
-            <p>{x.p}</p>
-          </div>
+        {existCards.map((card) => (
+          <article class="infoCard">
+            <span class="cardIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                {iconPath[card.icon].map((path) => <path d={path}></path>)}
+              </svg>
+            </span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
         ))}
       </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <div>
+          <h2>What This Means in Practice</h2>
+          <p>CertiSpares is built around structured sourcing work, not broad catalogue presentation or generic trading language.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        {practiceCards.map((card) => (
+          <article class="statementCard">
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </article>
+        ))}
       </div>
     </section>
 
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">How The Approach Works</h2>
-        <p class="sectionDesc">
-          The sourcing model is built to run logically from RFQ intake through supplier comparison and execution control, not as a loose series of quotations.
-        </p>
-
-        <div class="workflowGrid">
-          {workflowSteps.map((x) => (
-            <div class="workflowCard">
-              <div class="stepNo">{x.step}</div>
-              <div>
-                <h3 class="workflowTitle">{x.t}</h3>
-                <p class="workflowText">{x.p}</p>
-              </div>
+    <section class="container wide sectionBlock">
+      <div class="splitStage">
+        <div>
+          <div class="sectionHeader">
+            <div>
+              <h2>Market Focus</h2>
+              <p>Commercial vehicle aftermarket sourcing has the most value when part details, supplier fit, and shipment execution all matter.</p>
             </div>
-          ))}
+          </div>
+          <div class="focusPanel">
+            <div class="imagePanel">
+              <img src="/images/insights/insights-platform-sourcing-overview.webp" alt="Commercial vehicle aftermarket parts sourcing scene" loading="eager" decoding="async" />
+            </div>
+            <div class="marketPoints">
+              {marketPoints.map((point) => (
+                <article class="pointRow">
+                  <span class="pointMark" aria-hidden="true">✓</span>
+                  <div>
+                    <h3>{point.title}</h3>
+                    <p>{point.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="workPanel">
+          <div class="sectionHeader">
+            <div>
+              <h2>How We Work</h2>
+              <p>Every inquiry moves through a short control path before quotation or repeat-order planning.</p>
+            </div>
+          </div>
+          <div class="workTrack">
+            {workSteps.map((step, index) => (
+              <article class="workStep">
+                <span class="workNumber">{String(index + 1).padStart(2, "0")}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">Why The Supplier Base Matters</h2>
-        <p class="sectionDesc">
-          Northern China matters because supplier access is not just about quantity. It affects category depth, response quality, and how efficiently RFQs can be screened and executed.
-        </p>
-
-        <div class="grid2">
-          {differenceCards.map((x) => (
-            <div class="card">
-              <b>{x.t}</b>
-              <p>{x.p}</p>
+    <section class="container wide sectionBlock">
+      <div class="splitStage">
+        <div>
+          <div class="sectionHeader">
+            <div>
+              <h2>Founder Operating Logic</h2>
+              <p>CertiSpares is shaped by a review-oriented background: check facts, clarify scope, compare options, and control risk points before pushing an order forward.</p>
             </div>
-          ))}
+          </div>
+          <div class="founderPanel">
+            <div class="imagePanel">
+              <img src="/images/insights/insights-topic-rfq-clarification.webp" alt="RFQ review desk with sourcing notes" loading="eager" decoding="async" />
+            </div>
+            <div class="logicList">
+              {founderCards.map((card) => (
+                <article class="logicItem">
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sectionHeader">
+            <div>
+              <h2>What We Commonly Support</h2>
+              <p>Coverage stays RFQ-led. These are common sourcing areas, not live stock, price, or guaranteed fitment.</p>
+            </div>
+          </div>
+          <div class="supportGrid">
+            {supportCards.map((card) => (
+              <article class="supportCard">
+                <div class="supportImage">
+                  <img src={card.image} alt={`${card.title} sourcing support`} loading="eager" decoding="async" />
+                </div>
+                <div class="supportBody">
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div class="supportActions">
+            <a class="lightBtn" href="/product">View Parts RFQ <span aria-hidden="true">&rarr;</span></a>
+            <a class="lightBtn" href="/capabilities">View Capabilities <span aria-hidden="true">&rarr;</span></a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">Founder mindset</h2>
-        <p class="sectionDesc">
-          The founder background is not presented as a story for its own sake. It matters because it explains why the sourcing model is process-driven, review-oriented, and careful about risk points.
-        </p>
-
-        <div class="grid3">
-          {founderMindset.map((x) => (
-            <div class="card">
-              <b>{x.t}</b>
-              <p>{x.p}</p>
+    <section class="container wide sectionBlock">
+      <div class="fitThinkGrid">
+        <div>
+          <div class="sectionHeader">
+            <div>
+              <h2>Who This Model Fits</h2>
+              <p>The model works best for buyers who value scope clarity, supplier comparison, and repeatable execution over broad marketing claims.</p>
             </div>
-          ))}
+          </div>
+          <div class="grid4">
+            {buyerCards.map((card) => (
+              <article class="buyerCard">
+                <span class="cardIcon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"></path></svg>
+                </span>
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div class="principleBand">
+          <h2>How We Think</h2>
+          <div class="principleGrid">
+            {principles.map((item, index) => (
+              <article class="principleItem">
+                <span class="principleIcon" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">What We Support</h2>
-        <p class="sectionDesc">
-          Coverage includes light-, medium-, and heavy-duty truck platforms, with deeper experience in heavy-duty systems and practical support for mixed RFQ requirements.
-        </p>
-
-        <div class="grid2">
-          {whatWeSupport.map((x) => (
-            <div class="card">
-              <b>{x.t}</b>
-              <p>{x.p}</p>
-            </div>
-          ))}
+    <section class="container wide sectionBlock">
+      <div class="sectionHeader">
+        <div>
+          <h2>FAQ</h2>
+          <p>Short answers for buyers checking whether CertiSpares fits their commercial vehicle parts RFQ.</p>
         </div>
+      </div>
 
-        <div class="ctaBlock">
-          <div class="left">
-            <b>Need a clearer starting point?</b>
+      <div class="faqGrid">
+        {faqs.map((faq) => (
+          <details>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="container wide sectionBlock">
+      <div class="finalCta">
+        <div class="finalCtaInner">
+          <div>
+            <h2>Have a truck parts RFQ that needs sorting?</h2>
             <p>
-              Send your OE numbers, part list, or product photos. We can structure the RFQ and suggest a sourcing path that fits the order scope and truck platform.
+              Send the references you already have. We will review the matching scope first and reply with the next workable sourcing step.
             </p>
-          </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn primary" href="/contact">Send RFQ</a>
-            <a class="btn" href="/capabilities">View Capabilities</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">Who We Work With</h2>
-        <p class="sectionDesc">
-          The model is best suited to buyers who value process clarity, supply stability, and repeatable execution more than broad marketing claims.
-        </p>
-
-        <div class="grid2">
-          {buyerTypes.map((x) => (
-            <div class="card">
-              <b>{x.t}</b>
-              <p>{x.p}</p>
+            <div class="heroActions">
+              <a class="actionBtn primary" href="/contact?context=about-bottom">Send RFQ <span aria-hidden="true">&rarr;</span></a>
+              <a class="actionBtn" href="/how-it-works">See How It Works <span aria-hidden="true">&rarr;</span></a>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">How We Think</h2>
-        <p class="sectionDesc">
-          The underlying logic is simple: clarify the RFQ, compare with discipline, control key risk points, and make the sourcing path easier to repeat.
-        </p>
-
-        <div class="grid2">
-          {principles.map((x) => (
-            <div class="row">
-              <div class="badge">{x.tag}</div>
-              <div>
-                <div class="rt">{x.t}</div>
-                <p class="rp">{x.p}</p>
+          </div>
+          <div class="ctaFlow" aria-label="RFQ control path">
+            {ctaSteps.map((step, index) => (
+              <div class="ctaStep">
+                <span class="ctaIcon">{String(index + 1).padStart(2, "0")}</span>
+                <span>{step}</span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
-
-    <section class="section">
-      <div class="contentWrap">
-        <h2 class="sectionTitle">FAQ</h2>
-        <p class="sectionDesc">
-          Quick answers for buyers evaluating a commercial vehicle aftermarket sourcing partner in China.
-        </p>
-
-        <div class="grid2">
-          {faqs.map((f) => (
-            <details>
-              <summary>{f.q}</summary>
-              <p>{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  </section>
+  </main>
 </BaseLayout>
