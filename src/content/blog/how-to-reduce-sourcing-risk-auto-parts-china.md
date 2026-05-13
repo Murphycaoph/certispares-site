@@ -185,7 +185,25 @@ For buyers working through that alignment stage right now, our [commercial vehic
 
 ---
 
-## 9. Common Mistakes That Increase Sourcing Risk
+## 9. When to Upgrade Control Intensity
+
+Some orders need basic control. Some need stricter control. Buyers should decide this before production starts.
+
+| Situation | Control upgrade |
+|---|---|
+| New supplier and new part | sample approval, stricter pre-shipment inspection |
+| Safety-sensitive product | category-specific QC, batch traceability, clearer claim route |
+| High-value order | factory audit or deeper supplier verification |
+| Mixed container | label, packing, and consolidation control |
+| Complaint history | corrective action before reorder |
+| Unclear fitment data | OE/VIN/model/photos/dimensions before quote approval |
+| Tight delivery window | lead-time milestones and logistics handover plan |
+
+The rule is simple: when the cost of failure rises, the control depth should rise too.
+
+---
+
+## 10. Common Mistakes That Increase Sourcing Risk
 
 Most sourcing risk is not created by one bad decision. It is created by a pattern of incomplete decisions.
 
