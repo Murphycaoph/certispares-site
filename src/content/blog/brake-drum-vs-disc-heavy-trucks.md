@@ -126,6 +126,86 @@ Before asking for a price, answer these questions:
 
 If you cannot answer all of these, send what you have. A structured [RFQ or contact request](/contact) is still better than guessing from a product name.
 
+## Buyer Decision Matrix
+
+Most buyers cannot choose drum or disc systems freely for an existing vehicle. The system is already defined by the axle, market, and vehicle configuration. The buyer decision is usually about identification, supplier comparison, maintenance support, and inventory planning.
+
+| Buyer situation | What to do first | What not to do |
+|---|---|---|
+| Replacing parts for an existing fleet | Confirm the brake system by photo, OE reference, and axle position | Do not switch terminology to match supplier vocabulary |
+| Buying distributor stock | Separate drum items, disc items, linings, pads, shoes, and hardware into different lines | Do not request one mixed "brake parts" price |
+| Comparing suppliers | Confirm material, dimensions, inspection, packing, and line-item scope | Do not compare a bare part with a kit or set |
+| Handling a complaint | Collect old part photos, measurement, installation position, and batch data | Do not assume the system type was correct in the original order |
+| Expanding into a new market | Review common vehicle platforms and service habits | Do not publish or rely on unverified fitment tables |
+
+For an RFQ-first sourcing site, this distinction matters. CertiSpares can help compare supplier routes, but the quotation still depends on the buyer's vehicle data, product photos, dimensions, and intended supply scope.
+
+## Mixed Brake Orders Need Cleaner Line Control
+
+Many commercial orders include several brake-related items in one shipment. A distributor may buy drums, linings, chambers, slack adjusters, pads, calipers, and wheel-end parts together. That is normal. The risk is mixing system logic inside the same quotation line.
+
+A cleaner order separates:
+
+- brake drums
+- brake discs or rotors
+- brake shoes
+- brake linings
+- brake pads
+- air brake chambers
+- slack adjusters
+- fitting kits and hardware
+- wheel hub or wheel-end parts
+
+Each line should show quantity unit clearly. "Set" can mean many things. It may mean one axle set, one wheel set, one carton set, one pair, or one kit. If the buyer and supplier define it differently, the shipment can be numerically correct but commercially wrong.
+
+Good line control looks like this:
+
+| Line | Product family | Quantity unit to define |
+|---|---|---|
+| Brake drum | Piece | Dimensions and bolt pattern per piece |
+| Brake lining | Set or piece | Pieces per wheel or per axle |
+| Brake pad | Set | Pads per caliper or axle set |
+| Chamber | Piece | Service or spring chamber scope |
+| Hardware kit | Kit | Exact included parts |
+
+This structure also makes packing easier. Heavy cast items should not crush friction materials or small hardware. Labels should let the buyer's warehouse separate drum brake items from disc brake items immediately.
+
+## Inspection Priorities Before Shipment
+
+Drum and disc orders need different inspection emphasis.
+
+For brake drums, buyers usually care about:
+
+- casting appearance and surface defects
+- friction surface machining
+- diameter, width, depth, center bore, and bolt pattern
+- mounting face and balance where relevant
+- wall thickness or weight consistency when specified
+- rust protection and packing strength
+
+For disc brakes, buyers usually care about:
+
+- rotor diameter, thickness, height, and offset
+- ventilation structure where applicable
+- mounting holes and center bore
+- friction surface finish
+- pad shape, backing plate, and sensor requirement
+- caliper or carrier reference where relevant
+
+The inspection should match the product family. A generic visual inspection is too weak for brake parts. At minimum, the buyer should request sample photos, key measurement photos, label photos, and packing photos before shipment. For repeat or safety-sensitive orders, a defined pre-shipment inspection plan is better.
+
+## RFQ Example for a Brake System Order
+
+Weak RFQ:
+
+> Need brake parts for heavy trucks. Please quote best price.
+
+Stronger RFQ:
+
+> We need drum brake parts and disc brake parts for separate vehicle groups. For drum items, quote brake drums and linings by attached OE references, photos, dimensions, axle position, and quantity table. For disc items, quote rotors and pads by attached photos, rotor size, pad shape, and caliper reference where available. Please separate each product family into its own quotation line, define piece/set/kit quantity, confirm packing, and send pre-shipment photo evidence before balance payment.
+
+The stronger request does not promise exact fitment. It gives enough structure for a supplier to confirm the quotation basis and ask the right follow-up questions.
+
 ## Content Map for Brake Buyers
 
 Use this cluster based on the question you are trying to answer:

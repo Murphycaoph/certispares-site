@@ -5,7 +5,7 @@ updatedDate: "2026-04-01"
 tag: "Sourcing Knowledge"
 readTime: "9 min read"
 excerpt: "Use this practical supplier-screening framework to identify reliable auto parts suppliers in China, reduce sourcing risk, and compare factories beyond price alone."
-meta_description: "A practical buyer guide to identifying reliable auto parts suppliers in China through capability checks, communication signals, documentation, and execution discipline."
+meta_description: "Identify reliable auto parts suppliers in China with capability checks, communication signals, documentation review, and execution discipline."
 keywords:
   - "reliable auto parts suppliers in China"
   - "how to evaluate auto parts suppliers"
@@ -202,6 +202,30 @@ Common mistakes include:
 Most of these mistakes are preventable when buyers use a consistent screening framework and confirm scope in writing early. That is also why supplier evaluation should connect directly to quotation comparison, inspection planning, and shipping-term decisions instead of being treated as a separate exercise.
 
 ---
+
+## 9. Supplier Scorecard for First Shortlisting
+
+Use a simple scorecard before moving to samples or deposits.
+
+| Screening area | Strong signal | Weak signal |
+|---|---|---|
+| Product focus | Clear category depth and similar export cases | Very broad catalogue with little detail |
+| Supplier role | Explains manufacturer, trader, or coordinator role clearly | Avoids the question or changes the story |
+| Technical response | Asks for OE references, photos, dimensions, and application data | Quotes from product name only |
+| QC evidence | Shows inspection points and records | Sends only slogans or certificate photos |
+| Packing control | Defines carton, pallet, label, and mixed SKU handling | Says "standard export packing" only |
+| Document discipline | Confirms invoice, packing list, marks, and shipment data | Leaves document details until the end |
+| Claim response | Explains evidence and corrective action route | Promises there will be no problems |
+
+A supplier does not need to be perfect in every cell. The buyer's job is to decide which weaknesses can be controlled and which make the supplier unsuitable for the order.
+
+Attach that note to the RFQ file. Reliable supplier screening should make the next RFQ clearer, not just create a separate supplier profile.
+
+---
+
+## RFQ Reminder
+
+Supplier screening should end with a cleaner RFQ, not just a supplier name. The RFQ should preserve supplier role, category fit, QC evidence, packing support, and claim route before price comparison starts.
 
 ## FAQ
 

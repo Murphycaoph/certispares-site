@@ -5,7 +5,7 @@ updatedDate: "2026-05-13"
 tag: "Sourcing Knowledge"
 readTime: "11 min read"
 excerpt: "Compare T/T and L/C payment terms in auto parts trade, with risk charts, document checks, quotation controls, and order confirmation steps."
-meta_description: "Compare T/T and L/C payment terms in auto parts trade, including buyer risk, supplier risk, quotation checks, inspection timing, documents, and shipment planning."
+meta_description: "Compare T/T and L/C payment terms in auto parts trade, including buyer risk, supplier risk, quotation checks, inspection timing, and documents."
 keywords:
   - "payment terms auto parts trade"
   - "T/T payment terms"
@@ -290,7 +290,81 @@ If this list is not ready, do not rush the payment term.
 
 ---
 
-## 13. Related Sourcing Guides
+## 13. Deposit Control for T/T Orders
+
+For many aftermarket orders, the real risk point is the deposit. Once the deposit is paid, the buyer has less leverage to change packing, labels, documents, or item scope.
+
+Before paying a T/T deposit, ask the supplier to confirm:
+
+| Control point | Confirmation needed |
+|---|---|
+| Item scope | Final item list with photos, OE references, drawings, or samples |
+| Quantity | Quantity by SKU, not only total order value |
+| Unit definition | Piece, pair, set, axle set, kit, carton, or pallet |
+| Packing | Carton, pallet, neutral label, buyer label, rust protection |
+| Inspection | What will be checked before balance payment |
+| Shipment | Destination, trade term, forwarder role, loading plan |
+| Documents | Invoice, packing list, bill of lading, certificate, or buyer-specific documents |
+| Claim route | Evidence needed and contact person after arrival |
+
+A practical T/T control phrase is:
+
+> Deposit starts production after both sides confirm item list, photos, quantities, packing, carton marks, inspection timing, trade term, and document list. Balance is paid after agreed pre-shipment evidence is reviewed.
+
+This phrase does not guarantee the supplier's performance. It gives the buyer a clearer checkpoint before money moves.
+
+## 14. L/C Wording Should Match the Real Order
+
+L/C problems often begin with wording that is too broad, too narrow, or inconsistent with the supplier's shipping reality.
+
+For auto parts, watch these items:
+
+- beneficiary name must match the supplier entity that will present documents
+- product description should be consistent with invoice and packing list
+- shipment deadline should allow real production, inspection, and vessel schedule
+- document list should not include documents the supplier cannot obtain
+- inspection certificate should be defined only if both sides accept the source and format
+- partial shipment and transshipment rules should match the logistics plan
+- quantity tolerance should be discussed if the cargo uses many SKUs
+
+Banks examine document compliance. They do not verify whether a brake drum bore matches the buyer's old sample. That is why L/C wording must be paired with product verification before shipment.
+
+For a mixed auto parts shipment, the product description should be clear enough for documents but not so detailed that every small SKU creates discrepancy risk. Buyers should check wording with their bank and forwarder before issuing the final credit.
+
+## 15. Payment Term and Inspection Timing Should Work Together
+
+Payment and inspection should be designed as one control system.
+
+| Payment structure | Inspection timing | Buyer concern |
+|---|---|---|
+| 30/70 T/T | Inspect before balance | Balance should not be paid before agreed evidence |
+| Full T/T for small order | Check sample and supplier record before payment | Speed is higher, but leverage is lower |
+| L/C at sight | Product check before shipment plus document check after shipment | Documents may pass even if product inspection was weak |
+| L/C with inspection document | Inspection source and format must be agreed | Vague inspection documents create discrepancy risk |
+| Balance after copy B/L | Product and packing should be checked before loading | Once cargo ships, correction is harder |
+
+For brake, suspension, wheel-end, engine, and electrical categories, inspection should focus on the part's risk points. Packing photos alone are not enough. A buyer should ask for product photos, label photos, key measurement photos, and carton or pallet photos where relevant.
+
+## 16. Dispute Prevention Before Shipment
+
+Payment disputes usually sound financial, but many begin as product or document disputes.
+
+Common examples:
+
+- buyer expected branded labels, supplier prepared neutral labels
+- buyer expected one set definition, supplier packed another
+- buyer expected inspection before balance, supplier expected immediate balance
+- buyer expected CIF charges included, supplier quoted FOB
+- buyer expected one certificate, supplier could only provide a different document
+- buyer expected all SKUs in one shipment, supplier planned partial delivery
+
+The best prevention is a written order confirmation that connects product, payment, packing, inspection, and documents. For recurring orders, keep a template. For new categories, revise the template before deposit.
+
+CertiSpares can review a supplier quotation or proforma invoice from a sourcing-control point of view. The review should not replace bank, legal, customs, or tax advice. It can still catch practical problems before the order becomes expensive to correct.
+
+---
+
+## 17. Related Sourcing Guides
 
 - [How to Compare Auto Parts Quotations from Chinese Suppliers](/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers)
 - [How to Identify Reliable Auto Parts Suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china)
@@ -299,6 +373,10 @@ If this list is not ready, do not rush the payment term.
 - [EXW, FOB, and CIF for Auto Parts Buyers](/blog/exw-fob-cif-auto-parts-buyers)
 
 ---
+
+## Related Product Sourcing Paths
+
+Payment terms should match order risk. For higher-control categories, prepare the parts list through [brake system parts](/product/part/brake-system-parts/), [engine parts](/product/part/engine-parts/), or [suspension parts](/product/part/suspension-parts/) before confirming deposit or L/C wording.
 
 ## FAQ
 

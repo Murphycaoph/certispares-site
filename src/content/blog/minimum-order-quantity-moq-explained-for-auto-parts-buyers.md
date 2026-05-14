@@ -329,6 +329,8 @@ For example:
 
 Quantity and QC should be planned together.
 
+When MOQ is part of the RFQ, the buyer should state trial quantity, repeat demand, SKU mix, packing unit, and target destination. A clearer RFQ helps the supplier explain whether MOQ is driven by production batch, material purchase, carton quantity, or commercial policy.
+
 ## FAQ
 
 ### Can MOQ always be negotiated?

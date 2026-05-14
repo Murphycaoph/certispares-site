@@ -204,6 +204,66 @@ Before deposit or full payment, keep a short written baseline:
 
 This does not need to be complicated. It just needs to be clear enough that both sides know what was approved.
 
+## Risk Register for a Live RFQ
+
+For important orders, keep a simple risk register before payment.
+
+| Risk item | Current status | Control action | Owner |
+|---|---|---|---|
+| Supplier identity | Factory, trader, or coordinator unclear | Ask for process evidence or audit | Buyer / sourcing partner |
+| Product match | OE/photo/dimension incomplete | Request missing data before quote approval | Buyer |
+| Quality level | Price quoted without inspection scope | Define sample, QC, and defect rules | Supplier / buyer |
+| Packing | "Standard export packing" only | Require carton, pallet, label, and photo evidence | Supplier |
+| Logistics | Incoterm or handover unclear | Confirm EXW, FOB, CIF, pickup, and forwarder role | Buyer / forwarder |
+| Documents | Invoice and packing list format unknown | Confirm document list before production ends | Supplier |
+| Claims | No batch or label record | Require batch mark, carton photo, and claim contact | Supplier |
+
+This register does not need software. A spreadsheet or order note is enough. The important part is to review it before deposit, before balance payment, and before repeat order.
+
+## When to Pause an Order
+
+Some warning signs deserve a pause, not just another discount request.
+
+Pause when:
+
+- the supplier cannot explain whether it is making or sourcing the item
+- the quotation changes after deposit discussion
+- the supplier refuses basic product photos or measurement confirmation
+- safety-relevant parts are quoted from vehicle model only
+- packing is not defined for heavy or fragile cargo
+- payment pressure appears before specification is confirmed
+- documents required by the buyer cannot be supported
+- previous claims remain unresolved
+
+Pausing does not mean canceling automatically. It means the next step should be clarification, sample review, audit, inspection plan, or supplier replacement. The worst pattern is to continue because time has already been spent. Sunk time is cheaper than a wrong shipment.
+
+## RFQ Example With Risk Controls
+
+Weak RFQ:
+
+> Please quote truck parts, best price, urgent.
+
+Controlled RFQ:
+
+> Please quote the attached truck parts list by item line. OE numbers and old part photos are provided where available. For each item, confirm match basis, product grade, unit definition, MOQ, lead time, packing method, carton label, inspection support, and Incoterm. Safety-related items such as brake, air, suspension, and wheel-end parts require photos and key dimension confirmation before order. Destination is Tema. Please identify which items are made in-house and which are sourced through partner factories.
+
+The controlled RFQ is not longer for decoration. It forces risk to appear before payment. That is the moment when buyers still have options.
+
+## How CertiSpares Fits Into Risk Control
+
+CertiSpares is not positioned as a public catalogue or an official OEM dealer. Its role is to help buyers structure the inquiry, compare supplier routes, preserve source context, coordinate QC evidence, and move toward a qualified RFQ.
+
+That means a buyer should send:
+
+- part numbers or OE references if available
+- VIN/model/year/market data where relevant
+- old part photos, labels, and dimensions
+- target quantity and destination
+- packing and label expectations
+- supplier quote or old supplier reference if already available
+
+With that information, the sourcing discussion becomes more precise. Without it, risk stays hidden behind product names and fast prices.
+
 ## FAQ
 
 ### Is buying truck parts from China too risky?
@@ -221,6 +281,10 @@ No. A strong sourcing partner can be useful for multi-category orders. But the b
 ### When should I audit a factory?
 
 Audit when the order value, safety risk, repeat demand, or supplier uncertainty justifies the cost. For small one-time orders, tighter document review and pre-shipment inspection may be enough.
+
+## RFQ CTA
+
+If you are reviewing a live supplier or parts list, send the references, photos, quantity, destination, and open risk points through [Contact](/contact). CertiSpares can help turn the risk list into a clearer RFQ before supplier comparison.
 
 ## Sources and Notes
 

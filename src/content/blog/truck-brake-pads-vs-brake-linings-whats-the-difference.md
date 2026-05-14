@@ -1,11 +1,11 @@
 ---
-title: "Brake Lining vs Brake Pad: What Truck Parts Buyers Should Know"
+title: "Brake Lining vs Brake Pad for Truck Parts Buyers"
 date: "2026-03-13"
 updatedDate: "2026-05-13"
 tag: "Product Insight"
 readTime: "11 min read"
 excerpt: "Compare brake linings and brake pads for commercial vehicles, with inspection data, RFQ fields, risk charts, and sourcing checks for truck parts buyers."
-meta_description: "Compare brake linings and brake pads for commercial vehicles, including system differences, inspection data, RFQ checks, photos, part numbers, and sourcing risks."
+meta_description: "Compare brake linings and brake pads for commercial vehicles, including system differences, RFQ checks, photos, part numbers, and sourcing risks."
 keywords:
   - "brake lining vs brake pad"
   - "brake pad vs brake lining"
@@ -237,7 +237,101 @@ The supplier can ask useful questions instead of guessing.
 
 ---
 
-## 10. Related Brake Parts to Check
+## 10. Set Definitions and Quantity Control
+
+Brake friction orders often fail because "set" is not defined.
+
+For one buyer, a set may mean enough pieces for one wheel. For another, it may mean one axle. For a supplier, it may mean one retail box or one repair kit. If the quotation does not define the unit, the price comparison can be false.
+
+Use a quantity table:
+
+| Item | Unit to confirm | Example question |
+|---|---|---|
+| Brake lining | Pieces per shoe, wheel, or axle | How many lining pieces are included per set? |
+| Brake shoe assembly | Piece, pair, or axle set | Is the shoe included or only the lining? |
+| Brake pad set | Pads per caliper or axle | Does one set cover one wheel or one axle? |
+| Hardware kit | Kit content | Which springs, pins, clips, or sensors are included? |
+| Mixed brake order | Line by SKU | Are drum and disc items packed separately? |
+
+For distributor stock, the safest quotation defines quantity by SKU and by packaging unit. A carton label should not say only "truck brake parts." It should identify the actual line item well enough for warehouse staff to separate pads, linings, shoes, and kits.
+
+## 11. Supplier Comparison for Friction Parts
+
+Do not compare brake lining and brake pad suppliers by headline price only.
+
+Compare:
+
+- product family accuracy
+- material or formulation level where specified
+- dimensions and old part match
+- backing plate or shoe details
+- bonding or riveting method where relevant
+- batch consistency
+- packing and label quality
+- inspection evidence
+- claim handling
+- repeat-order communication
+
+A supplier that answers quickly but cannot confirm system type may be risky. A supplier that asks for old part photos, dimensions, axle position, and packaging requirements may look slower at first, but the resulting quote is usually more useful.
+
+For friction parts, buyers should also separate market language from technical evidence. Phrases such as "high quality," "long life," or "export standard" are not enough. Ask what the supplier can actually show: product photos, measurements, packing, label format, inspection report, and previous claim control method.
+
+## 12. Packing and Labeling for Pads and Linings
+
+Friction parts need clean packing because they are often handled by distributor warehouses before reaching workshops.
+
+Packing checks:
+
+- carton strength for the item weight
+- separation between different SKUs
+- moisture and contamination control
+- clear item labels
+- buyer order number or SKU reference
+- quantity per carton
+- pallet plan if cartons are consolidated
+- photos before shipment
+
+For brake linings, buyers should avoid mixed loose goods unless that is intentionally agreed. For brake pads, the backing plate and friction surface should be protected from unnecessary rubbing or contamination. If hardware kits or sensors are included, they should be packed and labeled so warehouse staff do not lose them.
+
+A good packing instruction might say:
+
+> Pack brake linings and brake pads separately by SKU. Mark each carton with item code, product family, quantity, order number, and destination. Do not mix drum brake linings and disc brake pads in one carton unless approved. Send carton and pallet photos before shipment.
+
+This small step can prevent many destination-side complaints.
+
+## 13. Claim Evidence for Friction Part Problems
+
+If a buyer reports cracks, contamination, noise, poor wear, or loose material, collect evidence before deciding the cause.
+
+Useful evidence includes:
+
+- photo of the part before installation if available
+- photo after installation or after failure
+- label and carton mark
+- vehicle application and axle position
+- drum or disc condition
+- mating part photos, such as drum, rotor, shoe, or caliper
+- quantity affected and total quantity inspected
+- installation date or mileage where known
+- warehouse storage condition if contamination is suspected
+
+Not every complaint is a supplier defect. Some problems come from wrong system identification, damaged mating parts, poor installation, storage contamination, or mixed goods. A structured claim file helps the buyer and supplier decide whether to replace goods, change packing, improve inspection, or correct the RFQ data for the next order.
+
+## 14. RFQ Example for Brake Friction Parts
+
+Weak request:
+
+> Need brake pad and lining for truck. Quote 1000 sets.
+
+Better request:
+
+> We need two separate friction part groups. Line 1: drum brake linings, photos and dimensions attached, axle position shown, quantity 600 sets, please define pieces per set. Line 2: disc brake pads, old pad front/back photos and backing plate dimensions attached, quantity 400 sets, please confirm pads per set and whether hardware or sensor is included. Destination: Durban. Neutral packing with carton labels by SKU. Please confirm inspection photos and packing photos before shipment.
+
+This wording gives suppliers less room to guess. It also keeps the buyer's price comparison clean.
+
+---
+
+## 15. Related Brake Parts to Check
 
 Brake friction parts rarely stand alone.
 

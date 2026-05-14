@@ -5,7 +5,7 @@ updatedDate: "2026-05-13"
 tag: "Product Insight"
 readTime: "15 min read"
 excerpt: "A practical pre-shipment inspection checklist for truck brake drums, covering documents, sampling, dimensions, casting defects, surface condition, labels, packing, and release decisions."
-meta_description: "Truck brake drum pre-shipment inspection checklist for buyers: documents, sampling, dimensions, casting defects, surface condition, labels, packing, and release decisions."
+meta_description: "Truck brake drum pre-shipment inspection checklist covering documents, sampling, dimensions, casting defects, labels, packing, and release decisions."
 keywords:
   - truck brake drum inspection
   - brake drum pre shipment inspection
@@ -454,6 +454,20 @@ If the buyer later receives a complaint, this note shows exactly why the shipmen
 For new suppliers, attach this approval note to the supplier file. Over several orders, the buyer can see whether inspection findings improve, repeat, or get worse. That pattern is often more useful than one isolated report.
 
 It also gives procurement a clear basis for supplier upgrades, tighter controls, or replacement.
+
+## Inspection Handoff Note
+
+For repeat brake drum orders, keep the release approval note together with the next RFQ. If the previous shipment had label, packing, dimension, rust, or surface issues, write the correction into the next order before price negotiation. That turns inspection findings into supplier control instead of isolated paperwork.
+
+## Related Product Sourcing Paths
+
+Brake drum inspection belongs inside the broader [brake system parts sourcing](/product/part/brake-system-parts/) workflow. If the shipment also includes hubs or axle parts, review [axle and wheel-end parts](/product/part/axle-and-wheel-end-parts/) before final packing.
+
+The RFQ should already state whether pre-shipment inspection is required, which brake drum dimensions matter, and what evidence must be sent before balance payment.
+
+## RFQ Reminder
+
+Add the brake drum inspection scope directly into the RFQ: dimensions, visual checks, labels, packing photos, and release rule. When the RFQ is clear, the supplier cannot treat inspection as a late extra request.
 
 ## FAQ
 

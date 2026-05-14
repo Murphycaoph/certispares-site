@@ -423,6 +423,16 @@ On repeat orders, buyers should track:
 
 A supplier with a low first price but unstable repeat performance is not truly cheap. A supplier with a fair price and stable execution may become cheaper over the life of the relationship.
 
+## Related Product Sourcing Paths
+
+Price comparison should be category-led. For higher-risk RFQs, compare supplier scope through [brake system parts](/product/part/brake-system-parts/), [engine parts](/product/part/engine-parts/), or [suspension parts](/product/part/suspension-parts/) before choosing on unit price.
+
+The RFQ should show what price is being compared: part reference, quantity, packing, inspection, payment, and shipment basis. Without that RFQ baseline, the lowest quote may simply be the least complete offer.
+
+## RFQ Reminder
+
+The RFQ should define the quote basis before price is compared. If the RFQ does not state product scope, packing, inspection, lead time, and trade term, the cheapest quote may not be the best supplier decision.
+
 ## FAQ
 
 ### Should buyers always avoid the cheapest supplier?

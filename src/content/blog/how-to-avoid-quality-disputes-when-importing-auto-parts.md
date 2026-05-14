@@ -5,7 +5,7 @@ updatedDate: "2026-05-13"
 tag: "Sourcing Knowledge"
 readTime: "15 min read"
 excerpt: "Learn how auto parts importers can prevent quality disputes through clear specifications, supplier verification, samples, inspections, packing control, documents, and claims evidence."
-meta_description: "How to avoid quality disputes when importing auto parts: clear specifications, supplier verification, samples, inspections, packing, documents, and claims evidence."
+meta_description: "Avoid quality disputes when importing auto parts with clear specs, supplier checks, samples, inspections, packing, documents, and claims evidence."
 keywords:
   - avoid quality disputes auto parts
   - China auto parts quality claims
@@ -441,6 +441,16 @@ Inspection: visual, dimensions, leakage test record if available.
 ```
 
 The better RFQ reduces mismatch risk before quotation.
+
+## RFQ Handoff Note
+
+Before sending a dispute-prone inquiry, write one short handoff note for the supplier and for your own records. It should state what part is being discussed, which photos or references were used, which dimensions or specs remain unconfirmed, what inspection evidence is required, and what packing or label rule applies. This note becomes useful later if the quotation, PI, inspection report, or claim discussion needs to be checked against the same baseline.
+
+It also helps new team members understand why the order was approved.
+
+## Related Product Sourcing Paths
+
+Dispute prevention should be category-specific. For live RFQs, start from relevant sourcing pages such as [brake system parts](/product/part/brake-system-parts/), [air system parts](/product/part/air-system-parts/), or [rubber and bushing parts](/product/part/rubber-and-bushing-parts/).
 
 ## FAQ
 

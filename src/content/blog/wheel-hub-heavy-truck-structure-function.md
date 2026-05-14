@@ -149,6 +149,39 @@ A fleet repair inquiry may need urgent matching.
 
 A distributor replenishment order may need multiple SKUs, neutral packing, label control, and carton marks.
 
+## Why Wheel Hub Quality Is Hard to Judge From Photos
+
+Wheel hubs are often judged by appearance, but the most important details are not always visible in a sales photo. A clean casting or machined surface does not prove that bearing seats, stud holes, mounting faces, or brake interfaces are correct.
+
+Quality depends on:
+
+- material and casting or forging control
+- machining accuracy
+- bearing seat dimensions
+- concentricity and alignment
+- surface finish on functional areas
+- stud hole position and thread quality
+- seal and cap interface
+- corrosion protection
+- packing that protects machined surfaces
+
+This is why wheel hub RFQs need more than a picture. A supplier should be able to discuss dimensions, related bearing numbers, stud pattern, and inspection scope.
+
+## Common Wheel Hub Failure or Complaint Signals
+
+Wheel hub complaints may show up as:
+
+- bearing noise or early bearing damage
+- vibration at the wheel end
+- oil seal leakage
+- damaged studs or nuts
+- brake drum or disc interface problem
+- cracked or deformed hub body
+- installation difficulty
+- heat marks or abnormal wheel-end temperature
+
+These symptoms do not automatically prove the hub is defective. Related parts and installation conditions also matter. Bearing quality, seal condition, lubrication, axle load, brake heat, and mounting torque can all affect the result.
+
 ---
 
 ## 7. RFQ Risk Matrix
@@ -225,7 +258,92 @@ This is how a product inquiry becomes a usable RFQ.
 
 ---
 
-## 11. Related Parts and Pages
+## 11. Supplier Comparison for Wheel Hubs
+
+When comparing wheel hub suppliers, ask:
+
+| Supplier check | Why it matters |
+|---|---|
+| Product focus | A supplier strong in wheel-end parts may understand bearing and seal relationships better. |
+| Process route | Casting/forging and machining control affect strength and fit. |
+| Critical dimensions | Bearing seat, bore, flange, PCD, stud holes, and height need control. |
+| Related kit support | Some buyers need hubs with studs, seals, caps, or bearings. |
+| Packing | Heavy hubs can damage cartons or machined areas if poorly packed. |
+| Repeat consistency | Distributor stock needs the same specification across future batches. |
+
+Do not compare only unit price. A hub with poor bearing-seat control can create much higher cost after installation.
+
+---
+
+## 12. Packing and Shipping Checks
+
+Wheel hubs should be packed to protect functional surfaces and threads.
+
+Check:
+
+- machined surfaces protected from impact
+- studs or threaded areas protected
+- rust prevention where needed
+- carton strength suitable for weight
+- pallet plan for heavy cartons
+- SKU labels and carton marks
+- separation of hubs, bearings, seals, and small hardware
+- photos before shipment
+
+For mixed wheel-end orders, packaging should help the warehouse identify parts quickly after arrival.
+
+---
+
+## 13. Wheel Hub Claim Review
+
+If a hub-related complaint appears after installation, collect the wheel-end context before making a supplier claim.
+
+Ask for:
+
+- photos of the hub from all sides
+- bearing and seal condition
+- stud and nut photos
+- axle position and vehicle model
+- installation mileage or service period
+- brake drum or disc relationship
+- heat, vibration, or leakage symptoms
+- whether the issue appears on one wheel-end or several
+- packing photos if damage may have happened before installation
+
+Wheel hub failures often involve related parts. A bearing problem, seal leak, brake heat issue, or installation error can be mistaken for hub defect. Good evidence helps the buyer and supplier discuss the right cause.
+
+---
+
+## 14. Wheel Hub RFQ Example for Distributor Stock
+
+> Please quote the attached wheel hub references for distributor stock. Photos, bearing numbers, stud patterns, and quantities are listed by SKU. Quote hubs separately and also advise if matching bearings, seals, caps, or studs are available. Neutral packing with item labels required. Destination: Mombasa. Please confirm critical dimensions before final quotation.
+
+This RFQ is better than a generic request because it shows the supplier exactly which matching points matter.
+
+---
+
+## 15. When to Buy Hubs as a Kit
+
+Some buyers need only the hub body. Others need a wheel-end service package. Kit sourcing may be useful when workshops want to replace the hub, bearing, seal, cap, studs, and nuts together.
+
+Kit sourcing can reduce service delay, but it increases RFQ responsibility. The buyer must define each component and confirm whether every supplier quote includes the same items.
+
+| Kit question | Why it matters |
+|---|---|
+| Are bearings included? | Bearing quality and dimensions affect service life. |
+| Are seals included? | Seal mismatch can create leakage or contamination. |
+| Are studs and nuts installed or packed separately? | Affects installation and packing damage risk. |
+| Is the hub cap included? | Some markets expect it as part of a service set. |
+| Are items labeled by kit or by component? | Warehouse receiving and resale depend on clarity. |
+
+If kit scope is unclear, compare hub body price separately from kit price.
+
+Clear kit scope prevents false price comparison.
+Always.
+
+---
+
+## 16. Related Parts and Pages
 
 Useful pages:
 

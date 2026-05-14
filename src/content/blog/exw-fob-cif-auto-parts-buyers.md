@@ -1,11 +1,11 @@
 ---
-title: "EXW vs FOB vs CIF: Which Shipping Term Works Best for Auto Parts Buyers"
+title: "EXW, FOB, and CIF for Auto Parts Buyers"
 date: "2026-03-11"
 updatedDate: "2026-05-13"
 tag: "Sourcing Knowledge"
 readTime: "14 min read"
 excerpt: "Compare EXW, FOB, and CIF for auto parts sourcing from China, with buyer responsibility maps, hidden cost checks, heavy cargo risks, and RFQ wording."
-meta_description: "Compare EXW, FOB, and CIF for auto parts sourcing from China. Learn responsibility splits, hidden costs, freight control, heavy cargo risks, and buyer RFQ checks."
+meta_description: "Compare EXW, FOB, and CIF for auto parts sourcing from China, including responsibility splits, hidden costs, freight control, and RFQ checks."
 keywords:
   - EXW vs FOB vs CIF
   - auto parts shipping terms
@@ -289,6 +289,18 @@ For example:
 - CIF may feel simple, but buyers still need document release timing and arrival-charge clarity.
 
 For payment structure, read [payment terms in auto parts trade: T/T and L/C explained](/blog/payment-terms-auto-parts-trade-tt-lc-explained).
+
+## Shipping Term Handoff Note
+
+Before approving a quotation, write the named place or port beside the Incoterm. "FOB China" is weaker than "FOB Qingdao" or another named port. Also record who handles pickup, export clearance, insurance, freight booking, destination charges, and document release. This note helps buyers avoid discovering responsibility gaps only after the goods are ready.
+
+For mixed truck parts, attach packing weight and volume data to the same note.
+
+The RFQ should ask suppliers to quote on the same trade-term basis where possible. If the RFQ allows mixed EXW, FOB, and CIF quotes, normalize them before choosing a supplier.
+
+## Related Product Sourcing Paths
+
+Shipping terms become more practical when tied to the cargo category. Heavy orders may start from [brake system parts](/product/part/brake-system-parts/), [suspension parts](/product/part/suspension-parts/), or [axle and wheel-end parts](/product/part/axle-and-wheel-end-parts/) before freight terms are compared.
 
 ## FAQ
 

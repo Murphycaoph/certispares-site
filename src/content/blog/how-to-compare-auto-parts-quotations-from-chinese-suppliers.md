@@ -386,6 +386,16 @@ Before approving a supplier quote, confirm:
 
 If one of these is missing, the quote is not ready for final decision.
 
+## Quote Handoff Note
+
+Before approving a quote, summarize the winning supplier's scope in writing: product basis, quantity, Incoterm, packing, inspection, payment, lead time, documents, and exclusions. This handoff note should match the PO and inspection checklist. If it does not, the buyer is approving a price without approving the order scope.
+
+Use the same note to update the RFQ record. A quote is only comparable when the RFQ basis, supplier reply, and final approval describe the same product and responsibility scope.
+
+## RFQ Reminder
+
+Before comparing quotes, make sure the RFQ states the same product basis, quantity, Incoterm, packing rule, inspection scope, and payment timing for every supplier. A normalized RFQ makes quotation comparison real instead of cosmetic.
+
 ## FAQ
 
 ### How many quotations should buyers compare?

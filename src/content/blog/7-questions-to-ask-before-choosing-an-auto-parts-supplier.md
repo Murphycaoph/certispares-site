@@ -372,6 +372,14 @@ Order decision
 
 CertiSpares uses this logic because the site is RFQ-first. The goal is not to create a public SKU database. The goal is to help buyers send better inquiry data and avoid preventable sourcing errors.
 
+## Screening Handoff Note
+
+After the seven questions, summarize the supplier in one paragraph: role, category fit, technical response quality, QC evidence, packing support, document discipline, and claim route. This short note helps procurement decide whether the supplier should move to quote comparison, sample review, audit, trial order, or rejection.
+
+## Related Product Sourcing Paths
+
+For category-specific supplier screening, connect the questions to real sourcing entries such as [brake system parts](/product/part/brake-system-parts/), [engine parts](/product/part/engine-parts/), and [air system parts](/product/part/air-system-parts/). Product category context makes supplier answers easier to judge.
+
 ## FAQ
 
 ### Should I ask all seven questions before every order?

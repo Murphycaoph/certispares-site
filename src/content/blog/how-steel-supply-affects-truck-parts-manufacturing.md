@@ -396,6 +396,14 @@ If a supplier handles steel volatility clearly, it may deserve more trust. If ev
 
 This turns steel supply into a controlled sourcing variable.
 
+## RFQ Handoff Note
+
+When steel cost or grade availability affects an order, record the quote validity, material assumption, MOQ logic, and substitution approval rule in the RFQ summary. If the supplier later changes price or lead time, the buyer can review whether the change is linked to material reality, quotation validity, or weak supplier discipline.
+
+## Related Product Sourcing Paths
+
+Steel-sensitive RFQs often appear in categories such as [brake system parts](/product/part/brake-system-parts/), [suspension parts](/product/part/suspension-parts/), and [axle and wheel-end parts](/product/part/axle-and-wheel-end-parts/). Use the category page before comparing suppliers.
+
 ## FAQ
 
 ### Does steel price affect all truck parts equally?

@@ -1,11 +1,11 @@
 ---
-title: "Commercial Vehicle Parts Quality Control Checklist for China Buyers"
+title: "Commercial Vehicle Parts QC Checklist for China Buyers"
 date: "2026-03-15"
 updatedDate: "2026-05-13"
 tag: "Sourcing Knowledge"
 readTime: "11 min read"
 excerpt: "A practical commercial vehicle parts quality control checklist for China buyers, covering supplier screening, sampling, inspection stages, documentation, packing, and repeat-order decisions."
-meta_description: "Use this commercial vehicle parts quality control checklist when sourcing from China. Covers AQL sampling, supplier checks, inspection stages, packing, documents, and claims control."
+meta_description: "Use this commercial vehicle parts QC checklist for supplier checks, AQL sampling, inspection stages, packing, documents, and claims control."
 keywords:
   - commercial vehicle parts quality control
   - China auto parts inspection checklist
@@ -230,6 +230,87 @@ QC is not identical for every buyer role.
 The same inspection report can serve different goals. An importer may care most about shipment acceptance. A fleet buyer may care more about service reliability. A distributor may care about whether the carton, label, and product condition can support resale without rework.
 
 This is why QC should be planned from the buyer's business model, not copied from a generic checklist.
+
+## QC Requirements to Put Into the RFQ
+
+Quality control is easier when the RFQ already tells the supplier what evidence will be required. If the buyer waits until production is finished, the supplier may treat inspection requests as extra work.
+
+Useful RFQ wording:
+
+> Please quote based on the attached OE references, old part photos, dimensions, quantity table, packing requirement, and destination. Before shipment, we need product photos, key measurement photos, carton label photos, packing photos, and inspection summary for agreed critical items. Please confirm which checks are routine and which require extra cost or third-party inspection.
+
+This wording does three things. It tells the supplier the quote is not based on product name only. It defines the evidence expected before shipment. It also forces the supplier to separate routine QC from special testing.
+
+For safety-relevant categories, the RFQ can be stricter:
+
+| Category | RFQ evidence to request |
+|---|---|
+| Brake parts | Critical dimensions, surface photos, material/process statement, packing photos |
+| Air brake chambers | Type, stroke, port, mounting, leakage or function check evidence |
+| Wheel-end parts | Machining dimensions, bore or bearing seat photos, rust protection |
+| Suspension parts | Dimensions, material/process notes, bushing or eye condition, packing |
+| Electrical parts | Connector photos, voltage/spec confirmation, functional test evidence |
+
+The buyer should not ask for impossible paperwork just to look strict. The control should match the real risk of the order.
+
+## QC Failure Review Template
+
+When a problem appears, a structured review is more useful than a long argument.
+
+Collect:
+
+- order number and supplier quotation
+- approved sample or reference photos
+- carton label and batch mark
+- defect photos and short video if useful
+- quantity inspected and quantity affected
+- installation or use context
+- packing condition on arrival
+- customer complaint text
+- supplier response and proposed corrective action
+
+Then classify the issue:
+
+| Failure type | Typical question |
+|---|---|
+| Wrong part | Was the RFQ data complete and confirmed? |
+| Dimensional mismatch | Was the critical dimension listed and checked? |
+| Function failure | Was a test required before shipment? |
+| Surface or corrosion issue | Was rust protection and packing defined? |
+| Mixed goods | Were SKU labels and carton marks controlled? |
+| Transit damage | Was the packing suitable for cargo weight and route? |
+
+This review helps the buyer decide whether to reorder, tighten inspection, change suppliers, or revise the RFQ template. It also prevents the same mistake from being treated as a new surprise every time.
+
+## When to Tighten or Relax QC
+
+QC should respond to supplier performance.
+
+Tighten control when:
+
+- the supplier is new
+- the item is safety-sensitive
+- the order value is high
+- previous complaints were serious
+- dimensions or fitment are complex
+- the shipment is a mixed container
+- the buyer's customer requires stronger documentation
+
+Consider relaxing some checks when:
+
+- the supplier has repeated clean shipments
+- the item is low-risk and standard
+- the buyer has stable incoming inspection results
+- packing and labels have been consistent
+- the supplier responds well to corrective action
+
+Relaxing QC does not mean ignoring risk. It means moving control from intensive inspection to supplier performance management. The buyer should still keep records, sample baselines, and a clear claim route.
+
+## QC Handoff to the Next Order
+
+The last step of quality control is deciding what changes before the next purchase order.
+
+If the batch is clean, keep the approved sample photos, inspection record, packing photos, and supplier communication as the new baseline. If defects appeared, update the RFQ with clearer dimensions, stricter packing, a revised label rule, or a required corrective action. This makes each order smarter than the last one.
 
 ## FAQ
 

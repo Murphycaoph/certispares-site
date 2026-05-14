@@ -5,7 +5,7 @@ updatedDate: "2026-05-13"
 tag: "Sourcing Knowledge"
 readTime: "11 min read"
 excerpt: "A practical truck parts factory audit guide for buyers who need to verify supplier identity, production control, quality systems, testing, packing, and repeat-order reliability."
-meta_description: "Learn how to audit a truck parts factory in China with a practical checklist covering identity, process control, QC, testing, documents, packing, and supplier risk."
+meta_description: "Audit a truck parts factory in China with a checklist for identity, process control, QC, testing, documents, packing, and supplier risk."
 keywords:
   - truck parts factory audit China
   - auto parts supplier audit
@@ -253,6 +253,81 @@ Examples:
 | Supplier has good process but weak documents | Add document review before balance payment |
 
 This is where audits become useful. The value is not only discovering problems. The value is deciding whether the problems can be controlled.
+
+## Remote Audit Pack for Early Screening
+
+Not every supplier needs an immediate site visit. For early-stage sourcing, a remote audit pack can filter weak candidates before travel, sample cost, or deposit.
+
+Ask for:
+
+- business license and export entity name
+- factory address and production site photos
+- main product category list
+- production flow for the quoted item
+- key equipment photos tied to the quoted item
+- in-house and outsourced process list
+- QC checklist or inspection report sample
+- measurement tool photos
+- test record sample where applicable
+- packing photos for similar export cargo
+- recent shipment label or carton mark sample with sensitive buyer data removed
+- claim handling example or corrective-action form
+
+The point is not to collect documents for decoration. The point is to see whether the supplier understands the order risk. If a supplier quotes brake drums but can only send generic office photos, the buyer has learned something useful. If a supplier quotes rubber bushings but cannot explain material control or aging risk, the buyer should slow down.
+
+Remote review also helps CertiSpares prepare a better audit route. Instead of visiting blind, the auditor can arrive with focused questions about the exact category and quotation.
+
+## Supplier Interview Questions
+
+An audit should include short, direct questions. The answers often reveal more than the brochure.
+
+| Question | Stronger answer | Weaker answer |
+|---|---|---|
+| Which process is most likely to create defects in this part? | Names a specific process and control point | "Our quality is good" |
+| Which steps are outsourced? | Gives process names and inspection method | Says nothing is outsourced, then later admits otherwise |
+| What changed after the last customer complaint? | Shows corrective action or revised check | Blames the customer only |
+| Which dimensions are critical? | Identifies measurable points | Says the sample will be okay |
+| How do you separate similar items? | Batch labels, SKU bins, packing list control | Workers remember by appearance |
+| What photos can you send before shipment? | Product, measurement, label, carton, pallet | Only final carton photo |
+
+This type of interview is practical for truck parts because many categories look similar but behave differently in service. A brake chamber supplier, a wheel hub supplier, and a rubber bushing supplier should not give the same generic answer.
+
+## Audit Scorecard for Buying Decisions
+
+A simple scorecard helps the buyer turn observations into action.
+
+| Area | 0 points | 1 point | 2 points |
+|---|---|---|---|
+| Product focus | No clear match | Partial match | Strong category experience |
+| Process visibility | Vague | Basic flow shown | Full flow and control points shown |
+| Outsourcing control | Hidden or unclear | Declared but weak records | Declared with incoming checks |
+| QC records | None | Some final inspection | Incoming, process, final records |
+| Testing | Claimed only | Limited evidence | Routine records or credible outsourced test route |
+| Packing | Generic | Adequate for light goods | Suitable for actual cargo weight and route |
+| Corrective action | No method | Verbal method | Documented examples |
+| Communication | Slow and evasive | Acceptable | Clear, specific, and consistent |
+
+This score should not be treated as a universal certification. It is a decision aid. A supplier with weak packing may still be usable if the buyer can define and verify improved packing before shipment. A supplier with hidden outsourcing or no product-specific control may be too risky for the category.
+
+## Turning Audit Findings Into an RFQ Plan
+
+The audit should feed the RFQ, quotation, and order control.
+
+Examples:
+
+- If the audit finds mixed-item warehouse risk, require item photos and carton labels before loading.
+- If the audit finds outsourced machining, require incoming inspection records for machined parts.
+- If the audit finds weak measurement control, define critical dimensions and sample measurement photos.
+- If the audit finds poor heavy-cargo packing, require revised carton, pallet, and strapping photos.
+- If the audit finds good process but weak documents, add a document review before balance payment.
+
+This is where an RFQ-first workflow becomes stronger than a simple supplier directory. CertiSpares can help buyers convert audit notes into supplier questions, quotation conditions, inspection checkpoints, and shipment documentation. The goal is not to punish a supplier for every weakness. The goal is to decide whether the weakness is controllable before money and goods move.
+
+After the audit, update the RFQ checklist with any category-specific controls that should appear before the next quotation.
+
+## RFQ Reminder
+
+Use the audit result to improve the next RFQ. If the factory has weak packing, outsourced process risk, or missing records, the RFQ should ask for those controls before the next quote is accepted.
 
 ## FAQ
 

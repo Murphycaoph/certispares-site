@@ -356,6 +356,20 @@ Use this scorecard with price. A supplier with weak testing should not win only 
 
 For brake drums, testing evidence is part of the commercial offer. It tells the buyer what the supplier can prove before the goods leave China.
 
+## Testing Handoff Note
+
+Before accepting a brake drum quote, ask the supplier to state which checks are routine and which require extra arrangement. Save that answer with the quotation. If price, claim risk, or inspection scope is questioned later, the buyer can see whether testing evidence was included in the original offer or added afterward.
+
+The RFQ should also state whether testing evidence is required before shipment or only requested after a complaint.
+
+## Related Product Sourcing Paths
+
+Brake drum testing should connect to the [brake system parts sourcing](/product/part/brake-system-parts/) workflow. For shipment questions that involve hubs, bearings, or axle-side items, also review [axle and wheel-end parts](/product/part/axle-and-wheel-end-parts/).
+
+## RFQ Reminder
+
+For brake drum sourcing, write testing expectations into the RFQ before price comparison. The RFQ should state whether dimension records, hardness checks, batch photos, or packing evidence are required.
+
 ## FAQ
 
 ### Does every brake drum need advanced laboratory testing?
@@ -373,6 +387,10 @@ For new suppliers, large orders, or complaint history, third-party inspection or
 ### Can CertiSpares guarantee brake drum performance?
 
 No. CertiSpares supports sourcing and RFQ coordination. Final product approval depends on buyer requirements, supplier evidence, inspection, and applicable standards.
+
+## RFQ CTA
+
+If you need brake drum testing evidence reviewed before quotation or shipment, send the part reference, supplier quote, quantity, destination, and available photos through [Contact](/contact).
 
 ## Sources and Notes
 
