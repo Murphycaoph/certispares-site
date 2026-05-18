@@ -1,0 +1,79 @@
+# CertiSpares
+
+> Commercial vehicle parts sourcing support from China for importers, distributors, wholesalers, fleet-related buyers, and aftermarket parts buyers.
+
+CertiSpares helps overseas buyers prepare clearer truck parts RFQs, compare China supplier options, coordinate QC checkpoints, follow packing and document requirements, and organize multi-supplier shipment consolidation when needed.
+
+CertiSpares is an independent sourcing and RFQ support service. Brand names, OE numbers, vehicle models, and cross references are used for inquiry identification and matching discussion only. Final fitment and quotation scope must be confirmed by OE reference, VIN, model/year/market data, dimensions, connector type, and other applicable technical specifications.
+
+## Core Pages
+
+- Home: https://certispares.com/
+- Truck Parts RFQ Entry: https://certispares.com/product/
+- Sourcing Strategy: https://certispares.com/sourcing/
+- Capabilities: https://certispares.com/capabilities/
+- How It Works: https://certispares.com/how-it-works/
+- Insights: https://certispares.com/blog/
+- Contact: https://certispares.com/contact/
+
+## Core Services
+
+- RFQ clarification for commercial vehicle aftermarket parts
+- Supplier comparison across China sourcing options
+- QC checkpoint coordination before shipment
+- Packing, carton mark, label, and document follow-up
+- Multi-supplier shipment and container consolidation
+
+## Main RFQ Categories
+
+- Brake system parts
+- Air system parts
+- Axle and wheel-end parts
+- Gearbox and transmission parts
+- Cooling system parts
+- Engine parts
+- Suspension parts
+- Rubber and bushing parts
+
+## Supported Truck Platforms
+
+- HOWO
+- Sinotruk
+- Shacman
+- Dongfeng
+- Foton
+- FAW
+- JAC
+- MAN
+- Volvo Truck
+- Mercedes-Benz Truck
+
+## Buyer Fit
+
+- Importers and distributors
+- Wholesalers and regional parts dealers
+- Fleet-related purchasing teams
+- Aftermarket service networks
+- Buyers handling mixed-SKU replenishment orders
+
+## What to Send for a Clear RFQ
+
+- OE number or reference number, if available
+- Truck brand, model, year, VIN, chassis number, or engine model
+- Photos of the part, label, package, installation position, or old sample
+- Quantity and target order frequency
+- Destination country or port
+- Packing, labeling, or document requirements
+- Existing supplier list or quotation sheet, if comparison is needed
+
+## Best Use Cases
+
+- Mixed-SKU truck parts RFQs
+- OE number, VIN, model, photo, and sample-based matching
+- Supplier comparison across China sourcing options
+- QC, packing, document, and shipment follow-up
+- Multi-supplier container consolidation
+
+## Boundaries
+
+CertiSpares does not publish fake stock, fake prices, fake lead times, fake certifications, fake OEM authorization, or unverified exact-fitment claims.

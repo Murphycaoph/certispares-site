@@ -1,3 +1,5 @@
+import { makeFaqPageSchema } from "./structuredData";
+
 type SupportGroup = {
   title: string;
   items: string[];
@@ -161,6 +163,12 @@ const internationalBrandBoundary = (brand: string): CardItem => ({
   desc: `${brand} names, models, and OE references are used only to identify the inquiry scope. CertiSpares is an independent sourcing and RFQ support service unless explicit authorization is stated.`,
 });
 
+const internationalAftermarketBrands = new Set(["MAN", "Volvo Truck", "Mercedes-Benz Truck"]);
+
+const makeSeoTitle = (brand: string) =>
+  internationalAftermarketBrands.has(brand)
+    ? `${brand} Parts Aftermarket Inquiry Support | CertiSpares`
+    : `${brand} Parts Sourcing from China | CertiSpares`;
 const makeFaq = (brand: string): FaqItem[] => [
   {
     q: "Can you help if I don't have the OE number?",
@@ -176,13 +184,20 @@ const makeFaq = (brand: string): FaqItem[] => [
   },
 ];
 
-const makeJsonLd = (brand: string, url: string, description: string) => [
+const makeJsonLd = (brand: string, url: string, description: string, faq: FaqItem[]) => [
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
+    "@id": `https://certispares.com${url}#webpage`,
     name: `${brand} Platform Inquiry`,
     description,
     url,
+    isPartOf: {
+      "@id": "https://certispares.com/#website",
+    },
+    about: {
+      "@id": "https://certispares.com/#organization",
+    },
   },
   {
     "@context": "https://schema.org",
@@ -193,6 +208,7 @@ const makeJsonLd = (brand: string, url: string, description: string) => [
       { "@type": "ListItem", position: 3, name: brand, item: `https://certispares.com${url}` },
     ],
   },
+  makeFaqPageSchema(faq, `https://certispares.com${url}#faq`),
 ];
 
 const enginePlatform = (
@@ -274,6 +290,7 @@ const makeCommonConfig = (
   assemblies: BrowserAssembly[],
   options: BrandPageOptions = {},
 ): BrandPageConfig => {
+  const faq = makeFaq(brand);
   const seoDescription = `Send your ${brand} parts inquiry with OE numbers, VIN, photos, or part names. CertiSpares helps narrow the right platform, check matching scope, compare suppliers, and move your inquiry into quotation support.`;
   const eyebrow = options.eyebrow ?? "CertiSpares / Brand Sourcing";
 
@@ -293,10 +310,10 @@ const makeCommonConfig = (
     rfqNotes: options.rfqNotes ?? makeDefaultRfqNotes(brand),
     processSteps,
     whyWorkWithUs: makeWhyWorkWithUs(brand),
-    faq: makeFaq(brand),
+    faq,
     relatedPaths,
     assemblies,
-    seoTitle: `Send Your ${brand} Parts Inquiry | Platform Matching Support`,
+    seoTitle: makeSeoTitle(brand),
     seoDescription,
     seoKeywords: [
       `${brand} parts sourcing from China`,
@@ -307,7 +324,7 @@ const makeCommonConfig = (
     ],
     canonical,
     ogImage,
-    jsonLd: makeJsonLd(brand, canonical, seoDescription),
+    jsonLd: makeJsonLd(brand, canonical, seoDescription, faq),
   };
 };
 

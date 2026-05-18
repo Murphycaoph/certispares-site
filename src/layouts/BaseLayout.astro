@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { baseStructuredData } from "../lib/structuredData";
 
 const {
   title = "CertiSpares",
@@ -19,6 +20,8 @@ const keywordsContent =
 
 const canonicalUrl = canonical ? new URL(canonical, SITE_URL).toString() : undefined;
 const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
+const pageStructuredData = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+const structuredData = [...baseStructuredData, ...pageStructuredData];
 ---
 
 <html lang="en">
@@ -51,10 +54,10 @@ const ogImageUrl = ogImage ? new URL(ogImage, SITE_URL).toString() : undefined;
       rel="stylesheet"
     />
 
-    {jsonLd && (
+    {structuredData.length > 0 && (
       <script
         type="application/ld+json"
-        set:html={JSON.stringify(jsonLd)}
+        set:html={JSON.stringify(structuredData)}
       />
     )}
 

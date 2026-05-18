@@ -125,34 +125,41 @@ insights.forEach((item, index) => {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "CertiSpares",
+    "@type": "WebPage",
+    "@id": "https://certispares.com/#webpage",
+    name: "Commercial Vehicle Parts Sourcing from China",
+    description:
+      "CertiSpares helps commercial vehicle aftermarket buyers source from China through multi-supplier consolidation, lower landed cost, and more balanced inventory planning.",
     url: "https://certispares.com/",
-    logo: "https://certispares.com/images/logo.webp",
-    email: "murphy@certispares.com",
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "sales",
-        email: "murphy@certispares.com",
-        areaServed: "Worldwide",
-        availableLanguage: ["en"],
-      },
-    ],
-    sameAs: ["https://www.facebook.com/profile.php?id=61585722976089"],
+    isPartOf: {
+      "@id": "https://certispares.com/#website",
+    },
+    about: {
+      "@id": "https://certispares.com/#organization",
+    },
   },
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "CertiSpares",
-    url: "https://certispares.com/",
+    "@type": "Service",
+    "@id": "https://certispares.com/#commercial-vehicle-parts-sourcing-service",
+    serviceType: "Commercial vehicle parts sourcing support from China",
+    provider: {
+      "@id": "https://certispares.com/#organization",
+    },
+    areaServed: "Worldwide",
+    audience: {
+      "@type": "BusinessAudience",
+      audienceType: "Importers, distributors, wholesalers, fleet-related buyers, and aftermarket parts buyers",
+    },
+    description:
+      "RFQ-first sourcing support covering RFQ clarification, supplier comparison, QC checkpoint coordination, packing and document follow-up, and multi-supplier shipment consolidation.",
   },
 ];
 ---
 
 <BaseLayout
-  title="Commercial Vehicle Parts Sourcing from China | Multi-Supplier Consolidation"
-  description="CertiSpares helps commercial vehicle aftermarket buyers source from China through multi-supplier consolidation, lower landed cost, and more balanced inventory planning."
+  title="Commercial Vehicle Parts Sourcing from China | CertiSpares"
+  description="CertiSpares supports overseas buyers with China truck parts RFQs, supplier comparison, QC checkpoints, packing, documents, and multi-supplier shipment consolidation."
   keywords={["commercial vehicle parts sourcing China", "heavy duty truck parts", "commercial vehicle aftermarket", "RFQ sourcing", "truck parts from China"]}
   canonical="/"
   ogImage="/images/hero-01-highway-transport.webp"

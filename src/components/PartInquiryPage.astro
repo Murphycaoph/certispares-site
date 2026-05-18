@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { makeFaqPageSchema } from "../lib/structuredData";
 
 interface LinkItem {
   title: string;
@@ -70,6 +71,25 @@ const {
   relatedPaths,
   whatsappHref = "https://wa.me/8615633022618?text=Hello%20CertiSpares%2C%20I%20want%20to%20discuss%20a%20commercial%20vehicle%20parts%20RFQ.",
 } = Astro.props;
+
+const canonicalUrl = new URL(canonical, "https://certispares.com").toString();
+const pageSchemaId = `${canonicalUrl}#webpage`;
+const faqSchemaId = `${canonicalUrl}#faq`;
+const enrichedJsonLd = jsonLd.map((item) => {
+  if (item?.["@type"] !== "WebPage") return item;
+
+  return {
+    ...item,
+    "@id": item["@id"] ?? pageSchemaId,
+    isPartOf: item.isPartOf ?? {
+      "@id": "https://certispares.com/#website",
+    },
+    about: item.about ?? {
+      "@id": "https://certispares.com/#organization",
+    },
+  };
+});
+const fullJsonLd = [...enrichedJsonLd, makeFaqPageSchema(faq, faqSchemaId)];
 ---
 
 <BaseLayout
@@ -78,7 +98,7 @@ const {
   keywords={keywords}
   canonical={canonical}
   ogImage={ogImage}
-  jsonLd={jsonLd}
+  jsonLd={fullJsonLd}
 >
   <style>@import "../styles/product-detail.css";</style>
 

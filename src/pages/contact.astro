@@ -172,29 +172,14 @@ const jsonLd = [
     description:
       "Contact CertiSpares through WhatsApp, email, Facebook, or WeChat to discuss truck parts RFQs, photos, OE numbers, VIN or model details, rough lists, and sourcing questions.",
     url: "https://certispares.com/contact/",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "CertiSpares",
-    url: "https://certispares.com/",
-    email: CONTACT_EMAIL,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Beijing / Hebei",
-      addressCountry: "CN",
+    isPartOf: {
+      "@id": "https://certispares.com/#website",
     },
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "sales",
-        email: CONTACT_EMAIL,
-        telephone: WHATSAPP_DISPLAY,
-        availableLanguage: ["en"],
-      },
-    ],
-    sameAs: [FACEBOOK_URL],
+    about: {
+      "@id": "https://certispares.com/#organization",
+    },
   },
+
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -217,8 +202,8 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Talk to Us About Your Truck Parts RFQ | CertiSpares"
-  description="Start a truck parts sourcing conversation with CertiSpares. Send photos, OE numbers, VIN or model details, rough parts lists, Excel files, PDFs, or old supplier references by WhatsApp or email."
+  title="Send a Truck Parts RFQ | Contact CertiSpares"
+  description="Contact CertiSpares with truck parts photos, OE numbers, VIN/model details, quantities, destination, and supplier lists for RFQ support."
   keywords={["truck parts WhatsApp RFQ", "commercial vehicle parts inquiry", "truck parts sourcing contact", "OE number inquiry", "photo based truck parts RFQ"]}
   canonical="/contact/"
   ogImage="/images/hero-04-logistics-truck.webp"
