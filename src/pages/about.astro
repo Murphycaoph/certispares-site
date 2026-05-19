@@ -955,6 +955,69 @@ const jsonLd = [
       line-height:1.65;
     }
 
+    .heroCopy,
+    .controlPanel,
+    .sectionBlock,
+    .infoCard,
+    .statementCard,
+    .imagePanel,
+    .pointRow,
+    .workStep,
+    .logicItem,
+    .supportCard,
+    .buyerCard,
+    .principleBand,
+    details,
+    .finalCta{
+      animation:aboutRise .64s ease both;
+    }
+
+    .controlPanel{ animation-delay:.10s; }
+    .infoCard:nth-child(2),
+    .statementCard:nth-child(2),
+    .pointRow:nth-child(2),
+    .workStep:nth-child(2),
+    .logicItem:nth-child(2),
+    .supportCard:nth-child(2),
+    .buyerCard:nth-child(2),
+    details:nth-child(2){ animation-delay:.06s; }
+    .infoCard:nth-child(3),
+    .statementCard:nth-child(3),
+    .pointRow:nth-child(3),
+    .workStep:nth-child(3),
+    .logicItem:nth-child(3),
+    .supportCard:nth-child(3),
+    .buyerCard:nth-child(3),
+    details:nth-child(3){ animation-delay:.12s; }
+    .workStep:nth-child(4),
+    .supportCard:nth-child(4),
+    .buyerCard:nth-child(4),
+    details:nth-child(4){ animation-delay:.18s; }
+
+    @keyframes aboutRise{
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .heroCopy,
+      .controlPanel,
+      .sectionBlock,
+      .infoCard,
+      .statementCard,
+      .imagePanel,
+      .pointRow,
+      .workStep,
+      .logicItem,
+      .supportCard,
+      .buyerCard,
+      .principleBand,
+      details,
+      .finalCta{
+        animation:none !important;
+      }
+    }
+
     @media (max-width:1180px){
       .grid3,
       .supportGrid,
@@ -1081,7 +1144,6 @@ const jsonLd = [
       <div class="sectionHeader">
         <div>
           <h2>Why CertiSpares Exists</h2>
-          <p>Many aftermarket RFQs do not arrive as clean catalog selections. They arrive as references, photos, old sheets, and mixed demand that needs sorting.</p>
         </div>
       </div>
 
@@ -1104,7 +1166,6 @@ const jsonLd = [
       <div class="sectionHeader">
         <div>
           <h2>What This Means in Practice</h2>
-          <p>CertiSpares is built around structured sourcing work, not broad catalogue presentation or generic trading language.</p>
         </div>
       </div>
 
@@ -1124,7 +1185,6 @@ const jsonLd = [
           <div class="sectionHeader">
             <div>
               <h2>Market Focus</h2>
-              <p>Commercial vehicle aftermarket sourcing has the most value when part details, supplier fit, and shipment execution all matter.</p>
             </div>
           </div>
           <div class="focusPanel">
@@ -1149,7 +1209,6 @@ const jsonLd = [
           <div class="sectionHeader">
             <div>
               <h2>How We Work</h2>
-              <p>Every inquiry moves through a short control path before quotation or repeat-order planning.</p>
             </div>
           </div>
           <div class="workTrack">
@@ -1171,7 +1230,6 @@ const jsonLd = [
           <div class="sectionHeader">
             <div>
               <h2>Founder Operating Logic</h2>
-              <p>CertiSpares is shaped by a review-oriented background: check facts, clarify scope, compare options, and control risk points before pushing an order forward.</p>
             </div>
           </div>
           <div class="founderPanel">
@@ -1193,7 +1251,6 @@ const jsonLd = [
           <div class="sectionHeader">
             <div>
               <h2>What We Commonly Support</h2>
-              <p>Coverage stays RFQ-led. These are common sourcing areas, not live stock, price, or guaranteed fitment.</p>
             </div>
           </div>
           <div class="supportGrid">
@@ -1223,7 +1280,6 @@ const jsonLd = [
           <div class="sectionHeader">
             <div>
               <h2>Who This Model Fits</h2>
-              <p>The model works best for buyers who value scope clarity, supplier comparison, and repeatable execution over broad marketing claims.</p>
             </div>
           </div>
           <div class="grid4">
@@ -1258,7 +1314,6 @@ const jsonLd = [
       <div class="sectionHeader">
         <div>
           <h2>FAQ</h2>
-          <p>Short answers for buyers checking whether CertiSpares fits their commercial vehicle parts RFQ.</p>
         </div>
       </div>
 

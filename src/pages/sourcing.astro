@@ -1061,6 +1061,60 @@ const jsonLd = [
       stroke-linejoin:round;
     }
 
+    .heroCopy,
+    .controlPanel,
+    .frictionCard,
+    .advantageCard,
+    .metricCard,
+    .compareCard,
+    .gainCard,
+    .mixedImage,
+    .stepItem,
+    .pathPanel,
+    .faqItem,
+    .finalCta{
+      animation:sourceRise .64s ease both;
+    }
+
+    .controlPanel{ animation-delay:.10s; }
+    .frictionCard:nth-child(2),
+    .advantageCard:nth-child(2),
+    .metricCard:nth-child(2),
+    .gainCard:nth-child(2),
+    .stepItem:nth-child(2),
+    .faqItem:nth-child(2){ animation-delay:.06s; }
+    .frictionCard:nth-child(3),
+    .metricCard:nth-child(3),
+    .gainCard:nth-child(3),
+    .stepItem:nth-child(3),
+    .faqItem:nth-child(3){ animation-delay:.12s; }
+    .metricCard:nth-child(4),
+    .gainCard:nth-child(4),
+    .stepItem:nth-child(4),
+    .faqItem:nth-child(4){ animation-delay:.18s; }
+
+    @keyframes sourceRise{
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .heroCopy,
+      .controlPanel,
+      .frictionCard,
+      .advantageCard,
+      .metricCard,
+      .compareCard,
+      .gainCard,
+      .mixedImage,
+      .stepItem,
+      .pathPanel,
+      .faqItem,
+      .finalCta{
+        animation:none !important;
+      }
+    }
+
     @media (max-width:1180px){
       .frictionGrid,
       .advantageGrid,
@@ -1298,10 +1352,6 @@ const jsonLd = [
         <div>
           <div class="sectionHeader left">
             <h2>How We Turn a Mixed Parts List Into a Workable Sourcing Plan</h2>
-            <p>
-              Buyers often send Excel sheets, screenshots, supplier codes, photos, OE numbers, and sales notes.
-              The first job is to turn that input into a sourcing structure suppliers and buyers can both understand.
-            </p>
           </div>
           <div
             class="mixedImage"
@@ -1329,7 +1379,6 @@ const jsonLd = [
     <section class="container wide sectionBlock">
       <div class="sectionHeader">
         <h2>The Practical <span>Sourcing Path</span></h2>
-        <p>For the full RFQ-to-shipment workflow, buyers can continue to the How It Works page.</p>
       </div>
       <div class="pathPanel">
         <div class="pathGrid">

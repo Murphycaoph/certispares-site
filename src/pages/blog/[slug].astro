@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { ORGANIZATION_ID } from "../../lib/structuredData";
 
 const SITE_URL = "https://certispares.com";
 
@@ -75,16 +76,10 @@ const jsonLd = [
     image: [ogImageUrl],
     keywords,
     author: {
-      "@type": "Organization",
-      name: "CertiSpares",
+      "@id": ORGANIZATION_ID,
     },
     publisher: {
-      "@type": "Organization",
-      name: "CertiSpares",
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE_URL}/images/logo.webp`,
-      },
+      "@id": ORGANIZATION_ID,
     },
     mainEntityOfPage: `${SITE_URL}/blog/${post.slug}/`,
   },

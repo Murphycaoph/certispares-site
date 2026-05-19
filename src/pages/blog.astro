@@ -877,6 +877,48 @@ const jsonLd = [
       font-weight:900;
     }
 
+    .heroCopy,
+    .categoryPanel,
+    .topicCard,
+    .problemCard,
+    .sideCta,
+    .articleCard,
+    .browseBlock,
+    .finalCta{
+      animation:blogRise .64s ease both;
+    }
+
+    .categoryPanel{ animation-delay:.10s; }
+    .topicCard:nth-child(2),
+    .problemCard:nth-child(2),
+    .articleCard:nth-child(2){ animation-delay:.06s; }
+    .topicCard:nth-child(3),
+    .problemCard:nth-child(3),
+    .articleCard:nth-child(3){ animation-delay:.12s; }
+    .topicCard:nth-child(4),
+    .problemCard:nth-child(4),
+    .articleCard:nth-child(4){ animation-delay:.18s; }
+    .sideCta,
+    .browseBlock:nth-child(2){ animation-delay:.12s; }
+
+    @keyframes blogRise{
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .heroCopy,
+      .categoryPanel,
+      .topicCard,
+      .problemCard,
+      .sideCta,
+      .articleCard,
+      .browseBlock,
+      .finalCta{
+        animation:none !important;
+      }
+    }
+
     @media (max-width:1180px){
       .articleGrid{
         grid-template-columns:repeat(2, minmax(0, 1fr));
@@ -1000,7 +1042,6 @@ const jsonLd = [
       <div class="sectionHeader">
         <div>
           <h2>Browse by Sourcing Topic</h2>
-          <p>Choose the topic closest to your current RFQ situation.</p>
         </div>
       </div>
 
@@ -1029,7 +1070,6 @@ const jsonLd = [
       <div class="sectionHeader">
         <div>
           <h2>Most Common RFQ Problems</h2>
-          <p>Real issues buyers face during truck parts sourcing.</p>
         </div>
       </div>
 
@@ -1063,7 +1103,6 @@ const jsonLd = [
       <div class="sectionHeader">
         <div>
           <h2>Practical Sourcing Notes</h2>
-          <p>Operational knowledge for RFQ scenarios and sourcing execution.</p>
         </div>
         <a class="sectionLink" href="#browseTopics">View topics <span aria-hidden="true">&rarr;</span></a>
       </div>
@@ -1099,7 +1138,6 @@ const jsonLd = [
           <div class="platformImage" aria-hidden="true"></div>
           <div class="browseBody">
             <h2>Browse by Truck Platform</h2>
-            <p>Insights for major commercial vehicle platforms and inquiry contexts.</p>
             <div class="tileGrid">
               {platformLinks.map((item) => (
                 <a class="linkTile" href={item.href}>{item.label}</a>
@@ -1112,7 +1150,6 @@ const jsonLd = [
         <section class="browseBlock">
           <div class="browseBody">
             <h2>Browse by Part System</h2>
-            <p>Insights for key part systems and sourcing categories, including <a href="/product/part/brake-system-parts/">brake system parts</a>, <a href="/product/part/air-system-parts/">air system parts</a>, <a href="/product/part/axle-and-wheel-end-parts/">axle and wheel-end parts</a>, <a href="/product/part/clutch-and-transmission-parts/">gearbox and transmission parts</a>, and <a href="/product/part/cooling-system-parts/">cooling system parts</a>.</p>
             <div class="tileGrid">
               {systemLinks.map((item) => (
                 <a class="linkTile" href={item.href}>

@@ -904,6 +904,36 @@ const jsonLd = [
     42%, 100%{ transform:translateX(140%); }
   }
 
+  .heroCopy,
+  .heroCard,
+  .productBand,
+  .storyPanel,
+  .strategyCard,
+  .flowCard,
+  .postCard,
+  .rfqPanel{
+    animation:homeRise .64s ease both;
+  }
+
+  .heroCard{ animation-delay:.10s; }
+  .productBand{ animation-delay:.08s; }
+  .storyPanel:nth-child(2),
+  .strategyCard:nth-child(2),
+  .flowCard:nth-child(2),
+  .postCard:nth-child(2){ animation-delay:.06s; }
+  .storyPanel:nth-child(3),
+  .flowCard:nth-child(3),
+  .postCard:nth-child(3){ animation-delay:.12s; }
+  .storyPanel:nth-child(4),
+  .flowCard:nth-child(4){ animation-delay:.18s; }
+  .flowCard:nth-child(5),
+  .rfqPanel{ animation-delay:.24s; }
+
+  @keyframes homeRise{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
   .postMore:hover{ color:#4A5462; }
 
   @media (max-width: 980px){
@@ -918,6 +948,7 @@ const jsonLd = [
   .grid3{ grid-template-columns:1fr; }
 
   .grid2{ grid-template-columns:1fr; }
+
 
   .flowGrid{ grid-template-columns:1fr; }
 
@@ -954,6 +985,17 @@ const jsonLd = [
 
   @media (prefers-reduced-motion: reduce){
     .heroSlide{ transition:none; }
+
+    .heroCopy,
+    .heroCard,
+    .productBand,
+    .storyPanel,
+    .strategyCard,
+    .flowCard,
+    .postCard,
+    .rfqPanel{
+      animation:none !important;
+    }
 
   .logoTrack{ animation:none; }
   }
@@ -1012,9 +1054,6 @@ const jsonLd = [
   <section class="section">
     <div class="container">
       <h2 class="sectionTitle">Brands and Platforms We Support</h2>
-      <p class="sectionDesc">
-        We support sourcing across mainstream commercial vehicle brands and the aftermarket parts demand linked to those platforms.
-      </p>
       <div class="productBand" aria-label="Commercial vehicle brands we support">
         <div class="logoMarquee">
           <div class="logoTrack">
@@ -1037,10 +1076,6 @@ const jsonLd = [
         <h2 class="sectionTitle">What We Check Before a Quote Becomes Useful</h2>
         <a class="sectionJump" href="/capabilities">View Capabilities &rarr;</a>
       </div>
-      <p class="sectionDesc">
-        A useful quote starts before the price line. Buyers need the right part interpretation, supplier scope, shipment plan, and reorder logic before a China sourcing offer becomes commercially usable.
-        For category-led RFQs, start with the relevant system page such as <a href="/product/part/brake-system-parts/">brake system parts</a>, <a href="/product/part/air-system-parts/">air system parts</a>, <a href="/product/part/axle-and-wheel-end-parts/">axle and wheel-end parts</a>, <a href="/product/part/clutch-and-transmission-parts/">gearbox and transmission parts</a>, or <a href="/product/part/cooling-system-parts/">cooling system parts</a>.
-      </p>
       <div class="storyGrid">
         {storyPanels.map((panel) => (
           <article class="storyPanel">
@@ -1062,13 +1097,6 @@ const jsonLd = [
         <h2 class="sectionTitle">How You Save Cost and Improve Turnover</h2>
         <a class="sectionJump" href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">Detailed explanation &rarr;</a>
       </div>
-      <p class="sectionDesc">
-        Our model goes beyond getting parts shipped. It helps buyers combine the right products into the same container so logistics cost, stock depth, and replenishment logic work together more efficiently.
-      </p>
-      <p class="sectionDesc">
-        For the full service logic, see our <a href="/sourcing">truck parts sourcing service</a>. If you want the workflow behind RFQ handling, supplier comparison, and delivery control, review <a href="/how-it-works">how the process works</a>.
-        For order planning topics, review <a href="/blog/minimum-order-quantity-moq-explained-for-auto-parts-buyers/">minimum order quantity for auto parts buyers</a> and <a href="/blog/oem-vs-aftermarket-truck-parts-in-china-what-global-buyers-should-know/">OEM vs aftermarket truck parts in China</a>.
-      </p>
       <div class="strategyGrid">
         {strategyCards.map((item) => (
           <div class="card strategyCard">
@@ -1099,9 +1127,6 @@ const jsonLd = [
         <h2 class="sectionTitle">How It Works</h2>
         <a class="sectionJump" href="/how-it-works">See full workflow &rarr;</a>
       </div>
-      <p class="sectionDesc">
-        CertiSpares is built around the work that happens after a buyer sends a parts list: clarification, supplier comparison, order control, and mixed-shipment coordination.
-      </p>
       <div class="flowGrid">
         {rfqFlowCards.map((item, index) => (
           <article class="card flowCard">
@@ -1112,9 +1137,6 @@ const jsonLd = [
           </article>
         ))}
       </div>
-      <p class="sectionDesc">
-        The best first message is practical rather than polished. If you have an OE number, VIN or chassis reference, truck brand and model, part photos, quantity, destination, Incoterms, or packing requirements, send them together. Those details help us confirm fitment and quotation scope before price negotiation starts.
-      </p>
     </div>
   </section>
 
@@ -1123,12 +1145,6 @@ const jsonLd = [
       <div class="insightsHead">
         <div>
           <h2 class="sectionTitle">Latest Insights</h2>
-      <p class="sectionDesc">
-        Short reads on QC, risk control, trade terms, and sourcing execution.
-      </p>
-      <p class="sectionDesc">
-        Start with <a href="/blog/how-container-consolidation-improves-cost-and-inventory-turnover">how container consolidation improves cost and inventory turnover</a> or <a href="/blog/how-to-identify-reliable-auto-parts-suppliers-in-china">how buyers identify reliable suppliers in China</a>.
-      </p>
         </div>
         <a class="viewAll" href="/blog">View all &rarr;</a>
       </div>

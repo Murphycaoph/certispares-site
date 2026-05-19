@@ -1019,6 +1019,53 @@ const jsonLd = [
       font-weight:950;
     }
 
+    .heroCopy,
+    .startPanel,
+    .whatsappCard,
+    .channelCard,
+    .sendCard,
+    .workGrid,
+    .starterCard,
+    .messageCard,
+    .trustCard,
+    .finalCta{
+      animation:contactRise .64s ease both;
+    }
+
+    .startPanel{ animation-delay:.10s; }
+    .channelCard:nth-child(2),
+    .sendCard:nth-child(2),
+    .trustCard:nth-child(2){ animation-delay:.06s; }
+    .channelCard:nth-child(3),
+    .sendCard:nth-child(3),
+    .trustCard:nth-child(3){ animation-delay:.12s; }
+    .channelCard:nth-child(4),
+    .sendCard:nth-child(4),
+    .trustCard:nth-child(4){ animation-delay:.18s; }
+    .sendCard:nth-child(5){ animation-delay:.24s; }
+    .sendCard:nth-child(6){ animation-delay:.30s; }
+    .messageCard{ animation-delay:.08s; }
+
+    @keyframes contactRise{
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .heroCopy,
+      .startPanel,
+      .whatsappCard,
+      .channelCard,
+      .sendCard,
+      .workGrid,
+      .starterCard,
+      .messageCard,
+      .trustCard,
+      .finalCta{
+        animation:none !important;
+      }
+    }
+
     @media (max-width:1180px){
       .channelGrid{
         grid-template-columns:repeat(2, minmax(0, 1fr));
@@ -1136,7 +1183,7 @@ const jsonLd = [
             Send Email
           </a>
         </div>
-        <a class="sectionJump" href="#what-you-can-send">View what you can send <span aria-hidden="true">↓</span></a>
+        <a class="sectionJump" href="#what-you-can-send">View what you can send <span aria-hidden="true">&darr;</span></a>
       </div>
 
       <aside class="startPanel" aria-label="Start with what you have">
@@ -1158,7 +1205,6 @@ const jsonLd = [
     <section class="container wide sectionBlock">
       <div class="sectionHeader">
         <h2>Choose the <span>Easiest Way</span> to Start</h2>
-        <p>WhatsApp is the fastest path for photo-based RFQs and quick clarification. Email is better for files and formal records.</p>
       </div>
 
       <div class="channelGrid">
@@ -1201,7 +1247,6 @@ const jsonLd = [
     <section id="what-you-can-send" class="container wide sectionBlock">
       <div class="sectionHeader">
         <h2>What You <span>Can Send</span></h2>
-        <p>Any of these details can help. You can start with one photo or one part number; we will ask for the rest if needed.</p>
       </div>
 
       <div class="sendGrid">
@@ -1218,7 +1263,6 @@ const jsonLd = [
     <section class="container wide sectionBlock">
       <div class="sectionHeader">
         <h2>How We Move From <span>Chat</span> to a Workable Quote</h2>
-        <p>Conversation stays practical: clarify what is known, separate uncertain items, then move toward comparable supplier options.</p>
       </div>
 
       <div class="workGrid">
@@ -1253,7 +1297,7 @@ const jsonLd = [
 
         <article class="messageCard">
           <h2>Prefer to Leave a Message Here?</h2>
-          <p>For faster clarification, WhatsApp is recommended. This form is only a light message option.</p>
+          <p id="contact-form-description">For faster clarification, WhatsApp is recommended. This form is only a light message option.</p>
 
           <form
             name="contact-message"
@@ -1262,18 +1306,19 @@ const jsonLd = [
             data-netlify="true"
             netlify-honeypot="bot-field"
             enctype="multipart/form-data"
+            aria-describedby="contact-form-description contact-form-note"
           >
             <input type="hidden" name="form-name" value="contact-message" />
             <input type="hidden" name="redirect" value="https://certispares.com/thank-you/" />
 
             <p style="display:none">
-              <label>Do not fill this out: <input name="bot-field" /></label>
+              <label>Do not fill this out: <input name="bot-field" autocomplete="off" tabindex="-1" /></label>
             </p>
 
             <div class="formGrid">
               <label>
                 Name
-                <input name="name" placeholder="Your name" required />
+                <input name="name" autocomplete="name" placeholder="Your name" required />
               </label>
               <label>
                 Email or WhatsApp
@@ -1283,21 +1328,23 @@ const jsonLd = [
 
             <label>
               Country / Market
-              <input name="market" placeholder="Country or market" />
+              <input name="market" autocomplete="country-name" placeholder="Country or market" />
             </label>
 
             <label>
               Message
-              <textarea name="message" placeholder="Tell us what you have: photos, OE numbers, truck model, rough list, or sourcing question." required></textarea>
+              <textarea name="message" aria-describedby="message-help" placeholder="Tell us what you have: photos, OE numbers, truck model, rough list, or sourcing question." required></textarea>
             </label>
+            <p class="formNote" id="message-help">Include OE numbers, photos, truck model or VIN details, quantities, destination, and any supplier list if available.</p>
 
             <label>
               Upload files
-              <input class="fileInput" type="file" name="files" multiple accept=".xlsx,.xls,.pdf,.png,.jpg,.jpeg" />
+              <input class="fileInput" type="file" name="files" multiple accept=".xlsx,.xls,.pdf,.png,.jpg,.jpeg" aria-describedby="file-help" />
             </label>
+            <p class="formNote" id="file-help">Accepted file types: Excel, PDF, PNG, JPG, and JPEG.</p>
 
-            <button class="formBtn" type="submit">Send Message</button>
-            <p class="formNote">For faster clarification, WhatsApp is recommended.</p>
+            <button class="formBtn" type="submit">Send Truck Parts RFQ</button>
+            <p class="formNote" id="contact-form-note">For faster clarification, WhatsApp is recommended.</p>
           </form>
         </article>
       </div>
