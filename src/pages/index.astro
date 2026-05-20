@@ -19,6 +19,8 @@ const heroImage = {
   ...getImageDimensions("/images/homepage/homepage-hero-truck.webp"),
 };
 
+const whatsappUrl = "https://wa.me/8615633022618?text=Hello%20CertiSpares%2C%20I%20want%20to%20send%20OE%20%2F%20VIN%20%2F%20photos%20for%20a%20parts%20inquiry.";
+
 const rfqFlowCards = [
   {
     step: "Send RFQ",
@@ -634,6 +636,18 @@ const jsonLd = [
     color:#fff;
   }
 
+  .btn.whatsappBtn{
+    background:#18b66a;
+    border-color:#18b66a;
+    color:#fff;
+    box-shadow:0 10px 24px rgba(24,182,106,.22);
+  }
+
+  .btn.whatsappBtn:hover{
+    background:#11985a;
+    border-color:#11985a;
+  }
+
   .card{
     background:#fff;
     border:1px solid rgba(29,42,54,.10);
@@ -1024,7 +1038,7 @@ const jsonLd = [
           </p>
 
           <div class="heroBtns">
-            <a class="btn primary" href="/contact">Send RFQ</a>
+            <a class="btn primary whatsappBtn" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Send OE / VIN / Photos on WhatsApp</a>
             <a class="btn" href="/capabilities">View Capabilities</a>
           </div>
 
