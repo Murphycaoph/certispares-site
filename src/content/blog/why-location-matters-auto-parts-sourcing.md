@@ -243,7 +243,7 @@ CertiSpares uses location to narrow supplier search, compare logistics, plan con
 
 ## Source Notes
 
-This article is based on CertiSpares' sourcing workflow and general China industrial cluster logic. It avoids treating location as a quality guarantee. Product fitment, quotation scope, and supplier reliability must be confirmed through RFQ details, supplier checks, and execution controls.
+This article is based on CertiSpares' sourcing workflow and general China industrial cluster logic. Location can guide supplier discovery, while product matching, quotation scope, and supplier reliability still depend on RFQ details, supplier checks, and execution controls.
 
 ## Conclusion
 

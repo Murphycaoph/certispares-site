@@ -297,9 +297,9 @@ Choosing by the lowest price before confirming matching data, manufacturing cont
 
 For new suppliers or new part numbers, samples can help. For heavy drums, also consider whether sample cost and freight are worth it compared with factory evidence, drawing confirmation, and batch inspection.
 
-### Can CertiSpares provide an official fitment guarantee?
+### What information helps CertiSpares check a brake drum inquiry?
 
-No. CertiSpares is an independent sourcing and RFQ support service. Fitment must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable specifications.
+CertiSpares can help organize an independent RFQ and supplier comparison around the details available. OE references, VIN/model data, dimensions, photos, and applicable specifications help narrow the workable quotation scope.
 
 ## Sources and Notes
 
@@ -308,4 +308,4 @@ No. CertiSpares is an independent sourcing and RFQ support service. Fitment must
 - eCFR, [49 CFR 393.47](https://ecfr.io/Title-49/Section-393.47): provides U.S. commercial vehicle brake condition requirements, including drums, rotors, linings, pads, and actuators.
 - CertiSpares sourcing note: the scorecard above is designed for RFQ screening and supplier comparison. It does not replace buyer-side engineering approval, market-specific regulation, or vehicle manufacturer documentation.
 
-Brand names, OE numbers, vehicle models, and cross references are used here for inquiry identification and matching discussion only. Final quotation and fitment must be confirmed by OE reference, VIN/model data, dimensions, connector or mounting details, photos, and other applicable technical specifications.
+Brand names, OE numbers, vehicle models, and cross references help define the inquiry faster. For quotation, OE/VIN or model data, dimensions, connector or mounting details, photos, and other applicable technical specifications help narrow the workable matching scope.

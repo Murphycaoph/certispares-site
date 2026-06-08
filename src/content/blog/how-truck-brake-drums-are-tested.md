@@ -398,4 +398,4 @@ If you need brake drum testing evidence reviewed before quotation or shipment, s
 - ISO, [ISO 2859-1:2026](https://www.iso.org/standard/85464.html): lot-by-lot sampling procedures indexed by acceptance quality limit.
 - CertiSpares sourcing note: testing scope should be tied to the buyer's specification, drawing, market requirement, and risk level. This article is not a universal engineering standard.
 
-Brand names, OE numbers, vehicle models, and cross references are used for inquiry identification only. Final fitment and quotation scope must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable specifications.
+Brand names, OE numbers, vehicle models, and cross references help define the inquiry faster. For quotation, OE/VIN or model details, dimensions, photos, and applicable specifications help narrow the workable matching scope.

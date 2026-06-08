@@ -209,7 +209,7 @@ Both exist. Some suppliers manufacture, some trade, and some combine sourcing wi
 
 ## Source Notes
 
-This article is based on CertiSpares' sourcing framework, regional cluster logic, and practical commercial vehicle aftermarket RFQ requirements. It does not claim that any region, supplier, or brand has guaranteed product coverage. Brand names, OE references, and regional descriptions should be used as inquiry context only.
+This article is based on CertiSpares' sourcing framework, regional cluster logic, and practical commercial vehicle aftermarket RFQ requirements. Region, supplier type, brand names, and OE references are useful inquiry context, while product coverage and matching scope still depend on RFQ details, supplier evidence, and technical confirmation.
 
 ## Conclusion
 

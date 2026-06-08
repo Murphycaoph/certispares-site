@@ -273,4 +273,4 @@ If you are replacing brake drums after field complaints or planning repeat stock
 - eCFR, [49 CFR 393.47](https://ecfr.io/Title-49/Section-393.47): includes brake drum, rotor, lining, pad, and actuator condition requirements for commercial motor vehicles.
 - CertiSpares sourcing note: lifespan ranges should be validated by duty cycle, market feedback, and inspection data. This article avoids fixed mileage promises because they can mislead buyers.
 
-Brand names, OE numbers, vehicle models, and cross references are used here for inquiry identification only. Final fitment and quotation scope must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable technical specifications.
+Brand names, OE numbers, vehicle models, and cross references help define the inquiry faster. For quotation, OE/VIN or model details, dimensions, photos, and applicable technical specifications help narrow the workable matching scope.

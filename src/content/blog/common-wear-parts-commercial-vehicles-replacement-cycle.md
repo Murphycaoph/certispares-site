@@ -307,7 +307,7 @@ Send part numbers, photos, dimensions, system category, vehicle or engine refere
 
 ## Source Notes
 
-This article follows CertiSpares' RFQ-first content policy. It does not claim guaranteed replacement intervals, exact fitment, or live stock. Wear-part demand should be planned using local usage data, technical confirmation, and supplier comparison.
+This article follows CertiSpares' RFQ-first content policy. Replacement intervals, matching scope, and stock planning should be reviewed with local usage data, technical confirmation, and supplier comparison.
 
 ## Conclusion
 

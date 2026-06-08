@@ -238,7 +238,7 @@ Send the full spring side view, spring eye, bushing, center bolt area, broken or
 
 ## Source Notes
 
-This article uses practical aftermarket sourcing logic and general suspension service principles. It also follows CertiSpares' fitment policy: OE numbers, vehicle names, and references are inquiry identification inputs, not automatic fitment guarantees. Final matching must be confirmed by OE reference, VIN or model data, dimensions, photos, and technical specifications.
+This article uses practical aftermarket sourcing logic and general suspension service principles. In CertiSpares' RFQ-first workflow, OE numbers, vehicle names, and references help start the matching discussion, while OE/VIN or model data, dimensions, photos, and technical specifications help narrow the workable quotation scope.
 
 ## Conclusion
 

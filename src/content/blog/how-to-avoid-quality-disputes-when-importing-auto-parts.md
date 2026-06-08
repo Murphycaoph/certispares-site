@@ -86,12 +86,12 @@ Avoid unsupported phrases:
 - same as original
 - OEM quality without evidence
 
-OE numbers, brand names, vehicle models, and cross references are useful for inquiry identification. They are not final fitment proof.
+OE numbers, brand names, vehicle models, and cross references are useful starting points for an inquiry.
 
 Write:
 
 ```text
-Final matching must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable specifications.
+OE reference, VIN/model data, dimensions, photos, and applicable specifications help narrow the workable matching scope before quotation and order confirmation.
 ```
 
 This protects both buyer and supplier from careless assumptions.

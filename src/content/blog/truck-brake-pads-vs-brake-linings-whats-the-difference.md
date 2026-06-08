@@ -379,7 +379,7 @@ Yes, if the buyer may need either item. A lining only, a brake shoe, and a shoe 
 
 - [CVSA 2024 Brake Safety Week results](https://cvsa.org/news/2024-bsw-results/) for inspection counts and lining/pad violation categories.
 - [49 CFR 393.47](https://ecfr.io/Title-49/Section-393.47) for U.S. commercial motor vehicle brake actuator, lining/pad, and drum/rotor requirements.
-- Brand names, OE numbers, vehicle models, and cross references are used here for inquiry identification only. Final matching must be confirmed by OE reference, VIN, model/year/market data, dimensions, photos, and applicable technical specifications.
+- Brand names, OE numbers, vehicle models, and cross references help define the inquiry faster. OE/VIN or model/year/market data, dimensions, photos, and applicable technical specifications help narrow the workable matching scope.
 
 ---
 

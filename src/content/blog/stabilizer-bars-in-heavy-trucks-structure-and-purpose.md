@@ -123,7 +123,7 @@ Stabilizer-related complaints often overlap with other suspension problems.
 | Link breakage | Wrong application, overload, weak joint, road impact | Confirm link length, joint design, and service conditions. |
 | Installation mismatch | Wrong bend, wrong bracket, wrong link | Use photos and dimensions before ordering. |
 
-These patterns are not exact-fitment proof. They help buyers ask better questions.
+These patterns are starting points for better RFQ questions. Dimensions, photos, mounting details, and application data still shape the workable matching scope.
 
 ## RFQ Checklist for Stabilizer Bar Parts
 
@@ -250,7 +250,7 @@ Diameter alone is not enough. Shape, end configuration, mounting position, brack
 
 ## Source Notes
 
-This article follows general suspension system principles and CertiSpares' RFQ-first fitment policy. Vehicle names, part numbers, and cross references should be treated as inquiry identification inputs only. Final matching must be confirmed through OE reference, VIN or model data, dimensions, photos, and applicable technical specifications.
+This article follows general suspension system principles and CertiSpares' RFQ-first workflow. Vehicle names, part numbers, and cross references help start the matching discussion, while OE/VIN or model data, dimensions, photos, and applicable technical specifications help narrow the workable quotation scope.
 
 ## Conclusion
 

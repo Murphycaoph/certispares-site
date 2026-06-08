@@ -149,8 +149,8 @@ const makeDefaultRfqNotes = (brand: string): CardItem[] => [
     desc: "Most inquiries start with a platform name, OE or part numbers, photos, and a mixed list that needs scope checking before quotation.",
   },
   {
-    title: "Matching caution",
-    desc: "Brand and model names help identify the inquiry, but final matching still depends on OE reference, VIN, configuration, dimensions, and photos.",
+    title: "Matching details",
+    desc: "Brand and model names help us understand the request quickly. OE references, VIN, configuration, dimensions, and photos help us narrow the workable matching scope before quotation.",
   },
   {
     title: "How we keep the inquiry workable",
@@ -160,7 +160,7 @@ const makeDefaultRfqNotes = (brand: string): CardItem[] => [
 
 const internationalBrandBoundary = (brand: string): CardItem => ({
   title: "Independent aftermarket inquiry support",
-  desc: `${brand} names, models, and OE references are used only to identify the inquiry scope. CertiSpares is an independent sourcing and RFQ support service unless explicit authorization is stated.`,
+  desc: `CertiSpares supports independent aftermarket inquiries for ${brand} applications. Brand, model, and OE details help us understand the request faster before supplier comparison.`,
 });
 
 const internationalAftermarketBrands = new Set(["MAN", "Volvo Truck", "Mercedes-Benz Truck"]);
@@ -1689,8 +1689,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "Sinotruk inquiries often start from HOWO platform names, engine or gearbox references, and mixed brake, suspension, axle, or air-system lists.",
         },
         {
-          title: "Matching caution",
-          desc: "Sinotruk and HOWO references can overlap. We treat platform family, engine model, OE number, VIN, and photos as matching inputs before quoting.",
+          title: "Matching details",
+          desc: "When Sinotruk and HOWO references overlap, platform family, engine model, OE number, VIN, and photos help us narrow the matching scope before quotation.",
         },
         {
           title: "What usually needs clarification",
@@ -1718,8 +1718,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "HOWO buyers often send photos from an old part, several OE numbers, and a mixed list covering brake, air, axle, suspension, and engine service items.",
         },
         {
-          title: "Matching caution",
-          desc: "HOWO is a platform family, not one fixed specification. Truck family, VIN, engine or gearbox model, dimensions, and photos help avoid wrong-scope quotes.",
+          title: "Matching details",
+          desc: "HOWO can cover several platform configurations. Truck family, VIN, engine or gearbox model, dimensions, and photos help us keep the quote scope clear.",
         },
         {
           title: "What we check first",
@@ -1747,8 +1747,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "Foton inquiries often split between Aumark light truck support and Auman heavy truck support, so model family matters before supplier outreach.",
         },
         {
-          title: "Matching caution",
-          desc: "Aumark and Auman parts can require different engine, gearbox, brake, and chassis references. The brand name alone is not enough.",
+          title: "Matching details",
+          desc: "For Aumark and Auman inquiries, engine, gearbox, brake, and chassis details help us narrow the right supplier scope before quotation.",
         },
         {
           title: "What usually needs clarification",
@@ -1776,8 +1776,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "JAC RFQs often start from light or medium truck applications, with engine, suspension, axle, steering, and mixed chassis wear items in the same list.",
         },
         {
-          title: "Matching caution",
-          desc: "Truck model, engine model, chassis application, and photos are important because small platform differences can change the workable supplier scope.",
+          title: "Matching details",
+          desc: "Truck model, engine model, chassis application, and photos help us understand small platform differences and prepare a clearer supplier request.",
         },
         {
           title: "How we compare suppliers",
@@ -1805,8 +1805,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "Dongfeng inquiries often begin with light truck or medium truck references, engine-side items, brake parts, axle parts, and mixed service demand.",
         },
         {
-          title: "Matching caution",
-          desc: "Dongfeng model names can cover different engine, axle, and chassis configurations. OE numbers, VIN, photos, and application notes reduce quote mismatch.",
+          title: "Matching details",
+          desc: "Dongfeng model names can cover different engine, axle, and chassis configurations. OE numbers, VIN, photos, and application notes help us prepare a clearer supplier request.",
         },
         {
           title: "What usually needs clarification",
@@ -1834,8 +1834,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "FAW inquiries often start from Jiefang platform references and include brake, axle, air-system, wheel-end, or service wear parts.",
         },
         {
-          title: "Matching caution",
-          desc: "Platform names are useful, but axle, brake, wheel-end, and engine variants still need OE numbers, VIN, dimensions, or photos before quotation.",
+          title: "Matching details",
+          desc: "Platform names are useful, and OE numbers, VIN, dimensions, or photos help us check axle, brake, wheel-end, and engine variants before quotation.",
         },
         {
           title: "How we keep it workable",
@@ -1863,8 +1863,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "Shacman RFQs often include Delong platform references, Weichai engine items, FAST gearbox items, brake parts, suspension parts, and chassis wear demand.",
         },
         {
-          title: "Matching caution",
-          desc: "Delong platform names help, but engine model, gearbox model, OE number, VIN, and application photos still decide the workable quote scope.",
+          title: "Matching details",
+          desc: "Delong platform names are a useful starting point. Engine model, gearbox model, OE number, VIN, and application photos help us narrow the workable quote scope.",
         },
         {
           title: "What we check first",
@@ -1892,8 +1892,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "MAN inquiries usually need OE references, vehicle model, photos, and system-level details before any aftermarket sourcing discussion becomes useful.",
         },
         {
-          title: "Matching caution",
-          desc: "TGX, TGS, engine, gearbox, brake, and axle references are treated as identification inputs, not automatic compatibility conclusions.",
+          title: "Matching details",
+          desc: "TGX, TGS, engine, gearbox, brake, and axle references help us understand the inquiry. OE/VIN details, photos, and dimensions help us narrow the aftermarket matching scope before supplier comparison.",
         },
         internationalBrandBoundary("MAN"),
       ],
@@ -1918,8 +1918,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "Volvo Truck RFQs usually begin with OE numbers, FH or FM references, engine or I-Shift context, photos, and replacement scope notes.",
         },
         {
-          title: "Matching caution",
-          desc: "Model family, engine platform, gearbox reference, axle or brake configuration, and market version must be checked before supplier comparison.",
+          title: "Matching details",
+          desc: "Model family, engine platform, gearbox reference, axle or brake configuration, and market version help us narrow the supplier comparison scope.",
         },
         internationalBrandBoundary("Volvo Truck"),
       ],
@@ -1944,8 +1944,8 @@ export const brandPageContent: Record<string, BrandPageConfig> = {
           desc: "Mercedes-Benz Truck inquiries usually need OE references, Actros or Arocs context, engine platform, photos, quantities, and destination before quoting.",
         },
         {
-          title: "Matching caution",
-          desc: "Actros, Arocs, engine, gearbox, brake, axle, and market references are used to identify inquiry scope, not to claim automatic fitment.",
+          title: "Matching details",
+          desc: "Actros, Arocs, engine, gearbox, brake, axle, and market references help us understand the inquiry. OE/VIN details, photos, dimensions, and technical notes help us narrow the matching scope before quotation.",
         },
         internationalBrandBoundary("Mercedes-Benz Truck"),
       ],

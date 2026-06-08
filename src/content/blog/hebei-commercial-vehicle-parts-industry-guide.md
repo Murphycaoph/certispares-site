@@ -240,11 +240,11 @@ Some are manufacturers, some are traders, and some coordinate local supply netwo
 
 ### Can CertiSpares confirm whether Hebei fits my RFQ?
 
-CertiSpares can review product category, references, photos, quantities, destination, and packing needs to decide whether Hebei supplier options should be compared. Final fitment still depends on technical confirmation.
+CertiSpares can review product category, references, photos, quantities, destination, and packing needs to decide whether Hebei supplier options should be compared. Technical details help narrow the workable matching scope before quotation.
 
 ## Source Notes
 
-This article follows CertiSpares' RFQ-first sourcing policy and regional cluster framework. It does not claim that Hebei suppliers have guaranteed product coverage, official authorization, or exact fitment. Regional references are used as sourcing context only.
+This article follows CertiSpares' RFQ-first sourcing policy and regional cluster framework. Hebei references are sourcing context; supplier evidence, product details, and RFQ confirmation still shape the workable sourcing and matching scope.
 
 ## Conclusion
 

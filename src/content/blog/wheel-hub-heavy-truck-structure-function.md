@@ -378,7 +378,7 @@ They may differ in material, casting or forging quality, machining accuracy, bea
 ## Sources and Notes
 
 - [OICA 2024 production statistics](https://www.oica.net/2024-production-statistics/) for global and country motor vehicle production data.
-- Brand names, OE numbers, models, and cross references are used for inquiry identification only. Final fitment must be confirmed by OE reference, VIN, axle data, dimensions, bearing details, photos, and technical specifications.
+- Brand names, OE numbers, models, and cross references help define the inquiry faster. OE/VIN or axle data, dimensions, bearing details, photos, and technical specifications help narrow the workable matching scope.
 
 ---
 

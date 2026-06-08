@@ -326,9 +326,9 @@ For new suppliers, new parts, high-risk categories, or complaint history, inspec
 
 Starting QC after production is finished. The better approach is to define the product, supplier, inspection rule, packing, and documents before the order.
 
-### Can CertiSpares guarantee fitment?
+### What information helps CertiSpares check the matching scope?
 
-No. CertiSpares supports sourcing and RFQ coordination. Final fitment must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable specifications.
+CertiSpares supports sourcing and RFQ coordination around the details available. OE reference, VIN/model data, dimensions, photos, and applicable specifications help narrow the workable matching scope before quotation.
 
 ## Sources and Notes
 

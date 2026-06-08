@@ -60,7 +60,7 @@ Check:
 - axle position or system context
 - old supplier reference, if available
 
-OE and part numbers help identify the inquiry, but they are not automatic fitment proof. Final matching still needs confirmation by application data, photos, and technical details.
+OE and part numbers help start the inquiry. Application data, photos, and technical details help narrow the workable matching scope before quotation comparison.
 
 For category context, start from [brake system parts](/product/part/brake-system-parts/), [air system parts](/product/part/air-system-parts/), [engine parts](/product/part/engine-parts/), or [rubber and bushing parts](/product/part/rubber-and-bushing-parts/).
 
@@ -419,6 +419,6 @@ CertiSpares can help structure RFQs, compare supplier responses, check risk poin
 - ICC, [Incoterms rules](https://iccwbo.org/business-solutions/incoterms-rules/): official source for Incoterms rules.
 - International Trade Administration, [Trade Finance Guide](https://www.trade.gov/report/trade-finance-guide): practical guide to trade finance and transaction risk.
 - ISO, [ISO 2859-1:2026](https://www.iso.org/standard/85464.html): sampling procedures for inspection by attributes.
-- CertiSpares sourcing note: quotation comparison should remain conservative about fitment. OE numbers, brand names, and model references are matching inputs, not final fitment guarantees.
+- CertiSpares sourcing note: quotation comparison works best when fitment-sensitive items are tied to visible RFQ evidence. OE numbers, brand names, model references, photos, and technical details help narrow the workable matching scope.
 
 If you want help reviewing supplier quotations, send the RFQ, supplier quotes, destination, target quantity, and quality expectations through [contact](/contact) or start from [truck parts sourcing service](/sourcing).

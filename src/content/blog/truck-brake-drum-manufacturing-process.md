@@ -344,4 +344,4 @@ If you are comparing brake drum suppliers, send the supplier quote, process evid
 - eCFR, [49 CFR 393.47](https://ecfr.io/Title-49/Section-393.47): describes brake drum, rotor, lining, pad, and actuator condition requirements for commercial vehicles in the U.S. context.
 - CertiSpares sourcing note: process checkpoints in this article are an RFQ and supplier-screening framework, not a substitute for an engineering drawing, legal standard, or buyer-specific inspection protocol.
 
-Brand names, OE numbers, vehicle models, and cross references are used here for inquiry identification only. Final matching must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable technical specifications.
+Brand names, OE numbers, vehicle models, and cross references help define the inquiry faster. For quotation, OE/VIN or model details, dimensions, photos, and applicable technical specifications help narrow the workable matching scope.

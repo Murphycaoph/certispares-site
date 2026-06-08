@@ -32,7 +32,7 @@ This article explains common failure patterns and turns them into buyer-side che
 | Body roll feels excessive | Stabilizer bar, links, bushings, brackets | Clarify whether the RFQ covers bar only, link set, bushing kit, or full assembly. |
 | Irregular tire wear | Torque rods, bushings, shock absorbers, alignment, axle control parts | Treat as a system signal and avoid assuming one part is responsible. |
 
-The table is not a fitment conclusion. It is a sourcing guide. Final matching still depends on OE reference, VIN or model data, dimensions, photos, and applicable specifications.
+The table is a sourcing guide, not a final matching decision. OE reference, VIN or model data, dimensions, photos, and applicable specifications help narrow the workable quotation scope.
 
 ## 1. Leaf Spring Fatigue and Cracking
 
@@ -247,7 +247,7 @@ There is no single detail for every item. Leaf springs need spring dimensions an
 
 ## Source Notes
 
-This article uses general heavy truck suspension service logic, buyer RFQ experience, and the CertiSpares fitment policy. Public safety and inspection organizations such as CVSA regularly highlight the importance of commercial vehicle mechanical condition, but this article does not use those materials as exact-fitment evidence. Suspension part matching must still be confirmed case by case.
+This article uses general heavy truck suspension service logic, buyer RFQ experience, and the CertiSpares RFQ-first workflow. Public safety and inspection organizations such as CVSA regularly highlight the importance of commercial vehicle mechanical condition, while suspension part matching still depends on each inquiry's OE/VIN or model data, dimensions, photos, and technical details.
 
 ## Conclusion
 
