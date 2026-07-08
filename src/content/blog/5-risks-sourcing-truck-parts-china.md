@@ -18,7 +18,7 @@ Buying truck parts from China can work very well. It can also go wrong in predic
 
 Most problems do not appear suddenly at the port. They start earlier: vague RFQ data, weak supplier screening, unclear inspection scope, loose packing rules, or a supplier that can quote but cannot control repeat orders.
 
-This guide covers five common risk areas and how to control them before payment, production, and shipment. For the full framework, read [how to reduce sourcing risk when buying auto parts from China](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
+The five risk areas below are easiest to control before payment, production, and shipment. For the full framework, read [how to reduce sourcing risk when buying auto parts from China](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
 
 ## Quick Risk Map
 
@@ -222,7 +222,7 @@ This register does not need software. A spreadsheet or order note is enough. The
 
 ## When to Pause an Order
 
-Some warning signs deserve a pause, not just another discount request.
+Some warning signs deserve a pause before the next discount request.
 
 Pause when:
 

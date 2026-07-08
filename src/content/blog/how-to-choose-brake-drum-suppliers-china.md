@@ -13,11 +13,11 @@ keywords:
   - heavy duty brake drum supplier
 ---
 
-Choosing a brake drum supplier in China is not just a price exercise.
+Brake drum supplier selection starts with price, but it cannot end there.
 
 Brake drums are heavy, safety-relevant, and sensitive to material, casting, machining, inspection, and packing. A cheap first order can become expensive if the batch creates fitment issues, early wear, claims, or damaged cargo at destination.
 
-This guide is the commercial hub for the brake drum cluster. Use it when you are screening suppliers, comparing quotations, or preparing a structured RFQ.
+Use this commercial hub when you are screening brake drum suppliers, comparing quotations, or preparing a structured RFQ.
 
 For the technical background, read [truck brake drum manufacturing process explained](/blog/truck-brake-drum-manufacturing-process), [how truck brake drums are tested](/blog/how-truck-brake-drums-are-tested), and [how long truck brake drums last](/blog/truck-brake-drum-lifespan-replacement).
 
@@ -51,7 +51,7 @@ Ask:
 - Which processes are controlled directly?
 - Can the supplier arrange sample, inspection, and batch traceability?
 - Does the supplier understand the target market and application?
-- Can they support the same item repeatedly, not only once?
+- Can they support the same item repeatedly after the first order?
 
 If the supplier avoids process questions, the quotation is weak even if the price looks attractive.
 

@@ -127,7 +127,7 @@ Heavy items such as brake drums, wheel hubs, leaf springs, and axle parts need p
 
 ## 7. Turn QC Into Supplier Management
 
-QC should not only approve or reject one shipment.
+QC should do more than approve or reject one shipment.
 
 Track:
 

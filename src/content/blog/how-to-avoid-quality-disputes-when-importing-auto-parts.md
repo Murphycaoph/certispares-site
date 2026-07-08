@@ -17,9 +17,9 @@ Quality disputes usually start before shipment.
 
 The buyer and supplier may not define the same product. The RFQ may be vague. The sample may not be tied to production. Inspection may be added too late. Packing may be assumed. Documents may not match. Claims evidence may be missing.
 
-By the time the goods arrive, the argument feels like a quality dispute. In reality, it is often a control failure.
+By the time the goods arrive, the argument feels like a quality dispute. Often, the failure happened earlier: weak specs, loose approval, unclear inspection scope, or missing evidence.
 
-This guide explains how auto parts importers can prevent disputes before they happen. It is written for buyers sourcing truck, bus, trailer, and commercial vehicle parts from China.
+For truck, bus, trailer, and commercial vehicle parts buyers, dispute control starts before the supplier confirms the order.
 
 ## Quick Answer
 

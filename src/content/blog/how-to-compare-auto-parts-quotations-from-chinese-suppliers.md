@@ -13,19 +13,19 @@ keywords:
   - supplier quotation comparison
 ---
 
-A quotation is not just a price.
+A quotation is a commercial scope, not a price line.
 
 It is a compressed version of the supplier's product level, cost structure, responsibility scope, quality control, packing, payment expectations, and risk transfer.
 
 When buyers compare only unit price, they often choose the quote that hides the most. That is risky in commercial vehicle parts, where wrong fitment, weak packing, poor inspection, or unstable lead time can cost more than the initial price difference.
 
-This guide gives a practical framework for comparing auto parts quotations from Chinese suppliers. Use it after basic supplier screening and before placing a trial or production order.
+Use this framework after basic supplier screening and before placing a trial or production order.
 
 ## Quick Answer
 
 To compare auto parts quotations properly, normalize the quote first. Make sure every supplier is quoting the same part, specification, quantity, Incoterm, packing, inspection scope, lead time, and payment structure.
 
-Then compare total execution value, not just unit price. The better quote is the one that matches the required product level, reduces hidden risk, supports repeat orders, and gives a clear commercial scope.
+Then compare total execution value. The better quote is the one that matches the required product level, reduces hidden risk, supports repeat orders, and gives a clear commercial scope.
 
 ## Why Unit Price Alone Misleads Buyers
 
@@ -367,7 +367,7 @@ Weak signs:
 - changes price without explanation
 - refuses to define packing
 
-The quote is not only a spreadsheet. It is also evidence of supplier discipline.
+The quote is a spreadsheet, but it also shows supplier discipline.
 
 ## Final Quote Approval Checklist
 

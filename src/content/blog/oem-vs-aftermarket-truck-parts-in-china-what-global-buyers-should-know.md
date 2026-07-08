@@ -23,7 +23,7 @@ For truck parts sourced from China, buyers need to understand the supply model b
 
 OEM does not automatically mean the part is available to every buyer. Aftermarket does not automatically mean weak quality. Both channels can work. Both can fail.
 
-This guide explains how to choose by product risk, market position, and RFQ evidence.
+The safer choice depends on product risk, market position, and the evidence a supplier can provide during RFQ.
 
 ## Quick Comparison
 
@@ -31,7 +31,7 @@ This guide explains how to choose by product risk, market position, and RFQ evid
 |---|---|---|---|
 | Design control | Usually closer to original vehicle requirements | Varies by supplier and tooling source | Ask what is actually controlled |
 | Quality system | Often stronger documentation and validation | Wide range from strong to weak | Screen supplier tier carefully |
-| Price | Usually higher | Usually more flexible | Compare full risk, not only unit price |
+| Price | Usually higher | Usually more flexible | Compare full risk beyond unit price |
 | Availability | May be restricted by channel | Often broader for replacement demand | Confirm lead time and repeat support |
 | Fitment | Still needs confirmation | Definitely needs confirmation | Use OE/VIN/model/photos/dimensions |
 | Best use | High-risk, brand-sensitive, strict spec items | Cost-sensitive replacement, broad aftermarket coverage | Segment by category |
