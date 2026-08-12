@@ -330,9 +330,9 @@ No. A service chamber supports normal braking. A spring brake chamber supports p
 
 Type, size, stroke, mounting, pushrod, clevis, port position, markings, axle position, photos, vehicle data, and quantity.
 
-### Can I match by truck brand only?
+### What information helps confirm a brake chamber match?
 
-No. Brand is only context. Final matching needs part references, photos, dimensions, axle position, and technical details.
+Truck brand is a useful starting point. Part references, photos, dimensions, axle position, and technical details help narrow the workable matching scope before quotation.
 
 ---
 
@@ -340,7 +340,7 @@ No. Brand is only context. Final matching needs part references, photos, dimensi
 
 - [CVSA 2025 International Roadcheck results](https://cvsa.org/news/2025-roadcheck-results/) for brake-related out-of-service violation data.
 - [49 CFR 393.47](https://ecfr.io/Title-49/Section-393.47) for U.S. commercial motor vehicle brake actuator and pushrod stroke references.
-- Brand names, OE numbers, models, and cross references are used for inquiry identification only. Final fitment must be confirmed by OE reference, VIN, market data, photos, dimensions, mounting, port, stroke, and other specifications.
+- Brand names, OE numbers, models, and cross references help define the inquiry faster. OE/VIN or market data, photos, dimensions, mounting, port, stroke, and other specifications help narrow the workable matching scope.
 
 ---
 

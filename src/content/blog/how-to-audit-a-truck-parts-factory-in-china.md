@@ -19,7 +19,7 @@ Can this supplier support the order you actually need?
 
 For truck parts, a useful audit goes beyond office photos, business licenses, and a guided workshop walk. It checks identity, process depth, quality discipline, testing logic, packing control, and how the supplier behaves when something goes wrong.
 
-If you are still shortlisting suppliers, start with [how to identify reliable auto parts suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china). This guide is for the next step: verifying a supplier before sample approval, trial order, or repeat business.
+If you are still shortlisting suppliers, start with [how to identify reliable auto parts suppliers in China](/blog/how-to-identify-reliable-auto-parts-suppliers-in-china). Factory audit comes next, when you need to verify a supplier before sample approval, trial order, or repeat business.
 
 ## Audit Scope at a Glance
 
@@ -252,7 +252,7 @@ Examples:
 | Missing final dimension report | Define critical dimensions and report format |
 | Supplier has good process but weak documents | Add document review before balance payment |
 
-This is where audits become useful. The value is not only discovering problems. The value is deciding whether the problems can be controlled.
+This is where audits become useful. They find problems, then help the buyer decide whether those problems can be controlled.
 
 ## Remote Audit Pack for Early Screening
 

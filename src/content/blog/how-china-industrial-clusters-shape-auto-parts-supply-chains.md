@@ -423,7 +423,7 @@ Send a parts list with OE or part numbers, photos, dimensions where needed, quan
 
 - [OICA 2024 production statistics](https://www.oica.net/2024-production-statistics/) for global and country motor vehicle production data.
 - OICA notes that commercial vehicles include light commercial vehicles, heavy trucks, coaches, and buses. Production data is context only, not a replacement demand claim.
-- Brand names, OE numbers, models, and cross references are used for inquiry identification only. Final fitment and quotation scope must be confirmed by part references, VIN or model data, photos, dimensions, and technical specifications.
+- Brand names, OE numbers, models, and cross references help define the inquiry faster. Part references, VIN or model data, photos, dimensions, and technical specifications help narrow the workable quotation scope.
 
 ---
 

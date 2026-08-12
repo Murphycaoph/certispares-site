@@ -268,7 +268,7 @@ CertiSpares can help structure RFQs, compare supplier options, coordinate sourci
 
 ## Source Notes
 
-This article follows CertiSpares' RFQ-first sourcing workflow. It does not claim that any supplier type, region, or brand guarantees quality or fitment. Supplier networks should be built from evidence, quotation clarity, and order performance.
+This article follows CertiSpares' RFQ-first sourcing workflow. Supplier type, region, and brand are useful context, while quality, matching scope, and repeat performance should be reviewed through evidence, quotation clarity, and order history.
 
 ## Conclusion
 

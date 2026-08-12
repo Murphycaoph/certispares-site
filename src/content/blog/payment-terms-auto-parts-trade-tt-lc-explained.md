@@ -15,9 +15,7 @@ keywords:
 featured: true
 ---
 
-T/T and L/C are not just payment words.
-
-They decide when money moves, when goods move, and which documents must be correct.
+T/T and L/C decide when money moves, when documents are released, and who carries the risk if production, inspection, or shipping slips.
 
 For auto parts buyers, the payment term should be tied to the parts list, quotation scope, inspection timing, packing, shipment documents, and claim process.
 
@@ -299,7 +297,7 @@ Before paying a T/T deposit, ask the supplier to confirm:
 | Control point | Confirmation needed |
 |---|---|
 | Item scope | Final item list with photos, OE references, drawings, or samples |
-| Quantity | Quantity by SKU, not only total order value |
+| Quantity | Quantity by SKU and total order value |
 | Unit definition | Piece, pair, set, axle set, kit, carton, or pallet |
 | Packing | Carton, pallet, neutral label, buyer label, rust protection |
 | Inspection | What will be checked before balance payment |
@@ -403,7 +401,7 @@ No. Payment terms manage transaction risk. They do not replace supplier screenin
 - [International Trade Administration Trade Finance Guide](https://www.trade.gov/report/trade-finance-guide) for payment method categories and risk logic.
 - [International Trade Administration Letter of Credit guide](https://www.trade.gov/letter-credit) for L/C basics and document risk notes.
 - [ICC UCP 600 notice](https://iccwbo.org/news-publications/news/iccs-new-rules-on-documentary-credits-now-available/) for UCP 600 implementation date and article-count changes.
-- This article is practical sourcing guidance, not legal or banking advice. Confirm payment terms with your bank, forwarder, and legal or trade compliance adviser when needed.
+- Use this as practical sourcing guidance, not legal or banking advice. Confirm payment terms with your bank, forwarder, and legal or trade compliance adviser when needed.
 
 ---
 

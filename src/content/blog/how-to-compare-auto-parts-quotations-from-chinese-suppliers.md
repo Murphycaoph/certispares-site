@@ -13,19 +13,19 @@ keywords:
   - supplier quotation comparison
 ---
 
-A quotation is not just a price.
+A quotation is a commercial scope, not a price line.
 
 It is a compressed version of the supplier's product level, cost structure, responsibility scope, quality control, packing, payment expectations, and risk transfer.
 
 When buyers compare only unit price, they often choose the quote that hides the most. That is risky in commercial vehicle parts, where wrong fitment, weak packing, poor inspection, or unstable lead time can cost more than the initial price difference.
 
-This guide gives a practical framework for comparing auto parts quotations from Chinese suppliers. Use it after basic supplier screening and before placing a trial or production order.
+Use this framework after basic supplier screening and before placing a trial or production order.
 
 ## Quick Answer
 
 To compare auto parts quotations properly, normalize the quote first. Make sure every supplier is quoting the same part, specification, quantity, Incoterm, packing, inspection scope, lead time, and payment structure.
 
-Then compare total execution value, not just unit price. The better quote is the one that matches the required product level, reduces hidden risk, supports repeat orders, and gives a clear commercial scope.
+Then compare total execution value. The better quote is the one that matches the required product level, reduces hidden risk, supports repeat orders, and gives a clear commercial scope.
 
 ## Why Unit Price Alone Misleads Buyers
 
@@ -60,7 +60,7 @@ Check:
 - axle position or system context
 - old supplier reference, if available
 
-OE and part numbers help identify the inquiry, but they are not automatic fitment proof. Final matching still needs confirmation by application data, photos, and technical details.
+OE and part numbers help start the inquiry. Application data, photos, and technical details help narrow the workable matching scope before quotation comparison.
 
 For category context, start from [brake system parts](/product/part/brake-system-parts/), [air system parts](/product/part/air-system-parts/), [engine parts](/product/part/engine-parts/), or [rubber and bushing parts](/product/part/rubber-and-bushing-parts/).
 
@@ -367,7 +367,7 @@ Weak signs:
 - changes price without explanation
 - refuses to define packing
 
-The quote is not only a spreadsheet. It is also evidence of supplier discipline.
+The quote is a spreadsheet, but it also shows supplier discipline.
 
 ## Final Quote Approval Checklist
 
@@ -419,6 +419,6 @@ CertiSpares can help structure RFQs, compare supplier responses, check risk poin
 - ICC, [Incoterms rules](https://iccwbo.org/business-solutions/incoterms-rules/): official source for Incoterms rules.
 - International Trade Administration, [Trade Finance Guide](https://www.trade.gov/report/trade-finance-guide): practical guide to trade finance and transaction risk.
 - ISO, [ISO 2859-1:2026](https://www.iso.org/standard/85464.html): sampling procedures for inspection by attributes.
-- CertiSpares sourcing note: quotation comparison should remain conservative about fitment. OE numbers, brand names, and model references are matching inputs, not final fitment guarantees.
+- CertiSpares sourcing note: quotation comparison works best when fitment-sensitive items are tied to visible RFQ evidence. OE numbers, brand names, model references, photos, and technical details help narrow the workable matching scope.
 
 If you want help reviewing supplier quotations, send the RFQ, supplier quotes, destination, target quantity, and quality expectations through [contact](/contact) or start from [truck parts sourcing service](/sourcing).

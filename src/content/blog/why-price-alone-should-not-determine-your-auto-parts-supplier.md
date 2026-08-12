@@ -455,6 +455,6 @@ CertiSpares can help buyers structure RFQs, compare supplier responses, check ri
 
 - International Trade Administration, [Trade Finance Guide](https://www.trade.gov/report/trade-finance-guide): transaction structure and risk background.
 - ISO, [ISO 2859-1:2026](https://www.iso.org/standard/85464.html): sampling procedures for inspection by attributes.
-- CertiSpares sourcing note: price comparison should be tied to visible scope and RFQ evidence. Brand names and OE numbers are identification inputs, not final fitment guarantees.
+- CertiSpares sourcing note: price comparison should be tied to visible scope and RFQ evidence. Brand names, OE numbers, photos, dimensions, and technical details help narrow the workable matching scope before comparing supplier quotes.
 
 If you are comparing suppliers now, send the quotations, part references, destination, and target order plan through [contact](/contact), or review [how to compare auto parts quotations](/blog/how-to-compare-auto-parts-quotations-from-chinese-suppliers).

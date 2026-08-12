@@ -204,7 +204,7 @@ Stronger RFQ:
 
 > We need drum brake parts and disc brake parts for separate vehicle groups. For drum items, quote brake drums and linings by attached OE references, photos, dimensions, axle position, and quantity table. For disc items, quote rotors and pads by attached photos, rotor size, pad shape, and caliper reference where available. Please separate each product family into its own quotation line, define piece/set/kit quantity, confirm packing, and send pre-shipment photo evidence before balance payment.
 
-The stronger request does not promise exact fitment. It gives enough structure for a supplier to confirm the quotation basis and ask the right follow-up questions.
+The stronger request is not a final matching decision by itself. It gives enough structure for a supplier to confirm the quotation basis and ask the right follow-up questions.
 
 ## Content Map for Brake Buyers
 
@@ -243,4 +243,4 @@ Send OE/part number, vehicle model, axle position, drum dimensions, photos, quan
 - CVSA, [2024 Brake Safety Week results](https://cvsa.org/news/2024-bsw-results/): brake-related violations remain a recurring inspection focus.
 - eCFR, [49 CFR 393.47](https://ecfr.io/Title-49/Section-393.47): U.S. federal rules covering brake actuator, lining, pad, drum, and rotor conditions for commercial motor vehicles.
 
-Brand names, OE numbers, vehicle models, and cross references are used here for inquiry identification only. Final matching must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable technical specifications.
+Brand names, OE numbers, vehicle models, and cross references help define the inquiry faster. For quotation, OE/VIN or model details, dimensions, photos, and applicable technical specifications help narrow the workable matching scope.

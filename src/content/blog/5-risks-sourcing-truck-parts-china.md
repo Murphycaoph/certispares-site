@@ -18,7 +18,7 @@ Buying truck parts from China can work very well. It can also go wrong in predic
 
 Most problems do not appear suddenly at the port. They start earlier: vague RFQ data, weak supplier screening, unclear inspection scope, loose packing rules, or a supplier that can quote but cannot control repeat orders.
 
-This guide covers five common risk areas and how to control them before payment, production, and shipment. For the full framework, read [how to reduce sourcing risk when buying auto parts from China](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
+The five risk areas below are easiest to control before payment, production, and shipment. For the full framework, read [how to reduce sourcing risk when buying auto parts from China](/blog/how-to-reduce-sourcing-risk-auto-parts-china).
 
 ## Quick Risk Map
 
@@ -92,7 +92,7 @@ Better RFQ data includes:
 - packing and label requirements
 - inspection requirement
 
-This matters because OE numbers, model names, and cross references are identification inputs, not automatic fitment proof. Final matching still needs confirmation.
+This matters because OE numbers, model names, and cross references are useful starting points. Photos, dimensions, VIN/model data, and technical details help confirm the workable matching scope before quotation.
 
 For product categories with higher mismatch risk, start from a system page such as [brake system parts](/product/part/brake-system-parts/), [air system parts](/product/part/air-system-parts/), or [engine parts](/product/part/engine-parts/).
 
@@ -222,7 +222,7 @@ This register does not need software. A spreadsheet or order note is enough. The
 
 ## When to Pause an Order
 
-Some warning signs deserve a pause, not just another discount request.
+Some warning signs deserve a pause before the next discount request.
 
 Pause when:
 
@@ -292,4 +292,4 @@ If you are reviewing a live supplier or parts list, send the references, photos,
 - NSF, [IATF 16949 automotive quality management certification](https://www.nsf.org/management-systems/quality-management/iatf-16949-2016): automotive QMS focus on defect prevention and reduction of variation and waste.
 - CVSA, [2025 International Roadcheck results](https://cvsa.org/news/2025-roadcheck-results/): brake systems were among leading commercial vehicle out-of-service violation areas, showing why safety-related categories need stricter control.
 
-Brand names, OE numbers, vehicle models, and cross references are used for inquiry identification only. Final fitment and quotation scope must be confirmed by OE reference, VIN/model data, dimensions, photos, and applicable technical specifications.
+Brand names, OE numbers, vehicle models, and cross references help us understand the inquiry faster. For quotation, OE/VIN or model details, dimensions, photos, and applicable technical specifications help narrow the workable matching scope.

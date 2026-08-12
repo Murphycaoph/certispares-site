@@ -33,6 +33,7 @@ const currentPage = Number.isFinite(currentPageRaw) && currentPageRaw > 0 ? curr
       : "Browse sourcing insights, trade guidance, and quality control articles for commercial vehicle aftermarket buyers."
   }
   canonical={activeTag ? `/blog/tag/${activeTag.slug}/` : "/blog/"}
+  robots="noindex,follow"
 >
   <style>
     :global(main){

@@ -156,7 +156,7 @@ Ask:
 - Is the same factory used for repeat orders?
 - Can batch records or production references be kept?
 
-For commercial vehicle parts, accountability also includes fitment caution. OE numbers, model names, and cross references should be treated as inquiry identification inputs, not automatic fitment guarantees.
+For commercial vehicle parts, accountability also includes clear matching work. OE numbers, model names, cross references, photos, dimensions, and application data help narrow the workable quotation scope.
 
 ## Manufacturer Advantages and Risks
 

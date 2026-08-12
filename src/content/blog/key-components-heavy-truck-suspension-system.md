@@ -216,7 +216,7 @@ Where technical testing is required, it should be agreed before order. Do not as
 
 ### Are OE numbers enough for suspension part matching?
 
-OE or part numbers are helpful identification inputs, but they are not always enough. Final matching should still confirm vehicle model, dimensions, photos, axle position, bushing type, and other technical details where applicable.
+OE or part numbers are helpful starting points. Vehicle model, dimensions, photos, axle position, bushing type, and other technical details help narrow the matching scope where applicable.
 
 ### Should suspension parts be ordered as individual parts or kits?
 
@@ -226,9 +226,9 @@ It depends on the market. Some buyers want single replacement items. Others need
 
 Visible shape is only one part of quality. Material control, heat treatment, rubber compound, bonding process, coating, dimensional tolerance, and batch consistency can all affect service performance.
 
-### Can CertiSpares confirm exact fitment?
+### What information helps confirm the right matching scope?
 
-CertiSpares can help organize the inquiry, compare supplier options, and identify matching inputs. Final fitment and quotation scope must be confirmed by OE reference, VIN or model data, dimensions, photos, and applicable specifications.
+CertiSpares can help organize the inquiry, compare supplier options, and review the matching inputs available. OE references, VIN or model data, dimensions, photos, and applicable specifications help narrow the workable quotation scope.
 
 ## Source Notes
 

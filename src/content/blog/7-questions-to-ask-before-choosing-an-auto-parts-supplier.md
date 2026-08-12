@@ -108,7 +108,7 @@ Ask what information the supplier needs before confirming the quote:
 
 Strong suppliers ask follow-up questions. Weak suppliers quote from a product name only.
 
-This is especially important because OE numbers, model names, and cross references are identification inputs. They are not automatic fitment guarantees.
+This is especially important because OE numbers, model names, and cross references are useful starting points. Photos, dimensions, application data, and technical details help narrow the workable matching scope.
 
 Red flag:
 
@@ -402,6 +402,6 @@ Stop when the supplier avoids identity, refuses technical confirmation, pushes u
 
 - International Trade Administration, [Trade Finance Guide](https://www.trade.gov/report/trade-finance-guide): background on buyer/seller risk and trade transaction structure.
 - ISO, [ISO 2859-1:2026](https://www.iso.org/standard/85464.html): lot-by-lot sampling procedures for inspection by attributes.
-- CertiSpares sourcing note: these questions are supplier-screening tools. They do not replace product engineering review, official authorization proof, or final fitment confirmation.
+- CertiSpares sourcing note: these questions are supplier-screening tools. Product engineering review, authorization evidence, and matching confirmation can be added where the buyer, market, or part category requires them.
 
 If you are preparing supplier questions for a live RFQ, send the part list, target quantity, destination, and supplier responses through [contact](/contact), or start with [truck parts sourcing service](/sourcing).

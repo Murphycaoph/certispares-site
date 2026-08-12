@@ -419,4 +419,4 @@ If material route or test evidence is a concern in your RFQ, send the part refer
 - ISO, [ISO 2859-1:2026](https://www.iso.org/standard/85464.html): sampling procedures for inspection by attributes.
 - CertiSpares sourcing note: this article is a buyer framework for sourcing discussion. It does not replace engineering drawings, product-specific standards, or buyer-side material approval.
 
-Brand names, OE numbers, and part references are used for inquiry identification only. Final fitment and product approval must be confirmed by technical data, dimensions, photos, and applicable specifications.
+Brand names, OE numbers, and part references help define the inquiry faster. Technical data, dimensions, photos, and applicable specifications help narrow the workable matching and product approval scope.

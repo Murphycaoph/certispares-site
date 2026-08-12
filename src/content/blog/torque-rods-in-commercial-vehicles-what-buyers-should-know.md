@@ -233,7 +233,7 @@ Terminology varies. Some markets use torque rod, torque arm, radius rod, reactio
 
 ### Are torque rods easy to match by OE number?
 
-OE or part numbers help identify the inquiry, but final matching should still confirm center distance, bushing dimensions, sleeve size, mounting orientation, vehicle model, and photos.
+OE or part numbers help start the inquiry. Center distance, bushing dimensions, sleeve size, mounting orientation, vehicle model, and photos help narrow the workable matching scope.
 
 ### Why do torque rod bushings fail early?
 
@@ -245,7 +245,7 @@ Only when the order, market, or buyer requirement justifies it. More common prac
 
 ## Source Notes
 
-This article is based on general commercial vehicle suspension principles, aftermarket sourcing practice, and CertiSpares' RFQ-first fitment policy. It does not claim exact application coverage for any brand or model. Brand names, OE numbers, and cross references should be used only as inquiry identification inputs until final matching is confirmed.
+This article is based on general commercial vehicle suspension principles, aftermarket sourcing practice, and CertiSpares' RFQ-first workflow. Brand names, OE numbers, and cross references help start the matching discussion, while dimensions, photos, vehicle data, and technical details help narrow the workable quotation scope.
 
 ## Conclusion
 
